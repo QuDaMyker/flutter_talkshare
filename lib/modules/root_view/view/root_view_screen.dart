@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/root_view/controller/root_view_controller.dart';
 import 'package:get/get.dart';
+import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
 
 class RootViewScreen extends StatelessWidget {
   const RootViewScreen({super.key});
@@ -10,56 +11,65 @@ class RootViewScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final rootViewController = Get.put(RootViewController(), permanent: true);
     return SafeArea(
-        child: Scaffold(
-      body: PageView(
-        onPageChanged: rootViewController.animateToTab,
-        controller: rootViewController.pageController,
-        // physics: const NeverScrollableScrollPhysics(),
-        children: rootViewController.screens,
-      ),
-      bottomNavigationBar: Obx(
-        () => BottomNavigationBar(
-          currentIndex: rootViewController.currentPage.value,
-          onTap: (value) {
-            rootViewController.onChangePage(value);
-          },
-          selectedItemColor: AppColors.primary40,
-          unselectedItemColor: Colors.black,
-          showUnselectedLabels: true,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.home_outlined,
-              ),
-              label: 'Trang chủ',
+      child: Scaffold(
+        body: PageView(
+          onPageChanged: rootViewController.animateToTab,
+          controller: rootViewController.pageController,
+          // physics: const NeverScrollableScrollPhysics(),
+          children: rootViewController.screens,
+        ),
+        bottomNavigationBar: Obx(
+          () => ResponsiveNavigationBar(
+            selectedIndex: rootViewController.currentPage.value,
+            onTabChange: (value) {
+              rootViewController.onChangePage(value);
+            },
+            // showActiveButtonText: false,
+            backgroundColor: Colors.transparent,
+            textStyle: const TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.normal,
             ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.people_outline,
+            navigationBarButtons: const <NavigationBarButton>[
+              NavigationBarButton(
+                text: 'Trang chủ',
+                icon: Icons.home_outlined,
+                backgroundGradient: LinearGradient(
+                  colors: AppColors.primaryGradient,
+                ),
               ),
-              label: 'Cộng đồng',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.library_books_outlined,
+              NavigationBarButton(
+                text: 'Cộng đồng',
+                icon: Icons.people_outline,
+                backgroundGradient: LinearGradient(
+                  colors: [Colors.cyan, Colors.teal],
+                ),
               ),
-              label: 'Bài tập',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.videogame_asset_outlined,
+              NavigationBarButton(
+                text: 'Bài tập',
+                icon: Icons.library_books_outlined,
+                backgroundGradient: LinearGradient(
+                  colors: [Colors.green, Colors.yellow],
+                ),
               ),
-              label: 'Game',
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.person_2_outlined,
+              NavigationBarButton(
+                text: 'Game',
+                icon: Icons.videogame_asset_outlined,
+                backgroundGradient: LinearGradient(
+                  colors: [Colors.green, Colors.yellow],
+                ),
               ),
-              label: 'Tài khoản',
-            ),
-          ],
+              NavigationBarButton(
+                text: 'Tài khoản',
+                icon: Icons.person_2_outlined,
+                backgroundGradient: LinearGradient(
+                  colors: [Colors.green, Colors.yellow],
+                ),
+              ),
+            ],
+          ),
         ),
       ),
-    ));
+    );
   }
 }
