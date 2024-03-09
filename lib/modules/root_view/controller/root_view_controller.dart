@@ -4,13 +4,20 @@ import 'package:flutter_talkshare/modules/game/view/game_screen.dart';
 import 'package:flutter_talkshare/modules/home/view/home_screen.dart';
 import 'package:flutter_talkshare/modules/homework/view/homework_screen.dart';
 import 'package:flutter_talkshare/modules/profile/view/profile_screen.dart';
+import 'package:flutter_talkshare/modules/vocab/views/vocab_screen.dart';
 import 'package:get/get.dart';
 
 class RootViewController extends GetxController {
   late PageController pageController;
   var currentPage = Rx<int>(0);
+  var isRead = Rx<bool>(false);
+  var isReadList = Rx<List<String>>([]);
+  final text = TextEditingController();
+
   final screens = const [
-    HomeScreen(),
+    VocabScreen(),
+    //VocabFolderScreen(nameOfFolder: '600 Từ TOEIC'),
+    //HomeScreen(),
     CommnityScreen(),
     HomeworkScreen(),
     GameScreen(),

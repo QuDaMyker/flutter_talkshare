@@ -5,9 +5,16 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Center(
-        child: Text('HomeScreen'),
+        child: Text(
+          'HomeScreen',
+          style: TextStyle(
+            fontSize: deviceWidth * 0.05,
+          ),
+        ),
       ),
     );
   }
