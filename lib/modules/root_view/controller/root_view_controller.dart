@@ -9,6 +9,10 @@ import 'package:get/get.dart';
 class RootViewController extends GetxController {
   late PageController pageController;
   var currentPage = Rx<int>(0);
+  var isRead = Rx<bool>(false);
+  var isReadList = Rx<List<String>>([]);
+  final text = TextEditingController();
+
   final screens = const [
     HomeScreen(),
     CommnityScreen(),
