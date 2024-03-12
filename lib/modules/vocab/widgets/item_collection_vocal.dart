@@ -25,9 +25,10 @@ class ItemCollectionVocab extends StatelessWidget {
       margin: EdgeInsets.only(
         right: deviceWidth * 0.01,
       ),
-      padding: EdgeInsets.symmetric(
-        horizontal: deviceWidth * 0.03,
-        vertical: deviceHeight * 0.001,
+      padding: EdgeInsets.only(
+        right: deviceWidth * 0.01,
+        left: deviceWidth * 0.01,
+        bottom: deviceHeight * 0.001,
       ),
       decoration: BoxDecoration(
         color: Colors.white,
@@ -50,45 +51,85 @@ class ItemCollectionVocab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         mainAxisSize: MainAxisSize.max,
         children: [
-          Container(
-            decoration: const BoxDecoration(
-              border: Border(
-                top: BorderSide(
-                  color: AppColors.gray60,
-                  width: 1,
+          Stack(
+            children: [
+              Container(
+                padding: EdgeInsets.only(
+                  left: deviceWidth * 0.03,
+                  right: deviceWidth * 0.03,
+                  top: deviceHeight * 0.01,
                 ),
-                bottom: BorderSide(
-                  color: AppColors.gray60,
-                  width: 1,
-                ),
-                left: BorderSide(
-                  color: AppColors.gray60,
-                  width: 1,
-                ),
-                right: BorderSide(
-                  color: AppColors.gray60,
-                  width: 1,
-                ),
-              ),
-              borderRadius: BorderRadius.all(
-                Radius.circular(
-                  20,
-                ),
-              ),
-            ),
-            child: isCreateButton
-                ? SvgPicture.asset(
-                    'assets/images/svg/ic_add.svg',
-                    semanticsLabel: 'Add New Vocab Collection',
-                  )
-                : ClipRRect(
-                    borderRadius: BorderRadius.circular(8.0),
-                    child: const Image(
-                      fit: BoxFit.contain,
-                      image: CachedNetworkImageProvider(
-                          'https://images.unsplash.com/photo-1682686581660-3693f0c588d2?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                decoration: const BoxDecoration(
+                  border: Border(
+                    top: BorderSide(
+                      //color: AppColors.gray60,
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    bottom: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    left: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    right: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
                     ),
                   ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(
+                      20,
+                    ),
+                  ),
+                ),
+                child: isCreateButton
+                    ? SvgPicture.asset(
+                        'assets/images/svg/ic_add.svg',
+                        semanticsLabel: 'Add New Vocab Collection',
+                      )
+                    : Stack(
+                        children: [
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(8.0),
+                            child: const Image(
+                              fit: BoxFit.contain,
+                              image: CachedNetworkImageProvider(
+                                  'https://images.unsplash.com/photo-1682686581660-3693f0c588d2?q=80&w=2671&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDF8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'),
+                            ),
+                          ),
+                        ],
+                      ),
+              ),
+              Positioned(
+                top: 0,
+                left: 0,
+                child: Container(
+                  width: deviceWidth * 0.08,
+                  height: deviceWidth * 0.08,
+                  decoration: const BoxDecoration(
+                    gradient: LinearGradient(
+                      begin: Alignment.topLeft,
+                      end: Alignment.bottomRight,
+                      colors: AppColors.primaryGradient,
+                    ),
+                    shape: BoxShape.circle,
+                  ),
+                  child: const Align(
+                    alignment: Alignment.center,
+                    child: Text(
+                      '20',
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
           Text(
             isCreateButton ? 'Tạo bộ từ mới' : title,
