@@ -15,7 +15,7 @@ class AppColors {
   static const gray80 = Color(0xFFf6f6f6);
   static const primaryGradient = [
     Color(0xFFb1d8ab),
-    Color(0xFF30a597),
+    Color(0xFF219f94),
   ];
   static const backgroundGradient = [
     Color(0xFFffffff),
