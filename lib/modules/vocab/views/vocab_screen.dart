@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
-import 'package:flutter_talkshare/modules/vocal/widgets/item_collection_vocal.dart';
-import 'package:flutter_talkshare/modules/vocal/widgets/item_recent_vocal.dart';
-import 'package:flutter_talkshare/modules/vocal/widgets/item_saved_vocal.dart';
+import 'package:flutter_talkshare/modules/vocab/widgets/item_collection_vocal.dart';
+import 'package:flutter_talkshare/modules/vocab/widgets/item_recent_vocal.dart';
+import 'package:flutter_talkshare/modules/vocab/widgets/item_saved_vocal.dart';
 
-class VocalScreen extends StatelessWidget {
-  const VocalScreen({super.key});
+class VocabScreen extends StatelessWidget {
+  const VocabScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -31,19 +31,19 @@ class VocalScreen extends StatelessWidget {
               padding: EdgeInsets.symmetric(
                 vertical: deviceHeight * 0.01,
               ),
-              child: _buildVocalSavedScrollable(deviceHeight, deviceWidth),
+              child: _buildVocabSavedScrollable(deviceHeight, deviceWidth),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
                 vertical: deviceHeight * 0.01,
               ),
-              child: _buildVocalRecentScrollable(deviceHeight, deviceWidth),
+              child: _buildVocabRecentScrollable(deviceHeight, deviceWidth),
             ),
             Padding(
               padding: EdgeInsets.symmetric(
                 vertical: deviceHeight * 0.01,
               ),
-              child: _buildVocalCollectionScrollable(deviceHeight, deviceWidth),
+              child: _buildVocabCollectionScrollable(deviceHeight, deviceWidth),
             ),
           ],
         ),
@@ -51,7 +51,7 @@ class VocalScreen extends StatelessWidget {
     );
   }
 
-  Column _buildVocalCollectionScrollable(
+  Column _buildVocabCollectionScrollable(
     double deviceHeight,
     double deviceWidth,
   ) {
@@ -99,7 +99,7 @@ class VocalScreen extends StatelessWidget {
             ),
             itemCount: 10,
             itemBuilder: (context, index) {
-              return ItemCollectionVocal(
+              return ItemCollectionVocab(
                 image: 'image',
                 title: 'Tạo bộ từ mới',
                 isCreateButton: false,
@@ -112,7 +112,7 @@ class VocalScreen extends StatelessWidget {
     );
   }
 
-  Column _buildVocalRecentScrollable(double deviceHeight, double deviceWidth) {
+  Column _buildVocabRecentScrollable(double deviceHeight, double deviceWidth) {
     return Column(
       children: [
         Align(
@@ -136,7 +136,7 @@ class VocalScreen extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: 10,
             itemBuilder: (context, index) {
-              return ItemRecentVocal(
+              return ItemRecentVocab(
                 phonetic: '/kɑː/',
                 enWordForm: 'Car',
                 translatedWordForm: 'Xe',
@@ -150,7 +150,7 @@ class VocalScreen extends StatelessWidget {
     );
   }
 
-  Column _buildVocalSavedScrollable(double deviceHeight, double deviceWidth) {
+  Column _buildVocabSavedScrollable(double deviceHeight, double deviceWidth) {
     return Column(
       children: [
         Align(
@@ -174,7 +174,7 @@ class VocalScreen extends StatelessWidget {
             scrollDirection: Axis.horizontal,
             itemCount: 10,
             itemBuilder: (context, index) {
-              return ItemSavedVocal(
+              return ItemSavedVocab(
                 phonetic: '/kɑː/',
                 enWordForm: 'Car',
                 translatedWordForm: 'Xe',

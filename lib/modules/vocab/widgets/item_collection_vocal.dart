@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 
-class ItemCollectionVocal extends StatelessWidget {
-  const ItemCollectionVocal({
+class ItemCollectionVocab extends StatelessWidget {
+  const ItemCollectionVocab({
     super.key,
     required this.image,
     required this.title,
@@ -79,7 +79,7 @@ class ItemCollectionVocal extends StatelessWidget {
             child: isCreateButton
                 ? SvgPicture.asset(
                     'assets/images/svg/ic_add.svg',
-                    semanticsLabel: 'Add New Vocal Collection',
+                    semanticsLabel: 'Add New Vocab Collection',
                   )
                 : ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),

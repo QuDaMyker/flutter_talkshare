@@ -2,8 +2,8 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 
-class VocalFolderScreen extends StatelessWidget {
-  const VocalFolderScreen({super.key, required this.nameOfFolder});
+class VocabFolderScreen extends StatelessWidget {
+  const VocabFolderScreen({super.key, required this.nameOfFolder});
   final String nameOfFolder;
 
   @override
