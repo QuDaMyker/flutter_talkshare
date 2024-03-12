@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 
-class ItemSavedVocal extends StatelessWidget {
-  const ItemSavedVocal({
+class ItemSavedVocab extends StatelessWidget {
+  const ItemSavedVocab({
     super.key,
     required this.phonetic,
     required this.enWordForm,
