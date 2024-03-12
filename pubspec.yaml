@@ -52,6 +52,7 @@ dependencies:
   font_awesome_flutter: ^10.7.0
   supabase: ^2.0.8
   loading_animation_widget: ^1.2.1
+  wave_linear_progress_indicator: ^0.1.0
 
 dev_dependencies:
   flutter_test:
@@ -79,6 +80,7 @@ flutter:
   assets:
     - .env
     - assets/images/svg/ic_add.svg
+    - assets/images/svg/ic_try.svg
     - assets/images/lottie/ic_nodata1.json
     - assets/images/lottie/ic_nodata2.json
     - assets/images/lottie/ic_nodata3.json
