@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
-import 'package:flutter_talkshare/modules/vocab/views/vocab_screen.dart';
 import 'package:get/get.dart';
 
 void main() async {
@@ -22,7 +21,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const VocabScreen(),
+      home: const RootViewScreen(),
     );
   }
 }

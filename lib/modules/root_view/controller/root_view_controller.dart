@@ -16,9 +16,7 @@ class RootViewController extends GetxController {
   final text = TextEditingController();
 
   final screens = const [
-    VocabListScreen(nameOfCollection: 'Báo cáo tài chính'),
-    //VocabFolderScreen(nameOfFolder: '600 Từ TOEIC'),
-    //HomeScreen(),
+    HomeScreen(),
     CommnityScreen(),
     HomeworkScreen(),
     GameScreen(),
