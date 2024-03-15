@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/vocab_list_detail/controllers/vocab_list_detail_controller.dart';
@@ -16,13 +17,11 @@ class VocabListDetailScreen extends StatelessWidget {
         Get.put(VocabListDetailController());
     return SafeArea(
       child: Scaffold(
-        appBar: _buildAppBar(),
-        body: SingleChildScrollView(
-          child: _buildBody(
-            deviceHeight,
-            deviceWidth,
-            vocabListDetailController,
-          ),
+        appBar: _buildAppBar(vocabListDetailController),
+        body: _buildBody(
+          deviceHeight,
+          deviceWidth,
+          vocabListDetailController,
         ),
       ),
     );
@@ -34,6 +33,7 @@ class VocabListDetailScreen extends StatelessWidget {
     VocabListDetailController controller,
   ) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: deviceWidth * 0.04),
       padding: EdgeInsets.symmetric(
         vertical: deviceHeight * 0.005,
         horizontal: deviceWidth * 0.05,
@@ -71,16 +71,18 @@ class VocabListDetailScreen extends StatelessWidget {
           fontSize: 18,
           color: AppColors.primary40,
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }
 
-  Container _buidStudyingWord(
+  Widget _buidStudyingWord(
     double deviceHeight,
     double deviceWidth,
     VocabListDetailController controller,
   ) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: deviceWidth * 0.04),
       padding: EdgeInsets.symmetric(
         vertical: deviceHeight * 0.005,
         horizontal: deviceWidth * 0.04,
@@ -120,6 +122,7 @@ class VocabListDetailScreen extends StatelessWidget {
           fontSize: 18,
           color: AppColors.gray20,
         ),
+        textAlign: TextAlign.center,
       ),
     );
   }
@@ -129,15 +132,30 @@ class VocabListDetailScreen extends StatelessWidget {
     double deviceWidth,
     VocabListDetailController controller,
   ) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
-      children: [
-        _buildLinearProgressIndicator(controller),
-        _buildIndexWord(deviceHeight, deviceWidth, controller),
-        _buildPresentWord(deviceHeight, deviceWidth, controller),
-        _buidGroupButton(deviceHeight, deviceWidth, controller),
-      ],
+    return SizedBox(
+      height: deviceHeight,
+      child: Column(
+        mainAxisSize: MainAxisSize.max,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Expanded(
+            flex: 1,
+            child: _buildLinearProgressIndicator(controller),
+          ),
+          Expanded(
+            flex: 1,
+            child: _buildIndexWord(deviceHeight, deviceWidth, controller),
+          ),
+          Expanded(
+            flex: 5,
+            child: _buildPresentWord(deviceHeight, deviceWidth, controller),
+          ),
+          Expanded(
+            flex: 2,
+            child: _buidGroupButton(deviceHeight, deviceWidth, controller),
+          ),
+        ],
+      ),
     );
   }
 
@@ -150,19 +168,43 @@ class VocabListDetailScreen extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          _buidStudyingWord(
-            deviceHeight,
-            deviceWidth,
-            controller,
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () {
+                controller.controllerCard.swipe(CardSwiperDirection.left);
+              },
+              child: _buidStudyingWord(
+                deviceHeight,
+                deviceWidth,
+                controller,
+              ),
+            ),
           ),
-          _buildButtonTryAgain(
-            deviceWidth,
-            controller,
+          Expanded(
+            flex: 1,
+            child: GestureDetector(
+              onTap: () {
+                controller.controllerCard.undo();
+              },
+              child: _buildButtonTryAgain(
+                deviceWidth,
+                controller,
+              ),
+            ),
           ),
-          _buildStudiedWord(
-            deviceHeight,
-            deviceWidth,
-            controller,
+          Expanded(
+            flex: 2,
+            child: GestureDetector(
+              onTap: () {
+                controller.controllerCard.swipe(CardSwiperDirection.right);
+              },
+              child: _buildStudiedWord(
+                deviceHeight,
+                deviceWidth,
+                controller,
+              ),
+            ),
           ),
         ],
       ),
@@ -174,6 +216,7 @@ class VocabListDetailScreen extends StatelessWidget {
     VocabListDetailController controller,
   ) {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: deviceWidth * 0.02),
       padding: EdgeInsets.all(
         deviceWidth * 0.04,
       ),
@@ -197,83 +240,104 @@ class VocabListDetailScreen extends StatelessWidget {
     double deviceWidth,
     VocabListDetailController vocabListDetailController,
   ) {
-    return Container(
-      margin: EdgeInsets.only(
-        top: deviceHeight * 0.05,
-        left: deviceWidth * 0.1,
-        right: deviceWidth * 0.1,
+    return CardSwiper(
+      controller: vocabListDetailController.controllerCard,
+      onSwipe: vocabListDetailController.onSwipe,
+      onUndo: vocabListDetailController.onUndo,
+      allowedSwipeDirection: const AllowedSwipeDirection.only(
+        left: true,
+        right: true,
+        up: false,
+        down: false,
       ),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: const BorderRadius.all(
-          Radius.circular(
-            20,
-          ),
-        ),
-        border: const Border(
-          top: BorderSide(
-            color: AppColors.gray60,
-            width: 1,
-          ),
-          bottom: BorderSide(
-            color: AppColors.gray60,
-            width: 1,
-          ),
-          left: BorderSide(
-            color: AppColors.gray60,
-            width: 1,
-          ),
-          right: BorderSide(
-            color: AppColors.gray60,
-            width: 1,
-          ),
-        ),
-        shape: BoxShape.rectangle,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.5),
-            spreadRadius: 2,
-            blurRadius: 5,
-            offset: const Offset(0, 3),
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Align(
-            alignment: Alignment.centerRight,
-            child: IconButton(
-              onPressed: () {},
-              icon: Icon(
-                Icons.bookmark_border_outlined,
-                size: deviceWidth * 0.1,
-              ),
-            ),
-          ),
-          Container(
-            padding: EdgeInsets.only(
-              top: deviceHeight * 0.2,
-              bottom: deviceHeight * 0.2,
-              left: deviceWidth * 0.1,
-              right: deviceWidth * 0.1,
-            ),
-            child: const Align(
-              alignment: Alignment.center,
-              child: Text(
-                'Align',
-                style: TextStyle(
-                  fontWeight: FontWeight.w600,
-                  fontSize: 24,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      cardsCount: vocabListDetailController.listVocab.value.length,
+      cardBuilder: (context, index, percentThresholdX, percentThresholdY) =>
+          vocabListDetailController.listVocab.value[index],
     );
   }
+
+  // Widget _buildPresentWord(
+  //   double deviceHeight,
+  //   double deviceWidth,
+  //   VocabListDetailController vocabListDetailController,
+  // ) {
+  //   return Container(
+  //     margin: EdgeInsets.only(
+  //       top: deviceHeight * 0.05,
+  //       left: deviceWidth * 0.1,
+  //       right: deviceWidth * 0.1,
+  //     ),
+  //     decoration: BoxDecoration(
+  //       color: Colors.white,
+  //       borderRadius: const BorderRadius.all(
+  //         Radius.circular(
+  //           20,
+  //         ),
+  //       ),
+  //       border: const Border(
+  //         top: BorderSide(
+  //           color: AppColors.gray60,
+  //           width: 1,
+  //         ),
+  //         bottom: BorderSide(
+  //           color: AppColors.gray60,
+  //           width: 1,
+  //         ),
+  //         left: BorderSide(
+  //           color: AppColors.gray60,
+  //           width: 1,
+  //         ),
+  //         right: BorderSide(
+  //           color: AppColors.gray60,
+  //           width: 1,
+  //         ),
+  //       ),
+  //       shape: BoxShape.rectangle,
+  //       boxShadow: [
+  //         BoxShadow(
+  //           color: Colors.grey.withOpacity(0.5),
+  //           spreadRadius: 2,
+  //           blurRadius: 5,
+  //           offset: const Offset(0, 3),
+  //         ),
+  //       ],
+  //     ),
+  //     child: Column(
+  //       mainAxisSize: MainAxisSize.max,
+  //       mainAxisAlignment: MainAxisAlignment.center,
+  //       children: [
+  //         Align(
+  //           alignment: Alignment.centerRight,
+  //           child: IconButton(
+  //             onPressed: () {},
+  //             icon: Icon(
+  //               Icons.bookmark_border_outlined,
+  //               size: deviceWidth * 0.1,
+  //             ),
+  //           ),
+  //         ),
+  //         Container(
+  //           padding: EdgeInsets.only(
+  //             top: deviceHeight * 0.2,
+  //             bottom: deviceHeight * 0.2,
+  //             left: deviceWidth * 0.1,
+  //             right: deviceWidth * 0.1,
+  //           ),
+  //           child: const Align(
+  //             alignment: Alignment.center,
+  //             child: Text(
+  //               'Align',
+  //               style: TextStyle(
+  //                 fontWeight: FontWeight.w600,
+  //                 fontSize: 24,
+  //               ),
+  //             ),
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
 
   Row _buildIndexWord(
     double deviceHeight,
@@ -297,7 +361,7 @@ class VocabListDetailScreen extends StatelessWidget {
     );
   }
 
-  Container _buildRightIndex(
+  Widget _buildRightIndex(
     double deviceHeight,
     double deviceWidth,
     VocabListDetailController controller,
@@ -328,12 +392,15 @@ class VocabListDetailScreen extends StatelessWidget {
           bottomLeft: Radius.circular(8),
         ),
       ),
-      child: const Text(
-        '4',
-        style: TextStyle(
-          color: AppColors.primary40,
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
+      child: Obx(
+        () => Text(
+          //'${controller.currentIndexCard.value == controller.listVocab.value.length ? 1 : controller.currentIndexCard.value + 1}',
+          '${controller.listStudied.length}',
+          style: const TextStyle(
+            color: AppColors.primary40,
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );
@@ -370,36 +437,46 @@ class VocabListDetailScreen extends StatelessWidget {
           bottomRight: Radius.circular(8),
         ),
       ),
-      child: const Text(
-        '4',
-        style: TextStyle(
-          fontSize: 16,
-          fontWeight: FontWeight.w600,
+      child: Obx(
+        () => Text(
+          //'${controller.currentIndexCard.value == 1 ? controller.listVocab.value.length : controller.currentIndexCard.value}',
+          '${controller.listStuying.length}',
+          style: const TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.w600,
+          ),
         ),
       ),
     );
   }
 
-  WaveLinearProgressIndicator _buildLinearProgressIndicator(
-    VocabListDetailController vocabListDetailController,
+  Widget _buildLinearProgressIndicator(
+    VocabListDetailController controller,
   ) {
-    return WaveLinearProgressIndicator(
-      value: 0.75,
-      enableBounceAnimation: true,
-      waveColor: Colors.orange,
-      backgroundColor: Colors.grey[150],
-      minHeight: 10,
+    return Obx(
+      () => WaveLinearProgressIndicator(
+        value: (controller.currentIndexCard.value + 1) /
+            controller.listVocab.value.length,
+        enableBounceAnimation: true,
+        waveColor: Colors.orange,
+        backgroundColor: Colors.grey[150],
+        minHeight: 10,
+      ),
     );
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(
+    VocabListDetailController controller,
+  ) {
     return AppBar(
       centerTitle: true,
-      title: const Text(
-        '4/12',
-        style: TextStyle(
-          fontWeight: FontWeight.w700,
-          fontSize: 22,
+      title: Obx(
+        () => Text(
+          '${controller.currentIndexCard.value + 1}/${controller.listVocab.value.length}',
+          style: const TextStyle(
+            fontWeight: FontWeight.w700,
+            fontSize: 22,
+          ),
         ),
       ),
     );
