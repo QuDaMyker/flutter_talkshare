@@ -1,0 +1,23 @@
+import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
+
+class SupabaseService {
+  SupabaseService._internal();
+  factory SupabaseService() => instance;
+  static final SupabaseService instance = SupabaseService._internal();
+  final supabase = Supabase.instance.client;
+
+  Future<void> init() async {
+    await Supabase.initialize(
+      url: dotenv.get('SUPABASE_URL'),
+      anonKey: dotenv.get('SUPABASE_ANON_KEY'),
+    );
+  }
+
+  Future<void> login(String email, String password) async {
+    await supabase.auth.signInWithPassword(
+      email: email,
+      password: password,
+    );
+  }
+}
