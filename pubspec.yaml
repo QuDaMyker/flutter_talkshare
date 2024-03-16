@@ -80,6 +80,7 @@ flutter:
   assets:
     - .env
     - assets/images/svg/
+    - assets/images/png/
     - assets/images/lottie/
     - assets/images/svg/ic_add.svg
     - assets/images/lottie/ic_nodata1.json
