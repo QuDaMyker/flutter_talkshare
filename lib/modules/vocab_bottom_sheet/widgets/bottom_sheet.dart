@@ -1,4 +1,7 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/vocab_bottom_sheet/controller/bottom_sheet_item_controller.dart';
 import 'package:get/get.dart';
 
@@ -20,47 +23,85 @@ class BottomSheetItem extends StatelessWidget {
             )
           : Container(
               decoration: const BoxDecoration(
-                color: Colors.yellow,
-                border: Border(
-                  top: BorderSide(
-                    color: Colors.black,
-                    width: 5,
-                  ),
-                  bottom: BorderSide(
-                    color: Colors.black,
-                    width: 5,
-                  ),
-                  left: BorderSide(
-                    color: Colors.black,
-                    width: 5,
-                  ),
-                  right: BorderSide(
-                    color: Colors.black,
-                    width: 5,
-                  ),
-                ),
                 borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(
-                    20,
-                  ),
+                  topLeft: Radius.circular(20),
                   topRight: Radius.circular(20),
                 ),
-                shape: BoxShape.rectangle,
               ),
               width: deviceWidth,
+              height: deviceHeight * 0.45,
               child: Padding(
                 padding: EdgeInsets.all(
                   deviceWidth * 0.01,
                 ),
                 child: Column(
+                  mainAxisSize: MainAxisSize.max,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
-                    Text(word),
-                    ElevatedButton(
-                        onPressed: () async {
-                          await controller.getWord('Trace');
-                        },
-                        child: const Text('Speaker')),
-                    Text(controller.data.value),
+                    Padding(
+                      padding: EdgeInsetsDirectional.only(
+                       top: deviceHeight*0.02,
+                       start: deviceWidth*0.06,
+                       end: deviceWidth * 0.04,
+                       bottom: deviceWidth *0.02 
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Column(     
+                            crossAxisAlignment: CrossAxisAlignment.start,                                        
+                            children: [
+                              Text(                              
+                                'trace',
+                                style: const TextStyle(
+                                  fontFamily: 'assets/fonts/Manrope-Bold.ttf',
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              Text(
+                                '/treis/',
+                                style: const TextStyle(
+                                  fontFamily: 'assets/fonts/Manrope-Bold.ttf',
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.normal,
+                                ),
+                              ),
+                            ],
+                          ),
+                          
+                          Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.bookmark_outline),
+                                iconSize: 20,
+                                color: AppColors.gray20,
+                                onPressed: () async {
+                                  await controller.getWord('Hot');
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.volume_up_outlined),
+                                iconSize: 20,
+                                color: AppColors.gray20,
+                                onPressed: () async {
+                                  await controller.getWord('Hot');
+                                },
+                              ),
+                              IconButton(
+                                icon: const Icon(Icons.close),
+                                iconSize: 20,
+                                color: AppColors.gray20,
+                                onPressed: () async {
+                                  await controller.getWord('Hot');
+                                },
+                              )
+                            ],
+                          )
+                        ],
+                      ),
+                    )
                   ],
                 ),
               ),

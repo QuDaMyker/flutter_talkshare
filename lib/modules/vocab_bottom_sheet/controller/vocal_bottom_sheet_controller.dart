@@ -24,7 +24,7 @@ class VocalController extends GetxController {
   void showBottomSheet(BuildContext context) {
     showModalBottomSheet(
       context: context,
-      builder: (context) => const BottomSheetItem(word: 'TRACE'),
+      builder: (context) => const BottomSheetItem(word: 'trace'),
     );
   }
 }
