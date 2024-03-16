@@ -9,13 +9,14 @@ class SupabaseService {
   SupabaseService._internal();
   factory SupabaseService() => instance;
   static final SupabaseService instance = SupabaseService._internal();
-  final supabase = Supabase.instance.client;
+  var supabase;
 
   Future<void> init() async {
     await Supabase.initialize(
       url: dotenv.get('SUPABASE_URL'),
       anonKey: dotenv.get('SUPABASE_ANON_KEY'),
     );
+    supabase = Supabase.instance.client;
   }
 
   Future<void> login(String email, String password) async {

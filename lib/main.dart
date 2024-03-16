@@ -9,8 +9,13 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
   await SupabaseService.instance.init();
-  Vocab vocab = await SupabaseService.instance.getVocabByWord('trace');
-  print("${vocab.word}: ${vocab.primaryMeaning}");
+
+  //test supabase
+  Vocab vocab =
+      await SupabaseService.instance.getVocabByWord('trace').then((value) {
+    print("${value.word}: ${value.primaryMeaning}");
+    return value;
+  });
 
   runApp(const MyApp());
 }

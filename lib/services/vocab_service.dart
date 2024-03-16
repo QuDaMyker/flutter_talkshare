@@ -5,7 +5,8 @@ extension VocabService on SupabaseService {
     final response = await supabase
         .from(Vocab.table.tableName)
         .select()
-        .eq(Vocab.table.word, word);
+        .eq(Vocab.table.word, word)
+        .maybeSingle();
     final vocab = Vocab.fromJson(response as Map<String, dynamic>);
     return vocab;
   }
