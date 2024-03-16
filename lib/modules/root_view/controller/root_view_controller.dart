@@ -4,8 +4,6 @@ import 'package:flutter_talkshare/modules/game/view/game_screen.dart';
 import 'package:flutter_talkshare/modules/home/view/home_screen.dart';
 import 'package:flutter_talkshare/modules/homework/view/homework_screen.dart';
 import 'package:flutter_talkshare/modules/profile/view/profile_screen.dart';
-import 'package:flutter_talkshare/modules/vocab/views/vocab_screen.dart';
-import 'package:flutter_talkshare/modules/vocab_list/views/vocab_list_screen.dart';
 import 'package:get/get.dart';
 
 class RootViewController extends GetxController {

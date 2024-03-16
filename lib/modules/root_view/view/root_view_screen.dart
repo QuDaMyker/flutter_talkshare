@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/root_view/controller/root_view_controller.dart';
 import 'package:get/get.dart';
-import 'package:responsive_navigation_bar/responsive_navigation_bar.dart';
+import 'package:salomon_bottom_bar/salomon_bottom_bar.dart';
+
+import '../../../core/values/image_assets.dart';
 
 class RootViewScreen extends StatelessWidget {
   const RootViewScreen({super.key});
@@ -19,52 +22,41 @@ class RootViewScreen extends StatelessWidget {
           children: rootViewController.screens,
         ),
         bottomNavigationBar: Obx(
-          () => ResponsiveNavigationBar(
-            selectedIndex: rootViewController.currentPage.value,
-            onTabChange: (value) {
+          () => SalomonBottomBar(
+            currentIndex: rootViewController.currentPage.value,
+            onTap: (value) {
               rootViewController.onChangePage(value);
             },
-            // showActiveButtonText: false,
-            backgroundColor: Colors.transparent,
-            textStyle: const TextStyle(
-              color: Colors.white,
-              fontWeight: FontWeight.normal,
-            ),
-            navigationBarButtons: const <NavigationBarButton>[
-              NavigationBarButton(
-                text: 'Trang chủ',
-                icon: Icons.home_outlined,
-                backgroundGradient: LinearGradient(
-                  colors: AppColors.primaryGradient,
-                ),
+            items: [
+              SalomonBottomBarItem(
+                icon: SvgPicture.asset(ImageAssets.icHome),
+                title: const Text("Trang chủ"),
+                selectedColor: AppColors.primary40,
+                activeIcon: SvgPicture.asset(ImageAssets.icHomeFill)
               ),
-              NavigationBarButton(
-                text: 'Cộng đồng',
-                icon: Icons.people_outline,
-                backgroundGradient: LinearGradient(
-                  colors: [Colors.cyan, Colors.teal],
-                ),
+              SalomonBottomBarItem(
+                icon: SvgPicture.asset(ImageAssets.icCommunity),
+                title: const Text("Cộng đồng"),
+                selectedColor: AppColors.primary40,
+                activeIcon: SvgPicture.asset(ImageAssets.icCommunityFill)
               ),
-              NavigationBarButton(
-                text: 'Bài tập',
-                icon: Icons.library_books_outlined,
-                backgroundGradient: LinearGradient(
-                  colors: [Colors.green, Colors.yellow],
-                ),
+              SalomonBottomBarItem(
+                icon: SvgPicture.asset(ImageAssets.icEditThin, color: AppColors.gray20,),
+                title: const Text("Bài tập"),
+                selectedColor: AppColors.primary40,
+                activeIcon: SvgPicture.asset(ImageAssets.icEditFill)
               ),
-              NavigationBarButton(
-                text: 'Game',
-                icon: Icons.videogame_asset_outlined,
-                backgroundGradient: LinearGradient(
-                  colors: [Colors.green, Colors.yellow],
-                ),
+              SalomonBottomBarItem(
+                icon: SvgPicture.asset(ImageAssets.icGame),
+                title: const Text("Game"),
+                selectedColor: AppColors.primary40,
+                activeIcon: SvgPicture.asset(ImageAssets.icGameFill)
               ),
-              NavigationBarButton(
-                text: 'Tài khoản',
-                icon: Icons.person_2_outlined,
-                backgroundGradient: LinearGradient(
-                  colors: [Colors.green, Colors.yellow],
-                ),
+              SalomonBottomBarItem(
+                icon: SvgPicture.asset(ImageAssets.icAccount),
+                title: const Text("Tài khoản"),
+                selectedColor: AppColors.primary40,
+                activeIcon: SvgPicture.asset(ImageAssets.icAccountFill)
               ),
             ],
           ),

@@ -48,7 +48,7 @@ dependencies:
   flutter_svg: ^2.0.10+1
   flutter_local_notifications: ^16.3.2
   flutter_dotenv: ^5.1.0
-  responsive_navigation_bar: ^4.0.4
+  salomon_bottom_bar: ^3.3.2
   font_awesome_flutter: ^10.7.0
   # supabase: ^2.0.8
   supabase_flutter: ^2.3.4
