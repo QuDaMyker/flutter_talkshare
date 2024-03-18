@@ -30,27 +30,27 @@ class MyVocalBottom extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  Obx(
-                    () => Text('${controller.index.value}'),
-                  ),
-                  IconButton(
-                    onPressed: () {
-                      controller.tang();
-                    },
-                    icon: const Icon(Icons.add),
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      controller.showNackbar(context);
-                    },
-                    child: const Text('show snak bar'),
-                  ),
+                  // Obx(
+                  //   () => Text('${controller.index.value}'),
+                  // ),
+                  // IconButton(
+                  //   onPressed: () {
+                  //     controller.tang();
+                  //   },
+                  //   icon: const Icon(Icons.add),
+                  // ),
+                  // TextButton(
+                  //   onPressed: () {
+                  //     controller.showNackbar(context);
+                  //   },
+                  //   child: const Text('show snak bar'),
+                  // ),
                   TextButton.icon(
                       onPressed: () {
                         controller.showBottomSheet(context);
                       },
                       icon: const Icon(Icons.add),
-                      label: Text('text button'))
+                      label: Text('Show bottom sheet'))
                 ],
               ),
             ),
