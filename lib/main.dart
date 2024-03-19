@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
+import 'package:flutter_talkshare/modules/vocab_list_folder/views/vocab_list_folder.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 
@@ -33,7 +34,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const RootViewScreen(),
+      home: const VocabListFolder(nameOfFolder: 'name folder'),
     );
   }
 }
