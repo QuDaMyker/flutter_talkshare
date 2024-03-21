@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/root_view/controller/search_Text_Controller.dart';
+import 'package:flutter_talkshare/modules/vocab_bottom_sheet/controller/bottom_sheet_vocab_controller.dart';
 import 'dart:math' as math;
 
 import 'package:get/get.dart';
@@ -19,6 +21,9 @@ class HomeScreen extends StatelessWidget {
     const Vocab(word: 'word', primaryMeaning: 'primaryMeaning'),
     const Vocab(word: 'word', primaryMeaning: 'primaryMeaning')
   ];
+
+  final SearchTextController searchController = SearchTextController();
+  late final BottomSheetVocabController bottomSheetVocabController ;
 
   @override
   Widget build(BuildContext context) {
@@ -51,12 +56,16 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
+
             TextField(
               textInputAction: TextInputAction.search,
               style:
-                  const TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
-              // controller: controller.searchTextController,
-              // onChanged: controller.onChangeSearchText,
+              const TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+              onSubmitted: (value) {
+                searchController.showBottomSheet(context, value);
+              },
+              //onSubmitted: (value) => bottomSheetVocabController.getWord(value),
+              // onChanged: (vlaue) searchController.,
               decoration: InputDecoration(
                 isDense: true,
                 isCollapsed: true,
@@ -79,7 +88,8 @@ class HomeScreen extends StatelessWidget {
                 prefixIconConstraints: const BoxConstraints(),
                 suffixIcon: GestureDetector(
                   onTap: () {
-                    // controller.clearSearchText();
+                    searchController.clear();
+                    print('đã xóa');
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 16),
