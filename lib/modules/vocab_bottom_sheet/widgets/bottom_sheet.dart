@@ -95,25 +95,27 @@ class BottomSheetVocab extends StatelessWidget {
                           const SizedBox(width: 15),
                           InkWell(
                               child: SvgPicture.asset(ImageAssets.icClose),
-                              onTap: () {}),
+                              onTap: () { controller.onClose();}),
                         ],
                       ),
                     ],
                   ),
                   //hiển thị definitons
-                  Container(
+                  SizedBox(
                     height: deviceHeight * 0.35,
-                    color: Colors.amber,
-                    child: ListView.builder(
-                        itemCount: controller.listDefinitions.length,
-                        itemBuilder: (context, index) {
-                          String partOfSpeech =
-                              controller.listDefinitions.keys.elementAt(index);
-                          List<Definition> listDef =
-                              controller.listDefinitions[partOfSpeech]!;
-                          return ItemPartOfSpeech(
-                              listDef: listDef, partOfSpeech: partOfSpeech);
-                        }),
+                    child: Padding(
+                      padding: const EdgeInsets.only(top: 16.0),
+                      child: ListView.builder(
+                          itemCount: controller.listDefinitions.length,
+                          itemBuilder: (context, index) {
+                            String partOfSpeech =
+                                controller.listDefinitions.keys.elementAt(index);
+                            List<Definition> listDef =
+                                controller.listDefinitions[partOfSpeech]!;
+                            return ItemPartOfSpeech(
+                                listDef: listDef, partOfSpeech: partOfSpeech);
+                          }),
+                    ),
                   ),
                 ],
               ),
@@ -133,10 +135,12 @@ class ItemPartOfSpeech extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final double deviceHeight = MediaQuery.of(context).size.height;
+    final double deviceWidth = MediaQuery.of(context).size.width;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        //part of speech
+        //bọc part of speech
         Container(
           padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 8),
           decoration: BoxDecoration(
@@ -153,55 +157,32 @@ class ItemPartOfSpeech extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        SizedBox(
-          height:60,
-          child: ListView.builder(
-              itemCount: listDef.length,
-              itemBuilder: ((context, index) {
-                return ItemDefinition(
-                  def: listDef[index],
-                );
-              })),
-        )
-      ],
-    );
-  }
-}
-
-class ItemDefinition extends StatelessWidget {
-  const ItemDefinition({super.key, required this.def});
-
-  final Definition def;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Row(
-          children: [
-            SvgPicture.asset(ImageAssets.triangleRight),
-            const SizedBox(
-              width: 4,
-            ),
-            Text(
-              def.meaning,
-              style: const TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
+        //hiện các def 
+        Column(
+          children: List.generate(listDef.length, (index) {
+            return Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4.0),
+              child: Row(
+                children: [
+                  SvgPicture.asset(ImageAssets.triangleRight),
+                  const SizedBox(
+                    width: 4,
+                  ),
+                  SizedBox( width: deviceWidth*0.8,
+                    child: Text(
+                      listDef[index].meaning,
+                      style: const TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ],
+            );
+          }),
         ),
-        const SizedBox(height: 4),
-        if (def.example != Null && def.example!.isNotEmpty)
-          Text(
-            'Ex: ${def.example!}',
-            style: const TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        const SizedBox(height: 4),
+        const SizedBox(height: 8),
       ],
     );
   }

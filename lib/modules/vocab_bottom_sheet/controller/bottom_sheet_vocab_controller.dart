@@ -6,27 +6,17 @@ import 'package:flutter_talkshare/modules/vocab_bottom_sheet/widgets/bottom_shee
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:http/http.dart' as http;
+import 'package:translator_plus/translator_plus.dart';
 
 class BottomSheetVocabController extends GetxController {
   final String word;
 
   BottomSheetVocabController({required this.word});
+  final translator = GoogleTranslator();
   final player = AudioPlayer();
   var isLoading = Rx<bool>(false);
   late Vocab searchedVocab;
   Map<String, List<Definition>> listDefinitions ={};
-
-
-// {
-//   'noun': {
-//     'defination 1',
-//     'defination 2'
-//   },
-//   'verb': {
-//     'defination 1',
-//     'defination 2'
-//   }
-// }
 
   @override
   void onInit() async {
@@ -121,7 +111,14 @@ class BottomSheetVocabController extends GetxController {
               List<dynamic> mapDefinitions = mapMeanings[j]['definitions'];
                 for (int z = 0; z< mapDefinitions.length; z++){
                   Map<String, dynamic> itemDefinition = mapDefinitions[z];
-                  String definiton = itemDefinition['definition'].toString();                
+                  String definiton = itemDefinition['definition'].toString(); 
+
+                  debugPrint('Dịch chữ');
+                  var translation = await translator.translate(definiton, from: 'en',to: 'vi');
+                  debugPrint('Dịch $translation');
+                  definiton = translation.text;
+
+
                   String example ='';
 
                   if(itemDefinition.containsKey('example'))
@@ -155,12 +152,6 @@ class BottomSheetVocabController extends GetxController {
     final duration = await player.setUrl(urlAudio);
       player.play();
       debugPrint('phát âm thanh');
-  }
-
-  //dịch nghĩa cho các definiotn
-  Future<void>translateToVN( String word) async {
-
-    
   }
 
 }
