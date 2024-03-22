@@ -15,6 +15,8 @@ class BottomSheetVocabController extends GetxController {
   var isLoading = Rx<bool>(false);
   late Vocab searchedVocab;
   Map<String, List<Definition>> listDefinitions ={};
+
+
 // {
 //   'noun': {
 //     'defination 1',
@@ -115,53 +117,50 @@ class BottomSheetVocabController extends GetxController {
               if(!listDefinitions.containsKey(key)){
                 listDefinitions[key] =[];
               }
-
+              //tạo các definition, có example thì thêm vô partofSpeech tương ứng
               List<dynamic> mapDefinitions = mapMeanings[j]['definitions'];
                 for (int z = 0; z< mapDefinitions.length; z++){
                   Map<String, dynamic> itemDefinition = mapDefinitions[z];
-                  String definiton = itemDefinition['definition'].toString();
-                  debugPrint(definiton);
-                
+                  String definiton = itemDefinition['definition'].toString();                
                   String example ='';
 
                   if(itemDefinition.containsKey('example'))
                   {
                     example = itemDefinition['example'].toString();
-                    debugPrint(example);
                   }
 
                   Definition def = Definition(definitionId: (defId++).toString(), word: word, partOfSpeech: key, meaning: definiton, example: example);
 
                   listDefinitions[key]!.add(def);
                 
-
                 }
           }
       }
       debugPrint('kết thúc đau khổ');
-
-
-
 
     } else {
       print('có lỗi');
       print(response.reasonPhrase);
     }
     isLoading.value = false;
-
+    
+    //check listDefination
     listDefinitions.forEach((key, value) {
       print('$key: ');
       value.forEach((element) { print(element.meaning.toString());});
     });
   }
+
   Future<void> playAudio(String urlAudio) async {
     final duration = await player.setUrl(urlAudio);
       player.play();
       debugPrint('phát âm thanh');
   }
 
-  Future<void>getListMeanings() async {
+  //dịch nghĩa cho các definiotn
+  Future<void>translateToVN( String word) async {
 
+    
   }
 
 }
