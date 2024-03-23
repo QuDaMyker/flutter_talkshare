@@ -28,7 +28,6 @@ class HomeController extends GetxController {
 
   Future<String> translate(String value) async {
     var translation = await translator.translate(value, from: 'en', to: 'vi');
-
     return translation.text;
   }
 

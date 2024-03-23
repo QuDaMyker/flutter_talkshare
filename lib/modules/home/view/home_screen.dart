@@ -55,10 +55,13 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
+
             TypeAheadField<String>(
               suggestionsCallback: (search) async {
-                List<String> result = homeController.searchSuggest(search);
-                return result;
+                if (search != '') {
+                  List<String> result = homeController.searchSuggest(search);
+                  return result;
+                }
               },
               builder: (context, controller, focusNode) {
                 suggessController = controller;
@@ -66,11 +69,11 @@ class HomeScreen extends StatelessWidget {
                   controller: suggessController,
                   focusNode: focusNode,
                   autofocus: true,
-                  onChanged: (value) {
-                
-                  },
+                  onChanged: (value) {},
                   onSubmitted: (value) {
-                    
+                    homeController.showBottomSheet(context, value);
+                    homeController.textSearchController.clear();
+                    suggessController.clear();
                   },
                   decoration: InputDecoration(
                     isDense: true,
@@ -106,10 +109,24 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               itemBuilder: (context, value) {
-                
                 return ListTile(
                   title: Text(value),
-                  subtitle: Text(value),
+                  subtitle: FutureBuilder<String>(
+                    future: homeController.translate(
+                        value), // Gọi phương thức translate và trả về Future<String>
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return Text('') ;
+                      } else if (snapshot.hasError) {
+                        return Text(
+                            'Error: ${snapshot.error}'); 
+                      } else {
+                        return Text(
+                            snapshot.data ?? ''); 
+                      }
+                    },
+                  ),
                 );
               },
               onSelected: (value) {

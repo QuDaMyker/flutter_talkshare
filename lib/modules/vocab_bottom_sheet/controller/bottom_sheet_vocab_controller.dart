@@ -110,13 +110,7 @@ class BottomSheetVocabController extends GetxController {
               List<dynamic> mapDefinitions = mapMeanings[j]['definitions'];
                 for (int z = 0; z< mapDefinitions.length; z++){
                   Map<String, dynamic> itemDefinition = mapDefinitions[z];
-                  String definiton = itemDefinition['definition'].toString(); 
-                  debugPrint('Dịch chữ');
-                  var translation = await translator.translate(definiton, from: 'en',to: 'vi');
-                  debugPrint('Dịch $translation');
-                  definiton = translation.text;
-
-
+                  
                   String example ='';
 
                   if(itemDefinition.containsKey('example'))
@@ -124,10 +118,13 @@ class BottomSheetVocabController extends GetxController {
                     example = itemDefinition['example'].toString();
                   }
 
+                  String definiton = itemDefinition['definition'].toString(); 
+                  
+                  var translation = await translator.translate(definiton, from: 'en',to: 'vi');
+                  debugPrint('Dịch $translation');
+                  definiton = translation.text;
                   Definition def = Definition(definitionId: (defId++).toString(), word: word, partOfSpeech: key, meaning: definiton, example: example);
-
-                  listDefinitions[key]!.add(def);
-                
+                  listDefinitions[key]!.add(def);          
                 }
           }
       }
@@ -139,11 +136,11 @@ class BottomSheetVocabController extends GetxController {
     }
     isLoading.value = false;
     
-    //check listDefination
-    listDefinitions.forEach((key, value) {
-      print('$key: ');
-      value.forEach((element) { print(element.meaning.toString());});
-    });
+    // //check listDefination
+    // listDefinitions.forEach((key, value) {
+    //   print('$key: ');
+    //   value.forEach((element) { print(element.meaning.toString());});
+    // });
   }
 
   Future<void> playAudio(String urlAudio) async {
