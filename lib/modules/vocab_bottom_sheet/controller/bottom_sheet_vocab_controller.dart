@@ -2,7 +2,6 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_talkshare/core/models/definition.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
-import 'package:flutter_talkshare/modules/vocab_bottom_sheet/widgets/bottom_sheet.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:http/http.dart' as http;
@@ -112,7 +111,6 @@ class BottomSheetVocabController extends GetxController {
                 for (int z = 0; z< mapDefinitions.length; z++){
                   Map<String, dynamic> itemDefinition = mapDefinitions[z];
                   String definiton = itemDefinition['definition'].toString(); 
-
                   debugPrint('Dịch chữ');
                   var translation = await translator.translate(definiton, from: 'en',to: 'vi');
                   debugPrint('Dịch $translation');

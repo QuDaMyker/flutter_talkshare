@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
-import 'package:flutter_talkshare/modules/root_view/controller/search_Text_Controller.dart';
-import 'package:flutter_talkshare/modules/vocab_bottom_sheet/controller/bottom_sheet_vocab_controller.dart';
+import 'package:flutter_talkshare/modules/home/controller/home_controller.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'dart:math' as math;
 
 import 'package:get/get.dart';
@@ -22,11 +22,10 @@ class HomeScreen extends StatelessWidget {
     const Vocab(word: 'word', primaryMeaning: 'primaryMeaning')
   ];
 
-  final SearchTextController searchController = SearchTextController();
-  late final BottomSheetVocabController bottomSheetVocabController ;
-
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.put(HomeController());
+    late TextEditingController suggessController;
     return Stack(children: [
       Container(
         padding: EdgeInsets.fromLTRB(20, _appBarheight * 1.2, 20, 20),
@@ -56,49 +55,112 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-
-            TextField(
-              textInputAction: TextInputAction.search,
-              style:
-              const TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
-              onSubmitted: (value) {
-                searchController.showBottomSheet(context, value);
+            TypeAheadField<String>(
+              suggestionsCallback: (search) async {
+                List<String> result = homeController.searchSuggest(search);
+                return result;
               },
-              //onSubmitted: (value) => bottomSheetVocabController.getWord(value),
-              // onChanged: (vlaue) searchController.,
-              decoration: InputDecoration(
-                isDense: true,
-                isCollapsed: true,
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
-                ),
-                hintText: "Tra từ điển",
-                hintStyle: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.gray20,
-                    fontSize: 16.0),
-                contentPadding: const EdgeInsets.symmetric(vertical: 12),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SvgPicture.asset(ImageAssets.icSearch),
-                ),
-                prefixIconConstraints: const BoxConstraints(),
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    searchController.clear();
-                    print('đã xóa');
+              builder: (context, controller, focusNode) {
+                suggessController = controller;
+                return TextField(
+                  controller: suggessController,
+                  focusNode: focusNode,
+                  autofocus: true,
+                  onChanged: (value) {
+                
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: SvgPicture.asset(ImageAssets.icClose),
+                  onSubmitted: (value) {
+                    
+                  },
+                  decoration: InputDecoration(
+                    isDense: true,
+                    isCollapsed: true,
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: "Tra từ điển",
+                    hintStyle: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.gray20,
+                        fontSize: 16.0),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: SvgPicture.asset(ImageAssets.icSearch),
+                    ),
+                    prefixIconConstraints: const BoxConstraints(),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        controller.clear();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: SvgPicture.asset(ImageAssets.icClose),
+                      ),
+                    ),
+                    suffixIconConstraints: const BoxConstraints(),
                   ),
-                ),
-                suffixIconConstraints: const BoxConstraints(),
-              ),
+                );
+              },
+              itemBuilder: (context, value) {
+                
+                return ListTile(
+                  title: Text(value),
+                  subtitle: Text(value),
+                );
+              },
+              onSelected: (value) {
+                homeController.showBottomSheet(context, value);
+                homeController.textSearchController.clear();
+                suggessController.clear();
+              },
             ),
+            // TextField(
+            //   controller: homeController.textSearchController,
+            //   textInputAction: TextInputAction.search,
+            //   style:
+            //       const TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
+            //   onSubmitted: (value) {
+            //     homeController.showBottomSheet(context, value);
+            //     homeController.textSearchController.clear();
+            //   },
+
+            //   // onChanged: (vlaue) searchController.,
+            //   decoration: InputDecoration(
+            //     isDense: true,
+            //     isCollapsed: true,
+            //     filled: true,
+            //     fillColor: Colors.white,
+            //     border: OutlineInputBorder(
+            //       borderRadius: BorderRadius.circular(12),
+            //       borderSide: BorderSide.none,
+            //     ),
+            //     hintText: "Tra từ điển",
+            //     hintStyle: const TextStyle(
+            //         fontWeight: FontWeight.w600,
+            //         color: AppColors.gray20,
+            //         fontSize: 16.0),
+            //     contentPadding: const EdgeInsets.symmetric(vertical: 12),
+            //     prefixIcon: Padding(
+            //       padding: const EdgeInsets.symmetric(horizontal: 16),
+            //       child: SvgPicture.asset(ImageAssets.icSearch),
+            //     ),
+            //     prefixIconConstraints: const BoxConstraints(),
+            //     suffixIcon: GestureDetector(
+            //       onTap: () {
+            //         homeController.textSearchController.clear();
+            //       },
+            //       child: Padding(
+            //         padding: const EdgeInsets.symmetric(horizontal: 16),
+            //         child: SvgPicture.asset(ImageAssets.icClose),
+            //       ),
+            //     ),
+            //     suffixIconConstraints: const BoxConstraints(),
+            //   ),
+            // ),
             const SizedBox(
               height: 20,
             ),
@@ -208,10 +270,11 @@ class HomeScreen extends StatelessWidget {
                           child: sourceItem(
                               "Bài nghe", ImageAssets.icHeadphone, () {})),
                       Expanded(
-                          child:
-                              sourceItem("Đọc sách", ImageAssets.icBook, () {})),
+                          child: sourceItem(
+                              "Đọc sách", ImageAssets.icBook, () {})),
                       Expanded(
-                          child: sourceItem("Video", ImageAssets.icVideo, () {})),
+                          child:
+                              sourceItem("Video", ImageAssets.icVideo, () {})),
                       Expanded(
                           child: sourceItem(
                               "Ngữ pháp", ImageAssets.icGrammar, () {}))
