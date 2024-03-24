@@ -2,9 +2,12 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_talkshare/core/models/definition.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
+import 'package:flutter_talkshare/modules/vocab/services/vocab_services.dart';
+import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:translator_plus/translator_plus.dart';
 
 class BottomSheetVocabController extends GetxController {
@@ -34,7 +37,8 @@ class BottomSheetVocabController extends GetxController {
   Future<void> getWord(String word) async {
 
     String search  = word.toLowerCase();
-    print('bắt đầu lấy nghĩa của ' + search);
+    
+    debugPrint('bắt đầu lấy nghĩa của $search');
 
     isLoading.value = true;
 
@@ -58,9 +62,9 @@ class BottomSheetVocabController extends GetxController {
       // data.value = item['meanings'][0]['definitions'][0]['example'];
       // List<dynamic> meanings = item['meanings'];
 
-      String primaryMeaning =
+      String temp =
           item['meanings'][0]['definitions'][0]['definition'];
-
+      String primaryMeaning = await tranlateToVN(temp);
       //lấy Vocab
       String phonetic = '';
       String audioUrl = '';
@@ -78,7 +82,6 @@ class BottomSheetVocabController extends GetxController {
             audioUrl = itemPhonetic['audio'];
             debugPrint(phonetic);
             debugPrint(audioUrl);
-            dynamic duration = await player.setUrl(audioUrl);
             break;
           }
         }
@@ -93,7 +96,9 @@ class BottomSheetVocabController extends GetxController {
         phonetic: phonetic,
         audioUrl: audioUrl,
       );
+    debugPrint('bắt đầu lưu');
 
+    await saveWordToHistory(searchedVocab);
       //lấy definitions 
       for (int i =0; i<body.length; i++){
           int defId = 0;
@@ -143,10 +148,18 @@ class BottomSheetVocabController extends GetxController {
     // });
   }
 
+  Future<String> tranlateToVN(String word) async{
+    var translation = await translator.translate(word, from: 'en',to: 'vi');
+    return translation.text;
+  }
+
   Future<void> playAudio(String urlAudio) async {
     final duration = await player.setUrl(urlAudio);
       player.play();
       debugPrint('phát âm thanh');
   }
 
+  Future<void> saveWordToHistory(Vocab word) async{
+      await SupabaseService.instance.saveVocabToSharedPreferences(word);
+  }
 }

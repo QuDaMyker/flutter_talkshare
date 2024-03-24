@@ -2,9 +2,12 @@ import 'package:autocorrect_and_autocomplete_engine/autocorrect_and_autocomplete
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/values/word_list.dart';
+import 'package:flutter_talkshare/modules/vocab/services/vocab_services.dart';
 import 'package:flutter_talkshare/modules/vocab_bottom_sheet/controller/bottom_sheet_vocab_controller.dart';
 import 'package:flutter_talkshare/modules/vocab_bottom_sheet/widgets/bottom_sheet.dart';
+import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:translator_plus/translator_plus.dart';
 
 class HomeController extends GetxController {
@@ -13,11 +16,26 @@ class HomeController extends GetxController {
   List<String> suggestList = WordList.en;
   late TrieEngine trieEngine;
   late GoogleTranslator translator;
+  late List<String> recentSharedVocab ;
   @override
-  void onInit() {
+  Future<void> onInit() async {
+
+    recentSharedVocab =[];
     translator = GoogleTranslator();
     textSearchController = TextEditingController();
     trieEngine = TrieEngine(src: suggestList);
+
+    await SupabaseService.instance.removeAllHistory();
+    
+    Set<String> temp = await SupabaseService.instance.getAllKeysHistory();
+    for (String item in temp){
+      debugPrint(item);
+    }
+    recentSharedVocab = temp.toList();
+
+    debugPrint('lây history');
+    debugPrint(recentSharedVocab.length.toString());
+
     super.onInit();
   }
 
@@ -25,6 +43,7 @@ class HomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
+  
 
   Future<String> translate(String value) async {
     var translation = await translator.translate(value, from: 'en', to: 'vi');
@@ -33,7 +52,6 @@ class HomeController extends GetxController {
 
   List<String> searchSuggest(String value) {
     List<String> result = trieEngine.autoCompleteSuggestions(value);
-    print(result); // [mar, marathon, marble, marc, march, ...]
     return result;
   }
 
