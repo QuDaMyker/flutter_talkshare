@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:translator_plus/translator_plus.dart';
 
 pickImage(ImageSource source) async {
   final ImagePicker imagePicker = ImagePicker();
@@ -19,4 +20,10 @@ showSnackBar(String content, BuildContext context) {
       content: Text(content),
     ),
   );
+}
+
+Future<String> tranlateToVN(String word) async {
+  final translator = GoogleTranslator();
+  var translation = await translator.translate(word, from: 'en', to: 'vi');
+  return translation.text;
 }
