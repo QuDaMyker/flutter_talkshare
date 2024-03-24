@@ -1,6 +1,7 @@
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+
 
 class VocabService {
+  
   Future<List<Map<String, dynamic>>> getVocabSavedScrollable() async {
     List<Map<String, dynamic>> result = [];
     try {} catch (e) {}
@@ -18,4 +19,6 @@ class VocabService {
     try {} catch (e) {}
     return result;
   }
+
+
 }

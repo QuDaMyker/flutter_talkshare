@@ -3,6 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/home/controller/home_controller.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'dart:math' as math;
 
 import 'package:get/get.dart';
@@ -22,6 +24,8 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final HomeController homeController = Get.put(HomeController());
+    late TextEditingController suggessController;
     return Stack(children: [
       Container(
         padding: EdgeInsets.fromLTRB(20, _appBarheight * 1.2, 20, 20),
@@ -51,44 +55,87 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-            TextField(
-              textInputAction: TextInputAction.search,
-              style:
-                  const TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
-              // controller: controller.searchTextController,
-              // onChanged: controller.onChangeSearchText,
-              decoration: InputDecoration(
-                isDense: true,
-                isCollapsed: true,
-                filled: true,
-                fillColor: Colors.white,
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(12),
-                  borderSide: BorderSide.none,
-                ),
-                hintText: "Tra từ điển",
-                hintStyle: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.gray20,
-                    fontSize: 16.0),
-                contentPadding: const EdgeInsets.symmetric(vertical: 12),
-                prefixIcon: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SvgPicture.asset(ImageAssets.icSearch),
-                ),
-                prefixIconConstraints: const BoxConstraints(),
-                suffixIcon: GestureDetector(
-                  onTap: () {
-                    // controller.clearSearchText();
+
+            TypeAheadField<String>(
+              suggestionsCallback: (search) async {
+                if (search != '') {
+                  List<String> result = homeController.searchSuggest(search);
+                  return result;
+                }
+              },
+              builder: (context, controller, focusNode) {
+                suggessController = controller;
+                return TextField(
+                  controller: suggessController,
+                  focusNode: focusNode,
+                  autofocus: true,
+                  onChanged: (value) {},
+                  onSubmitted: (value) {
+                    homeController.showBottomSheet(context, value);
+                    homeController.textSearchController.clear();
+                    suggessController.clear();
                   },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: SvgPicture.asset(ImageAssets.icClose),
+                  decoration: InputDecoration(
+                    isDense: true,
+                    isCollapsed: true,
+                    filled: true,
+                    fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(12),
+                      borderSide: BorderSide.none,
+                    ),
+                    hintText: "Tra từ điển",
+                    hintStyle: const TextStyle(
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.gray20,
+                        fontSize: 16.0),
+                    contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 16),
+                      child: SvgPicture.asset(ImageAssets.icSearch),
+                    ),
+                    prefixIconConstraints: const BoxConstraints(),
+                    suffixIcon: GestureDetector(
+                      onTap: () {
+                        controller.clear();
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 16),
+                        child: SvgPicture.asset(ImageAssets.icClose),
+                      ),
+                    ),
+                    suffixIconConstraints: const BoxConstraints(),
                   ),
-                ),
-                suffixIconConstraints: const BoxConstraints(),
-              ),
+                );
+              },
+              itemBuilder: (context, value) {
+                return ListTile(
+                  title: Text(value),
+                  subtitle: FutureBuilder<String>(
+                    future: homeController.translate(
+                        value), // Gọi phương thức translate và trả về Future<String>
+                    builder:
+                        (BuildContext context, AsyncSnapshot<String> snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Text('') ;
+                      } else if (snapshot.hasError) {
+                        return Text(
+                            'Error: ${snapshot.error}'); 
+                      } else {
+                        return Text(
+                            snapshot.data ?? ''); 
+                      }
+                    },
+                  ),
+                );
+              },
+              onSelected: (value) {
+                homeController.showBottomSheet(context, value);
+                homeController.textSearchController.clear();
+                suggessController.clear();
+              },
             ),
+
             const SizedBox(
               height: 20,
             ),
@@ -97,18 +144,19 @@ class HomeScreen extends StatelessWidget {
                   minHeight: 36.0,
                   maxHeight: 36.0,
                 ),
-                child: ListView.separated(
+                child: homeController.recentSharedVocab.isEmpty ? Container() : ListView.separated(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
                   itemCount: listVocab.length,
                   itemBuilder: (context, index) =>
-                      recentVocabItem(listVocab[index]),
+                      recentVocabItem(homeController.recentSharedVocab[index]),
                   separatorBuilder: (BuildContext context, int index) {
                     return const SizedBox(
                       width: 8,
                     );
                   },
-                ))
+                )
+                )
           ],
         ),
       ),
@@ -198,10 +246,11 @@ class HomeScreen extends StatelessWidget {
                           child: sourceItem(
                               "Bài nghe", ImageAssets.icHeadphone, () {})),
                       Expanded(
-                          child:
-                              sourceItem("Đọc sách", ImageAssets.icBook, () {})),
+                          child: sourceItem(
+                              "Đọc sách", ImageAssets.icBook, () {})),
                       Expanded(
-                          child: sourceItem("Video", ImageAssets.icVideo, () {})),
+                          child:
+                              sourceItem("Video", ImageAssets.icVideo, () {})),
                       Expanded(
                           child: sourceItem(
                               "Ngữ pháp", ImageAssets.icGrammar, () {}))
@@ -300,13 +349,13 @@ class HomeScreen extends StatelessWidget {
     ]);
   }
 
-  Widget recentVocabItem(Vocab vocab) {
+  Widget recentVocabItem(String vocab) {
     return Container(
       decoration: BoxDecoration(
           color: Colors.white, borderRadius: BorderRadius.circular(12)),
       padding: const EdgeInsets.all(8),
       child: Text(
-        vocab.word,
+        vocab,
         style: const TextStyle(
             color: AppColors.primary40,
             fontWeight: FontWeight.w600,
