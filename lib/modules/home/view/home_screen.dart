@@ -4,6 +4,7 @@ import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/home/controller/home_controller.dart';
+import 'package:flutter_talkshare/modules/home/widgets/item_recent_word.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'dart:math' as math;
 
@@ -55,7 +56,6 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-
             TypeAheadField<String>(
               suggestionsCallback: (search) async {
                 if (search != '') {
@@ -117,13 +117,11 @@ class HomeScreen extends StatelessWidget {
                     builder:
                         (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
-                        return const Text('') ;
+                        return const Text('');
                       } else if (snapshot.hasError) {
-                        return Text(
-                            'Error: ${snapshot.error}'); 
+                        return Text('Error: ${snapshot.error}');
                       } else {
-                        return Text(
-                            snapshot.data ?? ''); 
+                        return Text(snapshot.data ?? '');
                       }
                     },
                   ),
@@ -135,7 +133,6 @@ class HomeScreen extends StatelessWidget {
                 suggessController.clear();
               },
             ),
-
             const SizedBox(
               height: 20,
             ),
@@ -144,19 +141,30 @@ class HomeScreen extends StatelessWidget {
                   minHeight: 36.0,
                   maxHeight: 36.0,
                 ),
-                child: homeController.recentSharedVocab.isEmpty ? Container() : ListView.separated(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: listVocab.length,
-                  itemBuilder: (context, index) =>
-                      recentVocabItem(homeController.recentSharedVocab[index]),
-                  separatorBuilder: (BuildContext context, int index) {
-                    return const SizedBox(
-                      width: 8,
-                    );
-                  },
-                )
-                )
+                child: Obx(
+                  () => homeController.recentSharedVocab.isEmpty
+                      ? Container()
+                      : ListView.separated(
+                          shrinkWrap: true,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: homeController.recentSharedVocab.length,
+                          itemBuilder: (context, index) {
+                            return GestureDetector(
+                              child: ItemRecentWord(
+                                vocab: homeController.recentSharedVocab[index],
+                              ),
+                              onTap: () => homeController.showBottomSheet(
+                                  context,
+                                  homeController.recentSharedVocab[index]),
+                            );
+                          },
+                          separatorBuilder: (BuildContext context, int index) {
+                            return const SizedBox(
+                              width: 8,
+                            );
+                          },
+                        ),
+                )),
           ],
         ),
       ),
@@ -347,21 +355,6 @@ class HomeScreen extends StatelessWidget {
             ),
           ))
     ]);
-  }
-
-  Widget recentVocabItem(String vocab) {
-    return Container(
-      decoration: BoxDecoration(
-          color: Colors.white, borderRadius: BorderRadius.circular(12)),
-      padding: const EdgeInsets.all(8),
-      child: Text(
-        vocab,
-        style: const TextStyle(
-            color: AppColors.primary40,
-            fontWeight: FontWeight.w600,
-            fontSize: 14),
-      ),
-    );
   }
 
   Widget sourceItem(String title, String icon, Function onPress) {

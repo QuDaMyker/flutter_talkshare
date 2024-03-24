@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:autocorrect_and_autocomplete_engine/autocorrect_and_autocomplete_engine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -16,25 +18,22 @@ class HomeController extends GetxController {
   List<String> suggestList = WordList.en;
   late TrieEngine trieEngine;
   late GoogleTranslator translator;
-  late List<String> recentSharedVocab ;
+  RxList<String> recentSharedVocab = <String>[].obs;
   @override
   Future<void> onInit() async {
-
-    recentSharedVocab =[];
+    //recentSharedVocab.value = [];
     translator = GoogleTranslator();
     textSearchController = TextEditingController();
     trieEngine = TrieEngine(src: suggestList);
 
-    await SupabaseService.instance.removeAllHistory();
-    
-    Set<String> temp = await SupabaseService.instance.getAllKeysHistory();
-    for (String item in temp){
+    //ds đẫ search
+    recentSharedVocab.value =
+        (await SupabaseService.instance.getSharedHistory())!;
+    debugPrint('lây history${recentSharedVocab.length}');
+
+    for (String item in recentSharedVocab) {
       debugPrint(item);
     }
-    recentSharedVocab = temp.toList();
-
-    debugPrint('lây history');
-    debugPrint(recentSharedVocab.length.toString());
 
     super.onInit();
   }
@@ -43,7 +42,6 @@ class HomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
-  
 
   Future<String> translate(String value) async {
     var translation = await translator.translate(value, from: 'en', to: 'vi');
@@ -55,13 +53,18 @@ class HomeController extends GetxController {
     return result;
   }
 
-  void showBottomSheet(BuildContext context, String vocab) {
+  Future<void> showBottomSheet(BuildContext context, String vocab) async {
     if (vocab.isNotEmpty) {
       showModalBottomSheet(
         context: context,
         builder: (context) => BottomSheetVocab(word: vocab),
-      ).whenComplete(() {
+      ).whenComplete(() async {
         debugPrint('whenComplete');
+
+       recentSharedVocab.value =
+        (await SupabaseService.instance.getSharedHistory())!;
+        debugPrint('history: ${recentSharedVocab.length}');
+
         Get.delete<BottomSheetVocabController>();
       });
     }

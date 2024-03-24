@@ -11,32 +11,27 @@ extension VocabService on SupabaseService {
     return vocab;
   }
     //cho phép lưu dưới 10 từ
-    Future<void> saveVocabToSharedPreferences(Vocab vocab) async {
+    Future<void> saveVocabToSharedPreferences(String vocab) async {
       final SharedPreferences prefs = await SharedPreferences.getInstance();
-      if(vocab.word.isNotEmpty){
-        if(!prefs.containsKey(vocab.word)){
-          Set<String> history = prefs.getKeys();
-          if(history.length >=10){
-            String firstKey = prefs.getKeys().first;
-            prefs.remove(firstKey);
-          }
-          await prefs.setString(vocab.word, vocab.primaryMeaning);
+
+      List<String>? history = await getSharedHistory();
+
+      if(!(history!.contains(vocab))){
+        if(history.length == 10){
+          history.removeLast();
         }
+        history = [vocab, ...history];
+        prefs.setStringList('history', history);
+        
+        debugPrint('vocabService: đã lưu xong');
       }
+
     }
 
-  Future<void> getSharedHistory() async {
+  Future<List<String>?> getSharedHistory() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    Set<String> keys = prefs.getKeys();
-    for (String item in keys){
-      debugPrint(item);
-    }
-  }
+    return prefs.getStringList('history')?? [];
 
-   Future<Set<String>> getAllKeysHistory() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    Set<String> keys = prefs.getKeys();
-    return keys;
   }
 
   Future<void> removeAllHistory() async {

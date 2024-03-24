@@ -2,12 +2,10 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_talkshare/core/models/definition.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
-import 'package:flutter_talkshare/modules/vocab/services/vocab_services.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 import 'package:http/http.dart' as http;
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:translator_plus/translator_plus.dart';
 
 class BottomSheetVocabController extends GetxController {
@@ -17,7 +15,8 @@ class BottomSheetVocabController extends GetxController {
   final translator = GoogleTranslator();
   final player = AudioPlayer();
   var isLoading = Rx<bool>(false);
-  late Vocab searchedVocab;
+  var isNotFound = Rx<bool>(false);
+  var searchedVocab;
   Map<String, List<Definition>> listDefinitions ={};
 
   @override
@@ -99,6 +98,8 @@ class BottomSheetVocabController extends GetxController {
     debugPrint('bắt đầu lưu');
 
     await saveWordToHistory(searchedVocab);
+    
+
       //lấy definitions 
       for (int i =0; i<body.length; i++){
           int defId = 0;
@@ -124,7 +125,7 @@ class BottomSheetVocabController extends GetxController {
                   }
 
                   String definiton = itemDefinition['definition'].toString(); 
-                  
+                 
                   var translation = await translator.translate(definiton, from: 'en',to: 'vi');
                   debugPrint('Dịch $translation');
                   definiton = translation.text;
@@ -136,16 +137,11 @@ class BottomSheetVocabController extends GetxController {
       debugPrint('kết thúc đau khổ');
 
     } else {
+      isNotFound.value = true;
       print('có lỗi');
       print(response.reasonPhrase);
     }
     isLoading.value = false;
-    
-    // //check listDefination
-    // listDefinitions.forEach((key, value) {
-    //   print('$key: ');
-    //   value.forEach((element) { print(element.meaning.toString());});
-    // });
   }
 
   Future<String> tranlateToVN(String word) async{
@@ -160,6 +156,6 @@ class BottomSheetVocabController extends GetxController {
   }
 
   Future<void> saveWordToHistory(Vocab word) async{
-      await SupabaseService.instance.saveVocabToSharedPreferences(word);
+      await SupabaseService.instance.saveVocabToSharedPreferences(word.word);
   }
 }
