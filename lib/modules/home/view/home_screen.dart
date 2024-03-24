@@ -3,8 +3,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/create_new_list_vocab/view/creare_new%20_list_vocab_screen.dart';
 import 'package:flutter_talkshare/modules/home/controller/home_controller.dart';
-import 'package:flutter_talkshare/modules/vocab/views/vocab_screen.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'dart:math' as math;
 
@@ -56,7 +56,6 @@ class HomeScreen extends StatelessWidget {
             const SizedBox(
               height: 20,
             ),
-
             TypeAheadField<String>(
               suggestionsCallback: (search) async {
                 if (search != '') {
@@ -134,7 +133,6 @@ class HomeScreen extends StatelessWidget {
                 suggessController.clear();
               },
             ),
-
             const SizedBox(
               height: 20,
             ),
@@ -208,7 +206,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(VocabScreen());
+                                Get.to(CreateNewListVocabScreen());
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
