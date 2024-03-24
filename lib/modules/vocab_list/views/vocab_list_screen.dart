@@ -4,7 +4,7 @@ import 'package:flutter_talkshare/modules/vocab_list/controllers/vocab_list_scre
 import 'package:flutter_talkshare/modules/vocab_list/widgets/item_vocab_list.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:lottie/lottie.dart';
+// import 'package:lottie/lottie.dart';
 
 class VocabListScreen extends StatelessWidget {
   const VocabListScreen({super.key, required this.nameOfCollection});

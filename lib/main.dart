@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_talkshare/modules/irregular_verbs/view/irregular_verbs_screen.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
@@ -8,8 +9,8 @@ import 'package:get/get.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: '.env');
-  await SupabaseService.instance.init();
+    await dotenv.load(fileName: '.env');
+    await SupabaseService.instance.init();
 
   //test supabase
   Vocab vocab =
@@ -34,7 +35,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const VocabListFolder(nameOfFolder: 'name folder'),
+      home: const IrregulerVerbs(),
     );
   }
 }
