@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/create_new_list_vocab/view/creare_new%20_list_vocab_screen.dart';
 import 'package:flutter_talkshare/modules/home/controller/home_controller.dart';
 import 'package:flutter_talkshare/modules/home/widgets/item_recent_word.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
@@ -118,9 +119,12 @@ class HomeScreen extends StatelessWidget {
                         (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Text('');
+                        return const Text('');
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
+                        return Text('Error: ${snapshot.error}');
                       } else {
+                        return Text(snapshot.data ?? '');
                         return Text(snapshot.data ?? '');
                       }
                     },
@@ -215,6 +219,9 @@ class HomeScreen extends StatelessWidget {
                               height: 12,
                             ),
                             InkWell(
+                              onTap: () {
+                                Get.to(CreateNewListVocabScreen());
+                              },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
                                     vertical: 8, horizontal: 16),
