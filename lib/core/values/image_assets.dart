@@ -37,4 +37,5 @@ abstract class ImageAssets {
   static const bgHome = 'assets/images/png/bg_home.png';
   static const imageFish = 'assets/images/png/image_fish.png';
   static const icEditThin = 'assets/images/svg/ic_edit_thin.svg';
+  static const icFolder2 = 'assets/images/svg/ic_folder_2.svg';
 }

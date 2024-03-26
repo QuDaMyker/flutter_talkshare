@@ -19,6 +19,7 @@ class AppColors {
   ];
   static const backgroundGradient = [
     Color(0xFFffffff),
-    Color(0xFFeeeeee),
+    Color(0xFFffffff),
+    Color(0xFFE8E8E8),
   ];
 }

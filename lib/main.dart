@@ -13,13 +13,6 @@ void main() async {
   await dotenv.load(fileName: '.env');
   await SupabaseService.instance.init();
 
-  //test supabase
-  Vocab vocab =
-      await SupabaseService.instance.getVocabByWord('trace').then((value) {
-    print("${value.word}: ${value.primaryMeaning}");
-    return value;
-  });
-
   runApp(const MyApp());
 }
 
@@ -36,7 +29,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const VocabListFolder(nameOfFolder: 'name folder'),
+      home: RootViewScreen(),
     );
   }
 }
