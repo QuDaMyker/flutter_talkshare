@@ -6,6 +6,10 @@ import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/create_new_list_vocab/view/creare_new%20_list_vocab_screen.dart';
 import 'package:flutter_talkshare/modules/home/controller/home_controller.dart';
 import 'package:flutter_talkshare/modules/home/widgets/item_recent_word.dart';
+import 'package:flutter_talkshare/modules/vocab/views/vocab_screen.dart';
+import 'package:flutter_talkshare/modules/vocab_folder/views/vocab_folder.dart';
+import 'package:flutter_talkshare/modules/vocab_list/views/vocab_list_screen.dart';
+import 'package:flutter_talkshare/modules/vocab_list_detail/views/vocab_list_detail.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'dart:math' as math;
 
@@ -69,7 +73,6 @@ class HomeScreen extends StatelessWidget {
                 return TextField(
                   controller: suggessController,
                   focusNode: focusNode,
-                  autofocus: true,
                   onChanged: (value) {},
                   onSubmitted: (value) {
                     homeController.showBottomSheet(context, value);
@@ -119,12 +122,9 @@ class HomeScreen extends StatelessWidget {
                         (BuildContext context, AsyncSnapshot<String> snapshot) {
                       if (snapshot.connectionState == ConnectionState.waiting) {
                         return const Text('');
-                        return const Text('');
                       } else if (snapshot.hasError) {
                         return Text('Error: ${snapshot.error}');
-                        return Text('Error: ${snapshot.error}');
                       } else {
-                        return Text(snapshot.data ?? '');
                         return Text(snapshot.data ?? '');
                       }
                     },
@@ -220,7 +220,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(CreateNewListVocabScreen());
+                                Get.to(VocabListDetailScreen());
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(

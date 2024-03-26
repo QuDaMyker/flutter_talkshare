@@ -458,7 +458,7 @@ class VocabListDetailScreen extends StatelessWidget {
         value: (controller.currentIndexCard.value + 1) /
             controller.listVocab.value.length,
         enableBounceAnimation: true,
-        waveColor: Colors.orange,
+        waveColor: AppColors.primary40,
         backgroundColor: Colors.grey[150],
         minHeight: 10,
       ),

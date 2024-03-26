@@ -130,7 +130,8 @@ class BottomSheetVocab extends StatelessWidget {
                                       child:
                                           SvgPicture.asset(ImageAssets.icClose),
                                       onTap: () {
-                                        controller.onClose();
+                                        // controller.onClose();
+                                        Get.back();
                                       }),
                                 ],
                               ),
@@ -159,6 +160,7 @@ class BottomSheetVocab extends StatelessWidget {
                       ),
                     ),
                   );
+            //hiển thị definitons
           }
         },
       ),

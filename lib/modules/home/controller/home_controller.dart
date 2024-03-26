@@ -63,8 +63,8 @@ class HomeController extends GetxController {
       ).whenComplete(() async {
         debugPrint('whenComplete');
 
-       recentSharedVocab.value =
-        (await SupabaseService.instance.getSearchedHistory())!;
+        recentSharedVocab.value =
+            (await SupabaseService.instance.getSearchedHistory());
         //debugPrint('history: ${recentSharedVocab.length}');
 
         Get.delete<BottomSheetVocabController>();

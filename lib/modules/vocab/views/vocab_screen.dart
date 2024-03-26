@@ -111,7 +111,7 @@ class VocabScreen extends StatelessWidget {
           child: Obx(
             () => controller.isLoading.value
                 ? _buildLoading()
-                : controller.listVocabCollection.value.isEmpty
+                : controller.listVocabCollection.value.isNotEmpty
                     ? SizedBox(
                         width: deviceWidth * 0.5,
                         height: deviceWidth * 0.5,
@@ -249,7 +249,7 @@ class VocabScreen extends StatelessWidget {
         'Kho từ',
         style: TextStyle(
           fontWeight: FontWeight.w700,
-          fontSize: 30,
+          fontSize: 20,
         ),
       ),
     );
