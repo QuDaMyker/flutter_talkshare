@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/vocab_list/controllers/vocab_list_screen_controller.dart';
 import 'package:flutter_talkshare/modules/vocab_list/widgets/item_vocab_list.dart';
@@ -138,7 +139,9 @@ class VocabListScreen extends StatelessWidget {
           fontWeight: FontWeight.w700,
           fontSize: 22,
         ),
+       
       ),
+      
     );
   }
 }

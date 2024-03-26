@@ -4,8 +4,6 @@ import 'package:flutter_talkshare/modules/game/view/game_screen.dart';
 import 'package:flutter_talkshare/modules/home/view/home_screen.dart';
 import 'package:flutter_talkshare/modules/homework/view/homework_screen.dart';
 import 'package:flutter_talkshare/modules/profile/view/profile_screen.dart';
-import 'package:flutter_talkshare/modules/vocab/views/vocab_screen.dart';
-import 'package:flutter_talkshare/modules/vocab_list/views/vocab_list_screen.dart';
 import 'package:get/get.dart';
 
 class RootViewController extends GetxController {
@@ -15,10 +13,8 @@ class RootViewController extends GetxController {
   var isReadList = Rx<List<String>>([]);
   final text = TextEditingController();
 
-  final screens = const [
-    VocabListScreen(nameOfCollection: 'Báo cáo tài chính'),
-    //VocabFolderScreen(nameOfFolder: '600 Từ TOEIC'),
-    //HomeScreen(),
+  final screens =  [
+    HomeScreen(),
     CommnityScreen(),
     HomeworkScreen(),
     GameScreen(),
@@ -27,7 +23,7 @@ class RootViewController extends GetxController {
 
   @override
   void onInit() {
-    Get.lazyPut(() => const HomeScreen());
+    Get.lazyPut(() =>  HomeScreen());
     Get.lazyPut(() => const CommnityScreen());
     Get.lazyPut(() => const HomeworkScreen());
     Get.lazyPut(() => const GameScreen());
