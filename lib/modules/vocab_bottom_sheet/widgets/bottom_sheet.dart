@@ -9,6 +9,7 @@ import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/vocab_bottom_sheet/controller/bottom_sheet_vocab_controller.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:lottie/lottie.dart';
 
 class BottomSheetVocab extends StatelessWidget {
   const BottomSheetVocab({super.key, required this.word});
@@ -21,108 +22,146 @@ class BottomSheetVocab extends StatelessWidget {
     final BottomSheetVocabController controller =
         Get.put(BottomSheetVocabController(word: word));
 
-    return Obx(
-      () {
-        if (controller.isLoading.value) {
-          return const Center(
-            child: CircularProgressIndicator(),
-          );
-        } else {
-          return Container(
-            decoration: const BoxDecoration(
-              borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(20),
-                topRight: Radius.circular(20),
-              ),
-            ),
-            width: deviceWidth,
-            height: deviceHeight * 0.45,
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: deviceWidth * 0.05,
-                vertical: deviceHeight * 0.02,
-              ),
-              child: Column(
-                //cột tônger
-                mainAxisSize: MainAxisSize.max,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  //Row cho vocab
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            controller.searchedVocab.word,
-                            style: const TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w800,
-                            ),
-                          ),
-                          Text(
-                            controller.searchedVocab.phonetic.toString(),
-                            style: GoogleFonts.voces(),
-                            // style: const TextStyle(
-                            //   fontSize: 16,
-                            //   fontWeight: FontWeight.w400,
-                            //   color: AppColors.gray20,
-                            // ),
-                          ),
-                        ],
+    return Container(
+      width: deviceWidth,
+      child: Obx(
+        () {
+          if (controller.isLoading.value) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else {
+            return controller.isNotFound.value
+                ? Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
                       ),
-                      Row(
+                    ),
+                    width: deviceWidth,
+                    height: deviceHeight * 0.45,
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          width: deviceWidth * 0.7,
+                          height: deviceWidth * 0.7,
+                          child: Lottie.asset(
+                              'assets/images/lottie/ic_nodata2.json'),
+                        ),
+                        const Text('Không tìm thấy từ bạn cần'),
+                        ElevatedButton(
+                          onPressed: () {
+                            Get.back();
+                          },
+                          child: const Text('Thử lại'),
+                        ),
+                      ],
+                    ),
+                  )
+                : Container(
+                    decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(20),
+                        topRight: Radius.circular(20),
+                      ),
+                    ),
+                    width: deviceWidth,
+                    height: deviceHeight * 0.45,
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(
+                        horizontal: deviceWidth * 0.05,
+                        vertical: deviceHeight * 0.02,
+                      ),
+                      child: Column(
+                        //cột tônger
                         mainAxisSize: MainAxisSize.max,
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          InkWell(
-                            child: SvgPicture.asset(
-                              ImageAssets.icSave,
-                              width: 24,
-                              height: 24,
-                            ),
-                            onTap: () {},
+                          //Row cho vocab
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(
+                                    controller.searchedVocab.word,
+                                    style: const TextStyle(
+                                      fontSize: 18,
+                                      fontWeight: FontWeight.w800,
+                                    ),
+                                  ),
+                                  Text(
+                                    controller.searchedVocab.phonetic
+                                        .toString(),
+                                    style: GoogleFonts.voces(),
+                                    // style: const TextStyle(
+                                    //   fontSize: 16,
+                                    //   fontWeight: FontWeight.w400,
+                                    //   color: AppColors.gray20,
+                                    // ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  InkWell(
+                                    child: SvgPicture.asset(
+                                      ImageAssets.icSave,
+                                      width: 24,
+                                      height: 24,
+                                    ),
+                                    onTap: () {},
+                                  ),
+                                  const SizedBox(width: 15),
+                                  InkWell(
+                                      child: SvgPicture.asset(
+                                          ImageAssets.icSpeaker),
+                                      onTap: () async {
+                                        controller.playAudio(controller
+                                            .searchedVocab.audioUrl
+                                            .toString());
+                                      }),
+                                  const SizedBox(width: 15),
+                                  InkWell(
+                                      child:
+                                          SvgPicture.asset(ImageAssets.icClose),
+                                      onTap: () {
+                                        controller.onClose();
+                                      }),
+                                ],
+                              ),
+                            ],
                           ),
-                          const SizedBox(width: 15),
-                          InkWell(
-                              child: SvgPicture.asset(ImageAssets.icSpeaker),
-                              onTap: () async {
-                                controller.playAudio(controller
-                                    .searchedVocab.audioUrl
-                                    .toString());
-                              }),
-                          const SizedBox(width: 15),
-                          InkWell(
-                              child: SvgPicture.asset(ImageAssets.icClose),
-                              onTap: () { controller.onClose();}),
+                          //hiển thị definitons
+                          SizedBox(
+                            height: deviceHeight * 0.35,
+                            child: Padding(
+                              padding: const EdgeInsets.only(top: 16.0),
+                              child: ListView.builder(
+                                  itemCount: controller.listDefinitions.length,
+                                  itemBuilder: (context, index) {
+                                    String partOfSpeech = controller
+                                        .listDefinitions.keys
+                                        .elementAt(index);
+                                    List<Definition> listDef = controller
+                                        .listDefinitions[partOfSpeech]!;
+                                    return ItemPartOfSpeech(
+                                        listDef: listDef,
+                                        partOfSpeech: partOfSpeech);
+                                  }),
+                            ),
+                          ),
                         ],
                       ),
-                    ],
-                  ),
-                  //hiển thị definitons
-                  SizedBox(
-                    height: deviceHeight * 0.35,
-                    child: Padding(
-                      padding: const EdgeInsets.only(top: 16.0),
-                      child: ListView.builder(
-                          itemCount: controller.listDefinitions.length,
-                          itemBuilder: (context, index) {
-                            String partOfSpeech =
-                                controller.listDefinitions.keys.elementAt(index);
-                            List<Definition> listDef =
-                                controller.listDefinitions[partOfSpeech]!;
-                            return ItemPartOfSpeech(
-                                listDef: listDef, partOfSpeech: partOfSpeech);
-                          }),
                     ),
-                  ),
-                ],
-              ),
-            ),
-          );
-        }
-      },
+                  );
+          }
+        },
+      ),
     );
   }
 }
@@ -157,7 +196,7 @@ class ItemPartOfSpeech extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        //hiện các def 
+        //hiện các def
         Column(
           children: List.generate(listDef.length, (index) {
             return Padding(
@@ -168,7 +207,8 @@ class ItemPartOfSpeech extends StatelessWidget {
                   const SizedBox(
                     width: 4,
                   ),
-                  SizedBox( width: deviceWidth*0.8,
+                  SizedBox(
+                    width: deviceWidth * 0.8,
                     child: Text(
                       listDef[index].meaning,
                       style: const TextStyle(

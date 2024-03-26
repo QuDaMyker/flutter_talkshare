@@ -52,31 +52,36 @@ extension VocabService on SupabaseService {
   Future<void> insertVocab(Vocab word) async {
     await supabase.from(Vocab.table.tableName).insert(word.toJson());
   }
+    //cho phép lưu dưới 10 từ
+    Future<void> saveVocabToSharedPreferences(String vocab) async {
+      final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-  //cho phép lưu dưới 10 từ
-  Future<void> saveVocabToSharedPreferences(Vocab vocab) async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-    if (vocab.word.isNotEmpty) {
-      if (!prefs.containsKey(vocab.word)) {
-        Set<String> history = prefs.getKeys();
-        if (history.length >= 10) {
-          String firstKey = prefs.getKeys().first;
-          prefs.remove(firstKey);
+      List<String>? history = [];
+      history =  await getSearchedHistory();
+      if(!(history!.contains(vocab))){
+        if(history.length == 10){
+          history.removeLast();
         }
-        await prefs.setString(vocab.word, vocab.primaryMeaning);
+        history = [vocab, ...history];
+        prefs.setStringList('history', history);
+        
+        debugPrint('vocabService: đã lưu xong');
       }
-    }
-  }
+      else {
+        debugPrint('vocab_service: history rỗng');
+      }
 
-  Future<void> getSharedHistory() async {
+    }
+
+  Future<List<String>?> getSearchedHistory() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    Set<String> keys = prefs.getKeys();
-    for (String item in keys) {
-      debugPrint(item);
-    }
+    List<String>? keys = prefs.getStringList('history');
+          debugPrint('length of history: '+ keys!.length.toString());
+          return keys;
+
   }
 
-  Future<Set<String>> getAllKeysHistory() async {
+   Future<Set<String>> getAllKeysHistory() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     Set<String> keys = prefs.getKeys();
     return keys;
