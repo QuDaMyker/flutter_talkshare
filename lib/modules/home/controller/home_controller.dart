@@ -3,6 +3,7 @@ import 'dart:ffi';
 import 'package:autocorrect_and_autocomplete_engine/autocorrect_and_autocomplete_engine.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/word_list.dart';
 import 'package:flutter_talkshare/modules/vocab/services/vocab_services.dart';
 import 'package:flutter_talkshare/modules/vocab_bottom_sheet/controller/bottom_sheet_vocab_controller.dart';
@@ -28,8 +29,8 @@ class HomeController extends GetxController {
 
     //ds đẫ search
     recentSharedVocab.value =
-        (await SupabaseService.instance.getSharedHistory())!;
-    debugPrint('lây history${recentSharedVocab.length}');
+        (await SupabaseService.instance.getSearchedHistory())!;
+    debugPrint('lây history ${recentSharedVocab.length}');
 
     for (String item in recentSharedVocab) {
       debugPrint(item);
@@ -54,6 +55,7 @@ class HomeController extends GetxController {
   }
 
   Future<void> showBottomSheet(BuildContext context, String vocab) async {
+    debugPrint('show bottom: $vocab');
     if (vocab.isNotEmpty) {
       showModalBottomSheet(
         context: context,
@@ -62,8 +64,8 @@ class HomeController extends GetxController {
         debugPrint('whenComplete');
 
        recentSharedVocab.value =
-        (await SupabaseService.instance.getSharedHistory())!;
-        debugPrint('history: ${recentSharedVocab.length}');
+        (await SupabaseService.instance.getSearchedHistory())!;
+        //debugPrint('history: ${recentSharedVocab.length}');
 
         Get.delete<BottomSheetVocabController>();
       });

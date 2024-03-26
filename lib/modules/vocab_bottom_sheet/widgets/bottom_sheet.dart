@@ -43,7 +43,7 @@ class BottomSheetVocab extends StatelessWidget {
                     height: deviceHeight * 0.45,
                     child: Column(
                       children: [
-                        Container(
+                        SizedBox(
                           width: deviceWidth * 0.7,
                           height: deviceWidth * 0.7,
                           child: Lottie.asset(
