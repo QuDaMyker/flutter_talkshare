@@ -61,6 +61,8 @@ dependencies:
   flutter_typeahead: ^5.2.0
   uuid: ^4.3.3
   google_fonts: 6.1.0
+  get_it: ^7.6.7
+  flutter_tts: ^4.0.2
 
 dev_dependencies:
   flutter_test:

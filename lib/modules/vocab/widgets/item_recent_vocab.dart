@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
+import 'package:flutter_talkshare/modules/vocab/controller/item_recent_vocab_controller.dart';
+import 'package:flutter_talkshare/utils/helper.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ItemRecentVocab extends StatelessWidget {
   const ItemRecentVocab({
@@ -7,14 +11,10 @@ class ItemRecentVocab extends StatelessWidget {
     required this.phonetic,
     required this.enWordForm,
     required this.translatedWordForm,
-    required this.onSpeak,
-    required this.onSaving,
   });
   final String phonetic;
   final String enWordForm;
   final String translatedWordForm;
-  final Function onSpeak;
-  final Function onSaving;
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
@@ -59,7 +59,7 @@ class ItemRecentVocab extends StatelessWidget {
       style: const TextStyle(
         color: Colors.white,
         fontWeight: FontWeight.w500,
-        fontSize: 16,
+        fontSize: 14,
       ),
       maxLines: 2,
       overflow: TextOverflow.ellipsis,
@@ -86,15 +86,15 @@ class ItemRecentVocab extends StatelessWidget {
           flex: 3,
           child: Text(
             phonetic,
-            style: const TextStyle(
-              color: Colors.white,
-            ),
+            style: GoogleFonts.voces(color: Colors.white),
           ),
         ),
         Expanded(
           flex: 2,
           child: IconButton(
-            onPressed: () {},
+            onPressed: () {
+              playWithTTS(enWordForm);
+            },
             icon: const Icon(
               Icons.volume_up_outlined,
               color: Colors.white,

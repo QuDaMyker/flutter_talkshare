@@ -4,16 +4,27 @@ import 'package:flutter_flip_card/modal/flip_side.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/vocab_list_detail/controllers/item_detail_vocab_controller.dart';
+import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
 
 class ItemDetailVocav extends StatelessWidget {
-  const ItemDetailVocav({super.key, required this.word});
+  const ItemDetailVocav({
+    super.key,
+    required this.word,
+    required this.primaryMeaning,
+  });
   final String word;
+  final String primaryMeaning;
 
   @override
   Widget build(BuildContext context) {
-    final ItemDetailVocabController controller =
-        Get.put(ItemDetailVocabController());
+    final controller = Get.put(
+      ItemDetailVocabController(
+        word: word,
+        primaryMeaning: primaryMeaning,
+      ),
+      tag: word,
+    );
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
     return FlipCard(
@@ -67,43 +78,32 @@ class ItemDetailVocav extends StatelessWidget {
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Align(
-              alignment: Alignment.centerRight,
-              // child: IconButton(
-              //   onPressed: () {},
-              //   icon: Icon(
-              //     Icons.bookmark_border_outlined,
-              //     size: deviceWidth * 0.1,
-              //   ),
-              // ),
-              child: InkWell(
-                onTap: () {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text('Bookmark off')));
-                },
-                child: Padding(
-                  padding: const EdgeInsets.all(16),
-                  child:
-                      SvgPicture.asset('assets/images/svg/ic_bookmark_on.svg'),
+            Obx(
+              () => Align(
+                alignment: Alignment.centerRight,
+                child: InkWell(
+                  onTap: () async {
+                    controller.onPressBookmark();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: controller.isBookmarkOn.value
+                        ? SvgPicture.asset(
+                            'assets/images/svg/ic_bookmark_on.svg')
+                        : SvgPicture.asset(
+                            'assets/images/svg/ic_bookmark_off.svg'),
+                  ),
                 ),
               ),
             ),
             const Spacer(),
-            Container(
-              // padding: EdgeInsets.only(
-              //   top: deviceHeight * 0.2,
-              //   bottom: deviceHeight * 0.2,
-              //   left: deviceWidth * 0.1,
-              //   right: deviceWidth * 0.1,
-              // ),
-              child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  '$word + font',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 24,
-                  ),
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                word,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 24,
                 ),
               ),
             ),
@@ -158,17 +158,9 @@ class ItemDetailVocav extends StatelessWidget {
           children: [
             Align(
               alignment: Alignment.centerRight,
-              // child: IconButton(
-              //   onPressed: () {},
-              //   icon: Icon(
-              //     Icons.volume_up_outlined,
-              //     size: deviceWidth * 0.1,
-              //   ),
-              // ),
               child: InkWell(
-                onTap: () {
-                  ScaffoldMessenger.of(context)
-                      .showSnackBar(SnackBar(content: Text('Speaker')));
+                onTap: () async {
+                  playWithTTS(word);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(16),
@@ -177,21 +169,13 @@ class ItemDetailVocav extends StatelessWidget {
               ),
             ),
             const Spacer(),
-            Container(
-              // padding: EdgeInsets.only(
-              //   top: deviceHeight * 0.2,
-              //   bottom: deviceHeight * 0.2,
-              //   left: deviceWidth * 0.1,
-              //   right: deviceWidth * 0.1,
-              // ),
-              child: Align(
-                alignment: Alignment.center,
-                child: Text(
-                  '$word back',
-                  style: const TextStyle(
-                    fontWeight: FontWeight.w600,
-                    fontSize: 24,
-                  ),
+            Align(
+              alignment: Alignment.center,
+              child: Text(
+                primaryMeaning,
+                style: const TextStyle(
+                  fontWeight: FontWeight.w600,
+                  fontSize: 24,
                 ),
               ),
             ),
