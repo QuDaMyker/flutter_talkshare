@@ -15,7 +15,6 @@ extension VocabService on SupabaseService {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       List<dynamic> body = json.decode(response.body);
-      debugPrint(body.length.toString());
       Map<String, dynamic> item = body[0];
       String temp = item['meanings'][0]['definitions'][0]['definition'];
       String primaryMeaning = await tranlateToVN(temp);

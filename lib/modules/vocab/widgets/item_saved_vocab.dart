@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
+import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/vocab/controller/item_saved_vocab_controller.dart';
+import 'package:flutter_talkshare/utils/helper.dart';
+import 'package:get/get.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class ItemSavedVocab extends StatelessWidget {
   const ItemSavedVocab({
@@ -7,18 +13,18 @@ class ItemSavedVocab extends StatelessWidget {
     required this.phonetic,
     required this.enWordForm,
     required this.translatedWordForm,
-    required this.onSpeak,
-    required this.onSaving,
   });
   final String phonetic;
   final String enWordForm;
   final String translatedWordForm;
-  final Function onSpeak;
-  final Function onSaving;
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
+    final itemSavedController = Get.put(
+      ItemSavedVocabController(word: enWordForm),
+      tag: enWordForm,
+    );
     return Container(
       width: deviceWidth * 0.45,
       margin: EdgeInsets.only(
@@ -41,7 +47,7 @@ class ItemSavedVocab extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          _buildPhoneticAndEvent(),
+          _buildPhoneticAndEvent(itemSavedController),
           _buildEnWorkForm(),
           _buildTranslatedWordForm(),
         ],
@@ -73,7 +79,7 @@ class ItemSavedVocab extends StatelessWidget {
     );
   }
 
-  Row _buildPhoneticAndEvent() {
+  Row _buildPhoneticAndEvent(ItemSavedVocabController controller) {
     return Row(
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,31 +88,43 @@ class ItemSavedVocab extends StatelessWidget {
           flex: 3,
           child: Text(
             phonetic,
-            style: const TextStyle(
-              color: AppColors.gray20,
-              fontSize: 14,
-              fontWeight: FontWeight.w700,
-            ),
+            style: GoogleFonts.voces(color: Colors.black),
           ),
         ),
         Expanded(
           flex: 2,
           child: Row(
             mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            mainAxisAlignment: MainAxisAlignment.end,
             children: [
               InkWell(
-                onTap: () => onSpeak,
-                child: const Icon(
-                  color: AppColors.gray20,
-                  Icons.volume_up_outlined,
+                onTap: () async {
+                  // ENVENT SPEAK
+                  playWithTTS(enWordForm);
+                },
+                child: SizedBox(
+                  width: 16,
+                  height: 16,
+                  child: SvgPicture.asset(ImageAssets.icSpeaker),
                 ),
               ),
+              const SizedBox(
+                width: 10,
+              ),
               InkWell(
-                onTap: () => onSaving,
-                child: const Icon(
-                  color: AppColors.gray20,
-                  Icons.bookmark_add_outlined,
+                onTap: () async {
+                  controller.onPressBookmark();
+                },
+                child: Obx(
+                  () => SizedBox(
+                    width: 16,
+                    height: 16,
+                    child: controller.isBookmarkOn.value
+                        ? SvgPicture.asset(
+                            'assets/images/svg/ic_bookmark_on.svg')
+                        : SvgPicture.asset(
+                            'assets/images/svg/ic_bookmark_off.svg'),
+                  ),
                 ),
               ),
             ],

@@ -220,7 +220,7 @@ class HomeScreen extends StatelessWidget {
                             ),
                             InkWell(
                               onTap: () {
-                                Get.to(VocabListDetailScreen());
+                                Get.to(() => VocabScreen());
                               },
                               child: Container(
                                 padding: const EdgeInsets.symmetric(
