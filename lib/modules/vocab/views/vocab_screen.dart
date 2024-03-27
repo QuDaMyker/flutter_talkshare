@@ -1,11 +1,20 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_talkshare/core/values/app_colors.dart';
-import 'package:flutter_talkshare/modules/vocab/controller/vocab_screen_controller.dart';
-import 'package:flutter_talkshare/modules/vocab/widgets/item_collection_vocal.dart';
-import 'package:flutter_talkshare/modules/vocab/widgets/item_recent_vocal.dart';
+import 'package:flutter_talkshare/modules/vocab/widgets/item_saved_vocab.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
+
+import 'package:flutter_talkshare/core/models/vocab.dart';
+import 'package:flutter_talkshare/core/values/app_colors.dart';
+import 'package:flutter_talkshare/modules/vocab/controller/custom_bottom_sheet_controller.dart';
+import 'package:flutter_talkshare/modules/vocab/controller/vocab_screen_controller.dart';
+import 'package:flutter_talkshare/modules/vocab/widgets/custom_bottom_sheet.dart';
+import 'package:flutter_talkshare/modules/vocab/widgets/item_collection_vocal.dart';
+import 'package:flutter_talkshare/modules/vocab/widgets/item_create_new_word_set.dart';
+import 'package:flutter_talkshare/modules/vocab/widgets/item_recent_vocab.dart';
+import 'package:flutter_talkshare/modules/vocab_list/views/vocab_list_screen.dart';
+
+import '../../../utils/helper.dart';
 
 class VocabScreen extends StatelessWidget {
   const VocabScreen({super.key});
@@ -19,12 +28,14 @@ class VocabScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(),
-        body: _buildBody(deviceHeight, deviceWidth, vocabScreenController),
+        body: _buildBody(
+            context, deviceHeight, deviceWidth, vocabScreenController),
       ),
     );
   }
 
   Padding _buildBody(
+    BuildContext context,
     double deviceHeight,
     double deviceWidth,
     VocabScreenController controller,
@@ -61,6 +72,7 @@ class VocabScreen extends StatelessWidget {
                 vertical: deviceHeight * 0.01,
               ),
               child: _buildVocabCollectionScrollable(
+                context,
                 deviceHeight,
                 deviceWidth,
                 controller,
@@ -73,6 +85,7 @@ class VocabScreen extends StatelessWidget {
   }
 
   Column _buildVocabCollectionScrollable(
+    BuildContext context,
     double deviceHeight,
     double deviceWidth,
     VocabScreenController controller,
@@ -95,7 +108,15 @@ class VocabScreen extends StatelessWidget {
                   AppColors.primary40.withOpacity(0.1),
                 ),
               ),
-              onPressed: () {},
+              onPressed: () {
+                showModalBottomSheet(
+                  isScrollControlled: true,
+                  context: context,
+                  builder: (context) => const CustomBottomSheet(),
+                ).whenComplete(() async {
+                  Get.delete<CustomBottomSheetController>();
+                });
+              },
               child: const Text(
                 'Tạo thư mục mới',
                 style: TextStyle(
@@ -111,21 +132,21 @@ class VocabScreen extends StatelessWidget {
           child: Obx(
             () => controller.isLoading.value
                 ? _buildLoading()
-                : controller.listVocabCollection.value.isNotEmpty
+                : controller.listVocabCollection.value.isEmpty
                     ? SizedBox(
                         width: deviceWidth * 0.5,
                         height: deviceWidth * 0.5,
                         child: Lottie.asset(
                             'assets/images/lottie/ic_nodata3.json'),
                       )
-                    : _buildGridviewBuilder(),
+                    : _buildGridviewBuilder(controller),
           ),
         ),
       ],
     );
   }
 
-  GridView _buildGridviewBuilder() {
+  GridView _buildGridviewBuilder(VocabScreenController controller) {
     return GridView.builder(
       padding: EdgeInsets.zero,
       scrollDirection: Axis.vertical,
@@ -137,23 +158,39 @@ class VocabScreen extends StatelessWidget {
         crossAxisSpacing: 2,
         mainAxisSpacing: 5,
       ),
-      itemCount: 10,
+      itemCount: controller.listVocabCollection.value.length,
       itemBuilder: (context, index) {
-        return ItemCollectionVocab(
-          image: 'image',
-          title: 'Tạo bộ từ mới',
-          isCreateButton: false,
-          onPressed: () {},
-        );
+        if (index == 0) {
+          return GestureDetector(
+            onTap: () {
+              // navigato  screen create folder
+            },
+            child: ItemCreateNewWordset(
+              onPressed: () {},
+            ),
+          );
+        } else {
+          return ItemCollectionVocab(
+            wordSet: controller.listVocabCollection.value[index],
+            onPressed: () {
+              Get.to(
+                VocabListScreen(
+                  wordSet: controller.listVocabCollection.value[index],
+                ),
+              );
+            },
+          );
+        }
       },
     );
   }
 
-  Center _buildLoading() {
+  Widget _buildLoading() {
     return Center(
-      child: LoadingAnimationWidget.threeArchedCircle(
-        color: AppColors.primary40,
-        size: 200,
+      child: LoadingAnimationWidget.flickr(
+        leftDotColor: const Color(0xfffe0079),
+        rightDotColor: const Color(0xff0056d6),
+        size: 20,
       ),
     );
   }
@@ -176,24 +213,43 @@ class VocabScreen extends StatelessWidget {
                 ? _buildLoading()
                 : controller.listVocabRecent.value.isEmpty
                     ? Lottie.asset('assets/images/lottie/ic_nodata2.json')
-                    : _buildListviewBuilder(controller.listVocabRecent.value),
+                    : _buildListviewRecentBuilder(
+                        controller.listVocabRecent.value, controller),
           ),
         ),
       ],
     );
   }
 
-  ListView _buildListviewBuilder(List<Map<String, dynamic>> list) {
+  ListView _buildListviewRecentBuilder(
+    List<Vocab> list,
+    VocabScreenController controller,
+  ) {
     return ListView.builder(
       scrollDirection: Axis.horizontal,
-      itemCount: 10,
+      itemCount: list.length,
       itemBuilder: (context, index) {
         return ItemRecentVocab(
-          phonetic: '/kɑː/',
-          enWordForm: 'Car',
-          translatedWordForm: 'Xe',
-          onSpeak: () {},
-          onSaving: () {},
+          phonetic: list[index].phonetic ?? '',
+          enWordForm: list[index].word,
+          translatedWordForm: list[index].primaryMeaning,
+        );
+      },
+    );
+  }
+
+  ListView _buildListviewSavedBuilder(
+    List<Vocab> list,
+    VocabScreenController controller,
+  ) {
+    return ListView.builder(
+      scrollDirection: Axis.horizontal,
+      itemCount: list.length,
+      itemBuilder: (context, index) {
+        return ItemSavedVocab(
+          phonetic: list[index].phonetic ?? '',
+          enWordForm: list[index].word,
+          translatedWordForm: list[index].primaryMeaning,
         );
       },
     );
@@ -217,7 +273,8 @@ class VocabScreen extends StatelessWidget {
                 ? _buildLoading()
                 : controller.listVocabSaved.value.isEmpty
                     ? Lottie.asset('assets/images/lottie/ic_nodata1.json')
-                    : _buildListviewBuilder(controller.listVocabSaved.value),
+                    : _buildListviewSavedBuilder(
+                        controller.listVocabSaved.value, controller),
           ),
         ),
       ],

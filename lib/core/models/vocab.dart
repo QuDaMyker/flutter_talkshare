@@ -1,3 +1,4 @@
+// ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'package:flutter_talkshare/core/values/supabase_table.dart';
 
 class Vocab {
@@ -26,4 +27,9 @@ class Vocab {
         table.phonetic: phonetic,
         table.audioUrl: audioUrl,
       };
+
+  @override
+  String toString() {
+    return 'Vocab(word: $word, primaryMeaning: $primaryMeaning, phonetic: $phonetic, audioUrl: $audioUrl)';
+  }
 }
