@@ -63,6 +63,9 @@ dependencies:
   google_fonts: 6.1.0
   get_it: ^7.6.7
   flutter_tts: ^4.0.2
+  youtube_explode_dart: ^2.2.0
+  youtube_player_flutter: ^8.1.2
+  youtube_caption_scraper: ^0.2.0
 
 dev_dependencies:
   flutter_test:
