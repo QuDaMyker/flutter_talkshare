@@ -17,8 +17,9 @@ class StreamVideo extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    StreamVideoController streamVideoController =
-        Get.put(StreamVideoController(videoModel: videoModel));
+    StreamVideoController streamVideoController = Get.put(
+        StreamVideoController(videoModel: videoModel),
+        tag: videoModel.id);
     return SafeArea(
       child: Scaffold(
         appBar:
@@ -34,23 +35,81 @@ class StreamVideo extends StatelessWidget {
   Widget _buildBody(StreamVideoController controller) {
     return Obx(
       () => controller.isLoading.value
-          ? Center(
-              child: LoadingAnimationWidget.flickr(
-                leftDotColor: const Color(0xfffe0079),
-                rightDotColor: const Color(0xff0056d6),
-                size: 20,
-              ),
-            )
-          : YoutubePlayer(
-              controller: controller.ytController,
-              showVideoProgressIndicator: true,
-              progressIndicatorColor: Colors.amber,
-              progressColors: const ProgressBarColors(
-                playedColor: Colors.amber,
-                handleColor: Colors.amberAccent,
-              ),
-              onReady: () {},
+          ? _buildLoading()
+          : _buildVideoPlayer(controller),
+    );
+  }
+
+  Center _buildLoading() {
+    return Center(
+      child: LoadingAnimationWidget.flickr(
+        leftDotColor: const Color(0xfffe0079),
+        rightDotColor: const Color(0xff0056d6),
+        size: 20,
+      ),
+    );
+  }
+
+  Widget _buildVideoPlayer(StreamVideoController controller) {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Expanded(
+          flex: 2,
+          child: YoutubePlayer(
+            controller: controller.ytController,
+            showVideoProgressIndicator: true,
+            progressIndicatorColor: Colors.amber,
+            progressColors: const ProgressBarColors(
+              playedColor: Colors.amber,
+              handleColor: Colors.amberAccent,
             ),
+            onReady: () {},
+          ),
+        ),
+        Expanded(
+          flex: 5,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                const SizedBox(
+                  height: 12,
+                ),
+                Text(
+                  controller.video.title,
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                /* Text(controller.video.description),
+                Text(controller.video.url),
+                Text(controller.video.author),
+                Text(controller.video.channelId.toString()),
+                Text(controller.video.id.toString()), */
+                // Obx(
+                //   () => Column(
+                //     children: controller.captions.value
+                //         .map(
+                //           (caption) => Text(caption.text!),
+                //         )
+                //         .toList(),
+                //   ),
+                // ),
+
+                Obx(() => Text(controller.currentCaption.value))
+              ],
+            ),
+          ),
+        ),
+      ],
     );
   }
 

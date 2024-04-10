@@ -46,3 +46,19 @@ Future playWithTTS(String word) async {
 
   await tts.speak(word);
 }
+
+String formatDuration(double durationInSeconds) {
+  Duration duration = Duration(seconds: durationInSeconds.toInt());
+  int hours = duration.inHours;
+  int minutes = duration.inMinutes.remainder(60);
+  int seconds = duration.inSeconds.remainder(60);
+  return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+}
+
+String formatMilliseconds(int milliseconds) {
+  Duration duration = Duration(milliseconds: milliseconds);
+  int hours = duration.inHours;
+  int minutes = duration.inMinutes.remainder(60);
+  int seconds = duration.inSeconds.remainder(60);
+  return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+}

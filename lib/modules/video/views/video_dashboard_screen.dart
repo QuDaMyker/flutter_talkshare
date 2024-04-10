@@ -145,7 +145,7 @@ class _VideoDashBoardScreenState extends State<VideoDashBoardScreen>
         },
         cursorColor: AppColors.primary40,
         decoration: InputDecoration(
-          hintText: ' Tìm kiếm triệu chứng',
+          hintText: ' Tìm kiếm kênh',
           hintStyle: const TextStyle(
             color: AppColors.primary40,
           ),
