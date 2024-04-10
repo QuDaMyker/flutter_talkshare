@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_talkshare/core/values/constants.dart';
-import 'package:flutter_talkshare/modules/video/controllers/stream_video_controller.dart';
-import 'package:flutter_talkshare/modules/video/models/video_model.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+import 'package:flutter_talkshare/core/values/app_colors.dart';
+import 'package:flutter_talkshare/core/values/constants.dart';
+import 'package:flutter_talkshare/modules/video/controllers/stream_video_controller.dart';
+import 'package:flutter_talkshare/modules/video/models/item_caption_model.dart';
+import 'package:flutter_talkshare/modules/video/models/video_model.dart';
+import 'package:flutter_talkshare/modules/video/widgets/item_caption_widget.dart';
 
 class StreamVideo extends StatelessWidget {
   const StreamVideo({
@@ -56,20 +61,33 @@ class StreamVideo extends StatelessWidget {
       children: [
         Expanded(
           flex: 2,
-          child: YoutubePlayer(
-            controller: controller.ytController,
-            showVideoProgressIndicator: true,
-            progressIndicatorColor: Colors.amber,
-            progressColors: const ProgressBarColors(
-              playedColor: Colors.amber,
-              handleColor: Colors.amberAccent,
+          child: Container(
+            decoration: const BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              border: Border(
+                top: BorderSide(width: 1, color: AppColors.primary20),
+                bottom: BorderSide(width: 1, color: AppColors.primary20),
+                right: BorderSide(width: 1, color: AppColors.primary20),
+                left: BorderSide(width: 1, color: AppColors.primary20),
+              ),
             ),
-            onReady: () {},
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: YoutubePlayer(
+                controller: controller.ytController,
+                showVideoProgressIndicator: true,
+                progressIndicatorColor: Colors.amber,
+                progressColors: const ProgressBarColors(
+                  playedColor: Colors.amber,
+                  handleColor: Colors.amberAccent,
+                ),
+                onReady: () {},
+              ),
+            ),
           ),
         ),
         Expanded(
-          flex: 5,
-          child: SingleChildScrollView(
+            flex: 1,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.start,
               mainAxisSize: MainAxisSize.max,
@@ -89,25 +107,33 @@ class StreamVideo extends StatelessWidget {
                 const SizedBox(
                   height: 12,
                 ),
-                /* Text(controller.video.description),
-                Text(controller.video.url),
-                Text(controller.video.author),
-                Text(controller.video.channelId.toString()),
-                Text(controller.video.id.toString()), */
-                // Obx(
-                //   () => Column(
-                //     children: controller.captions.value
-                //         .map(
-                //           (caption) => Text(caption.text!),
-                //         )
-                //         .toList(),
-                //   ),
-                // ),
-
-                Obx(() => Text(controller.currentCaption.value))
               ],
-            ),
-          ),
+            )),
+        Expanded(
+          flex: 4,
+          child: Obx(
+              // () => ListView.builder(
+              //     controller: controller.scrollController,
+              //     itemCount: controller.listCaptionsShowing.value.length,
+              //     itemBuilder: (context, index) {
+              //   ItemCaptionModel itemCaptionModel =
+              //       controller.listCaptionsShowing.value[index];
+              //   return ItemCaptionWidget(
+              //     itemCaptionModel: itemCaptionModel,
+              //   );
+              // },
+              // ),
+              () => ScrollablePositionedList.builder(
+                    itemScrollController: controller.itemScrollController,
+                    itemCount: controller.listCaptionsShowing.value.length,
+                    itemBuilder: (context, index) {
+                      ItemCaptionModel itemCaptionModel =
+                          controller.listCaptionsShowing.value[index];
+                      return ItemCaptionWidget(
+                        itemCaptionModel: itemCaptionModel,
+                      );
+                    },
+                  )),
         ),
       ],
     );
