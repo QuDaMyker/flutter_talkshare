@@ -38,4 +38,13 @@ abstract class ImageAssets {
   static const imageFish = 'assets/images/png/image_fish.png';
   static const icEditThin = 'assets/images/svg/ic_edit_thin.svg';
   static const icFolder2 = 'assets/images/svg/ic_folder_2.svg';
+
+  static const icFilter = 'assets/images/svg/ic_filter.svg';
+  static const icLivestream = 'assets/images/svg/ic_livestream.svg';
+  static const icLock = 'assets/images/svg/ic_lock.svg';
+  static const icMicrophone = 'assets/images/svg/ic_microphone.svg';
+  static const icUnlock = 'assets/images/svg/ic_unlock.svg';
+  static const icUsersGreen = 'assets/images/svg/ic_users_green.svg';
+  static const icUsersWhite = 'assets/images/svg/ic_users_white.svg';
+
 }
