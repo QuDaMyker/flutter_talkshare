@@ -5,9 +5,11 @@ import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_talkshare/core/models/irregular_verb.dart';
 //import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/irregular_verbs/controller/irregular_verbs_controller.dart';
 import 'package:flutter_talkshare/modules/irregular_verbs/widgets/item_irrelugar_verbs.dart';
 import 'package:get/get.dart';
 //import 'package:flutter_talkshare/core/values/image_assets.dart';
@@ -15,16 +17,19 @@ import 'package:get/get.dart';
 
 class IrregulerVerbs extends StatelessWidget {
   const IrregulerVerbs({super.key});
+    
   
   @override
   Widget build(BuildContext context){
-     final deviceWidth = MediaQuery.of(context).size.width;
+    final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
+    final IrregularVerbScreenController controller = Get.put(IrregularVerbScreenController());
     
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: _buildAppBar(),
-        body: _buildBody(deviceHeight, deviceWidth),
+        body: _buildBody(deviceHeight, deviceWidth, controller),
       ),
     );
   }
@@ -32,6 +37,7 @@ class IrregulerVerbs extends StatelessWidget {
   Container _buildBody(
     double deviceHeight,
     double deviceWidth,
+    IrregularVerbScreenController controller
     //
   ) {
     return Container(
@@ -52,8 +58,8 @@ class IrregulerVerbs extends StatelessWidget {
             textInputAction: TextInputAction.search,
             style:
               const TextStyle(fontWeight: FontWeight.w700, fontSize: 16.0),
-            // controller: controller.searchTextController,
-            // onChanged: controller.onChangeSearchText,
+            controller: controller.searchTextController,
+            onChanged: controller.onChangeSearchText,
             decoration: InputDecoration(
               isDense: true,
               isCollapsed: true,
@@ -74,16 +80,19 @@ class IrregulerVerbs extends StatelessWidget {
                   fontSize: 16.0),
               contentPadding: const EdgeInsets.symmetric(vertical: 12),            
               prefixIconConstraints: const BoxConstraints(),
-              suffixIcon: GestureDetector(
-                onTap: () {
-                  // controller.clearSearchText();
-                },
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SvgPicture.asset(ImageAssets.icClose),
+              suffixIcon: Obx(() => Visibility( 
+                visible: controller.showSuffixIcon.value,
+                child: GestureDetector(
+                  onTap: () {
+                   controller.clearSearchText();
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: SvgPicture.asset(ImageAssets.icClose),
+                  ),
                 ),
-              ),
-              suffixIconConstraints: const BoxConstraints(),
+              )),
+              suffixIconConstraints:const  BoxConstraints(),
             ),
           ),
 
@@ -183,24 +192,26 @@ class IrregulerVerbs extends StatelessWidget {
             height: 12,
           ),
 
-          SingleChildScrollView(      
+          Expanded(child: Obx(()=> SingleChildScrollView(      
             child: SizedBox(
               height: deviceHeight * 0.7,
               child: ListView.builder(
                 padding: EdgeInsets.only(top: 10),
                 scrollDirection: Axis.vertical,
-                itemCount: 20,
+                itemCount: controller.searched_list.length,
                 itemBuilder: (context, index) {
-                  return const ItemIrregularVerbs(
-                    infinitive: "buy",
-                    pastSimple: "bought",
-                    pastParticiple: "bought",
-                    meaning: "mua",
+                  IrregularVerb verb = controller.searched_list[index];
+                  return ItemIrregularVerbs(
+                    infinitive: verb.infinitive,
+                    pastSimple: verb.pastSimple,
+                    pastParticiple: verb.pastParticiple,
+                    meaning: verb.meaning,
                   );
                 },
               ),
             ),  
-          )
+          )),
+          ),
         ],
       ),
     );

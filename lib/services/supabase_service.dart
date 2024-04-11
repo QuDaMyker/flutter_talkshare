@@ -16,7 +16,7 @@ class SupabaseService {
       url: dotenv.get('SUPABASE_URL'),
       anonKey: dotenv.get('SUPABASE_ANON_KEY'),
     );
-    //supabase = Supabase.instance.client;
+    supabase = Supabase.instance.client;
   }
 
   Future<void> login(String email, String password) async {

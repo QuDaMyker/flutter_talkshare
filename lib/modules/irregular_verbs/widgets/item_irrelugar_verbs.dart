@@ -26,13 +26,13 @@ class ItemIrregularVerbs extends StatelessWidget {
             width: 85.0,          
             height: 50.0,
             alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(horizontal: 10.0,),
+            padding: EdgeInsets.symmetric(horizontal: 5.0,),
             decoration: BoxDecoration(
               color: AppColors.gray60,
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: const Text(
-              "Động từ",
+            child: Text(
+              infinitive,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.gray20,
@@ -47,13 +47,13 @@ class ItemIrregularVerbs extends StatelessWidget {
             width: 85.0,          
             height: 50.0,
             alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(horizontal: 15.0,),
+            padding: EdgeInsets.symmetric(horizontal: 5.0,),
             decoration: BoxDecoration(
               color: AppColors.gray60,
               borderRadius: BorderRadius.circular(12.0),
             ),                
-            child: const Text(
-              "Quá khứ đơn",
+            child: Text(
+              pastSimple,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.gray20,
@@ -68,13 +68,13 @@ class ItemIrregularVerbs extends StatelessWidget {
             width: 85.0,       
             height: 50.0,
             alignment: Alignment.center,
-            padding: EdgeInsets.symmetric(horizontal: 15.0,),
+            padding: EdgeInsets.symmetric(horizontal: 5.0,),
             decoration: BoxDecoration(
               color: AppColors.gray60,
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: const Text(
-              "Quá khứ phân từ",
+            child: Text(
+              pastParticiple,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.gray20,
@@ -89,12 +89,13 @@ class ItemIrregularVerbs extends StatelessWidget {
             width: 85.0,       
             height: 50.0,
             alignment: Alignment.center,
+            padding: EdgeInsets.symmetric(horizontal: 5.0,),
             decoration: BoxDecoration(
               color: AppColors.gray60,
               borderRadius: BorderRadius.circular(12.0),
             ),
-            child: const Text(
-              "Nghĩa",
+            child: Text(
+              meaning,
               textAlign: TextAlign.center,
               style: TextStyle(
                 color: AppColors.gray20,
