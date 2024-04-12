@@ -23,7 +23,6 @@ class BottomSheetVocabController extends GetxController {
   void onInit() async {
     super.onInit();
     debugPrint('bottomSheetController: Oninit');
-    await getWord(word);
   }
 
   @override
