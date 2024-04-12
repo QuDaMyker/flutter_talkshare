@@ -1,19 +1,15 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/models/irregular_verb.dart';
-//import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/irregular_verbs/controller/irregular_verbs_controller.dart';
 import 'package:flutter_talkshare/modules/irregular_verbs/widgets/item_irrelugar_verbs.dart';
 import 'package:get/get.dart';
-//import 'package:flutter_talkshare/core/values/image_assets.dart';
-//import 'package:freezed_annotation/freezed_annotation.dart';
 
 class IrregulerVerbs extends StatelessWidget {
   const IrregulerVerbs({super.key});
@@ -28,7 +24,7 @@ class IrregulerVerbs extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
-        appBar: _buildAppBar(),
+        appBar: _buildAppBar(context),
         body: _buildBody(deviceHeight, deviceWidth, controller),
       ),
     );
@@ -217,12 +213,14 @@ class IrregulerVerbs extends StatelessWidget {
     );
   }
 
-  AppBar _buildAppBar() {
+  AppBar _buildAppBar(
+    BuildContext context
+  ) {
     return AppBar(
       leading: IconButton(          
         icon: SvgPicture.asset(ImageAssets.icBack),
         onPressed: () {
-          // controllerBack
+          Navigator.pop(context); 
         },
       ),
 

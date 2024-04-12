@@ -112,8 +112,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'inset',pastSimple:'inset',pastParticiple: 'inset',meaning: 'dát, ghép'),
     IrregularVerb(infinitive: 'interbreed',pastSimple:'interbred',pastParticiple: 'interbred',meaning: 'giao phối, lai giống'),
     IrregularVerb(infinitive: 'interweave',pastSimple:'interwove/ interweaved',pastParticiple: 'interwoven/ interweaved',meaning: 'trộn lẫn, xen lẫn'),
-    IrregularVerb(infinitive: 'interwind',pastSimple:'interwound',pastParticiple: 'interwound',meaning: 'cuộn vào, quấn vào'),
-    //100
+    IrregularVerb(infinitive: 'interwind',pastSimple:'interwound',pastParticiple: 'interwound',meaning: 'cuộn vào, quấn vào'),  
     IrregularVerb(infinitive: 'jerry-build',pastSimple:'jerry-built',pastParticiple: 'jerry-built',meaning: 'xây dựng cẩu thả'),
     IrregularVerb(infinitive: 'keep',pastSimple:'kept',pastParticiple: 'kept',meaning: 'giữ'),
     IrregularVerb(infinitive: 'kneel',pastSimple:'knelt/ kneeled',pastParticiple: 'knelt/ kneeled',meaning: 'quỳ'),
@@ -123,8 +122,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'lead',pastSimple:'led',pastParticiple: 'led',meaning: 'dẫn dắt, lãnh đạo'),
     IrregularVerb(infinitive: 'lean',pastSimple:'leaned /leant ',pastParticiple: 'leaned /leant ',meaning: 'dựa, tựa'),
     IrregularVerb(infinitive: 'leap',pastSimple:'leapt',pastParticiple: 'leapt',meaning: 'nhảy, nhảy qua'),
-    IrregularVerb(infinitive: 'learn',pastSimple:'learnt/ learned',pastParticiple: 'learnt/ learned',meaning: 'học, được biết'),
-    
+    IrregularVerb(infinitive: 'learn',pastSimple:'learnt/ learned',pastParticiple: 'learnt/ learned',meaning: 'học, được biết'),    
     IrregularVerb(infinitive: 'leave',pastSimple:'left',pastParticiple: 'left',meaning: 'ra đi, để lại'),
     IrregularVerb(infinitive: 'lend',pastSimple:'lent',pastParticiple: 'lent',meaning: 'cho mượn'),
     IrregularVerb(infinitive: 'let',pastSimple:'let',pastParticiple: 'let',meaning: 'cho phép, để cho'),
@@ -134,8 +132,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'lose',pastSimple:'lost',pastParticiple: 'lost',meaning: 'làm mất, mất'),
     IrregularVerb(infinitive: 'make',pastSimple:'made',pastParticiple: 'made',meaning: 'chế tạo, sản xuất'),
     IrregularVerb(infinitive: 'mean',pastSimple:'meant',pastParticiple: 'meant',meaning: 'có nghĩa là'),
-    IrregularVerb(infinitive: 'meet',pastSimple:'met',pastParticiple: 'met',meaning: 'gặp mặt'),
-    
+    IrregularVerb(infinitive: 'meet',pastSimple:'met',pastParticiple: 'met',meaning: 'gặp mặt'),    
     IrregularVerb(infinitive: 'miscast',pastSimple:'miscast',pastParticiple: 'miscast',meaning: 'chọn vai đóng không hợp'),
     IrregularVerb(infinitive: 'misdeal',pastSimple:'misdealt',pastParticiple: 'misdealt',meaning: 'chia lộn bài, chia bài sai'),
     IrregularVerb(infinitive: 'misdo',pastSimple:'misdid',pastParticiple: 'misdone',meaning: 'phạm lỗi'),
@@ -145,9 +142,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'mislearn',pastSimple:'mislearned /mislearnt',pastParticiple: 'mislearned /mislearnt',meaning: 'học nhầm'),
     IrregularVerb(infinitive: 'misread',pastSimple:'misread',pastParticiple: 'misread',meaning: 'đọc sai'),
     IrregularVerb(infinitive: 'misset',pastSimple:'misset',pastParticiple: 'misset',meaning: 'đặt sai chỗ'),
-    IrregularVerb(infinitive: 'misspeak',pastSimple:'misspoke',pastParticiple: 'misspoken',meaning: 'nói sai'),
-
-    
+    IrregularVerb(infinitive: 'misspeak',pastSimple:'misspoke',pastParticiple: 'misspoken',meaning: 'nói sai'),    
     IrregularVerb(infinitive: 'misspell',pastSimple:'misspelt',pastParticiple: 'misspelt',meaning: 'viết sai chính tả'),
     IrregularVerb(infinitive: 'misspend',pastSimple:'misspent',pastParticiple: 'misspent',meaning: 'tiêu phí, bỏ phí'),
     IrregularVerb(infinitive: 'mistake',pastSimple:'mistook',pastParticiple: 'mistaken',meaning: 'phạm lỗi, lầm lẫn'),
@@ -157,9 +152,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'mow',pastSimple:'mowed',pastParticiple: 'mown/ mowed',meaning: 'cắt cỏ'),
     IrregularVerb(infinitive: 'offset',pastSimple:'offset',pastParticiple: 'offset',meaning: 'đền bù'),
     IrregularVerb(infinitive: 'outbid',pastSimple:'outbid',pastParticiple: 'outbid',meaning: 'trả hơn giá'),
-    IrregularVerb(infinitive: 'outbreed',pastSimple:'outbred',pastParticiple: 'outbred',meaning: 'giao phối xa'),
-
-    
+    IrregularVerb(infinitive: 'outbreed',pastSimple:'outbred',pastParticiple: 'outbred',meaning: 'giao phối xa'),    
     IrregularVerb(infinitive: 'outdo',pastSimple:'outdid',pastParticiple: 'outdone',meaning: 'làm giỏi hơn'),
     IrregularVerb(infinitive: 'outdraw',pastSimple:'outdrew',pastParticiple: 'outdraw',meaning: 'rút súng ra nhanh hơn'),
     IrregularVerb(infinitive: 'outdrink',pastSimple:'outdrank',pastParticiple: 'outdrunk',meaning: 'uống quá chén'),
@@ -169,8 +162,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'outgrow',pastSimple:'outgrew',pastParticiple: 'outgrown',meaning: 'lớn nhanh hơn'),
     IrregularVerb(infinitive: 'outleap',pastSimple:'outleaped /outleapt ',pastParticiple: 'outleaped /outleapt ',meaning: 'nhảy cao/xa hơn'),
     IrregularVerb(infinitive: 'outlie',pastSimple:'outlied',pastParticiple: 'outlied',meaning: 'nói dối'),
-    IrregularVerb(infinitive: 'output',pastSimple:'output',pastParticiple: 'output',meaning: 'cho ra (dữ kiện)'),
-    
+    IrregularVerb(infinitive: 'output',pastSimple:'output',pastParticiple: 'output',meaning: 'cho ra (dữ kiện)'),    
     IrregularVerb(infinitive: 'outride',pastSimple:'outrode',pastParticiple: 'outridden',meaning: 'cưỡi ngựa giỏi hơn'),
     IrregularVerb(infinitive: 'outrun',pastSimple:'outran',pastParticiple: 'outrun',meaning: 'chạy nhanh hơn, vượt giá'),
     IrregularVerb(infinitive: 'outsell',pastSimple:'outsold',pastParticiple: 'outsold',meaning: 'bán nhanh hơn'),
@@ -181,7 +173,6 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'outsleep',pastSimple:'outslept',pastParticiple: 'outslept',meaning: 'ngủ lâu/muộn hơn'),
     IrregularVerb(infinitive: 'outsmell',pastSimple:'outsmelled /outsmelt',pastParticiple: 'outsmelled /outsmelt',meaning: 'khám phá, đánh hơi, sặc mùi'),
     IrregularVerb(infinitive: 'outspeak',pastSimple:'outspoke',pastParticiple: 'outspoken ',meaning: 'nhiều /dài /to hơn'),
-
     IrregularVerb(infinitive: 'outspeed',pastSimple:'outsped',pastParticiple: 'outsped',meaning: 'đi/chạy nhanh hơn'),
     IrregularVerb(infinitive: 'outspend',pastSimple:'outspent',pastParticiple: 'outspent',meaning: 'tiêu tiền nhiều hơn'),
     IrregularVerb(infinitive: 'outswear',pastSimple:'outswore',pastParticiple: 'outsworn',meaning: 'nguyền rủa nhiều hơn'),
@@ -192,7 +183,6 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'overbid',pastSimple:'overbid',pastParticiple: 'overbid',meaning: 'trả giá/bỏ thầu cao hơn'),
     IrregularVerb(infinitive: 'overbreed',pastSimple:'overbred',pastParticiple: 'overbred',meaning: 'nuôi quá nhiều'),
     IrregularVerb(infinitive: 'overbuild',pastSimple:'overbuilt',pastParticiple: 'overbuilt',meaning: 'xây quá nhiều'),
-
     IrregularVerb(infinitive: 'overbuy',pastSimple:'overbought',pastParticiple: 'overbought',meaning: 'mua quá nhiều'),
     IrregularVerb(infinitive: 'overcome',pastSimple:'overcame',pastParticiple: 'overcome',meaning: 'khắc phục'),
     IrregularVerb(infinitive: 'overdo',pastSimple:'overdid',pastParticiple: 'overdone',meaning: 'dùng quá mức, làm quá'),
@@ -202,8 +192,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'overfeed',pastSimple:'overfed',pastParticiple: 'overfed',meaning: 'cho ăn quá mức'),
     IrregularVerb(infinitive: 'overfly',pastSimple:'overflew',pastParticiple: 'overflown',meaning: 'bay qua'),
     IrregularVerb(infinitive: 'overhang',pastSimple:'overhung',pastParticiple: 'overhung',meaning: 'nhô lên trên, treo lơ lửng'),
-    IrregularVerb(infinitive: 'overhear',pastSimple:'overheard',pastParticiple: 'overheard',meaning: 'nghe trộm'),
-    
+    IrregularVerb(infinitive: 'overhear',pastSimple:'overheard',pastParticiple: 'overheard',meaning: 'nghe trộm'),    
     IrregularVerb(infinitive: 'overlay',pastSimple:'overlaid',pastParticiple: 'overlaid',meaning: 'phủ lên'),
     IrregularVerb(infinitive: 'overpay',pastSimple:'overpaid',pastParticiple: 'overpaid',meaning: 'trả quá tiền'),
     IrregularVerb(infinitive: 'override',pastSimple:'overrode',pastParticiple: 'overridden',meaning: 'lạm quyền'),
@@ -213,8 +202,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'oversew',pastSimple:'oversewed',pastParticiple: 'oversewn/ oversewed',meaning: 'may nối vắt'),
     IrregularVerb(infinitive: 'overshoot',pastSimple:'overshot',pastParticiple: 'overshot',meaning: 'đi quá đích'),
     IrregularVerb(infinitive: 'oversleep',pastSimple:'overslept',pastParticiple: 'overslept',meaning: 'ngủ quên'),
-    IrregularVerb(infinitive: 'overspeak',pastSimple:'overspoke',pastParticiple: 'overspoken',meaning: 'Nói quá nhiều, nói lấn át'),
-    
+    IrregularVerb(infinitive: 'overspeak',pastSimple:'overspoke',pastParticiple: 'overspoken',meaning: 'Nói quá nhiều, nói lấn át'),    
     IrregularVerb(infinitive: 'overspend',pastSimple:'overspent',pastParticiple: 'overspent',meaning: 'tiêu quá lố'),
     IrregularVerb(infinitive: 'overspill',pastSimple:'overspilled /overspilt',pastParticiple: 'overspilled /overspilt',meaning: 'đổ, làm tràn'),
     IrregularVerb(infinitive: 'overtake',pastSimple:'overtook',pastParticiple: 'overtaken',meaning: 'đuổi bắt kịp'),
@@ -224,8 +212,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'overwrite',pastSimple:'overwrote',pastParticiple: 'overwritten',meaning: 'viết dài quá, viết đè lên'),
     IrregularVerb(infinitive: 'partake',pastSimple:'partook',pastParticiple: 'partaken',meaning: 'tham gia, dự phần'),
     IrregularVerb(infinitive: 'pay',pastSimple:'paid',pastParticiple: 'paid',meaning: 'trả (tiền)'),
-    IrregularVerb(infinitive: 'plead',pastSimple:'pleaded /pled',pastParticiple: 'pleaded /pled',meaning: 'bào chữa, biện hộ'),
-    
+    IrregularVerb(infinitive: 'plead',pastSimple:'pleaded /pled',pastParticiple: 'pleaded /pled',meaning: 'bào chữa, biện hộ'),    
     IrregularVerb(infinitive: 'prebuild',pastSimple:'prebuilt',pastParticiple: 'prebuilt',meaning: 'làm nhà tiền chế'),
     IrregularVerb(infinitive: 'predo',pastSimple:'predid',pastParticiple: 'predone',meaning: 'làm trước'),
     IrregularVerb(infinitive: 'premake',pastSimple:'premade',pastParticiple: 'premade',meaning: 'làm trước'),
@@ -236,8 +223,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'proofread',pastSimple:'proofread',pastParticiple: 'proofread',meaning: 'Đọc bản thảo trước khi in'),
     IrregularVerb(infinitive: 'prove',pastSimple:'proved',pastParticiple: 'proven /proved',meaning: 'chứng minh'),
     IrregularVerb(infinitive: 'put',pastSimple:'put',pastParticiple: 'put',meaning: 'đặt, để'),
-    IrregularVerb(infinitive: 'quick-freeze',pastSimple:'quick-froze',pastParticiple: 'quick-frozen',meaning: 'kết đông nhanh'),
-    
+    IrregularVerb(infinitive: 'quick-freeze',pastSimple:'quick-froze',pastParticiple: 'quick-frozen',meaning: 'kết đông nhanh'),    
     IrregularVerb(infinitive: 'quit',pastSimple:'quit/ quitted ',pastParticiple: 'quit/ quitted ',meaning: 'bỏ'),
     IrregularVerb(infinitive: 'read',pastSimple:'read',pastParticiple: 'read',meaning: 'đọc'),
     IrregularVerb(infinitive: 'reawake',pastSimple:'reawoke',pastParticiple: 'reawaken',meaning: 'đánh thức 1 lần nữa'),
@@ -246,8 +232,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'rebroadcast',pastSimple:'rebroadcast/ rebroadcasted',pastParticiple: 'rebroadcast/ rebroadcasted',meaning: 'cự tuyệt, khước từ'),
     IrregularVerb(infinitive: 'rebuild',pastSimple:'rebuilt',pastParticiple: 'rebuilt',meaning: 'xây dựng lại'),
     IrregularVerb(infinitive: 'recast',pastSimple:'recast',pastParticiple: 'recast',meaning: 'đúc lại'),
-    IrregularVerb(infinitive: 'recut',pastSimple:'recut',pastParticiple: 'recut',meaning: 'cắt lại, băm'),
-    
+    IrregularVerb(infinitive: 'recut',pastSimple:'recut',pastParticiple: 'recut',meaning: 'cắt lại, băm'),    
     IrregularVerb(infinitive: 'redeal',pastSimple:'redealt',pastParticiple: 'redealt',meaning: 'phát bài lại'),
     IrregularVerb(infinitive: 'redo',pastSimple:'redid',pastParticiple: 'redone',meaning: 'làm lại'),
     IrregularVerb(infinitive: 'redraw',pastSimple:'redrew',pastParticiple: 'redrawn',meaning: 'kéo ngược lại'),
@@ -258,7 +243,6 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'rehear',pastSimple:'reheard',pastParticiple: 'reheard',meaning: 'nghe trình bày lại'),
     IrregularVerb(infinitive: 'reknit',pastSimple:'reknitted /reknit',pastParticiple: 'reknitted /reknit',meaning: 'đan lại'),
     IrregularVerb(infinitive: 'relay',pastSimple:'relaid',pastParticiple: 'relaid',meaning: 'đặt lại'),
-
     IrregularVerb(infinitive: 'relay',pastSimple:'relayed',pastParticiple: 'relayed',meaning: 'truyền âm lại'),    
     IrregularVerb(infinitive: 'relearn',pastSimple:'relearned /relearnt',pastParticiple: 'relearned /relearnt',meaning: 'học lại'),
     IrregularVerb(infinitive: 'relight',pastSimple:'relit/ relighted',pastParticiple: 'relit/ relighted',meaning: 'thắp sáng lại'),
@@ -268,8 +252,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'reread',pastSimple:'reread',pastParticiple: 'reread',meaning: 'đọc lại'),
     IrregularVerb(infinitive: 'rerun',pastSimple:'reran',pastParticiple: 'rerun',meaning: 'chiếu lại, phát lại'),
     IrregularVerb(infinitive: 'resell',pastSimple:'resold',pastParticiple: 'resold',meaning: 'bán lại'),
-    IrregularVerb(infinitive: 'resend',pastSimple:'resent',pastParticiple: 'resent',meaning: 'gửi lại'),
-    
+    IrregularVerb(infinitive: 'resend',pastSimple:'resent',pastParticiple: 'resent',meaning: 'gửi lại'),    
     IrregularVerb(infinitive: 'reset',pastSimple:'reset',pastParticiple: 'reset',meaning: 'đặt lại, lắp lại'),
     IrregularVerb(infinitive: 'resew',pastSimple:'resewed',pastParticiple: 'resewn/ resewed',meaning: 'may/ khâu lại'),
     IrregularVerb(infinitive: 'retake',pastSimple:'retook',pastParticiple: 'retaken',meaning: 'chiếm lại, tái chiếm'),
@@ -279,8 +262,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'rethink',pastSimple:'rethought',pastParticiple: 'rethought',meaning: 'suy tính lại'),
     IrregularVerb(infinitive: 'retread',pastSimple:'retread',pastParticiple: 'retread',meaning: 'lại giẫm/ đạp lên'),
     IrregularVerb(infinitive: 'retrofit',pastSimple:'retrofitted /retrofit ',pastParticiple: 'retrofitted /retrofit ',meaning: 'trang bị thêm những bộ phận mới'),
-    IrregularVerb(infinitive: 'rewake',pastSimple:'rewoke/ rewaked',pastParticiple: 'rewoke/ rewaked',meaning: 'đánh thức lại'),
-    
+    IrregularVerb(infinitive: 'rewake',pastSimple:'rewoke/ rewaked',pastParticiple: 'rewoke/ rewaked',meaning: 'đánh thức lại'),    
     IrregularVerb(infinitive: 'rewear',pastSimple:'rewore',pastParticiple: 'reworn',meaning: 'mặc lại'),
     IrregularVerb(infinitive: 'reweave',pastSimple:'rewove/ reweaved',pastParticiple: 'rewoven/ reweaved',meaning: 'dệt lại'),
     IrregularVerb(infinitive: 'rewed',pastSimple:'rewed/ rewedded',pastParticiple: 'rewed/ rewedded',meaning: 'kết hôn lại'),
@@ -290,8 +272,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'rewrite',pastSimple:'rewrote',pastParticiple: 'rewritten',meaning: 'viết lại'),
     IrregularVerb(infinitive: 'rid',pastSimple:'rid',pastParticiple: 'rid',meaning: 'giải thoát'),
     IrregularVerb(infinitive: 'ride',pastSimple:'rode',pastParticiple: 'ridden',meaning: 'cưỡi'),
-    IrregularVerb(infinitive: 'ring',pastSimple:'rang',pastParticiple: 'rung',meaning: 'rung chuông'),
-    
+    IrregularVerb(infinitive: 'ring',pastSimple:'rang',pastParticiple: 'rung',meaning: 'rung chuông'),    
     IrregularVerb(infinitive: 'rise',pastSimple:'rose',pastParticiple: 'risen',meaning: 'đứng dậy, mọc'),
     IrregularVerb(infinitive: 'roughcast',pastSimple:'roughcast',pastParticiple: 'roughcast',meaning: 'tạo hình phỏng chừng'),
     IrregularVerb(infinitive: 'run',pastSimple:'ran',pastParticiple: 'run',meaning: 'chạy'),
@@ -301,8 +282,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'see',pastSimple:'saw',pastParticiple: 'seen',meaning: 'nhìn thấy'),
     IrregularVerb(infinitive: 'seek',pastSimple:'sought',pastParticiple: 'sought',meaning: 'tìm kiếm'),
     IrregularVerb(infinitive: 'sell',pastSimple:'sold',pastParticiple: 'sold',meaning: 'bán'),
-    IrregularVerb(infinitive: 'send',pastSimple:'sent',pastParticiple: 'sent',meaning: 'gửi'),
-    
+    IrregularVerb(infinitive: 'send',pastSimple:'sent',pastParticiple: 'sent',meaning: 'gửi'),    
     IrregularVerb(infinitive: 'set',pastSimple:'set',pastParticiple: 'set',meaning: 'đặt, thiết lập'),
     IrregularVerb(infinitive: 'sew',pastSimple:'sewed',pastParticiple: 'sewn/ sewed',meaning: 'may'),
     IrregularVerb(infinitive: 'shake',pastSimple:'shook',pastParticiple: 'shaken',meaning: 'lay, lắc'),
@@ -312,8 +292,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'shine',pastSimple:'shone',pastParticiple: 'shone',meaning: 'chiếu sáng'),
     IrregularVerb(infinitive: 'shit',pastSimple:'shit/ shat/ shitted',pastParticiple: 'shit/ shat/ shitted',meaning: 'suộc khuộng đi đại tiện'),
     IrregularVerb(infinitive: 'shoot',pastSimple:'shot',pastParticiple: 'shot',meaning: 'bắn'),
-    IrregularVerb(infinitive: 'show',pastSimple:'showed',pastParticiple: 'shown /showed',meaning: 'cho xem'),
-    
+    IrregularVerb(infinitive: 'show',pastSimple:'showed',pastParticiple: 'shown /showed',meaning: 'cho xem'),    
     IrregularVerb(infinitive: 'shrink',pastSimple:'shrank',pastParticiple: 'shunk',meaning: 'co rút'),
     IrregularVerb(infinitive: 'shut',pastSimple:'shut',pastParticiple: 'shut',meaning: 'đóng lại'),
     IrregularVerb(infinitive: 'sight-read',pastSimple:'sight-read',pastParticiple: 'sight-read',meaning: 'chơi hoặc hát mà không cần nghiên cứu trước'),
@@ -323,8 +302,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'slay',pastSimple:'slew',pastParticiple: 'slain',meaning: 'sát hại, giết hại'),
     IrregularVerb(infinitive: 'sleep',pastSimple:'slept',pastParticiple: 'slept',meaning: 'ngủ'),
     IrregularVerb(infinitive: 'slide',pastSimple:'slid',pastParticiple: 'slid',meaning: 'trượt, lướt'),
-    IrregularVerb(infinitive: 'sling',pastSimple:'slung',pastParticiple: 'slung',meaning: 'ném mạnh'),
-    
+    IrregularVerb(infinitive: 'sling',pastSimple:'slung',pastParticiple: 'slung',meaning: 'ném mạnh'),    
     IrregularVerb(infinitive: 'slink',pastSimple:'slunk',pastParticiple: 'slunk',meaning: 'lẻn đi'),
     IrregularVerb(infinitive: 'slit',pastSimple:'slit',pastParticiple: 'slit',meaning: 'rạch, khứa'),
     IrregularVerb(infinitive: 'smell',pastSimple:'smelt',pastParticiple: 'smelt',meaning: 'ngửi'),
@@ -334,7 +312,6 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'speed',pastSimple:'sped/ speeded',pastParticiple: 'sped/ speeded',meaning: 'chạy vụt'),
     IrregularVerb(infinitive: 'spell',pastSimple:'spelt/ spelled',pastParticiple: 'spelt/ spelled',meaning: 'đánh vần'),
     IrregularVerb(infinitive: 'spend',pastSimple:'spent',pastParticiple: 'spent',meaning: 'tiêu xài'),
-
     IrregularVerb(infinitive: 'spill',pastSimple:'spilt/ spilled',pastParticiple: 'spilt/ spilled',meaning: 'tràn, đổ ra'),    
     IrregularVerb(infinitive: 'spin',pastSimple:'spun/ span',pastParticiple: 'spun' ,meaning: 'quay sợi'),
     IrregularVerb(infinitive: 'spoil',pastSimple:'spoilt/ spoiled',pastParticiple: 'spoilt/ spoiled',meaning: 'làm hỏng'),
@@ -345,8 +322,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'sting',pastSimple:'stung',pastParticiple: 'stung',meaning: 'châm, chích, đốt'),
     IrregularVerb(infinitive: 'stink',pastSimple:'stunk/ stank',pastParticiple: 'stunk',meaning: 'bốc mùi hôi'),
     IrregularVerb(infinitive: 'stride',pastSimple:'strode',pastParticiple: 'stridden',meaning: 'bước sải'),
-    IrregularVerb(infinitive: 'strike',pastSimple:'struck',pastParticiple: 'struck',meaning: 'đánh đập'),
-    
+    IrregularVerb(infinitive: 'strike',pastSimple:'struck',pastParticiple: 'struck',meaning: 'đánh đập'),    
     IrregularVerb(infinitive: 'string',pastSimple:'strung',pastParticiple: 'strung',meaning: 'gắn dây vào'),
     IrregularVerb(infinitive: 'sunburn',pastSimple:'sunburned /sunburnt ',pastParticiple: 'sunburned /sunburnt ',meaning: 'cháy nắng'),
     IrregularVerb(infinitive: 'swear',pastSimple:'swore',pastParticiple: 'sworn',meaning: 'tuyên thệ'),
@@ -356,8 +332,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'swim',pastSimple:'swam',pastParticiple: 'swum',meaning: 'bơi lội'),
     IrregularVerb(infinitive: 'swing',pastSimple:'swung',pastParticiple: 'swung',meaning: 'đong đưa'),
     IrregularVerb(infinitive: 'take',pastSimple:'took',pastParticiple: 'taken',meaning: 'cầm, lấy'),
-    IrregularVerb(infinitive: 'teach',pastSimple:'taught',pastParticiple: 'taught',meaning: 'dạy, giảng dạy'),
-    
+    IrregularVerb(infinitive: 'teach',pastSimple:'taught',pastParticiple: 'taught',meaning: 'dạy, giảng dạy'),    
     IrregularVerb(infinitive: 'tear',pastSimple:'tore',pastParticiple: 'torn',meaning: 'xé, rách'),
     IrregularVerb(infinitive: 'telecast',pastSimple:'telecast',pastParticiple: 'telecast',meaning: 'phát đi bằng truyền hình'),
     IrregularVerb(infinitive: 'tell',pastSimple:'told',pastParticiple: 'told',meaning: 'kể, bảo'),
@@ -367,8 +342,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'tread',pastSimple:'trod',pastParticiple: 'trodden/trod',meaning: 'giẫm, đạp'),
     IrregularVerb(infinitive: 'typewrite',pastSimple:'typewrote',pastParticiple: 'typewritten',meaning: 'đánh máy'),
     IrregularVerb(infinitive: 'unbend',pastSimple:'unbent',pastParticiple: 'unbent',meaning: 'làm thẳng lại'),
-    IrregularVerb(infinitive: 'unbind',pastSimple:'unbound',pastParticiple: 'unbound',meaning: 'mở, tháo ra'),
-    
+    IrregularVerb(infinitive: 'unbind',pastSimple:'unbound',pastParticiple: 'unbound',meaning: 'mở, tháo ra'),    
     IrregularVerb(infinitive: 'unclothe',pastSimple:'unclothed /unclad',pastParticiple: 'unclothed /unclad',meaning: 'cởi áo, lột trần'),
     IrregularVerb(infinitive: 'undercut',pastSimple:'undercut',pastParticiple: 'undercut',meaning: 'ra giá rẻ hơn'),
     IrregularVerb(infinitive: 'underfeed',pastSimple:'underfed',pastParticiple: 'underfed',meaning: 'cho ăn đói, thiếu ăn'),
@@ -378,8 +352,7 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'undertake',pastSimple:'undertook',pastParticiple: 'undertaken',meaning: 'đảm nhận'),
     IrregularVerb(infinitive: 'underwrite',pastSimple:'underwrote',pastParticiple: 'underwritten',meaning: 'bảo hiểm'),
     IrregularVerb(infinitive: 'undo',pastSimple:'undid',pastParticiple: 'undone',meaning: 'tháo ra'),
-    IrregularVerb(infinitive: 'unfreeze',pastSimple:'unfroze',pastParticiple: 'unfrozen',meaning: 'làm tan đông'),
-    
+    IrregularVerb(infinitive: 'unfreeze',pastSimple:'unfroze',pastParticiple: 'unfrozen',meaning: 'làm tan đông'),    
     IrregularVerb(infinitive: 'unhang',pastSimple:'unhung',pastParticiple: 'unhung',meaning: 'hạ xuống, bỏ xuống'),
     IrregularVerb(infinitive: 'unhide',pastSimple:'unhid',pastParticiple: 'unhidden',meaning: 'hiển thị, không ẩn'),
     IrregularVerb(infinitive: 'unlearn',pastSimple:'unlearned /unlearnt ',pastParticiple: 'unlearned /unlearnt ',meaning: 'gạt bỏ, quên'),
@@ -390,7 +363,6 @@ class IrregularVerbList {
     IrregularVerb(infinitive: 'wake',pastSimple:'woke /waked',pastParticiple: 'woken /waked',meaning: 'thức giấc'),
     IrregularVerb(infinitive: 'wear',pastSimple:'wore',pastParticiple: 'worn',meaning: 'mặc'),
     IrregularVerb(infinitive: 'wed',pastSimple:'wed/ wedded',pastParticiple: 'wed/ wedded',meaning: 'kết hôn'),
-    
     IrregularVerb(infinitive: 'weep',pastSimple:'wept',pastParticiple: 'wept',meaning: 'khóc'),
     IrregularVerb(infinitive: 'wet',pastSimple:'wet/ wetted',pastParticiple: 'wet/ wetted',meaning: 'làm ướt'),
     IrregularVerb(infinitive: 'win',pastSimple:'won',pastParticiple: 'won',meaning: 'thắng, chiến thắng'),
