@@ -21,8 +21,8 @@ class ItemVocabList extends StatelessWidget {
     final deviceHeight = MediaQuery.of(context).size.height;
 
     return Container(
+      constraints: const BoxConstraints(maxHeight: 80),
       padding: EdgeInsets.symmetric(
-        vertical: deviceHeight * 0.01,
         horizontal: deviceWidth * 0.1,
       ),
       margin: EdgeInsets.only(
@@ -59,7 +59,7 @@ class ItemVocabList extends StatelessWidget {
             color: Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 1,
-            offset: const Offset(0, 3),
+            offset: const Offset(0, 1),
           ),
         ],
       ),
@@ -80,76 +80,87 @@ class ItemVocabList extends StatelessWidget {
       mainAxisSize: MainAxisSize.max,
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Text(
-              enWordForm,
-              style: const TextStyle(
-                fontWeight: FontWeight.w600,
-                fontSize: 18,
-              ),
-              textAlign: TextAlign.left,
-              maxLines: 2,
-            ),
-            Container(
-              padding: EdgeInsets.symmetric(
-                vertical: deviceHeight * 0.005,
-                horizontal: deviceWidth * 0.03,
-              ),
-              margin: EdgeInsets.only(
-                left: deviceWidth * 0.1,
-              ),
-              decoration: const BoxDecoration(
-                color: AppColors.secondary80,
-                borderRadius: BorderRadius.all(
-                  Radius.circular(
-                    8,
-                  ),
-                ),
-                border: Border(
-                  top: BorderSide(
-                    color: Colors.transparent,
-                    width: 0,
-                  ),
-                  bottom: BorderSide(
-                    color: Colors.transparent,
-                    width: 0,
-                  ),
-                  left: BorderSide(
-                    color: Colors.transparent,
-                    width: 0,
-                  ),
-                  right: BorderSide(
-                    color: Colors.transparent,
-                    width: 0,
-                  ),
-                ),
-              ),
-              child: Text(
-                typeOfWord,
+        Expanded(
+          flex: 1,
+          child: Row(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              Text(
+                enWordForm,
                 style: const TextStyle(
-                  color: AppColors.secondary20,
                   fontWeight: FontWeight.w600,
-                  fontSize: 14,
+                  fontSize: 20,
                 ),
                 textAlign: TextAlign.left,
                 maxLines: 2,
               ),
-            )
-          ],
+            ],
+          ),
         ),
-        _buildSpeakButton()
+        Expanded(
+          flex: 1,
+          child: Align(
+            alignment: Alignment.centerRight,
+            child: _buildSpeakButton(deviceHeight, deviceWidth),
+          ),
+        ),
       ],
     );
   }
 
-  IconButton _buildSpeakButton() {
-    return IconButton(
-      onPressed: () => onSpeak(),
-      icon: const Icon(
-        Icons.volume_up_outlined,
-      ),
+  Widget _buildSpeakButton(double deviceHeight, double deviceWidth) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.end,
+      children: [
+        Container(
+          padding: EdgeInsets.symmetric(
+            vertical: deviceHeight * 0.005,
+            horizontal: deviceWidth * 0.01,
+          ),
+          decoration: const BoxDecoration(
+            color: AppColors.secondary80,
+            borderRadius: BorderRadius.all(
+              Radius.circular(
+                8,
+              ),
+            ),
+            border: Border(
+              top: BorderSide(
+                color: Colors.transparent,
+                width: 0,
+              ),
+              bottom: BorderSide(
+                color: Colors.transparent,
+                width: 0,
+              ),
+              left: BorderSide(
+                color: Colors.transparent,
+                width: 0,
+              ),
+              right: BorderSide(
+                color: Colors.transparent,
+                width: 0,
+              ),
+            ),
+          ),
+          child: Text(
+            typeOfWord,
+            style: const TextStyle(
+              color: AppColors.secondary20,
+              fontWeight: FontWeight.w600,
+              fontSize: 14,
+            ),
+            textAlign: TextAlign.left,
+            maxLines: 2,
+          ),
+        ),
+        IconButton(
+          onPressed: () => onSpeak(),
+          icon: const Icon(
+            Icons.volume_up_outlined,
+          ),
+        ),
+      ],
     );
   }
 
@@ -160,7 +171,7 @@ class ItemVocabList extends StatelessWidget {
         translatedWordForm,
         style: const TextStyle(
           fontWeight: FontWeight.w400,
-          fontSize: 18,
+          fontSize: 14,
         ),
         textAlign: TextAlign.left,
         maxLines: 2,

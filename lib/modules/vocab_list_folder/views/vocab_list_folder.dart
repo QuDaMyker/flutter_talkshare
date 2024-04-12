@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_talkshare/core/values/app_colors.dart';
-import 'package:flutter_talkshare/modules/vocab/widgets/item_collection_vocal.dart';
-import 'package:flutter_talkshare/modules/vocab_list_folder/controller/vocab_list_folder_controller.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:lottie/lottie.dart';
+
+import 'package:flutter_talkshare/core/values/app_colors.dart';
+import 'package:flutter_talkshare/modules/vocab/widgets/item_create_new_word_set.dart';
+import 'package:flutter_talkshare/modules/vocab_list_folder/controller/vocab_list_folder_controller.dart';
 
 class VocabListFolder extends StatelessWidget {
   const VocabListFolder({super.key, required this.nameOfFolder});
@@ -67,10 +68,7 @@ class VocabListFolder extends StatelessWidget {
       ),
       itemCount: 10,
       itemBuilder: (context, index) {
-        return ItemCollectionVocab(
-          image: 'image',
-          title: 'Tạo bộ từ mới',
-          isCreateButton: false,
+        return ItemCreateNewWordset(
           onPressed: () {},
         );
       },

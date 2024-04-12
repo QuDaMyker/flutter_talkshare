@@ -6,6 +6,7 @@ class WordSet {
   final String avatarUrl;
   final String userId;
   final String? folderId;
+  final int? count;
 
   const WordSet({
     required this.wordsetId,
@@ -13,7 +14,16 @@ class WordSet {
     required this.avatarUrl,
     required this.userId,
     this.folderId,
+    this.count = 0,
   });
+  WordSet copyWith({int? count}) {
+    return WordSet(
+        wordsetId: wordsetId,
+        name: name,
+        avatarUrl: avatarUrl,
+        userId: userId,
+        count: count ?? this.count);
+  }
 
   static WordSetSupabaseTable table = const WordSetSupabaseTable();
 
