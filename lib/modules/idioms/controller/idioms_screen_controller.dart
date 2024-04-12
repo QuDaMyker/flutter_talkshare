@@ -1,27 +1,35 @@
-import 'package:flutter_talkshare/modules/idioms/services/idioms_services.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_talkshare/core/models/idiom.dart';
 import 'package:get/get.dart';
-
 class IdiomsScreenController extends GetxController{
-  var isLoading = Rx<bool>(false);
-  var listIdioms = Rx<List<Map<String, dynamic>>>([]);
-
+  TextEditingController searchTextController = TextEditingController();
+  var searched_list = <Idiom>[].obs;
+  var first_list = IdiomsList.idiomList;
+  var searchText = ''.obs;
+  var showSuffixIcon = false.obs;
+  
+  
   @override
   void onInit() async {
-    isLoading.value = true;
-    await getListIdioms();
-
-    Future.delayed(const Duration(seconds: 2), () {
-      isLoading.value = false;
-    });
+    searched_list.assignAll(first_list);
     super.onInit();
   }
 
-  @override
-  void onClose() {
-    super.onClose();
+  void onChangeSearchText (String text) {
+    searchText.value = text;
+    if (text.isEmpty) {        
+      searched_list.assignAll(first_list);
+      showSuffixIcon.value = false;
+    }
+    else {
+      searched_list.value = first_list.where((verb) =>
+          verb.idiom.toLowerCase().contains(text.toLowerCase())).toList();          
+      showSuffixIcon.value = true;
+    }    
   }
 
-  Future<void> getListIdioms() async {
-    listIdioms.value = await IdiomsServices().getIdiomsList();
+    void clearSearchText() {
+      searchTextController.clear();
+      onChangeSearchText ('');
   }
 }

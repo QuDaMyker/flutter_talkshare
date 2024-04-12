@@ -1,30 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/modules/idioms/view/idioms_screen.dart';
-//import 'package:flutter_talkshare/modules/vocab_list/views/vocab_list_screen.dart';
-// import 'package:flutter_talkshare/modules/idioms/widgets/item_idioms.dart';
-// import 'package:flutter_talkshare/modules/vocab_list/widgets/item_vocab_list.dart';
-// import 'package:flutter_talkshare/modules/home/view/home_screen.dart';
-// import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
-// import 'package:flutter_talkshare/modules/vocab/views/vocab_screen.dart';
-// import 'package:flutter_dotenv/flutter_dotenv.dart';
-// import 'package:flutter_talkshare/core/models/vocab.dart';
-// import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
-// import 'package:flutter_talkshare/modules/vocab_list_folder/views/vocab_list_folder.dart';
-// import 'services/supabase_service.dart';
+import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
+//import 'package:flutter_talkshare/modules/vocab_list_detail/views/vocab_list_detail.dart';
+import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
+//import 'core/configuration/injection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  // await dotenv.load(fileName: '.env');
-  // await SupabaseService.instance.init();
-
-  //test supabase
-  // Vocab vocab =
-  //     await SupabaseService.instance.getVocabByWord('trace').then((value) {
-  //   print("${value.word}: ${value.primaryMeaning}");
-  //   return value;
-  // });
-
+  await dotenv.load(fileName: '.env');
+  await SupabaseService.instance.init();
+  //configureDependencies();
   runApp(const MyApp());
 }
 
@@ -41,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const IdiomsScreen(),
+      home: const RootViewScreen(),
     );
   }
 }

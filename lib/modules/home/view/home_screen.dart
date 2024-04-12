@@ -3,6 +3,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/idioms/view/idioms_screen.dart';
 import 'dart:math' as math;
 
 import 'package:get/get.dart';
@@ -224,6 +225,12 @@ class HomeScreen extends StatelessWidget {
                     children: [
                       Expanded(
                         child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(builder: (context) => IdiomsScreen()),
+                            );
+                          },
                           child: Container(
                             padding: const EdgeInsets.all(20),
                             decoration: BoxDecoration(
