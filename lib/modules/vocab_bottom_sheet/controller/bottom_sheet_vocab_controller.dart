@@ -10,19 +10,20 @@ import 'package:translator_plus/translator_plus.dart';
 
 class BottomSheetVocabController extends GetxController {
   final String word;
+  var searchedVocab;
+
 
   BottomSheetVocabController({required this.word});
   final translator = GoogleTranslator();
   final player = AudioPlayer();
   var isLoading = Rx<bool>(false);
   var isNotFound = Rx<bool>(false);
-  var searchedVocab;
   Map<String, List<Definition>> listDefinitions ={};
 
   @override
-  void onInit() async {
+  Future<void> onInit()async {
     super.onInit();
-    debugPrint('bottomSheetController: Oninit');
+    await getWord(word);
   }
 
   @override
@@ -36,9 +37,7 @@ class BottomSheetVocabController extends GetxController {
   Future<void> getWord(String word) async {
 
     String search  = word.toLowerCase();
-    
-    debugPrint('bắt đầu lấy nghĩa của $search');
-
+  
     isLoading.value = true;
 
     var headers = {'Content-Type': 'application/json'};

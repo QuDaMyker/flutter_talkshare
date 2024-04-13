@@ -14,14 +14,15 @@ import 'package:lottie/lottie.dart';
 class BottomSheetVocab extends StatelessWidget {
   const BottomSheetVocab({super.key, required this.word});
   final String word;
+
   @override
   Widget build(BuildContext context) {
+    debugPrint('bắt đâu build bottom sheet cho từ: $word');
+
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
-
     final BottomSheetVocabController controller =
         Get.put(BottomSheetVocabController(word: word));
-
     return Container(
       width: deviceWidth,
       child: Obx(
@@ -52,6 +53,7 @@ class BottomSheetVocab extends StatelessWidget {
                         const Text('Không tìm thấy từ bạn cần'),
                         ElevatedButton(
                           onPressed: () {
+
                             Get.back();
                           },
                           child: const Text('Thử lại'),
@@ -131,7 +133,10 @@ class BottomSheetVocab extends StatelessWidget {
                                           SvgPicture.asset(ImageAssets.icClose),
                                       onTap: () {
                                         // controller.onClose();
-                                        Get.back();
+                                        // Get.back();
+                                        debugPrint('click close bottom sheet');
+                                        Navigator.pop(context);
+                                        controller.onClose();
                                       }),
                                 ],
                               ),
@@ -160,12 +165,11 @@ class BottomSheetVocab extends StatelessWidget {
                       ),
                     ),
                   );
-            //hiển thị definitons
           }
         },
       ),
     );
-  }
+  }  
 }
 
 class ItemPartOfSpeech extends StatelessWidget {

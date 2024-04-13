@@ -32,6 +32,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.put(HomeController());
+
     late TextEditingController suggessController;
     return Stack(children: [
       Container(
@@ -69,16 +70,17 @@ class HomeScreen extends StatelessWidget {
                   return result;
                 }
               },
+              emptyBuilder: (context) =>
+                  const Text('Không tìm thấy từ bạn cần!'),
               builder: (context, controller, focusNode) {
-                suggessController = controller;
+                homeController.textSearchController = controller;
                 return TextField(
-                  controller: suggessController,
+                  controller: homeController.textSearchController,
                   focusNode: focusNode,
-                  onChanged: (value) {},
                   onSubmitted: (value) {
-                    homeController.showBottomSheet(context, value);
-                    homeController.textSearchController.clear();
-                    suggessController.clear();
+                    debugPrint('gọi ở thanh search $value');
+                    homeController.handleSearchSubmit(context, value);
+                    controller.clear();
                   },
                   decoration: InputDecoration(
                     isDense: true,
@@ -133,9 +135,14 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               onSelected: (value) {
-                homeController.showBottomSheet(context, value);
-                homeController.textSearchController.clear();
-                suggessController.clear();
+                debugPrint('gọi từ tab đề xuất $value');
+                homeController.handleSearchSubmit(context, value);
+
+                //uggessController.clear();
+                // homeController.showBottomSheet(context, value);
+                // homeController.textSearchController.clear();
+
+                //homeController.textSearchController.clear();
               },
             ),
             const SizedBox(
@@ -155,13 +162,15 @@ class HomeScreen extends StatelessWidget {
                           itemCount: homeController.recentSharedVocab.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              child: ItemRecentWord(
-                                vocab: homeController.recentSharedVocab[index],
-                              ),
-                              onTap: () => homeController.showBottomSheet(
-                                  context,
-                                  homeController.recentSharedVocab[index]),
-                            );
+                                child: ItemRecentWord(
+                                  vocab:
+                                      homeController.recentSharedVocab[index],
+                                ),
+                                onTap: () {
+                                  debugPrint('gọi từ recent');
+                                  homeController.showBottomSheet(context,
+                                      homeController.recentSharedVocab[index]);
+                                });
                           },
                           separatorBuilder: (BuildContext context, int index) {
                             return const SizedBox(
@@ -334,7 +343,8 @@ class HomeScreen extends StatelessWidget {
                           onTap: () {
                             Navigator.push(
                               context,
-                              MaterialPageRoute(builder: (context) => IrregulerVerbs()),
+                              MaterialPageRoute(
+                                  builder: (context) => IrregulerVerbs()),
                             );
                           },
                           child: Container(
