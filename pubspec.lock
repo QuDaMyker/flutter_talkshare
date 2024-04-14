@@ -1365,10 +1365,9 @@ packages:
   zego_uikit_prebuilt_live_audio_room:
     dependency: "direct main"
     description:
-      name: zego_uikit_prebuilt_live_audio_room
-      sha256: e30f8e6637f276bb0ee6dae9860e58b663f502e57d1803163136adb5f59270e3
-      url: "https://pub.dev"
-    source: hosted
+      path: "packages/zego_uikit_prebuilt_live_audio_room-3.6.5"
+      relative: true
+    source: path
     version: "3.6.5"
   zego_uikit_signaling_plugin:
     dependency: transitive
