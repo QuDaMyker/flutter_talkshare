@@ -16,7 +16,7 @@ class RootViewController extends GetxController {
   final screens = [
     HomeScreen(),
     CommnityScreen(),
-    HomeworkScreen(),
+    // HomeworkScreen(),
     GameScreen(),
     ProfileScreen(),
   ];
@@ -25,7 +25,7 @@ class RootViewController extends GetxController {
   void onInit() {
     Get.lazyPut(() => HomeScreen());
     Get.lazyPut(() => CommnityScreen());
-    Get.lazyPut(() => const HomeworkScreen());
+    // Get.lazyPut(() => const HomeworkScreen());
     Get.lazyPut(() => const GameScreen());
     Get.lazyPut(() => const ProfileScreen());
 

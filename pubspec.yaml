@@ -62,6 +62,7 @@ dependencies:
   uuid: ^4.3.3
   google_fonts: 6.1.0
   zego_uikit_prebuilt_live_audio_room: ^3.6.5
+  floating_action_bubble: ^1.1.4
 
 dev_dependencies:
   flutter_test:

@@ -47,14 +47,14 @@ class RootViewScreen extends StatelessWidget {
                     title: const Text("Cộng đồng"),
                     selectedColor: AppColors.primary40,
                     activeIcon: SvgPicture.asset(ImageAssets.icCommunityFill)),
-                SalomonBottomBarItem(
-                    icon: SvgPicture.asset(
-                      ImageAssets.icEditThin,
-                      color: AppColors.gray20,
-                    ),
-                    title: const Text("Bài tập"),
-                    selectedColor: AppColors.primary40,
-                    activeIcon: SvgPicture.asset(ImageAssets.icEditFill)),
+                // SalomonBottomBarItem(
+                //     icon: SvgPicture.asset(
+                //       ImageAssets.icEditThin,
+                //       color: AppColors.gray20,
+                //     ),
+                //     title: const Text("Bài tập"),
+                //     selectedColor: AppColors.primary40,
+                //     activeIcon: SvgPicture.asset(ImageAssets.icEditFill)),
                 SalomonBottomBarItem(
                     icon: SvgPicture.asset(ImageAssets.icGame),
                     title: const Text("Game"),

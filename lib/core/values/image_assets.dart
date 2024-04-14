@@ -5,7 +5,7 @@ abstract class ImageAssets {
   static const icAdd = 'assets/images/svg/ic_add.svg';
   static const icBack = 'assets/images/svg/ic_back.svg';
   static const icBook = 'assets/images/svg/ic_book.svg';
-  static const icClose2 = 'assets/images/svg/ic_close2.svg';
+  static const icClose2 = 'assets/images/svg/ic_close_2.svg';
   static const icClose = 'assets/images/svg/ic_close.svg';
   static const icEdit = 'assets/images/svg/ic_edit.svg';
   static const icFlashcard = 'assets/images/svg/ic_flashcard.svg';
