@@ -38,4 +38,12 @@ abstract class ImageAssets {
   static const imageFish = 'assets/images/png/image_fish.png';
   static const icEditThin = 'assets/images/svg/ic_edit_thin.svg';
   static const icFolder2 = 'assets/images/svg/ic_folder_2.svg';
+
+  static const imageBook1 = 'assets/images/jpg/Hp1.jpg';
+  static const imageBook2 = 'assets/images/jpg/Hp2.jpg';
+  static const imageBook3 = 'assets/images/jpg/Hp3.jpg';
+  static const imageBook4 = 'assets/images/jpg/Hp4.jpg';
+  static const imageBook5 = 'assets/images/jpg/Hp5.jpg';
+  static const imageBook6 = 'assets/images/jpg/Hp6.jpg';
+
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_talkshare/modules/books/view/books_list_screen.dart';
 import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
 import 'package:flutter_talkshare/modules/vocab_list_detail/views/vocab_list_detail.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const RootViewScreen(),
+      home: const BooksListScreen(),
     );
   }
 }
