@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_talkshare/core/models/book.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
+import 'package:flutter_talkshare/modules/books/widgets/book_widget.dart';
 
 class ScrollableBooksWidget extends StatelessWidget {
   final double height;
@@ -45,38 +46,7 @@ class ScrollableBooksWidget extends StatelessWidget {
             children: books.map((book) {
               return Padding(
                 padding: const EdgeInsets.only(right: 15),
-                child: Container(
-                  width: width * 0.3,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    mainAxisSize: MainAxisSize.max,
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: <Widget>[
-                      Container(
-                        height: height * 0.65,
-                        decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            image: DecorationImage(
-                              image: AssetImage(book.imageUrl),
-                              fit: BoxFit.cover,
-                            )),
-                      ),
-                      const SizedBox(
-                        height: 5,
-                      ),
-                      Text(
-                        book.title,
-                        maxLines: 2,
-                        overflow: TextOverflow.ellipsis,
-                        style: const TextStyle(
-                          color: AppColors.gray20,
-                          fontSize: 14,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                child: BookWidget(height*0.65, width*0.3, book),
               );
             }).toList(),
           ),

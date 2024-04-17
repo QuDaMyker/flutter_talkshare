@@ -51,7 +51,7 @@ class BooksListScreen extends StatelessWidget {
 
   Padding _buildBody(double deviceHeight, double deviceWidth, controller) {
     return Padding(
-      padding: const EdgeInsets.all(20),
+      padding: const EdgeInsets.only(top: 20, left: 20, bottom: 20, right: 5),
       child: Column(children: [
         TextField(
           decoration: InputDecoration(
@@ -93,29 +93,28 @@ class BooksListScreen extends StatelessWidget {
         ),
         SizedBox(
           height: deviceHeight * 0.75,
-
           child: ListView(
             scrollDirection: Axis.vertical,
             children: [
               Padding(
                 padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
                 child: ScrollableBooksWidget(
-                    deviceHeight * 0.26, deviceWidth - 40, listBooks),
+                    deviceHeight * 0.26, deviceWidth - 25, listBooks),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
                 child: ScrollableBooksWidget(
-                    deviceHeight * 0.26, deviceWidth - 40, listBooks),
+                    deviceHeight * 0.26, deviceWidth - 25, listBooks),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
                 child: ScrollableBooksWidget(
-                    deviceHeight * 0.26, deviceWidth - 40, listBooks),
+                    deviceHeight * 0.26, deviceWidth - 25, listBooks),
               ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
                 child: ScrollableBooksWidget(
-                    deviceHeight * 0.26, deviceWidth - 40, listBooks),
+                    deviceHeight * 0.26, deviceWidth - 25, listBooks),
               )
             ],
           ),

@@ -39,6 +39,8 @@ abstract class ImageAssets {
   static const icEditThin = 'assets/images/svg/ic_edit_thin.svg';
   static const icFolder2 = 'assets/images/svg/ic_folder_2.svg';
 
+  static const imageBookPsychology = 'assets/images/png/Psychology_of_money.png';
+
   static const imageBook1 = 'assets/images/jpg/Hp1.jpg';
   static const imageBook2 = 'assets/images/jpg/Hp2.jpg';
   static const imageBook3 = 'assets/images/jpg/Hp3.jpg';
