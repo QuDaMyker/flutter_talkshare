@@ -7,6 +7,7 @@ import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/community/controllers/community_controller.dart';
 import 'package:flutter_talkshare/modules/community/view/audio_room_page.dart';
+import 'package:flutter_talkshare/modules/community/view/create_audio_room.dart';
 import 'package:get/get.dart';
 
 class CommnityScreen extends StatelessWidget {
@@ -28,7 +29,8 @@ class CommnityScreen extends StatelessWidget {
             titleStyle: TextStyle(fontSize: 16, color: Colors.white),
             onPress: () {
               controller.animationController.reverse();
-              Get.to(AudioRoomPage(roomID: '123', isHost: true,));
+              // Get.to(AudioRoomPage(roomID: '123', isHost: true,));
+              Get.to(CreateAudioRoom());
             },
           ),
           Bubble(

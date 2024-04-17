@@ -65,6 +65,7 @@ dependencies:
   zego_uikit_prebuilt_live_audio_room:
     path: "./packages/zego_uikit_prebuilt_live_audio_room-3.6.5"
   floating_action_bubble: ^1.1.4
+  numberpicker: ^2.1.2
 
 dev_dependencies:
   flutter_test:

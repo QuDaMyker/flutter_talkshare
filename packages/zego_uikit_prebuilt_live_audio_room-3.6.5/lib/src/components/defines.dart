@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 
 // Package imports:
 import 'package:zego_uikit/zego_uikit.dart';
@@ -41,6 +42,11 @@ class ZegoLiveAudioRoomImage {
   static AssetImage assetImage(String name) {
     return AssetImage(name, package: 'zego_uikit_prebuilt_live_audio_room');
   }
+
+  static SvgPicture svgAsset(String name) {
+    return SvgPicture.asset(name,
+        package: 'zego_uikit_prebuilt_live_audio_room');
+  }
 }
 
 /// @nodoc
@@ -71,4 +77,14 @@ class ZegoLiveAudioRoomIconUrls {
   static const String seatLock = 'assets/icons/seat_lock.png';
   static const String seatMicrophoneOff = 'assets/icons/seat_mic_off.png';
   static const String audioBackground = 'assets/icons/audio_background.png';
+
+  static const String icAdd = 'assets/icons/ic_add.svg';
+  static const String icComment = 'assets/icons/ic_comment.svg';
+  static const String icLock = 'assets/icons/ic_lock.svg';
+  static const String icLogout = 'assets/icons/ic_logout.svg';
+  static const String icMicrophone = 'assets/icons/ic_microphone.svg';
+  static const String icUnlock = 'assets/icons/ic_unlock.svg';
+  static const String icUsers = 'assets/icons/ic_users.svg';
+  static const String iconClose = 'assets/icons/icon_close.svg';
+  static const String itemBg = 'assets/icons/item_bg.svg';
 }
