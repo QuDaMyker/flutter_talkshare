@@ -43,9 +43,12 @@ class ZegoLiveAudioRoomImage {
     return AssetImage(name, package: 'zego_uikit_prebuilt_live_audio_room');
   }
 
-  static SvgPicture svgAsset(String name) {
-    return SvgPicture.asset(name,
-        package: 'zego_uikit_prebuilt_live_audio_room');
+  static Padding svgAsset(String name) {
+    return Padding(
+      padding: const EdgeInsets.all(6.0),
+      child: SvgPicture.asset(name,
+          package: 'zego_uikit_prebuilt_live_audio_room'),
+    );
   }
 }
 
@@ -86,5 +89,6 @@ class ZegoLiveAudioRoomIconUrls {
   static const String icUnlock = 'assets/icons/ic_unlock.svg';
   static const String icUsers = 'assets/icons/ic_users.svg';
   static const String iconClose = 'assets/icons/icon_close.svg';
-  static const String itemBg = 'assets/icons/item_bg.svg';
+  static const String itemBg = 'assets/icons/item_bg.png';
+  static const String icMicrophoneOff = 'assets/icons/ic_microphone_off.svg';
 }

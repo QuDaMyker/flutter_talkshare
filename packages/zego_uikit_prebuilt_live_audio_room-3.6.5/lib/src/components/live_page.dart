@@ -263,7 +263,7 @@ class _ZegoLiveAudioRoomPageState extends State<ZegoLiveAudioRoomPage>
     );
 
     return Positioned(
-      top: 169.zR,
+      top: 240.zR,
       left: 35.zW,
       child: SizedBox(
         width: null != scrollDirection ? containerWidth : tempMaxWidth,
@@ -286,7 +286,7 @@ class _ZegoLiveAudioRoomPageState extends State<ZegoLiveAudioRoomPage>
     return Positioned(
       left: 0,
       right: 0,
-      top: 64.zR,
+      top: 100.zR,
       child: ValueListenableBuilder<ZegoUIKitRoomState>(
         valueListenable: ZegoUIKit().getRoomStateStream(),
         builder: (context, roomState, _) {
@@ -384,9 +384,8 @@ class _ZegoLiveAudioRoomPageState extends State<ZegoLiveAudioRoomPage>
     }
 
     return Positioned(
-      left: 0,
-      right: 0,
-      top: 10,
+      right: 110.zR,
+      top: 54,
       child: LiveDurationTimeBoard(
         config: widget.config.duration,
         events: widget.events.duration,

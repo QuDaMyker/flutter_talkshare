@@ -87,7 +87,7 @@ class ZegoUIKitPrebuiltLiveAudioRoomMiniOverlayPage extends StatefulWidget {
     this.topLeft = const Offset(100, 100),
     this.borderRadius = 12.0,
     this.borderColor = Colors.black12,
-    this.soundWaveColor = const Color(0xff2254f6),
+    this.soundWaveColor = const Color(0xffFFBF14),
     this.backgroundColor = Colors.white,
     this.padding = 0.0,
     this.showDevices = true,

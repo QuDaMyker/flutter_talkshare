@@ -54,10 +54,10 @@ class _ZegoLiveAudioRoomHostLockSeatButtonState
           child: ValueListenableBuilder<bool>(
               valueListenable: widget.seatManager.isRoomSeatLockedNotifier,
               builder: (context, isRoomSeatLocked, _) {
-                return ZegoLiveAudioRoomImage.asset(
+                return ZegoLiveAudioRoomImage.svgAsset(
                   isRoomSeatLocked
-                      ? ZegoLiveAudioRoomIconUrls.toolbarHostUnLockSeat
-                      : ZegoLiveAudioRoomIconUrls.toolbarHostLockSeat,
+                      ? ZegoLiveAudioRoomIconUrls.icLock
+                      : ZegoLiveAudioRoomIconUrls.icUnlock,
                 );
               }),
         ),

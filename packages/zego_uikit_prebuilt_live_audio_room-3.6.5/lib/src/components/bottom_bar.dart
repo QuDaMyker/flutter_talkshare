@@ -319,8 +319,8 @@ class _ZegoLiveAudioRoomBottomBarState
           buttonSize: buttonSize,
           iconSize: iconSize,
           icon: ButtonIcon(
-            icon: ZegoLiveAudioRoomImage.asset(
-                ZegoLiveAudioRoomIconUrls.toolbarMember),
+            icon: ZegoLiveAudioRoomImage.svgAsset(
+                ZegoLiveAudioRoomIconUrls.icUsers),
             backgroundColor: Colors.white,
           ),
           avatarBuilder: widget.avatarBuilder,
@@ -350,13 +350,13 @@ class _ZegoLiveAudioRoomBottomBarState
           buttonSize: buttonSize,
           iconSize: iconSize,
           normalIcon: ButtonIcon(
-            icon: ZegoLiveAudioRoomImage.asset(
-                ZegoLiveAudioRoomIconUrls.toolbarMicNormal),
+            icon: ZegoLiveAudioRoomImage.svgAsset(
+                ZegoLiveAudioRoomIconUrls.icMicrophone),
             backgroundColor: Colors.white,
           ),
           offIcon: ButtonIcon(
-            icon: ZegoLiveAudioRoomImage.asset(
-                ZegoLiveAudioRoomIconUrls.toolbarMicOff),
+            icon: ZegoLiveAudioRoomImage.svgAsset(
+                ZegoLiveAudioRoomIconUrls.icMicrophoneOff),
             backgroundColor: Colors.white,
           ),
           defaultOn: microphoneDefaultOn,

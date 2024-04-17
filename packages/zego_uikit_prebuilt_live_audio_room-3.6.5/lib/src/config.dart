@@ -193,6 +193,15 @@ class ZegoUIKitPrebuiltLiveAudioRoomConfig {
           closeWhenJoining: false,
           hostIndexes: const [0],
         ),
+        background = Container(
+            width: double.infinity,
+            height: double.infinity,
+            decoration: BoxDecoration(
+                image: DecorationImage(
+              fit: BoxFit.cover,
+              image: ZegoLiveAudioRoomImage.assetImage(
+                  ZegoLiveAudioRoomIconUrls.audioBackground),
+            ))),
         topMenuBar = ZegoLiveAudioRoomTopMenuBarConfig(),
         bottomMenuBar = ZegoLiveAudioRoomBottomMenuBarConfig(),
         inRoomMessage = ZegoLiveAudioRoomInRoomMessageConfig(),
@@ -391,13 +400,13 @@ class ZegoLiveAudioRoomBottomMenuBarConfig {
     this.visible = true,
     this.showInRoomMessageButton = true,
     this.hostButtons = const [
-      ZegoLiveAudioRoomMenuBarButtonName.soundEffectButton,
+      // ZegoLiveAudioRoomMenuBarButtonName.soundEffectButton,
       ZegoLiveAudioRoomMenuBarButtonName.toggleMicrophoneButton,
       ZegoLiveAudioRoomMenuBarButtonName.showMemberListButton,
       ZegoLiveAudioRoomMenuBarButtonName.closeSeatButton,
     ],
     this.speakerButtons = const [
-      ZegoLiveAudioRoomMenuBarButtonName.soundEffectButton,
+      // ZegoLiveAudioRoomMenuBarButtonName.soundEffectButton,
       ZegoLiveAudioRoomMenuBarButtonName.toggleMicrophoneButton,
       ZegoLiveAudioRoomMenuBarButtonName.showMemberListButton,
     ],

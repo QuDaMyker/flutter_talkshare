@@ -3,6 +3,7 @@ import 'dart:async';
 
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 // Package imports:
 import 'package:zego_uikit/zego_uikit.dart';
@@ -56,10 +57,10 @@ class ZegoLiveAudioRoomColoredText extends StatelessWidget {
           child: Text(
             text,
             style: TextStyle(
-              color: Colors.white,
-              decoration: TextDecoration.none,
-              fontSize: fontSize ?? 25.zR,
-            ),
+                color: Colors.white,
+                decoration: TextDecoration.none,
+                fontSize: fontSize ?? 25.zR,
+                fontWeight: FontWeight.bold),
           ),
         ),
       ),
@@ -135,18 +136,20 @@ class _CallDurationTimeBoardState extends State<LiveDurationTimeBoard> {
             ? Container()
             : Stack(
                 children: [
-                  const Positioned.fill(
-                    child: ColoredBox(
-                      color: Colors.transparent,
+                  Positioned.fill(
+                    child: Container(
+                      decoration: BoxDecoration(
+                          color: Color(0xFF219F94),
+                          borderRadius: BorderRadius.circular(12)),
                     ),
                   ),
                   Center(
                     child: ZegoLiveAudioRoomColoredText(
                       text: durationFormatString(elapsedTime),
                       fontSize: widget.fontSize ?? 25.zR,
-                      backgroundColor: Colors.black.withOpacity(0.2),
-                      horizontalPadding: 20.zR,
-                      verticalPadding: 5.zR,
+                      backgroundColor: Colors.black.withOpacity(0),
+                      horizontalPadding: 12.zR,
+                      verticalPadding: 12.zR,
                     ),
                   ),
                 ],

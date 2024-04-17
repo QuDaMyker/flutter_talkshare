@@ -61,12 +61,32 @@ class _ZegoLiveAudioRoomTopBarState extends State<ZegoLiveAudioRoomTopBar> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(color: Colors.transparent),
-      height: 80.zR,
+      height: 100.zR,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          minimizingButton(),
-          const Expanded(child: SizedBox()),
+          // minimizingButton(),
+          SizedBox(width: 34.zR),
+          const Expanded(
+              child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Free room early",
+                style: TextStyle(
+                    color: Color(0xFF21242D),
+                    fontSize: 16,
+                    fontWeight: FontWeight.w600),
+              ),
+              Text(
+                "What did you do yesterday?",
+                style: TextStyle(
+                    color: Color(0xFF848484),
+                    fontSize: 12,
+                    fontWeight: FontWeight.w500),
+              ),
+            ],
+          )),
           closeButton(),
           SizedBox(width: 34.zR),
         ],
@@ -89,11 +109,12 @@ class _ZegoLiveAudioRoomTopBarState extends State<ZegoLiveAudioRoomTopBar> {
     }
 
     return ZegoLiveAudioRoomLeaveButton(
-      buttonSize: Size(52.zR, 52.zR),
+      buttonSize: Size(60.zR, 60.zR),
       iconSize: Size(24.zR, 24.zR),
       icon: ButtonIcon(
-        icon: ZegoLiveAudioRoomImage.asset(ZegoLiveAudioRoomIconUrls.topQuit),
-        backgroundColor: Colors.white,
+        icon:
+            ZegoLiveAudioRoomImage.svgAsset(ZegoLiveAudioRoomIconUrls.icLogout),
+        backgroundColor: Color(0xFFFFBF14),
       ),
       config: widget.config,
       events: widget.events,

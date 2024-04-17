@@ -11,17 +11,15 @@ class AudioRoomPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SafeArea(
-      child: ZegoUIKitPrebuiltLiveAudioRoom(
-        appID: int.parse(dotenv.get("AppID")),
-        appSign: dotenv.get("AppSign"),
-        userID: '0910',
-        userName: 'ethan',
-        roomID: roomID,
-        config: isHost
-            ? ZegoUIKitPrebuiltLiveAudioRoomConfig.host()
-            : ZegoUIKitPrebuiltLiveAudioRoomConfig.audience(),
-      ),
+    return ZegoUIKitPrebuiltLiveAudioRoom(
+      appID: int.parse(dotenv.get("AppID")),
+      appSign: dotenv.get("AppSign"),
+      userID: '0910',
+      userName: 'ethan',
+      roomID: roomID,
+      config: isHost
+          ? ZegoUIKitPrebuiltLiveAudioRoomConfig.host()
+          : ZegoUIKitPrebuiltLiveAudioRoomConfig.audience(),
     );
   }
 }
