@@ -1,5 +1,6 @@
 // Flutter imports:
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 // Package imports:
 import 'package:zego_uikit/zego_uikit.dart';
@@ -69,7 +70,7 @@ class _ZegoLiveAudioRoomMemberListSheetState
       return Column(
         children: [
           header(98.zH),
-          Container(height: 1.zR, color: Colors.white.withOpacity(0.15)),
+          Container(height: 1.zR, color: Colors.black.withOpacity(0.15)),
           SizedBox(
             height: constraints.maxHeight - 1.zR - 98.zH,
             child: ValueListenableBuilder<List<String>>(
@@ -196,10 +197,26 @@ class _ZegoLiveAudioRoomMemberListSheetState
   }
 
   Widget header(double height) {
-    return SizedBox(
+    return Container(
       height: height,
+      padding: EdgeInsets.symmetric(horizontal: 12),
       child: Row(
         children: [
+          Expanded(
+            child: StreamBuilder<List<ZegoUIKitUser>>(
+                stream: ZegoUIKit().getUserListStream(),
+                builder: (context, snapshot) {
+                  return Text(
+                    'Người tham dự (${ZegoUIKit().getAllUsers().length})',
+                    style: TextStyle(
+                      fontSize: 36.0.zR,
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.none,
+                    ),
+                  );
+                }),
+          ),
           GestureDetector(
             onTap: () {
               Navigator.of(
@@ -210,23 +227,10 @@ class _ZegoLiveAudioRoomMemberListSheetState
             child: SizedBox(
               width: 70.zR,
               height: 70.zR,
-              child:
-                  ZegoLiveAudioRoomImage.asset(ZegoLiveAudioRoomIconUrls.back),
+              child: ZegoLiveAudioRoomImage.svgAsset(
+                  ZegoLiveAudioRoomIconUrls.iconClose),
             ),
           ),
-          SizedBox(width: 10.zR),
-          StreamBuilder<List<ZegoUIKitUser>>(
-              stream: ZegoUIKit().getUserListStream(),
-              builder: (context, snapshot) {
-                return Text(
-                  '${widget.innerText.memberListTitle} (${ZegoUIKit().getAllUsers().length})',
-                  style: TextStyle(
-                    fontSize: 36.0.zR,
-                    color: const Color(0xffffffff),
-                    decoration: TextDecoration.none,
-                  ),
-                );
-              }),
         ],
       ),
     );
@@ -235,12 +239,12 @@ class _ZegoLiveAudioRoomMemberListSheetState
   Widget userNameItem(ZegoUIKitUser user) {
     final extensions = <String>[];
     if (ZegoUIKit().getLocalUser().id == user.id) {
-      extensions.add('You');
+      extensions.add('Bạn');
     }
     if (widget.seatManager.isAttributeHost(user)) {
-      extensions.add('Host');
+      extensions.add('Chủ phòng');
     } else if (widget.seatManager.isSpeaker(user)) {
-      extensions.add('Speaker');
+      extensions.add('Người nói');
     }
 
     return Row(
@@ -250,7 +254,7 @@ class _ZegoLiveAudioRoomMemberListSheetState
           overflow: TextOverflow.ellipsis,
           style: TextStyle(
             fontSize: 32.0.zR,
-            color: const Color(0xffffffff),
+            color: Colors.black,
             decoration: TextDecoration.none,
           ),
         ),
@@ -470,7 +474,7 @@ void showMemberListSheet({
 
   showModalBottomSheet(
     barrierColor: ZegoUIKitDefaultTheme.viewBarrierColor,
-    backgroundColor: ZegoUIKitDefaultTheme.viewBackgroundColor,
+    backgroundColor: Colors.white,
     context: context,
     shape: RoundedRectangleBorder(
       borderRadius: BorderRadius.only(
