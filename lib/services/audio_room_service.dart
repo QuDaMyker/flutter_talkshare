@@ -11,4 +11,13 @@ extension AudioRoomService on SupabaseService {
         .update({AudioRoom.table.isActive: false}).match(
             {AudioRoom.table.roomId: roomId});
   }
+
+  Future<List<AudioRoom>> getAllAudioRoom() async {
+    List<dynamic> res = await supabase
+        .from(AudioRoom.table.tableName)
+        .select()
+        .eq(AudioRoom.table.isActive, true);
+    List<AudioRoom> listRoom = res.map((e) => AudioRoom.fromJson(e)).toList();
+    return listRoom;
+  }
 }

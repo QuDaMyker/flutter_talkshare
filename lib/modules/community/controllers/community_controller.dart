@@ -15,9 +15,14 @@ class CommunityController extends GetxController
   TextEditingController roomNameCtrl = TextEditingController();
   TextEditingController roomTopicCtrl = TextEditingController();
   TextEditingController passcodeCtrl = TextEditingController();
+  RxList<AudioRoom> listRoom = RxList.empty();
+  TextEditingController confirmPasscodeCtrl = TextEditingController();
 
   @override
-  void onInit() {
+  void onInit() async {
+    var list = await SupabaseService.instance.getAllAudioRoom();
+    listRoom.addAll(list);
+
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 260),
@@ -26,6 +31,7 @@ class CommunityController extends GetxController
     final curvedAnimation =
         CurvedAnimation(curve: Curves.easeInOut, parent: animationController);
     animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
+
     super.onInit();
   }
 
