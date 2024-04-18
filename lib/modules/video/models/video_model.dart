@@ -58,6 +58,19 @@ class VideoModel {
       channel: ChannelModel.fromMap(map['channel'] as Map<String, dynamic>),
     );
   }
+  factory VideoModel.fromMapChannelModel({
+    required Map<String, dynamic> map,
+    required ChannelModel channelModel,
+  }) {
+    return VideoModel(
+      id: map['id'],
+      title: map['title'],
+      thumbnail: map['thumbnail'],
+      duration: map['duration'],
+      urlVideo: map['urlVideo'],
+      channel: channelModel,
+    );
+  }
 
   String toJson() => json.encode(toMap());
 

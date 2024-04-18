@@ -2,11 +2,11 @@
 import 'dart:convert';
 
 class CaptionResponse {
-  int? index;
-  double? start;
-  double? dur;
-  double? end;
-  String? text;
+  final int index;
+  final double start;
+  final double dur;
+  final double end;
+  final String text;
   CaptionResponse({
     required this.index,
     required this.start,
@@ -43,11 +43,11 @@ class CaptionResponse {
 
   factory CaptionResponse.fromMap(Map<String, dynamic> map) {
     return CaptionResponse(
-      index: map['index'] != null ? map['index'] as int : null,
-      start: map['start'] != null ? map['start'] as double : null,
-      dur: map['dur'] != null ? map['dur'] as double : null,
-      end: map['end'] != null ? map['end'] as double : null,
-      text: map['text'] != null ? map['text'] as String : null,
+      index: map['index'] as int,
+      start: map['start'] * 1.0 as double,
+      dur: map['dur'] * 1.0 as double,
+      end: map['end'] * 1.0 as double,
+      text: map['text'] as String,
     );
   }
 

@@ -6,7 +6,7 @@ import 'package:flutter_talkshare/modules/video/widgets/item_video.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class ResultChannelSearchScreen extends StatelessWidget {
+class ResultChannelSearchScreen extends StatefulWidget {
   const ResultChannelSearchScreen({
     super.key,
     required this.channelModel,
@@ -14,12 +14,30 @@ class ResultChannelSearchScreen extends StatelessWidget {
   final ChannelModel channelModel;
 
   @override
+  State<ResultChannelSearchScreen> createState() =>
+      _ResultChannelSearchScreenState();
+}
+
+class _ResultChannelSearchScreenState extends State<ResultChannelSearchScreen> {
+  late ResultChannelSearchController resultChannelSearchController;
+  @override
+  void initState() {
+    resultChannelSearchController = Get.put(
+        ResultChannelSearchController(channelModel: widget.channelModel));
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    Get.delete<ResultChannelSearchController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    ResultChannelSearchController resultChannelSearchController =
-        Get.put(ResultChannelSearchController());
     return SafeArea(
       child: Scaffold(
-        appBar: _buildAppBar(channelModel.nameOfBrand),
+        appBar: _buildAppBar(widget.channelModel.nameOfBrand),
         body: _buildBody(resultChannelSearchController),
       ),
     );
@@ -30,38 +48,37 @@ class ResultChannelSearchScreen extends StatelessWidget {
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Obx(
         () => controller.isLoading.value
-            ? Center(
-                child: LoadingAnimationWidget.flickr(
-                  leftDotColor: const Color(0xfffe0079),
-                  rightDotColor: const Color(0xff0056d6),
-                  size: 20,
-                ),
-              )
-            : controller.videos.value.isNotEmpty
+            ? _buildLoading()
+            : controller.videos.value.isEmpty
                 ? const Center(
                     child: Text('Khong co data'),
                   )
                 : ListView.builder(
-                    itemCount: 10,
+                    itemCount: controller.videos.value.length,
                     itemBuilder: (context, index) {
+                      VideoModel videoModel = controller.videos.value[index];
                       return ItemVideo(
                         videoModel: VideoModel(
-                          id: 'id',
-                          title:
-                              """Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.""",
-                          thumbnail:
-                              'https://images.unsplash.com/photo-1521708266372-b3547456cc2d?q=80&w=2638&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                          duration: 1402,
-                          urlVideo: 'url',
-                          channel: ChannelModel(
-                              id: 'id',
-                              imgUrlBrand:
-                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxnjvHtVvnD1LLaCI0PN5czRV8QihU8MPW5ywAiFWOCQ&s',
-                              nameOfBrand: 'nameOfBrand'),
+                          id: videoModel.id,
+                          title: videoModel.title,
+                          thumbnail: videoModel.thumbnail,
+                          duration: videoModel.duration,
+                          urlVideo: videoModel.urlVideo,
+                          channel: videoModel.channel,
                         ),
                       );
                     },
                   ),
+      ),
+    );
+  }
+
+  Center _buildLoading() {
+    return Center(
+      child: LoadingAnimationWidget.flickr(
+        leftDotColor: const Color(0xfffe0079),
+        rightDotColor: const Color(0xff0056d6),
+        size: 20,
       ),
     );
   }

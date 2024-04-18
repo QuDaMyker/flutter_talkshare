@@ -206,9 +206,50 @@ class SupabaseService {
     }
   }
 
+  Future<List<VideoModel>> getListVideoByIdChannel({
+    required String idChannel,
+    required int limit,
+  }) async {
+    try {
+      List<VideoModel> listVideo = [];
+
+      await supabase
+          .from('channel')
+          .select(
+              'id, imgUrlBrand, nameOfBrand, videos(id, title, id_channel, thumbnail, duration, urlVideo)')
+          .eq('id', idChannel)
+          .limit(limit)
+          .then((videos) {
+        videos.map((video) {
+          ChannelModel channelModel = ChannelModel(
+            id: video['id'],
+            imgUrlBrand: video['imgUrlBrand'],
+            nameOfBrand: video['nameOfBrand'],
+          );
+
+          (video['videos'] as List<dynamic>).map((item) {
+            listVideo.add(
+              VideoModel.fromMapChannelModel(
+                map: item,
+                channelModel: channelModel,
+              ),
+            );
+          }).toList();
+        }).toList();
+        return listVideo;
+      });
+
+      return listVideo;
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
+  }
+
   Future<String> addVideo({
     required String title,
     required String thumbnail,
+    // ignore: non_constant_identifier_names
     required String id_channel,
     required int duration,
     required String urlVideo,

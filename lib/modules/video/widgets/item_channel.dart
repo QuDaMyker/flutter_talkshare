@@ -16,10 +16,12 @@ class ItemChannel extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).push(MaterialPageRoute(
-          builder: (context) =>
-              ResultChannelSearchScreen(channelModel: channelModel),
-        ));
+        Navigator.of(context).push(
+          MaterialPageRoute(
+            builder: (context) =>
+                ResultChannelSearchScreen(channelModel: channelModel),
+          ),
+        );
       },
       child: Container(
         margin: const EdgeInsets.only(bottom: 10),
