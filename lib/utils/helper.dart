@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:translator_plus/translator_plus.dart';
 
 import '../core/configuration/injection.dart';
@@ -61,4 +62,39 @@ String formatMilliseconds(int milliseconds) {
   int minutes = duration.inMinutes.remainder(60);
   int seconds = duration.inSeconds.remainder(60);
   return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+}
+
+String formatDateTimeToDdMmYyyy(DateTime date) {
+  final formatter = DateFormat('dd-MM-yyyy');
+  return formatter.format(date);
+}
+
+String formatDateTimeToHHMMDdMmYyyy(DateTime date) {
+  final formatter = DateFormat('hh:mm, dd-MM-yyyy');
+  return formatter.format(date);
+}
+
+String formatDateTimeToHHMM(DateTime date) {
+  final formatter = DateFormat('hh:mm a');
+  return formatter.format(date);
+}
+
+String formatDateTimeToHms(DateTime date) {
+  return DateFormat.Hms().format(date).toString();
+}
+
+DateTime combineTwoDateTime(DateTime date, TimeOfDay time) {
+  return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+}
+
+int dateTimeToTimeStamp(DateTime dateTime) {
+  return dateTime.millisecondsSinceEpoch;
+}
+
+int timeOfDayToTimeStamp(TimeOfDay dateTime) {
+  return dateTimeToTimeStamp(DateTime(dateTime.hour, dateTime.minute));
+}
+
+DateTime timeStampToDateTime(int timeStamp) {
+  return DateTime.fromMillisecondsSinceEpoch(timeStamp);
 }

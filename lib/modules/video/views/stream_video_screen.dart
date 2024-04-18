@@ -26,8 +26,9 @@ class _StreamVideoState extends State<StreamVideo> {
   @override
   void initState() {
     streamVideoController = Get.put(
-        StreamVideoController(videoModel: widget.videoModel),
-        tag: widget.videoModel.id);
+      StreamVideoController(videoModel: widget.videoModel),
+      // tag: widget.videoModel.id);
+    );
     super.initState();
   }
 

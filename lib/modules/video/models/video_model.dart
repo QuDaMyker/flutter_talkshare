@@ -6,26 +6,34 @@ import 'package:flutter_talkshare/modules/video/models/channel_model.dart';
 class VideoModel {
   final String id;
   final String title;
-  final String imgUrlVideo;
-  final ChannelModel channelModel;
+  final String thumbnail;
+  final int duration;
+  final String urlVideo;
+  final ChannelModel channel;
   VideoModel({
     required this.id,
     required this.title,
-    required this.imgUrlVideo,
-    required this.channelModel,
+    required this.thumbnail,
+    required this.duration,
+    required this.urlVideo,
+    required this.channel,
   });
 
   VideoModel copyWith({
     String? id,
     String? title,
-    String? imgUrlVideo,
-    ChannelModel? channelModel,
+    String? thumbnail,
+    int? duration,
+    String? urlVideo,
+    ChannelModel? channel,
   }) {
     return VideoModel(
       id: id ?? this.id,
       title: title ?? this.title,
-      imgUrlVideo: imgUrlVideo ?? this.imgUrlVideo,
-      channelModel: channelModel ?? this.channelModel,
+      thumbnail: thumbnail ?? this.thumbnail,
+      duration: duration ?? this.duration,
+      urlVideo: urlVideo ?? this.urlVideo,
+      channel: channel ?? this.channel,
     );
   }
 
@@ -33,8 +41,10 @@ class VideoModel {
     return <String, dynamic>{
       'id': id,
       'title': title,
-      'imgUrlVideo': imgUrlVideo,
-      'channelModel': channelModel.toMap(),
+      'thumbnail': thumbnail,
+      'duration': duration,
+      'urlVideo': urlVideo,
+      'channel': channel.toMap(),
     };
   }
 
@@ -42,9 +52,10 @@ class VideoModel {
     return VideoModel(
       id: map['id'] as String,
       title: map['title'] as String,
-      imgUrlVideo: map['imgUrlVideo'] as String,
-      channelModel:
-          ChannelModel.fromMap(map['channelModel'] as Map<String, dynamic>),
+      thumbnail: map['thumbnail'] as String,
+      duration: map['duration'] as int,
+      urlVideo: map['urlVideo'] as String,
+      channel: ChannelModel.fromMap(map['channel'] as Map<String, dynamic>),
     );
   }
 
@@ -55,7 +66,7 @@ class VideoModel {
 
   @override
   String toString() {
-    return 'VideoModel(id: $id, title: $title, imgUrlVideo: $imgUrlVideo, channelModel: $channelModel)';
+    return 'VideoModel(id: $id, title: $title, thumbnail: $thumbnail, duration: $duration, urlVideo: $urlVideo, channel: $channel)';
   }
 
   @override
@@ -64,15 +75,19 @@ class VideoModel {
 
     return other.id == id &&
         other.title == title &&
-        other.imgUrlVideo == imgUrlVideo &&
-        other.channelModel == channelModel;
+        other.thumbnail == thumbnail &&
+        other.duration == duration &&
+        other.urlVideo == urlVideo &&
+        other.channel == channel;
   }
 
   @override
   int get hashCode {
     return id.hashCode ^
         title.hashCode ^
-        imgUrlVideo.hashCode ^
-        channelModel.hashCode;
+        thumbnail.hashCode ^
+        duration.hashCode ^
+        urlVideo.hashCode ^
+        channel.hashCode;
   }
 }

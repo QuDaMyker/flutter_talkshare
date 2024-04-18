@@ -186,18 +186,17 @@ class SupabaseService {
   Future<List<VideoModel>> getListVideo(int limit) async {
     try {
       List<VideoModel> listVideo = [];
-
       await supabase
           .from('videos')
           .select(
-              'id, title, imgUrlVideo, id_channel, channel(id_channel, imgUrlBrand, nameOfBrand)')
+              'id, title, thumbnail, duration, urlVideo, channel(id, imgUrlBrand, nameOfBrand)')
           .limit(limit)
           .then((videos) {
         videos.map((video) {
-          //listVideo.add(VideoModel.fromMap(video));
-          print(video.toString());
+          //print('video: ${video.toString()}');
+          listVideo.add(VideoModel.fromMap(video));
         }).toList();
-        //return listVideo;
+        return listVideo;
       });
 
       return listVideo;

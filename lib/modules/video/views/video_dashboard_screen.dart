@@ -192,24 +192,26 @@ class _VideoDashBoardScreenState extends State<VideoDashBoardScreen>
       color: Colors.white,
       child: Align(
         alignment: Alignment.topCenter,
-        child: ListView.builder(
-          itemCount: 100,
-          itemBuilder: (context, index) {
-            return ItemVideo(
-              videoModel: VideoModel(
-                id: 'id',
-                title: 'title',
-                imgUrlVideo:
-                    'https://plus.unsplash.com/premium_photo-1712325632272-b0cbb2a27db6?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                channelModel: ChannelModel(
-                  id: 'id',
-                  imgUrlBrand:
-                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxnjvHtVvnD1LLaCI0PN5czRV8QihU8MPW5ywAiFWOCQ&s',
-                  nameOfBrand: 'Ted Talk',
+        child: Obx(
+          () => controller.isLoading.value
+              ? _buildLoading()
+              : ListView.builder(
+                  itemCount: controller.popularVideos.value.length,
+                  itemBuilder: (context, index) {
+                    VideoModel videoModel =
+                        controller.popularVideos.value[index];
+                    return ItemVideo(
+                      videoModel: VideoModel(
+                        id: videoModel.id,
+                        title: videoModel.title,
+                        urlVideo: videoModel.urlVideo,
+                        thumbnail: videoModel.thumbnail,
+                        duration: videoModel.duration,
+                        channel: videoModel.channel,
+                      ),
+                    );
+                  },
                 ),
-              ),
-            );
-          },
         ),
       ),
     );

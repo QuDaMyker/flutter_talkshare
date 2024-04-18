@@ -13,6 +13,7 @@ class VideoDashBoardController extends GetxController {
   void onInit() async {
     isLoading.value = true;
     await getListChannel(10);
+    await getListPopular(10);
     isLoading.value = false;
     super.onInit();
   }
@@ -32,7 +33,7 @@ class VideoDashBoardController extends GetxController {
 
   Future<void> getListPopular(int limit) async {
     try {
-      await SupabaseService.instance.getListVideo(limit);
+      popularVideos.value = await SupabaseService.instance.getListVideo(limit);
     } catch (e) {
       debugPrint(e.toString());
     }
