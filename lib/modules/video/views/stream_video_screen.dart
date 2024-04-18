@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
-import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/constants.dart';
 import 'package:flutter_talkshare/modules/video/controllers/stream_video_controller.dart';
-import 'package:flutter_talkshare/modules/video/models/item_caption_model.dart';
 import 'package:flutter_talkshare/modules/video/models/video_model.dart';
-import 'package:flutter_talkshare/modules/video/widgets/item_caption_widget.dart';
 
-class StreamVideo extends StatelessWidget {
+class StreamVideo extends StatefulWidget {
   const StreamVideo({
     super.key,
     required this.optionView,
@@ -21,14 +18,31 @@ class StreamVideo extends StatelessWidget {
   final VideoModel videoModel;
 
   @override
+  State<StreamVideo> createState() => _StreamVideoState();
+}
+
+class _StreamVideoState extends State<StreamVideo> {
+  late StreamVideoController streamVideoController;
+  @override
+  void initState() {
+    streamVideoController = Get.put(
+        StreamVideoController(videoModel: widget.videoModel),
+        tag: widget.videoModel.id);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    Get.delete<StreamVideoController>();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    StreamVideoController streamVideoController = Get.put(
-        StreamVideoController(videoModel: videoModel),
-        tag: videoModel.id);
     return SafeArea(
       child: Scaffold(
-        appBar:
-            _buildAppBar(optionView == Constants.sub ? 'Phụ đề' : 'Điền từ'),
+        appBar: _buildAppBar(
+            widget.optionView == Constants.sub ? 'Phụ đề' : 'Điền từ'),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 15),
           child: _buildBody(streamVideoController),
@@ -111,29 +125,29 @@ class StreamVideo extends StatelessWidget {
             )),
         Expanded(
           flex: 4,
-          child: Obx(
-              // () => ListView.builder(
-              //     controller: controller.scrollController,
-              //     itemCount: controller.listCaptionsShowing.value.length,
-              //     itemBuilder: (context, index) {
-              //   ItemCaptionModel itemCaptionModel =
-              //       controller.listCaptionsShowing.value[index];
-              //   return ItemCaptionWidget(
-              //     itemCaptionModel: itemCaptionModel,
-              //   );
-              // },
-              // ),
-              () => ScrollablePositionedList.builder(
-                    itemScrollController: controller.itemScrollController,
-                    itemCount: controller.listCaptionsShowing.value.length,
-                    itemBuilder: (context, index) {
-                      ItemCaptionModel itemCaptionModel =
-                          controller.listCaptionsShowing.value[index];
-                      return ItemCaptionWidget(
-                        itemCaptionModel: itemCaptionModel,
-                      );
-                    },
-                  )),
+          // child: Obx(
+          //   () => ScrollablePositionedList.builder(
+          //     itemScrollController: controller.itemScrollController,
+          //     itemCount: controller.listCaptionsShowing.value.length,
+          //     itemBuilder: (context, index) {
+          //       ItemCaptionModel itemCaptionModel =
+          //           controller.listCaptionsShowing.value[index];
+          //       return ItemCaptionWidget(
+          //         itemCaptionModel: itemCaptionModel,
+          //       );
+          //     },
+          //   ),
+          // ),
+          child: Column(
+            children: [
+              Text(controller.video.duration!.inSeconds.toString()),
+              Text(controller.video.description),
+              Text(controller.video.url),
+              Text(controller.video.author),
+              Text(controller.video.channelId.toString()),
+              Text(controller.video.id.toString()),
+            ],
+          ),
         ),
       ],
     );

@@ -39,30 +39,48 @@ class ItemChannel extends StatelessWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Row(
-              children: [
-                CircleAvatar(
-                  backgroundImage:
-                      CachedNetworkImageProvider(channelModel.imgUrlBrand),
-                ),
-                const SizedBox(
-                  width: 5,
-                ),
-                Text(
-                  channelModel.nameOfBrand,
-                  style: const TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: AppColors.primary20,
+            Expanded(
+              flex: 7,
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: CircleAvatar(
+                      backgroundImage: CachedNetworkImageProvider(
+                        channelModel.imgUrlBrand,
+                      ),
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Expanded(
+                    flex: 4,
+                    child: Container(
+                      child: Text(
+                        channelModel.nameOfBrand,
+                        style: const TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary20,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
-            SvgPicture.asset(
-              ImageAssets.arrowRight,
-              colorFilter: const ColorFilter.mode(
-                AppColors.gray20,
-                BlendMode.srcIn,
+            Expanded(
+              flex: 1,
+              child: SvgPicture.asset(
+                ImageAssets.arrowRight,
+                colorFilter: const ColorFilter.mode(
+                  AppColors.gray20,
+                  BlendMode.srcIn,
+                ),
               ),
             )
           ],

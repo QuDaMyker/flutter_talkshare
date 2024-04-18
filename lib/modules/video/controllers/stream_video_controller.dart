@@ -1,16 +1,12 @@
-import 'dart:convert';
-
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/modules/video/models/caption_response.dart';
 import 'package:flutter_talkshare/modules/video/models/item_caption_model.dart';
 import 'package:flutter_talkshare/modules/video/models/video_model.dart';
-import 'package:flutter_talkshare/modules/video/widgets/item_caption_widget.dart';
 import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
-import 'package:youtube_caption_scraper/youtube_caption_scraper.dart';
 import 'package:youtube_explode_dart/youtube_explode_dart.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
@@ -36,20 +32,21 @@ class StreamVideoController extends GetxController {
     await fetchVideoInfo();
     initScrollController();
     initYtController();
-    await getCaptions(video.id.toString());
+    // await getCaptions(video.id.toString());
     isLoading.value = false;
-
     super.onInit();
   }
 
   @override
   void onClose() {
     yt.close();
+    Get.delete<StreamVideoController>();
     super.onClose();
   }
 
   Future<void> fetchVideoInfo() async {
-    var videoId = VideoId('https://youtu.be/_uUskajC1Ps?si=qTao3UmyAtreZBg0');
+    var videoId =
+        VideoId('https://www.youtube.com/watch?v=0juLRi90kRg&ab_channel=TED');
     video = await yt.videos.get(videoId);
   }
 
@@ -117,18 +114,10 @@ class StreamVideoController extends GetxController {
         }
       }
     });
-  }
 
-  void getSubtitle() async {
-    final captionScraper = YouTubeCaptionScraper();
-
-    final captionTracks = await captionScraper.getCaptionTracks(
-        'https://www.youtube.com/watch?v=Kt8tyZRRh2I&ab_channel=Th%E1%BA%A7yGi%C3%A1oBa');
-
-    debugPrint('subtitle: ${captionTracks.length.toString()}');
-    final subtitles = await captionScraper.getSubtitles(captionTracks[0]);
-
-    isLoading.value = false;
+    print('log-data: ${video.title}');
+    print('log-data: ${video.thumbnails.maxResUrl}');
+    print('log-data: ${video.duration!.inSeconds}');
   }
 
   Future<void> getCaptions(String videoId) async {

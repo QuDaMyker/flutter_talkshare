@@ -8,6 +8,7 @@ import 'package:flutter_talkshare/modules/video/models/video_model.dart';
 import 'package:flutter_talkshare/modules/video/widgets/item_channel.dart';
 import 'package:flutter_talkshare/modules/video/widgets/item_video.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
 class VideoDashBoardScreen extends StatefulWidget {
   const VideoDashBoardScreen({super.key});
@@ -106,18 +107,23 @@ class _VideoDashBoardScreenState extends State<VideoDashBoardScreen>
           ),
           Expanded(
             flex: 12,
-            child: ListView.builder(
-              itemCount: 10,
-              itemBuilder: (context, index) {
-                return ItemChannel(
-                  channelModel: ChannelModel(
-                    id: 'id',
-                    imgUrlBrand:
-                        'https://w7.pngwing.com/pngs/4/628/png-transparent-app-store-android-computer-software-android-text-rectangle-logo-thumbnail.png',
-                    nameOfBrand: 'nameOfBrand',
-                  ),
-                );
-              },
+            child: Obx(
+              () => controller.isLoading.value
+                  ? _buildLoading()
+                  : ListView.builder(
+                      itemCount: controller.channels.value.length,
+                      itemBuilder: (context, index) {
+                        ChannelModel channelModel =
+                            controller.channels.value[index];
+                        return ItemChannel(
+                          channelModel: ChannelModel(
+                            id: channelModel.id,
+                            imgUrlBrand: channelModel.imgUrlBrand,
+                            nameOfBrand: channelModel.nameOfBrand,
+                          ),
+                        );
+                      },
+                    ),
             ),
           ),
         ],
@@ -163,9 +169,14 @@ class _VideoDashBoardScreenState extends State<VideoDashBoardScreen>
               color: AppColors.primary40,
             ),
           ),
-          suffixIcon: IconButton(
-            onPressed: () {},
-            icon: SvgPicture.asset(ImageAssets.icClose),
+          suffixIcon: Obx(
+            () => Visibility(
+              visible: controller.searchValue.value.isNotEmpty ? true : false,
+              child: IconButton(
+                onPressed: () {},
+                icon: SvgPicture.asset(ImageAssets.icClose),
+              ),
+            ),
           ),
         ),
       ),
@@ -190,9 +201,12 @@ class _VideoDashBoardScreenState extends State<VideoDashBoardScreen>
                 title: 'title',
                 imgUrlVideo:
                     'https://plus.unsplash.com/premium_photo-1712325632272-b0cbb2a27db6?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                imgUrlBrand:
-                    'https://w7.pngwing.com/pngs/4/628/png-transparent-app-store-android-computer-software-android-text-rectangle-logo-thumbnail.png',
-                nameOfBrand: 'Ted Talk',
+                channelModel: ChannelModel(
+                  id: 'id',
+                  imgUrlBrand:
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxnjvHtVvnD1LLaCI0PN5czRV8QihU8MPW5ywAiFWOCQ&s',
+                  nameOfBrand: 'Ted Talk',
+                ),
               ),
             );
           },
@@ -240,6 +254,16 @@ class _VideoDashBoardScreenState extends State<VideoDashBoardScreen>
           ),
           tabs: myTabs,
         ),
+      ),
+    );
+  }
+
+  Center _buildLoading() {
+    return Center(
+      child: LoadingAnimationWidget.flickr(
+        leftDotColor: AppColors.primary40,
+        rightDotColor: AppColors.secondary20,
+        size: 20,
       ),
     );
   }

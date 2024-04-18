@@ -45,16 +45,19 @@ class ResultChannelSearchScreen extends StatelessWidget {
                     itemCount: 10,
                     itemBuilder: (context, index) {
                       return ItemVideo(
-                          videoModel: VideoModel(
-                        id: 'id',
-                        title:
-                            """Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.""",
-                        imgUrlVideo:
-                            'https://images.unsplash.com/photo-1521708266372-b3547456cc2d?q=80&w=2638&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
-                        imgUrlBrand:
-                            'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxnjvHtVvnD1LLaCI0PN5czRV8QihU8MPW5ywAiFWOCQ&s',
-                        nameOfBrand: 'nameOfBrand',
-                      ));
+                        videoModel: VideoModel(
+                          id: 'id',
+                          title:
+                              """Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.""",
+                          imgUrlVideo:
+                              'https://images.unsplash.com/photo-1521708266372-b3547456cc2d?q=80&w=2638&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
+                          channelModel: ChannelModel(
+                              id: 'id',
+                              imgUrlBrand:
+                                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQxnjvHtVvnD1LLaCI0PN5czRV8QihU8MPW5ywAiFWOCQ&s',
+                              nameOfBrand: 'nameOfBrand'),
+                        ),
+                      );
                     },
                   ),
       ),

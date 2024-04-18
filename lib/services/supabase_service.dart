@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_talkshare/modules/video/models/channel_model.dart';
+import 'package:flutter_talkshare/modules/video/models/video_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -153,6 +155,52 @@ class SupabaseService {
         listVocab.add(i['word']);
       }
       return listVocab;
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
+  }
+
+  Future<List<ChannelModel>> getListChannel(int limit) async {
+    try {
+      List<ChannelModel> listChannel = [];
+
+      await supabase
+          .from('channel')
+          .select('id, imgUrlBrand, nameOfBrand')
+          .limit(limit)
+          .then((value) {
+        value.map((channel) {
+          listChannel.add(ChannelModel.fromMap(channel));
+        }).toList();
+        return listChannel;
+      });
+
+      return listChannel;
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
+  }
+
+  Future<List<VideoModel>> getListVideo(int limit) async {
+    try {
+      List<VideoModel> listVideo = [];
+
+      await supabase
+          .from('videos')
+          .select(
+              'id, title, imgUrlVideo, id_channel, channel(id_channel, imgUrlBrand, nameOfBrand)')
+          .limit(limit)
+          .then((videos) {
+        videos.map((video) {
+          //listVideo.add(VideoModel.fromMap(video));
+          print(video.toString());
+        }).toList();
+        //return listVideo;
+      });
+
+      return listVideo;
     } catch (e) {
       debugPrint(e.toString());
       return [];

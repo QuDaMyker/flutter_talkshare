@@ -139,12 +139,12 @@ class ItemVideo extends StatelessWidget {
                 CircleAvatar(
                   maxRadius: 20,
                   backgroundImage: CachedNetworkImageProvider(
-                    videoModel.imgUrlBrand,
+                    videoModel.channelModel.imgUrlBrand,
                   ),
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  videoModel.nameOfBrand,
+                  videoModel.channelModel.nameOfBrand,
                   style: const TextStyle(
                     fontWeight: FontWeight.w500,
                     fontSize: 14,

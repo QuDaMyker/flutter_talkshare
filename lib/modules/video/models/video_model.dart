@@ -1,34 +1,31 @@
 import 'dart:convert';
 
+import 'package:flutter_talkshare/modules/video/models/channel_model.dart';
+
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 class VideoModel {
   final String id;
   final String title;
   final String imgUrlVideo;
-  final String imgUrlBrand;
-  final String nameOfBrand;
-
+  final ChannelModel channelModel;
   VideoModel({
     required this.id,
     required this.title,
     required this.imgUrlVideo,
-    required this.imgUrlBrand,
-    required this.nameOfBrand,
+    required this.channelModel,
   });
 
   VideoModel copyWith({
     String? id,
     String? title,
     String? imgUrlVideo,
-    String? imgUrlBrand,
-    String? nameOfBrand,
+    ChannelModel? channelModel,
   }) {
     return VideoModel(
       id: id ?? this.id,
       title: title ?? this.title,
       imgUrlVideo: imgUrlVideo ?? this.imgUrlVideo,
-      imgUrlBrand: imgUrlBrand ?? this.imgUrlBrand,
-      nameOfBrand: nameOfBrand ?? this.nameOfBrand,
+      channelModel: channelModel ?? this.channelModel,
     );
   }
 
@@ -37,8 +34,7 @@ class VideoModel {
       'id': id,
       'title': title,
       'imgUrlVideo': imgUrlVideo,
-      'imgUrlBrand': imgUrlBrand,
-      'nameOfBrand': nameOfBrand,
+      'channelModel': channelModel.toMap(),
     };
   }
 
@@ -47,8 +43,8 @@ class VideoModel {
       id: map['id'] as String,
       title: map['title'] as String,
       imgUrlVideo: map['imgUrlVideo'] as String,
-      imgUrlBrand: map['imgUrlBrand'] as String,
-      nameOfBrand: map['nameOfBrand'] as String,
+      channelModel:
+          ChannelModel.fromMap(map['channelModel'] as Map<String, dynamic>),
     );
   }
 
@@ -59,7 +55,7 @@ class VideoModel {
 
   @override
   String toString() {
-    return 'VideoModel(id: $id, title: $title, imgUrlVideo: $imgUrlVideo, imgUrlBrand: $imgUrlBrand, nameOfBrand: $nameOfBrand)';
+    return 'VideoModel(id: $id, title: $title, imgUrlVideo: $imgUrlVideo, channelModel: $channelModel)';
   }
 
   @override
@@ -69,8 +65,7 @@ class VideoModel {
     return other.id == id &&
         other.title == title &&
         other.imgUrlVideo == imgUrlVideo &&
-        other.imgUrlBrand == imgUrlBrand &&
-        other.nameOfBrand == nameOfBrand;
+        other.channelModel == channelModel;
   }
 
   @override
@@ -78,7 +73,6 @@ class VideoModel {
     return id.hashCode ^
         title.hashCode ^
         imgUrlVideo.hashCode ^
-        imgUrlBrand.hashCode ^
-        nameOfBrand.hashCode;
+        channelModel.hashCode;
   }
 }
