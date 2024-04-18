@@ -5,7 +5,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/modules/video/models/caption_response.dart';
 import 'package:flutter_talkshare/modules/video/models/item_caption_model.dart';
+import 'package:flutter_talkshare/modules/video/models/subtitle_model.dart';
 import 'package:flutter_talkshare/modules/video/models/video_model.dart';
+import 'package:flutter_talkshare/modules/video/services/video_services.dart';
 import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -18,8 +20,8 @@ class StreamVideoController extends GetxController {
 
   var isLoading = Rx<bool>(true);
   var isTimeout = Rx<bool>(false);
-  var captions = Rx<List<CaptionResponse>>([]);
-  var originCaptions = Rx<List<CaptionResponse>>([]);
+  var captions = Rx<List<SubtitleModel>>([]);
+  var originCaptions = Rx<List<SubtitleModel>>([]);
   var listCaptionsShowing = Rx<List<ItemCaptionModel>>([]);
   var currentCaption = Rx<String>('');
   late YoutubeExplode yt;
@@ -35,7 +37,8 @@ class StreamVideoController extends GetxController {
     await fetchVideoInfo();
     initScrollController();
     initYtController();
-    await getCaptions(video.id.toString());
+    // await getCaptions(video.id.toString());
+    await getCaptions(videoModel.id);
     isLoading.value = false;
     super.onInit();
   }
@@ -82,72 +85,49 @@ class StreamVideoController extends GetxController {
         hideControls: true,
       ),
     );
+
     // ytController.addListener(() {
+    //   if (ytController.value.playerState == PlayerState.playing) {
+    //     String duration = formatDuration(captions.value[0].start);
+    //     String positon =
+    //         formatMilliseconds(ytController.value.position.inMilliseconds);
+    //     if (duration == positon) {
+    //       debugPrint('compare: $duration - $positon');
 
+    //       currentCaption.value =
+    //           '${captions.value[0].start}: ${captions.value[0].content}';
+
+    //       int selectedIndex = originCaptions.value.indexOf(captions.value[0]);
+
+    //       scrollToIndex(selectedIndex);
+
+    //       ItemCaptionModel itemCaptionModel = ItemCaptionModel(
+    //           subtitleModel: originCaptions.value[selectedIndex],
+    //           isSelected: true);
+
+    //       listCaptionsShowing.value = [
+    //         ...listCaptionsShowing.value.sublist(0, selectedIndex),
+    //         itemCaptionModel,
+    //         ...listCaptionsShowing.value.sublist(selectedIndex + 1)
+    //       ];
+
+    //       if (listCaptionsShowing.value.length != originCaptions.value.length) {
+    //         Get.snackbar('title',
+    //             '${listCaptionsShowing.value.length} - ${originCaptions.value.length}');
+    //       }
+    //       update();
+
+    //       captions.value = [...captions.value.sublist(1)];
+    //     }
+    //   }
     // });
-    ytController.addListener(() {
-      if (ytController.value.playerState == PlayerState.playing) {
-        String duration = formatDuration(captions.value[0].start as double);
-        String positon =
-            formatMilliseconds(ytController.value.position.inMilliseconds);
-        if (duration == positon) {
-          debugPrint('compare: $duration - $positon');
-
-          currentCaption.value =
-              '${captions.value[0].start!}: ${captions.value[0].text!}';
-
-          int selectedIndex = originCaptions.value.indexOf(captions.value[0]);
-
-          scrollToIndex(selectedIndex);
-
-          ItemCaptionModel itemCaptionModel = ItemCaptionModel(
-              captionResponse: originCaptions.value[selectedIndex],
-              isSelected: true);
-
-          listCaptionsShowing.value = [
-            ...listCaptionsShowing.value.sublist(0, selectedIndex),
-            itemCaptionModel,
-            ...listCaptionsShowing.value.sublist(selectedIndex + 1)
-          ];
-
-          if (listCaptionsShowing.value.length != originCaptions.value.length) {
-            Get.snackbar('title',
-                '${listCaptionsShowing.value.length} - ${originCaptions.value.length}');
-          }
-          update();
-
-          captions.value = [...captions.value.sublist(1)];
-        }
-      }
-    });
   }
 
   Future<void> getCaptions(String videoId) async {
-    var headers = {
-      'X-RapidAPI-Key': dotenv.get('X-RapidAPI-Key'),
-      'X-RapidAPI-Host': dotenv.get('X-RapidAPI-Host')
-    };
-    var data = '''''';
-    var dio = Dio();
-    var response = await dio.request(
-      '${dotenv.get('RAPI_SUBTITLE_FOR_YOUTUBE_URL')}/$videoId',
-      options: Options(
-        method: 'GET',
-        headers: headers,
-      ),
-      data: data,
-    );
-
-    if (response.statusCode == 200) {
-      captions.value = (response.data as List<dynamic>)
-          .map((item) => CaptionResponse.fromMap(item))
-          .toList();
-      originCaptions.value = [...captions.value];
-      listCaptionsShowing.value = originCaptions.value
-          .map((item) => ItemCaptionModel(captionResponse: item))
-          .toList();
-    } else {
-      debugPrint('response.statusMessage: ${response.statusMessage}');
-    }
+    captions.value = await VideoServices().getCaptions(videoId);
+    originCaptions.value = [...captions.value];
+    listCaptionsShowing.value = originCaptions.value
+        .map((item) => ItemCaptionModel(subtitleModel: item))
+        .toList();
   }
 }

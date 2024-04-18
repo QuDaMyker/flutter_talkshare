@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:intl/intl.dart';
 import 'package:translator_plus/translator_plus.dart';
@@ -14,8 +13,7 @@ pickImage(ImageSource source) async {
   if (file != null) {
     return await file.readAsBytes();
   }
-  //Get.snackbar('Notify', 'No image selected');
-  print('No image selected');
+  debugPrint('No image selected');
 }
 
 showSnackBar(String content, BuildContext context) {

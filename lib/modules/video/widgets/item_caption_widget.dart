@@ -35,15 +35,14 @@ class ItemCaptionWidget extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Text(formatDuration(
-                itemCaptionModel.captionResponse.start as double)),
+            child: Text(formatDuration(itemCaptionModel.subtitleModel.start)),
           ),
           Expanded(
             flex: 5,
             child: Container(
               margin: const EdgeInsets.only(left: 10),
               child: Text(
-                itemCaptionModel.captionResponse.text.toString(),
+                itemCaptionModel.subtitleModel.content.toString(),
               ),
             ),
           )

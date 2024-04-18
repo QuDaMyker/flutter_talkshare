@@ -1,38 +1,38 @@
 // ignore_for_file: public_member_api_docs, sort_constructors_first
 import 'dart:convert';
 
-import 'package:flutter_talkshare/modules/video/models/caption_response.dart';
+import 'package:flutter_talkshare/modules/video/models/subtitle_model.dart';
 
 class ItemCaptionModel {
-  bool isSelected;
-  CaptionResponse captionResponse;
+  final bool isSelected;
+  final SubtitleModel subtitleModel;
   ItemCaptionModel({
     this.isSelected = false,
-    required this.captionResponse,
+    required this.subtitleModel,
   });
 
   ItemCaptionModel copyWith({
     bool? isSelected,
-    CaptionResponse? captionResponse,
+    SubtitleModel? subtitleModel,
   }) {
     return ItemCaptionModel(
       isSelected: isSelected ?? this.isSelected,
-      captionResponse: captionResponse ?? this.captionResponse,
+      subtitleModel: subtitleModel ?? this.subtitleModel,
     );
   }
 
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'isSelected': isSelected,
-      'captionResponse': captionResponse.toMap(),
+      'subtitleModel': subtitleModel.toMap(),
     };
   }
 
   factory ItemCaptionModel.fromMap(Map<String, dynamic> map) {
     return ItemCaptionModel(
       isSelected: map['isSelected'] as bool,
-      captionResponse: CaptionResponse.fromMap(
-          map['captionResponse'] as Map<String, dynamic>),
+      subtitleModel:
+          SubtitleModel.fromMap(map['subtitleModel'] as Map<String, dynamic>),
     );
   }
 
@@ -43,16 +43,16 @@ class ItemCaptionModel {
 
   @override
   String toString() =>
-      'ItemCaptionModel(isSelected: $isSelected, captionResponse: $captionResponse)';
+      'ItemCaptionModel(isSelected: $isSelected, subtitleModel: $subtitleModel)';
 
   @override
   bool operator ==(covariant ItemCaptionModel other) {
     if (identical(this, other)) return true;
 
     return other.isSelected == isSelected &&
-        other.captionResponse == captionResponse;
+        other.subtitleModel == subtitleModel;
   }
 
   @override
-  int get hashCode => isSelected.hashCode ^ captionResponse.hashCode;
+  int get hashCode => isSelected.hashCode ^ subtitleModel.hashCode;
 }

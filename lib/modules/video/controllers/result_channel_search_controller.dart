@@ -1,5 +1,9 @@
+import 'package:flutter/foundation.dart';
+import 'package:flutter_talkshare/modules/video/models/caption_response.dart';
 import 'package:flutter_talkshare/modules/video/models/channel_model.dart';
+import 'package:flutter_talkshare/modules/video/models/subtitle_model.dart';
 import 'package:flutter_talkshare/modules/video/models/video_model.dart';
+import 'package:flutter_talkshare/modules/video/services/video_services.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 
@@ -25,7 +29,36 @@ class ResultChannelSearchController extends GetxController {
   }
 
   Future<void> getListChannel(int limit) async {
-    videos.value = await SupabaseService.instance
-        .getListVideoByIdChannel(limit: limit, idChannel: channelModel.id);
+    videos.value = await SupabaseService.instance.getListVideoByIdChannel(
+      limit: limit,
+      idChannel: channelModel.id,
+    );
+    // print('getxong videos');
+
+    // for (VideoModel videoModel in videos.value) {
+    //   String videoId =
+    //       videoModel.urlVideo.substring(videoModel.urlVideo.indexOf('=') + 1);
+
+    //   List<CaptionResponse> listCaptionResponse =
+    //       await VideoServices.instance.getCaptions(videoId);
+    //   print('getxong CaptionResponse');
+
+    //   for (CaptionResponse captionResponse in listCaptionResponse) {
+    //     SubtitleModel subtitleModel = SubtitleModel(
+    //       idVideo: videoModel.id,
+    //       index: captionResponse.index,
+    //       content: captionResponse.text,
+    //       start: captionResponse.start,
+    //       duration: captionResponse.dur,
+    //       end: captionResponse.end,
+    //     );
+    //     print('${captionResponse.index}/${listCaptionResponse.length}');
+
+    //     String kq = await SupabaseService.instance
+    //         .addSubtitle(subtitleModel: subtitleModel);
+
+    //     debugPrint(kq);
+    //   }
+    // }
   }
 }

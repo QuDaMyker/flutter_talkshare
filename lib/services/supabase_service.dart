@@ -1,8 +1,11 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/modules/video/models/channel_model.dart';
+import 'package:flutter_talkshare/modules/video/models/subtitle_model.dart';
 import 'package:flutter_talkshare/modules/video/models/video_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
@@ -249,7 +252,6 @@ class SupabaseService {
   Future<String> addVideo({
     required String title,
     required String thumbnail,
-    // ignore: non_constant_identifier_names
     required String id_channel,
     required int duration,
     required String urlVideo,
@@ -266,6 +268,74 @@ class SupabaseService {
     } catch (e) {
       debugPrint(e.toString());
       return 'error';
+    }
+  }
+
+  Future<String> addSubtitle({
+    required SubtitleModel subtitleModel,
+  }) async {
+    try {
+      await supabase.from('subtitle').insert({
+        'id_video': subtitleModel.idVideo,
+        'index': subtitleModel.index,
+        'content': subtitleModel.content,
+        'start': subtitleModel.start,
+        'duration': subtitleModel.duration,
+        'end': subtitleModel.end,
+      });
+      return 'done';
+    } catch (e) {
+      debugPrint(e.toString());
+      return 'error';
+    }
+  }
+
+  Future<List<SubtitleModel>> getSubtitle({
+    required String id_video,
+  }) async {
+    try {
+      print('log-data: id_video $id_video');
+      final queryCount = await supabase
+          .from('subtitle')
+          .select('id')
+          .eq('id_video', id_video)
+          .count();
+
+      int count = queryCount.count;
+      print('log-data: count $count');
+      List<SubtitleModel> listSub = [];
+
+      if (count > 0) {
+        int batchSize = 1000;
+        int batches = (count / batchSize).ceil();
+
+        for (int i = 0; i < batches; i++) {
+          int from = i * batchSize;
+          int to = (i + 1) * batchSize;
+          if (to > count) {
+            to = count;
+          }
+
+          final query = await supabase
+              .from('subtitle')
+              .select('id, id_video, index, content, start, duration, end')
+              .eq('id_video', id_video)
+              .range(from, to);
+          print('log-data: query.length ${query.length}');
+          listSub.addAll(
+            query.map(
+              (sub) => SubtitleModel.fromMap(sub),
+            ),
+          );
+        }
+      }
+
+      print('log-data: listSub.length ${listSub.length}');
+
+      return listSub;
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
     }
   }
 }
