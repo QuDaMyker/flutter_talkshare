@@ -6,6 +6,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/modules/video/models/caption_response.dart';
 import 'package:flutter_talkshare/modules/video/models/item_caption_model.dart';
 import 'package:flutter_talkshare/modules/video/models/video_model.dart';
+import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -50,1238 +51,1232 @@ class StreamVideoController extends GetxController {
   Future<void> fetchVideoInfo() async {
     List<Map<String, dynamic>> url = [
       {
-        "video_id": "0juLRi90kRg",
+        "video_id": "XBCq6JGKqUg",
         "title":
-            "A Palestinian and an Israeli, Face to Face | Aziz Abu Sarah and Maoz Inon | TED",
-        "author": "TED",
-        "number_of_views": 26175,
-        "video_length": "17:30",
+            "Take a ride inside Ehang’s fully autonomous, two-seater air taxi",
+        "author": "CNBC International",
+        "number_of_views": 220,
+        "video_length": "5:32",
         "description": null,
         "is_live_content": null,
-        "published_time": "17 hours ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "published_time": "18 minutes ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
         "category": null,
         "type": "NORMAL",
         "keywords": [],
         "thumbnails": [
           {
             "url":
-                "https://i.ytimg.com/vi/0juLRi90kRg/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCT3Z7_Av5R5ps81AS_C1cJAKO1ww",
+                "https://i.ytimg.com/vi/XBCq6JGKqUg/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDzaIWSVuq2RJg50hTrk4jDorGJgA",
             "width": 168,
             "height": 94
           },
           {
             "url":
-                "https://i.ytimg.com/vi/0juLRi90kRg/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBxu6-7b_D0K1rIB2oq3SH-2C9yDg",
+                "https://i.ytimg.com/vi/XBCq6JGKqUg/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCfWOElOeDyIwOXuExlj7wO-DJwHw",
             "width": 196,
             "height": 110
           },
           {
             "url":
-                "https://i.ytimg.com/vi/0juLRi90kRg/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBsb4F-YqYk_nKAI7jl6SltNfy6_A",
+                "https://i.ytimg.com/vi/XBCq6JGKqUg/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAwqra-t0e-Vlk059tfxastsDX2Uw",
             "width": 246,
             "height": 138
           },
           {
             "url":
-                "https://i.ytimg.com/vi/0juLRi90kRg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBkpjNPLLBZRTm7LGaKmn8PgU-UYg",
+                "https://i.ytimg.com/vi/XBCq6JGKqUg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBaQX30cUbdgGN3j78c-RKLULXcQg",
             "width": 336,
             "height": 188
           }
         ]
       },
       {
-        "video_id": "hn5gytOCVgE",
-        "title":
-            "Why You Should Disappoint Your Parents | Desiree Akhavan | TED",
-        "author": "TED",
-        "number_of_views": 37641,
-        "video_length": "9:37",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "1 day ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/hn5gytOCVgE/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLB_Hm4YdTv-vM2PoL0xMhQBR86Etw",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/hn5gytOCVgE/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCKcEqGwfPXQoIvv7MGI4qtc2ZZ5w",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/hn5gytOCVgE/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAHbUZvQ7Vvbe8JSMuxNalwFHlbNQ",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/hn5gytOCVgE/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB3Afb1fCi4MXpFXu1QBASzQ3pDIg",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "b_boPcOY-FA",
-        "title":
-            "A Futuristic Vision for Latin America, Rooted in Ancient Design | Catalina Lotero | TED",
-        "author": "TED",
-        "number_of_views": 20871,
-        "video_length": "11:50",
+        "video_id": "ZBGWSyxGqBw",
+        "title": "Will Israel retaliate to Iran's attack?",
+        "author": "CNBC International",
+        "number_of_views": 2664,
+        "video_length": "1:01",
         "description": null,
         "is_live_content": null,
         "published_time": "2 days ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
         "category": null,
         "type": "NORMAL",
         "keywords": [],
         "thumbnails": [
           {
             "url":
-                "https://i.ytimg.com/vi/b_boPcOY-FA/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDp3iyjiDT3NOzBA2Z_d80O7fQ7CQ",
+                "https://i.ytimg.com/vi/ZBGWSyxGqBw/hqdefault.jpg?sqp=-oaymwE1CKgBEF5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AHOBYACgAqKAgwIABABGGUgZShlMA8=&rs=AOn4CLCyUB7aKi3aQafb432CWisiUW59Gg",
             "width": 168,
             "height": 94
           },
           {
             "url":
-                "https://i.ytimg.com/vi/b_boPcOY-FA/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLB7ojoIEkvoH6HhWMMtxpgb0zlp8g",
+                "https://i.ytimg.com/vi/ZBGWSyxGqBw/hqdefault.jpg?sqp=-oaymwE1CMQBEG5IVfKriqkDKAgBFQAAiEIYAXABwAEG8AEB-AHOBYACgAqKAgwIABABGGUgZShlMA8=&rs=AOn4CLBTGUxSMWrUgI-pReckfMR6IVsSdg",
             "width": 196,
             "height": 110
           },
           {
             "url":
-                "https://i.ytimg.com/vi/b_boPcOY-FA/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAcnTbP1F1_nr1oDaj4tTE-ggxr2Q",
+                "https://i.ytimg.com/vi/ZBGWSyxGqBw/hqdefault.jpg?sqp=-oaymwE2CPYBEIoBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBzgWAAoAKigIMCAAQARhlIGUoZTAP&rs=AOn4CLDSzsxRtrbgenq4icXK6_olAgsmhg",
             "width": 246,
             "height": 138
           },
           {
             "url":
-                "https://i.ytimg.com/vi/b_boPcOY-FA/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDaMxZxJiGMyN89tYyKkV1r0SAF2w",
+                "https://i.ytimg.com/vi/ZBGWSyxGqBw/hqdefault.jpg?sqp=-oaymwE2CNACELwBSFXyq4qpAygIARUAAIhCGAFwAcABBvABAfgBzgWAAoAKigIMCAAQARhlIGUoZTAP&rs=AOn4CLCy_B6ZO6PYSoZzngBsVNBmFTieyA",
             "width": 336,
             "height": 188
           }
         ]
       },
       {
-        "video_id": "4o-S4VIg8Ys",
-        "title": "Music, Movement and Poetry | Tunde Olaniran | TED",
-        "author": "TED",
-        "number_of_views": 19175,
-        "video_length": "9:48",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "5 days ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/4o-S4VIg8Ys/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBRMZPNpry462gJPdKcdzPqi-giYQ",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/4o-S4VIg8Ys/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBAtl0euEgZyoJWvTZkPDZAa5Fu2A",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/4o-S4VIg8Ys/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC-flLAeBPgDI_a04YLYRIDqRMyPQ",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/4o-S4VIg8Ys/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAv7sE5kC4qjXFkuHvXnerrm9bo-A",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "Xj_VDOZjds8",
-        "title": "Can AI Catch Criminals at Sea? | Dyhia Belhabib | TED",
-        "author": "TED",
-        "number_of_views": 36313,
-        "video_length": "10:54",
+        "video_id": "4hxk30BTwgY",
+        "title":
+            "Inside Lilium, the German company trying to revolutionize air travel",
+        "author": "CNBC International",
+        "number_of_views": 44432,
+        "video_length": "6:12",
         "description": null,
         "is_live_content": null,
         "published_time": "6 days ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
         "category": null,
         "type": "NORMAL",
         "keywords": [],
         "thumbnails": [
           {
             "url":
-                "https://i.ytimg.com/vi/Xj_VDOZjds8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBDCy09UDtplJ4v6_O82Wk2qz_CWw",
+                "https://i.ytimg.com/vi/4hxk30BTwgY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLARcJiLy7kiUCWjhPGtZreGXAi_ZA",
             "width": 168,
             "height": 94
           },
           {
             "url":
-                "https://i.ytimg.com/vi/Xj_VDOZjds8/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAZjrNENqJmRnvbKnvPgBNZnaPuHA",
+                "https://i.ytimg.com/vi/4hxk30BTwgY/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDjd1twI58CFgHeH5r5s1SvCuKgkA",
             "width": 196,
             "height": 110
           },
           {
             "url":
-                "https://i.ytimg.com/vi/Xj_VDOZjds8/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLClBEkjDyry-SVBDmGZDyk_HU0aWA",
+                "https://i.ytimg.com/vi/4hxk30BTwgY/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA_KNlWr-frfN7bpBvrrQ__itaNOw",
             "width": 246,
             "height": 138
           },
           {
             "url":
-                "https://i.ytimg.com/vi/Xj_VDOZjds8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB_xeGLE8uFeyd_bGLPPk4rlGdMeQ",
+                "https://i.ytimg.com/vi/4hxk30BTwgY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBk2NR8bai2drKo85ExLfl4hV8UFw",
             "width": 336,
             "height": 188
           }
         ]
       },
       {
-        "video_id": "Gdi7uN-DQYo",
+        "video_id": "KKG0keV5Vg4",
         "title":
-            "A New National Park to Reclaim Indigenous Land | Tracie Revis | TED",
-        "author": "TED",
-        "number_of_views": 21796,
-        "video_length": "7:03",
+            "Bitcoin halving - here’s what it is and what it means for the crypto",
+        "author": "CNBC International",
+        "number_of_views": 4196,
+        "video_length": "25:57",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "5 days ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/KKG0keV5Vg4/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCFZUm2zwZRpfA1p4IG7yoKaDlZpA",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/KKG0keV5Vg4/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCgFpE2Qs85NMdiilYyS7rW7lW3-w",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/KKG0keV5Vg4/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBZRFIWo69aQUswyJRcqiBh23bavg",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/KKG0keV5Vg4/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD-ZkO_EmMfQnmjuCFK8B7fMGMHkg",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "qp7rnrCCQ6w",
+        "title": "Can China's Comac break up the Airbus-Boeing duopoly?",
+        "author": "CNBC International",
+        "number_of_views": 137617,
+        "video_length": "11:19",
         "description": null,
         "is_live_content": null,
         "published_time": "7 days ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
         "category": null,
         "type": "NORMAL",
         "keywords": [],
         "thumbnails": [
           {
             "url":
-                "https://i.ytimg.com/vi/Gdi7uN-DQYo/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDmuzrOZ0Um5BDVy_cDCVFxWVj6Nw",
+                "https://i.ytimg.com/vi/qp7rnrCCQ6w/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLA_LonNddtyhOnAPJ3KhSApYrYgUQ",
             "width": 168,
             "height": 94
           },
           {
             "url":
-                "https://i.ytimg.com/vi/Gdi7uN-DQYo/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLC817e1gT6tqy7Ze2E87nEWXRpO8Q",
+                "https://i.ytimg.com/vi/qp7rnrCCQ6w/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDNRRH8Xz2lFP3AxxASSupWAMAOZw",
             "width": 196,
             "height": 110
           },
           {
             "url":
-                "https://i.ytimg.com/vi/Gdi7uN-DQYo/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB3412m46VmKV-Sysmgyvi4-PAVlQ",
+                "https://i.ytimg.com/vi/qp7rnrCCQ6w/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCdwb_vyCWorXVP3LqvX87VY3YqTA",
             "width": 246,
             "height": 138
           },
           {
             "url":
-                "https://i.ytimg.com/vi/Gdi7uN-DQYo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCzAgcucW1h43Rss1qzWhFRucs30g",
+                "https://i.ytimg.com/vi/qp7rnrCCQ6w/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAWZ2OzADw9MeKUgcbgQoFSqOqqrA",
             "width": 336,
             "height": 188
           }
         ]
       },
       {
-        "video_id": "_uUskajC1Ps",
+        "video_id": "qtzuL3WSiGY",
         "title":
-            "Ideas Change Everything — and What’s Next for TED | Chris Anderson and Monique Ruff-Bell | TED",
-        "author": "TED",
-        "number_of_views": 23009,
-        "video_length": "20:42",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "8 days ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/_uUskajC1Ps/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDDVN7--2RKeccdP3uP2ZUE-5LWqQ",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/_uUskajC1Ps/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBnWGvxOnkBIss96tX6yTxXMA3zfQ",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/_uUskajC1Ps/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLChlaA5LnDPxb9Ref_-tXNzB5yK3A",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/_uUskajC1Ps/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAy2FrhJiB7L8gP-Di236UWxu8RZQ",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "Im_ghczQEPw",
-        "title":
-            "Want to Succeed in Business? Find a Problem to Solve | Anthony Tan and Amane Dannouni | TED",
-        "author": "TED",
-        "number_of_views": 42038,
-        "video_length": "18:02",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "9 days ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/Im_ghczQEPw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCfwbsXrAEZRF-Yz-IZajM0RzSBXg",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/Im_ghczQEPw/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDiK4NATYtSszynXGPuek_qPE4gTQ",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/Im_ghczQEPw/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA1xmIyaPgVqFe6IFH8MqArJQYOog",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/Im_ghczQEPw/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBZ4CkHdJ0WWHq5HlSNEi65TyoLXw",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "9TFi9Zo4FJc",
-        "title":
-            "Your Invitation to Help Build a Sustainable Future | Jim Snabe | TED",
-        "author": "TED",
-        "number_of_views": 34548,
-        "video_length": "6:24",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "11 days ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/9TFi9Zo4FJc/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAxN_ajOCLns1s9FeiwNOVR3aep6w",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/9TFi9Zo4FJc/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLB9_man1erjjCShJJMlNoHq0DXNqg",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/9TFi9Zo4FJc/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLADTh2f7tr3im484_sOpuoGps8hhw",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/9TFi9Zo4FJc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBjlT84u1-q1lmzsin4pXArJoZa2A",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "fa7uN2vo6rc",
-        "title": "How to Spot a Cult | Sarah Edmondson | TED",
-        "author": "TED",
-        "number_of_views": 100377,
-        "video_length": "17:42",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "12 days ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/fa7uN2vo6rc/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLA1D4rcB6kKinsu090tO1FANzJVUA",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/fa7uN2vo6rc/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBgPUqqOtTbNFCYIXFD9OUPTzBZeA",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/fa7uN2vo6rc/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBflVDapX162ID2XFapAepQopkbcQ",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/fa7uN2vo6rc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBz8-ItzC6GHwHFq8i8GCIgbfWqrw",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "alYBnyxMuPk",
-        "title":
-            "What Happens to Sex in Midlife? A Look at the “Bedroom Gap” | Maria Sophocles | TED",
-        "author": "TED",
-        "number_of_views": 129279,
-        "video_length": "14:15",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "13 days ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/alYBnyxMuPk/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDtiue1D9BPVNy6qdRuqPsEV5BJSQ",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/alYBnyxMuPk/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCkb8APwrvmZkUpgs-gUBBRibB4hA",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/alYBnyxMuPk/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDKZlb_TPIH-8R0HLR5uXU1Jm_-OA",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/alYBnyxMuPk/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA4_ob9AbiA0-mfjSBQqx4pr26OtQ",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "x4Yhi7ggins",
-        "title":
-            "I'm Terrified of Wanting to Be a Billionaire | Pardis Parker | TED",
-        "author": "TED",
-        "number_of_views": 19259,
-        "video_length": "5:37",
+            "Inside Alef, the company trying to build a car you can both drive and fly",
+        "author": "CNBC International",
+        "number_of_views": 57647,
+        "video_length": "6:19",
         "description": null,
         "is_live_content": null,
         "published_time": "2 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
         "category": null,
         "type": "NORMAL",
         "keywords": [],
         "thumbnails": [
           {
             "url":
-                "https://i.ytimg.com/vi/x4Yhi7ggins/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBUqeklIUG84Pi_kH1jgSUbGWBvzQ",
+                "https://i.ytimg.com/vi/qtzuL3WSiGY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDaMGsn0af2_zwllGqWkqoVxnThfw",
             "width": 168,
             "height": 94
           },
           {
             "url":
-                "https://i.ytimg.com/vi/x4Yhi7ggins/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBELUNSkht8wvE-x9BdEO-0XE46Sw",
+                "https://i.ytimg.com/vi/qtzuL3WSiGY/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAT36zg_jBCItPxo7f33aSuqlHZKw",
             "width": 196,
             "height": 110
           },
           {
             "url":
-                "https://i.ytimg.com/vi/x4Yhi7ggins/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBU8VrDez4iOEcCP1aXzY-PKVpPKw",
+                "https://i.ytimg.com/vi/qtzuL3WSiGY/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBwv4mPNTSpt7N53wDoshQHqXvg5Q",
             "width": 246,
             "height": 138
           },
           {
             "url":
-                "https://i.ytimg.com/vi/x4Yhi7ggins/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBeo82xH4z-oab-RMBwVETq29TF1w",
+                "https://i.ytimg.com/vi/qtzuL3WSiGY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAZkpDECzqMyK_dc2GtFCddcgNfvQ",
             "width": 336,
             "height": 188
           }
         ]
       },
       {
-        "video_id": "7ZVu5N4gOgY",
-        "title":
-            "The Human Cost of Coal Mining in China | Xiaojun \"Tom\" Wang | TED",
-        "author": "TED",
-        "number_of_views": 19605,
-        "video_length": "14:12",
+        "video_id": "bWG3FCshAFU",
+        "title": "How India is challenging China as Asia's tech powerhouse",
+        "author": "CNBC International",
+        "number_of_views": 7033,
+        "video_length": "30:55",
         "description": null,
         "is_live_content": null,
         "published_time": "2 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
         "category": null,
         "type": "NORMAL",
         "keywords": [],
         "thumbnails": [
           {
             "url":
-                "https://i.ytimg.com/vi/7ZVu5N4gOgY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLA14wInG64P7uCxyhPZDN5P_t4jYQ",
+                "https://i.ytimg.com/vi/bWG3FCshAFU/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCrZhKZiv8t_30wUYjwQItDh6pgjw",
             "width": 168,
             "height": 94
           },
           {
             "url":
-                "https://i.ytimg.com/vi/7ZVu5N4gOgY/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAbABm6TYEu211-MeY6TV1oPatGlA",
+                "https://i.ytimg.com/vi/bWG3FCshAFU/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBL1UkgCAGJp2lXPaMt8gOenB62Yw",
             "width": 196,
             "height": 110
           },
           {
             "url":
-                "https://i.ytimg.com/vi/7ZVu5N4gOgY/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBex9miODjlDevJ5bhKokFQGQe52Q",
+                "https://i.ytimg.com/vi/bWG3FCshAFU/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD9_-E0LfTf1IDapNvrBFbDHXSXQg",
             "width": 246,
             "height": 138
           },
           {
             "url":
-                "https://i.ytimg.com/vi/7ZVu5N4gOgY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAJv-bMNgKq4L8LpgGdLprN1SgITw",
+                "https://i.ytimg.com/vi/bWG3FCshAFU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCYVMqBIY8P6uyy0s_LgWRZza73dA",
             "width": 336,
             "height": 188
           }
         ]
       },
       {
-        "video_id": "bUmHABnk9FY",
-        "title":
-            "A Comedian’s Take on How to Save Democracy | Jordan Klepper | TED",
-        "author": "TED",
-        "number_of_views": 389947,
-        "video_length": "8:08",
+        "video_id": "7gLBJpnmAo8",
+        "title": "eVTOLS: Are flying cars finally becoming a reality?",
+        "author": "CNBC International",
+        "number_of_views": 21842,
+        "video_length": "6:00",
         "description": null,
         "is_live_content": null,
         "published_time": "2 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
         "category": null,
         "type": "NORMAL",
         "keywords": [],
         "thumbnails": [
           {
             "url":
-                "https://i.ytimg.com/vi/bUmHABnk9FY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBpREnh981Xe0-HxpLsGT_kSOSmtA",
+                "https://i.ytimg.com/vi/7gLBJpnmAo8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBkY8KJlQX-tQJucy2dbPjC_FDHmA",
             "width": 168,
             "height": 94
           },
           {
             "url":
-                "https://i.ytimg.com/vi/bUmHABnk9FY/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAoeYfKK0m20b03vNufPM4CP51Rkw",
+                "https://i.ytimg.com/vi/7gLBJpnmAo8/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCBAFWBw7DDIB5zxDozyjYgSBXb_A",
             "width": 196,
             "height": 110
           },
           {
             "url":
-                "https://i.ytimg.com/vi/bUmHABnk9FY/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCUx23o_KeHlPAltzndgsQ2HamgKg",
+                "https://i.ytimg.com/vi/7gLBJpnmAo8/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLATwBEUjPPs0NUrOV2MVbLOLEvs5w",
             "width": 246,
             "height": 138
           },
           {
             "url":
-                "https://i.ytimg.com/vi/bUmHABnk9FY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBhEGkmKYnhgPIS1bpdIAlN23Zfsg",
+                "https://i.ytimg.com/vi/7gLBJpnmAo8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCzrPCNSuKHj0ibCwoP3RW6URS04A",
             "width": 336,
             "height": 188
           }
         ]
       },
       {
-        "video_id": "RKEsIkJRuW4",
+        "video_id": "KHCU-EaIBRs",
         "title":
-            "How to Live With Economic Doomsaying | Philipp Carlsson-Szlezak | TED",
-        "author": "TED",
-        "number_of_views": 42902,
-        "video_length": "10:03",
+            "Flying cars — or eVTOLs — are taking off. Would you ride in one?",
+        "author": "CNBC International",
+        "number_of_views": 4052,
+        "video_length": "33:43",
         "description": null,
         "is_live_content": null,
         "published_time": "2 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
         "category": null,
         "type": "NORMAL",
         "keywords": [],
         "thumbnails": [
           {
             "url":
-                "https://i.ytimg.com/vi/RKEsIkJRuW4/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCpO1w53lBO-kEbesyDzj71sfJsfQ",
+                "https://i.ytimg.com/vi/KHCU-EaIBRs/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBAMijyXxehzRz3oKFJhZG6kDW9Fw",
             "width": 168,
             "height": 94
           },
           {
             "url":
-                "https://i.ytimg.com/vi/RKEsIkJRuW4/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLB2hVCqpVlXb423MuvzAWhUM041zw",
+                "https://i.ytimg.com/vi/KHCU-EaIBRs/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLC2y5fQPiDR2tngh_oBJdpHiRENDg",
             "width": 196,
             "height": 110
           },
           {
             "url":
-                "https://i.ytimg.com/vi/RKEsIkJRuW4/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCa7YMROvRgclCML3OMdMhbCT3rSw",
+                "https://i.ytimg.com/vi/KHCU-EaIBRs/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLArFGwcQt0oqEvgiAGvkCXexSwvQw",
             "width": 246,
             "height": 138
           },
           {
             "url":
-                "https://i.ytimg.com/vi/RKEsIkJRuW4/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAg_T52aMSQZYTucyhR8bqTokMS4w",
+                "https://i.ytimg.com/vi/KHCU-EaIBRs/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCaUEkBUVE7K4Rfh3_fnFp-P5kHRw",
             "width": 336,
             "height": 188
           }
         ]
       },
       {
-        "video_id": "qxgE0q1_m6U",
-        "title": "Let Your Garden Grow Wild | Rebecca McMackin | TED",
-        "author": "TED",
-        "number_of_views": 237076,
-        "video_length": "12:23",
+        "video_id": "if_Qfm377qA",
+        "title": "Splinternet: What happens if the internet we know breaks up?",
+        "author": "CNBC International",
+        "number_of_views": 1525,
+        "video_length": "30:13",
         "description": null,
         "is_live_content": null,
         "published_time": "2 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
         "category": null,
         "type": "NORMAL",
         "keywords": [],
         "thumbnails": [
           {
             "url":
-                "https://i.ytimg.com/vi/qxgE0q1_m6U/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDGcAlNbvdsOwdLXLfxTJO0zlpMKg",
+                "https://i.ytimg.com/vi/if_Qfm377qA/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDk-BX0s7KWfFHes8Wgs06WmCmdvA",
             "width": 168,
             "height": 94
           },
           {
             "url":
-                "https://i.ytimg.com/vi/qxgE0q1_m6U/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAvw16DM35riJZYbEdhbHEAajRHtQ",
+                "https://i.ytimg.com/vi/if_Qfm377qA/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCgdxoGE707AJjKY6i94_xphjL3lQ",
             "width": 196,
             "height": 110
           },
           {
             "url":
-                "https://i.ytimg.com/vi/qxgE0q1_m6U/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBmccpzsXuyn5OgvpoUaMy83QZKZw",
+                "https://i.ytimg.com/vi/if_Qfm377qA/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAedHNBCVmq1DrcrooB1kETHgDY_g",
             "width": 246,
             "height": 138
           },
           {
             "url":
-                "https://i.ytimg.com/vi/qxgE0q1_m6U/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAIAA4QovyVC_Mi7HzuXpl8_UKFoQ",
+                "https://i.ytimg.com/vi/if_Qfm377qA/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAYQYh8ivfmC7LJ34Dcgquu3X1c_g",
             "width": 336,
             "height": 188
           }
         ]
       },
       {
-        "video_id": "cUdl-Cp-LWw",
-        "title": "Why Don’t We Have Better Robots Yet? | Ken Goldberg | TED",
-        "author": "TED",
-        "number_of_views": 106836,
-        "video_length": "12:11",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "2 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/cUdl-Cp-LWw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAk2YmzM8UQBRqDfOo7qAUkP7sL9w",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/cUdl-Cp-LWw/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAo_bmEcvl-9MO3XTx0AectOa23EA",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/cUdl-Cp-LWw/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCEehyH3eRLrUoAwc-DzSrrWpX1eQ",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/cUdl-Cp-LWw/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCy2iS8Wmi9yx2RNcmuq9r-KZgzvw",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "JNG3wwLqRok",
-        "title":
-            "Invisible AI, a Personal Time Machine and More: A Celebration of Creativity from the TED Conference",
-        "author": "TED",
-        "number_of_views": 25905,
-        "video_length": "1:45:57",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "3 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/JNG3wwLqRok/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLB3K5c5oEq-eMfGSmS3yWAiMeSAxw",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/JNG3wwLqRok/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBjF3GD_Y_pZNgYiKL0t9MuXGt0tg",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/JNG3wwLqRok/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC4aP_ohvsOkKkSQsv81lC5g9yOGw",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/JNG3wwLqRok/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDLjxv8V9GoBth8tgUju5pyPOuQ0w",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "dxA6D4dJWn8",
-        "title":
-            "3 Steps to Better Connect With Your Fellow Humans | Amber Cabral | TED",
-        "author": "TED",
-        "number_of_views": 40474,
-        "video_length": "12:50",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "3 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/dxA6D4dJWn8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAqN-fqHDgSmzHf08hNvQc8Rr1eFQ",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/dxA6D4dJWn8/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLC4yB9NKzLxImFWlulUCT4DoN4Kpg",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/dxA6D4dJWn8/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCsWCKh8ZYuvrm2a8FKmvWdT_NUVA",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/dxA6D4dJWn8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBCfmF1F6_o9Je4Kxl0kxmsI_mcoQ",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "wXODvu8UfXc",
-        "title":
-            "How Business Leaders Can Renew Democracy | Daniella Ballou-Aares | TED",
-        "author": "TED",
-        "number_of_views": 25890,
-        "video_length": "11:35",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "3 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/wXODvu8UfXc/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLB3RDW9UeyYVxzK5hkvcLnIlOEpAA",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/wXODvu8UfXc/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAfOX2ppHMMZXnqHSMGFaHKWAF0NA",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/wXODvu8UfXc/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAok8lTsypXP5IS1H77X5j-pr-daQ",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/wXODvu8UfXc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAQt43RNneBseM94FKmmOiJ3b5NPg",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "LbZC0DjnhGs",
-        "title":
-            "How to Choose Clothes for Longevity, Not the Landfill | Diarra Bousso | TED",
-        "author": "TED",
-        "number_of_views": 36512,
-        "video_length": "10:48",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "3 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/LbZC0DjnhGs/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCFW8FMSbRr1EFD1YA60IMD-PtFsg",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/LbZC0DjnhGs/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDTiv4TFRxWVStRsfsEWplIBJfdWg",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/LbZC0DjnhGs/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAc1bfsgHZUmKVVQU-G2UcZaT6oxw",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/LbZC0DjnhGs/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBftIYaKZVTqtYxjHee7Yl8CIve-g",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "DbQjrA9VPjY",
-        "title":
-            "AI and the Paradox of Self-Replacing Workers | Madison Mohns | TED",
-        "author": "TED",
-        "number_of_views": 51090,
-        "video_length": "9:18",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "3 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/DbQjrA9VPjY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCk1zgJQpufouWIPXBtOexxxXFE1Q",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/DbQjrA9VPjY/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCKCaftVBdVYnFd9dtVRK8HkKch7Q",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/DbQjrA9VPjY/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCcrJhicDRLfV39R4dF2aMmeJO9Sg",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/DbQjrA9VPjY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCfSMJaNhnIWDXTxch-UCbSJWOpZw",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "akNqFXCVPwU",
-        "title":
-            "Dear Fellow Refugees, Here’s How I Found Resilience | Chantale Zuzi Leader | TED",
-        "author": "TED",
-        "number_of_views": 15733,
-        "video_length": "11:36",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "3 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/akNqFXCVPwU/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDbG8rfJENh021qKmev92yD7NDkog",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/akNqFXCVPwU/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCq3IeET1KxvgegIgtu9t-z3poogw",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/akNqFXCVPwU/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDkbAQk3iLUE_AHWdrcqWl8H-x6tQ",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/akNqFXCVPwU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLABmDKP1r3WJcp9l80Yg1wdrt5YRg",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "spwXNUFHhAg",
-        "title":
-            "How a Sanctuary for Self-Expression Can Change Lives | Lindsay Morris and Reed J. Williams | TED",
-        "author": "TED",
-        "number_of_views": 9796,
-        "video_length": "15:35",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "3 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/spwXNUFHhAg/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDFqkAMD2yS5GgL99kMeUQdtF57MQ",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/spwXNUFHhAg/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLC5CQyzoA50036MxgGHHguyBWBxlA",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/spwXNUFHhAg/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDAWo0ejQNeFz11xPwuudISPhOYCw",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/spwXNUFHhAg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAUXxFKqmFnOUvkGPTG1n9fBwpAEA",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "Y8tqH6MnJUU",
-        "title":
-            "The Unsung Heroes Fighting Malnutrition | Shruthi Baskaran-Makanju | TED",
-        "author": "TED",
-        "number_of_views": 12971,
-        "video_length": "12:23",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "3 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/Y8tqH6MnJUU/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCvUq5N5AU7XDwhVMh-0BV_MQraQg",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/Y8tqH6MnJUU/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDasS0hRRDLqlgvMchX5_x-Psw9xQ",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/Y8tqH6MnJUU/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB5tx6eeZbht0M1xMUgatIOiMhJiA",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/Y8tqH6MnJUU/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDYvx5o6mdh4HDNGKtwzR2AnqdJAg",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "8qojNkkvzSQ",
-        "title":
-            "5 Lessons on Happiness — from Pop Fame to Poisonous Snakes | Mike Posner | TED",
-        "author": "TED",
-        "number_of_views": 63209,
-        "video_length": "18:00",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "4 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/8qojNkkvzSQ/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDqlhlGkVkGQQiwESlWh5W9XIeBrw",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/8qojNkkvzSQ/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBabNz1SJPwptHJUZyWD45UjxUfng",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/8qojNkkvzSQ/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC4kQdKw4fLuz7rYpssvJImS7kAhQ",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/8qojNkkvzSQ/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBNeVQEpPmtBxL-6vnFp7QW9iUbTQ",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "Q69o7mr-0S4",
-        "title":
-            "The Miracle of Organ Donation — and a Breakthrough for the Future | Abbas Ardehali | TED",
-        "author": "TED",
-        "number_of_views": 27826,
-        "video_length": "10:12",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "4 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/Q69o7mr-0S4/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAeCTdXCFjNPJ9eIcuPjTAaLs6tcA",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/Q69o7mr-0S4/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBMvbGvV1R7mzJ-YxXXhLJttxayMA",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/Q69o7mr-0S4/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCJflUpTLEgBpCRfgI-vQZ1_5h8PA",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/Q69o7mr-0S4/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAYxZQG_y2VGQU9r-K0bYUzwCLEUA",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "syxEMoU8KWg",
-        "title":
-            "The 5 Tenets of Turning Pain Into Power | Christine Schuler Deschryver | TED",
-        "author": "TED",
-        "number_of_views": 12523,
-        "video_length": "11:39",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "4 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/syxEMoU8KWg/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCM03Dj_jNKtNWXa8t5q7RPqlqy6g",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/syxEMoU8KWg/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCYpsG2ROeTlRhiUsWsgsr6AmnShA",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/syxEMoU8KWg/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA3IVkgGwnUkkL2nIpJ9MkSSi2WXw",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/syxEMoU8KWg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB702yNhQj9MnntKBOllDsV545QGQ",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "ngk7VVyveu8",
-        "title":
-            "Meet Mini-Grids — the Clean Energy Solution Bringing Power to Millions | Tombo Banda | TED",
-        "author": "TED",
-        "number_of_views": 35473,
-        "video_length": "10:31",
-        "description": null,
-        "is_live_content": null,
-        "published_time": "4 weeks ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
-        "category": null,
-        "type": "NORMAL",
-        "keywords": [],
-        "thumbnails": [
-          {
-            "url":
-                "https://i.ytimg.com/vi/ngk7VVyveu8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCM30j9U67OYvRWcwXO2ulkMejK2g",
-            "width": 168,
-            "height": 94
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/ngk7VVyveu8/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLARSiHl-IN4ACTjnSNaLwmdo3Z4Vw",
-            "width": 196,
-            "height": 110
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/ngk7VVyveu8/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAvehG_qLSOYw-Zs-zMIxfK4tmD5g",
-            "width": 246,
-            "height": 138
-          },
-          {
-            "url":
-                "https://i.ytimg.com/vi/ngk7VVyveu8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA2o7XPD4V7KgnpJzfH1HUoljHY7g",
-            "width": 336,
-            "height": 188
-          }
-        ]
-      },
-      {
-        "video_id": "FzhI2D_kaCY",
-        "title":
-            "A Path to Social Safety for Migrant Workers | Ashif Shaikh | TED",
-        "author": "TED",
-        "number_of_views": 29021,
-        "video_length": "8:01",
+        "video_id": "VD1j50G_AMg",
+        "title": "Taxing the super-rich: Could a 'billionaire tax' work?",
+        "author": "CNBC International",
+        "number_of_views": 56317,
+        "video_length": "8:02",
         "description": null,
         "is_live_content": null,
         "published_time": "1 month ago",
-        "channel_id": "UCAuUUnT6oDeKwE6v1NGQxug",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
         "category": null,
         "type": "NORMAL",
         "keywords": [],
         "thumbnails": [
           {
             "url":
-                "https://i.ytimg.com/vi/FzhI2D_kaCY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBVr6XjUNgLb67zwkOkqN7Z-7b4Sg",
+                "https://i.ytimg.com/vi/VD1j50G_AMg/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBj6n36PxoRtgeS-m0QOO59_RtB5Q",
             "width": 168,
             "height": 94
           },
           {
             "url":
-                "https://i.ytimg.com/vi/FzhI2D_kaCY/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLA5H3vWn40HrwABuZooA5G34aGT8Q",
+                "https://i.ytimg.com/vi/VD1j50G_AMg/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLD5letUgcwTJDHYuHiZpYcBci18AQ",
             "width": 196,
             "height": 110
           },
           {
             "url":
-                "https://i.ytimg.com/vi/FzhI2D_kaCY/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBZpNXNJUAVeLFLBZGX9j1zldWIkw",
+                "https://i.ytimg.com/vi/VD1j50G_AMg/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDqkhhsTkBNy4W9kJhkbTAs5v90gg",
             "width": 246,
             "height": 138
           },
           {
             "url":
-                "https://i.ytimg.com/vi/FzhI2D_kaCY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAJjTLJHfPrdkxvbooyPQbta7PLeQ",
+                "https://i.ytimg.com/vi/VD1j50G_AMg/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAvkb20FA21L9bS2ZpYWUrhlKKDoA",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "vnoV-zO6pqY",
+        "title": "What lies ahead in TikTok's uncertain future",
+        "author": "CNBC International",
+        "number_of_views": 2388,
+        "video_length": "31:36",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "2 weeks ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/vnoV-zO6pqY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDrfeKq_dxRPwGqLPI5o1i_1B9epA",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/vnoV-zO6pqY/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLATWUdMXTUgoqL5kXHDLvKTLailDA",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/vnoV-zO6pqY/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBBghmxYGN2dvlT2W9L0JGhdqv54Q",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/vnoV-zO6pqY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC4IU93ZDufjOOgTLd0AtNF0nrhLw",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "wLO5tIDTyx8",
+        "title": "Can Alibaba make a comeback?",
+        "author": "CNBC International",
+        "number_of_views": 3667,
+        "video_length": "29:04",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "2 weeks ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/wLO5tIDTyx8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBzWu5GLZ0fsH51buRJxGQk-qhmsQ",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/wLO5tIDTyx8/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAFFRDOZ1h-QoU9zDjVCK-pFnSapQ",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/wLO5tIDTyx8/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCASLjgAHayYObM_xpcjcTKDdaeEA",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/wLO5tIDTyx8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLA1oPv3nQLQ1tk0Lw0giNMaWNHEkQ",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "hnN0cdYp4A8",
+        "title": "Can AI revive the smartphone?",
+        "author": "CNBC International",
+        "number_of_views": 2163,
+        "video_length": "38:08",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "2 weeks ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/hnN0cdYp4A8/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDFPzDjeDlX85rwi1YmTEWiqK6WQQ",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/hnN0cdYp4A8/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAmh1Ejy6oFuna9Qd_yPkDhjX305Q",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/hnN0cdYp4A8/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCwxHqFHFnDFlDAvEU1fgdsGaqkBg",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/hnN0cdYp4A8/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBDNp-yi1nb8awHceijooHyyjlLXA",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "ogaZBVeUG-M",
+        "title": "How China's property bubble burst",
+        "author": "CNBC International",
+        "number_of_views": 540997,
+        "video_length": "8:46",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "1 month ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/ogaZBVeUG-M/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAhj_PCLHFSdbML2ViWaF4ToXEwhg",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/ogaZBVeUG-M/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAz6fmLJjYZhyFDu6d6P6No35OHmQ",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/ogaZBVeUG-M/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD5Ae5ieSGVo9J6Ooj7yjQXm2E3SQ",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/ogaZBVeUG-M/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAEvHXMpSSCsX-EoLPPruHlgFD8hA",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "1Q5DWqV7Myw",
+        "title": "Can South Korea’s untouchable chaebols change?",
+        "author": "CNBC International",
+        "number_of_views": 369332,
+        "video_length": "12:15",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "1 month ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/1Q5DWqV7Myw/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDM4BIqrkfRIqs4YSuMpaGVaUh3nA",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/1Q5DWqV7Myw/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDlWXvBzfPzcDJw89Rp3B7dYtdmtQ",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/1Q5DWqV7Myw/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDAEJUvjqMAm74I--EZQt4n7Tynag",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/1Q5DWqV7Myw/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDfYvbkl7PqQ3bQ2wQlD8ziEXlsFQ",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "PrLZWBF2v9Y",
+        "title":
+            "China appears to be making strides in cutting-edge chips, despite U.S sanctions",
+        "author": "CNBC International",
+        "number_of_views": 10903,
+        "video_length": "39:11",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "2 weeks ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/PrLZWBF2v9Y/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCvLrCWP8zS0xFIN_gJV5aJg1K6nQ",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/PrLZWBF2v9Y/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBzfmKRSx7ybV4XZTzeiwQ3ZDge5Q",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/PrLZWBF2v9Y/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDBWgE8Pk3ryNmcIjc5xLj-J8LyVw",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/PrLZWBF2v9Y/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD0F7AGEQH0PiUqfGn7Af05SwH24A",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "xuEpU_IdvNo",
+        "title": "Why is Switzerland home to so many billionaires?",
+        "author": "CNBC International",
+        "number_of_views": 1218933,
+        "video_length": "7:24",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "2 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/xuEpU_IdvNo/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLD-9bzFJ4eKUXW-L4Zv0IwntW6F1g",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/xuEpU_IdvNo/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBUkXbwfP36THgqqcNEjqteJTP7ag",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/xuEpU_IdvNo/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCvnVJMTXltf6Aq4VZFxPaIsVm_4w",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/xuEpU_IdvNo/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDcnz5Dbc6nQhnc8o6q9I6KnFY0AA",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "sSqfc15c36U",
+        "title": "Can cloud seeding make the UAE's desert green?",
+        "author": "CNBC International",
+        "number_of_views": 239870,
+        "video_length": "9:24",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "2 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/sSqfc15c36U/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLA2Qt9fUEPUmgIeX3oun9-bU-UZLg",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/sSqfc15c36U/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDHo5uj2x-MAHqU7T_OtCvlFN5qjA",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/sSqfc15c36U/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCCf44Uyor77tOMrLo_NmBiOI2Rjg",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/sSqfc15c36U/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC0s_O0rMvd9u3PjPwmVyc6GIU9hw",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "h77un7ry5bY",
+        "title":
+            "We tested five ways to find hidden cameras in hotels and house rentals",
+        "author": "CNBC International",
+        "number_of_views": 1457928,
+        "video_length": "10:18",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "2 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/h77un7ry5bY/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAIikFWRW8SfUaFSp310Pr5I6QjVw",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/h77un7ry5bY/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCQjktmKYYVlbqqzR1puJGysxso4w",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/h77un7ry5bY/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCefEGkOZGTjeYHWKkwXV3FMHLVnQ",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/h77un7ry5bY/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC3VV0gelCd-Y0OPeBFSrxb1Y2jfA",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "z_eDZXUtu8w",
+        "title": "What is the World Economic Forum?",
+        "author": "CNBC International",
+        "number_of_views": 59852,
+        "video_length": "7:02",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "3 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/z_eDZXUtu8w/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLD1q5GysRA20g76Ds5bPY3cfNa4Bw",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/z_eDZXUtu8w/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDmD29QI6gV2ZmSo36RHxh2YBF5CQ",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/z_eDZXUtu8w/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDKAHXmMFsZkf00tTnk5FRzDxLrzQ",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/z_eDZXUtu8w/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAvu_g62o1yLouWhf7PsRpZsKMtqw",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "7Zi8DHcCxV0",
+        "title":
+            "India is moving beyond call centers and IT support – but can it work?",
+        "author": "CNBC International",
+        "number_of_views": 514333,
+        "video_length": "9:49",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "3 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/7Zi8DHcCxV0/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBomw6WDiInfmfFECXLl4XhkGv4QA",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/7Zi8DHcCxV0/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLB3Dx9Q7ve2D2X41xZUdCeXLq_2tw",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/7Zi8DHcCxV0/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLClZfnO14WF82gvz6Z1gvGKxMnSsQ",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/7Zi8DHcCxV0/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD6ELTa00eqZaMsNDzT1sJ6RMBHUA",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "5geLTX4gSj0",
+        "title": "Could the vaping industry go up in smoke?",
+        "author": "CNBC International",
+        "number_of_views": 198829,
+        "video_length": "8:27",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "3 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/5geLTX4gSj0/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLA83KxB2-zKbbcJ3d6f-tQbCISwoA",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/5geLTX4gSj0/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCugueRL3-EKDfN6Cw8WNQdF0OhFg",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/5geLTX4gSj0/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCgU1WNJpJOlig6HS14xxOD9C0NwQ",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/5geLTX4gSj0/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDmC7NB1WcmcjfBzu2ZfFpHLsNbFQ",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "Zl75i06M4zI",
+        "title": "Inside the airport with the world’s best customer service",
+        "author": "CNBC International",
+        "number_of_views": 196360,
+        "video_length": "9:27",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "3 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/Zl75i06M4zI/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDJEHot2e8hvhbyf-4R27aMRxwWHw",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/Zl75i06M4zI/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAJVJwQt4AEUd86zuIJdfPcvdwPuw",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/Zl75i06M4zI/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAV2F56CvPe-Lia6j0LiM0ydhjpnQ",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/Zl75i06M4zI/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCCnRzL76kfcYY3568TujBhBQ4Mkw",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "g7ZvID7KE3s",
+        "title": "Can Saudi Arabia keep links with Israel?",
+        "author": "CNBC International",
+        "number_of_views": 72214,
+        "video_length": "7:45",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "4 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/g7ZvID7KE3s/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDvgEsJXl5gT6tIR-gXQpgr7wlfEw",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/g7ZvID7KE3s/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLAgyWmgFe6dJYmwpvSgcPGiZlDpiA",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/g7ZvID7KE3s/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAN1GGVqqUiBmYIn5lzdsiEv5Mcng",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/g7ZvID7KE3s/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLBbWhgkc1-_pPlUlnt5AcXUyxIQPg",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "SGHk3zE5xh4",
+        "title": "A ‘thirsty’ AI boom could deepen Big Tech’s water crisis",
+        "author": "CNBC International",
+        "number_of_views": 25210,
+        "video_length": "7:52",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "4 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/SGHk3zE5xh4/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBVxd_QKKyx5Vb6ETVDpJ9Gai1JDw",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/SGHk3zE5xh4/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCtwMB9vCFxPU2u_SmqYn8Kjty8kg",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/SGHk3zE5xh4/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLB4DyR92cvabrXwKiMTboU7UriJNQ",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/SGHk3zE5xh4/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCKmycnQUpyrCv3sFdioajuHiU7lQ",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "NSI4JVYwSv4",
+        "title":
+            "South Korea wants to become one of the world's biggest arms dealers",
+        "author": "CNBC International",
+        "number_of_views": 1058500,
+        "video_length": "9:35",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "4 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/NSI4JVYwSv4/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLB74ERLPlQiHttRPKaBDeuQwZEOsg",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/NSI4JVYwSv4/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDAoGogHdB3j9w4clZm0Pwq7nNRyw",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/NSI4JVYwSv4/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAmwpOjZRXWLlyMz3UGguEt6CgOfg",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/NSI4JVYwSv4/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCpmH9GRvrMkOF6yFCIvV-mfo2cuA",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "BtRitulncLc",
+        "title": "Is the UK space industry about to take off?",
+        "author": "CNBC International",
+        "number_of_views": 50249,
+        "video_length": "13:12",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "5 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/BtRitulncLc/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLCsL-7KzSLAQ1X0HBqM_sYas9YGLQ",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/BtRitulncLc/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDL27YcoE3pS80jLJPIfhqI6KRvVA",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/BtRitulncLc/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAUSKiptebkrUVEyyZXOBgIQY8-3A",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/BtRitulncLc/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLC4EAnAZiDqDhcbK6F7s_dJ2aVEVQ",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "Ssu3MR6ql4k",
+        "title": "Why do we have chemicals in our food?",
+        "author": "CNBC International",
+        "number_of_views": 409882,
+        "video_length": "9:25",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "5 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/Ssu3MR6ql4k/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLDK9w0X9AlN0dleYVL_Q2tGOYx8LA",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/Ssu3MR6ql4k/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBM1YChzSXnNtC6rHBoFW0VTA4c7Q",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/Ssu3MR6ql4k/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLD2aXzmR4fAle5MDr2WqnmXbLNXBw",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/Ssu3MR6ql4k/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLDP-2B_3b_yKH_oU_9uuKUbsjMQmQ",
+            "width": 336,
+            "height": 188
+          }
+        ]
+      },
+      {
+        "video_id": "T7yuR5DM-nE",
+        "title":
+            "Factories are heading for a ‘dark’ future — and it’s not what you think",
+        "author": "CNBC International",
+        "number_of_views": 299071,
+        "video_length": "10:07",
+        "description": null,
+        "is_live_content": null,
+        "published_time": "5 months ago",
+        "channel_id": "UCo7a6riBFJ3tkeHjvkXPn1g",
+        "category": null,
+        "type": "NORMAL",
+        "keywords": [],
+        "thumbnails": [
+          {
+            "url":
+                "https://i.ytimg.com/vi/T7yuR5DM-nE/hqdefault.jpg?sqp=-oaymwEbCKgBEF5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLBePWEuMs3YbQo3SDhkygdeI0aOvA",
+            "width": 168,
+            "height": 94
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/T7yuR5DM-nE/hqdefault.jpg?sqp=-oaymwEbCMQBEG5IVfKriqkDDggBFQAAiEIYAXABwAEG&rs=AOn4CLA8uZ8MeUNNPgajW_pLO81qItRSpw",
+            "width": 196,
+            "height": 110
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/T7yuR5DM-nE/hqdefault.jpg?sqp=-oaymwEcCPYBEIoBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLAWkGHixeP8wkT9zJPWdk-E5elpuQ",
+            "width": 246,
+            "height": 138
+          },
+          {
+            "url":
+                "https://i.ytimg.com/vi/T7yuR5DM-nE/hqdefault.jpg?sqp=-oaymwEcCNACELwBSFXyq4qpAw4IARUAAIhCGAFwAcABBg==&rs=AOn4CLCfbagr6MriVclNg4SMARnJMWYvAA",
             "width": 336,
             "height": 188
           }
         ]
       }
     ];
-
+    String idChanel = 'd8b8fb9f-e3b9-482a-9496-ec8eb8f36741';
     for (int i = 0; i < url.length; i++) {
       var videoId = VideoId(
           'https://www.youtube.com/watch?v=${url[i]['video_id']}&ab_channel=TED');
       video = await yt.videos.get(videoId);
       print(
-          'log-data: "${video.title}"|${video.thumbnails.maxResUrl}|056418c5-f39d-4451-ab1c-ae54fae8322a|${video.duration!.inSeconds}|${video.url}');
+          'log-data: "${video.title}"|${video.thumbnails.maxResUrl}|$idChanel|${video.duration!.inSeconds}|${video.url}');
+
+      String rs = await SupabaseService.instance.addVideo(
+        title: video.title,
+        thumbnail: video.thumbnails.maxResUrl,
+        id_channel: idChanel,
+        duration: video.duration!.inSeconds,
+        urlVideo: video.url,
+      );
+      debugPrint('log-data: $rs');
     }
     //   var videoId =
     //       VideoId('https://www.youtube.com/watch?v=XezfOVE9RFM&ab_channel=TED');
@@ -1366,7 +1361,7 @@ class StreamVideoController extends GetxController {
     print('log-data:  duration ${video.duration}');
 
     print(
-        'log-data: "${video.title}"|${video.thumbnails.maxResUrl}|056418c5-f39d-4451-ab1c-ae54fae8322a|${video.duration!.inSeconds}|${video.url}');
+        'log-data: "${video.title}"|${video.thumbnails.maxResUrl}|ed97c496-409f-4f8b-b0cf-4cb4e837255b|${video.duration!.inSeconds}|${video.url}');
   }
 
   Future<void> getCaptions(String videoId) async {

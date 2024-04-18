@@ -205,4 +205,26 @@ class SupabaseService {
       return [];
     }
   }
+
+  Future<String> addVideo({
+    required String title,
+    required String thumbnail,
+    required String id_channel,
+    required int duration,
+    required String urlVideo,
+  }) async {
+    try {
+      await supabase.from('videos').insert({
+        'title': title,
+        'thumbnail': thumbnail,
+        'id_channel': id_channel,
+        'duration': duration,
+        'urlVideo': urlVideo,
+      });
+      return 'done';
+    } catch (e) {
+      debugPrint(e.toString());
+      return 'error';
+    }
+  }
 }
