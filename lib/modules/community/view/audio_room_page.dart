@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:zego_uikit_prebuilt_live_audio_room/zego_uikit_prebuilt_live_audio_room.dart';
 
 class AudioRoomPage extends StatelessWidget {
@@ -20,6 +21,14 @@ class AudioRoomPage extends StatelessWidget {
       config: isHost
           ? ZegoUIKitPrebuiltLiveAudioRoomConfig.host()
           : ZegoUIKitPrebuiltLiveAudioRoomConfig.audience(),
+      events: ZegoUIKitPrebuiltLiveAudioRoomEvents(
+        onEnded: (event, defaultAction) {
+          if (isHost) {
+            SupabaseService.instance.endRoom(roomID);
+          }
+          defaultAction();
+        },
+      ),
     );
   }
 }

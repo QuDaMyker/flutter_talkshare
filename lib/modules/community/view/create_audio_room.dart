@@ -4,8 +4,10 @@ import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/community/controllers/community_controller.dart';
 import 'package:flutter_talkshare/modules/community/view/audio_room_page.dart';
+import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
 import 'package:numberpicker/numberpicker.dart';
+import 'package:uuid/uuid.dart';
 
 class CreateAudioRoom extends StatelessWidget {
   CreateAudioRoom({super.key});
@@ -33,7 +35,7 @@ class CreateAudioRoom extends StatelessWidget {
     return AppBar(
       centerTitle: true,
       title: const Text(
-        'Tạo bộ từ mới',
+        'Tạo phòng nói',
         style: TextStyle(
             fontWeight: FontWeight.w700,
             fontSize: 20,
@@ -81,6 +83,7 @@ class CreateAudioRoom extends StatelessWidget {
                       height: 8,
                     ),
                     TextField(
+                      controller: controller.roomNameCtrl,
                       cursorColor: AppColors.primary40,
                       style: const TextStyle(
                           fontWeight: FontWeight.w600,
@@ -112,6 +115,7 @@ class CreateAudioRoom extends StatelessWidget {
                       height: 8,
                     ),
                     TextField(
+                      controller: controller.roomTopicCtrl,
                       cursorColor: AppColors.primary40,
                       style: const TextStyle(
                           fontWeight: FontWeight.w600,
@@ -183,6 +187,7 @@ class CreateAudioRoom extends StatelessWidget {
                     ),
                     Obx(
                       () => TextField(
+                        controller: controller.passcodeCtrl,
                         maxLength: 6,
                         keyboardType: TextInputType.number,
                         cursorColor: AppColors.primary40,
@@ -209,8 +214,12 @@ class CreateAudioRoom extends StatelessWidget {
                     ),
                     InkWell(
                       onTap: () {
+                        var uuid = const Uuid();
+                        String roomId = uuid.v4();
+                        controller.creatRoom(roomId);
+                        Get.back();
                         Get.to(AudioRoomPage(
-                          roomID: '123',
+                          roomID: roomId,
                           isHost: true,
                         ));
                       },
@@ -232,25 +241,5 @@ class CreateAudioRoom extends StatelessWidget {
                     )
                   ]),
             )));
-  }
-
-  OutlineInputBorder customBorder() {
-    return OutlineInputBorder(
-      borderSide: const BorderSide(
-        color: AppColors.gray40,
-        width: 1.0,
-      ),
-      borderRadius: BorderRadius.circular(14.0),
-    );
-  }
-
-  OutlineInputBorder customBorderWhenFocus() {
-    return OutlineInputBorder(
-      borderSide: const BorderSide(
-        color: AppColors.primary40,
-        width: 2.0,
-      ),
-      borderRadius: BorderRadius.circular(14.0),
-    );
   }
 }

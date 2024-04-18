@@ -83,3 +83,19 @@ class WordsetVocabSupabaseTable implements SupabaseTable {
   String get word => "word";
   String get wordsetId => "wordset_id";
 }
+
+class AudioRoomSupabaseTable implements SupabaseTable {
+  const AudioRoomSupabaseTable();
+
+  @override
+  String get tableName => "audioroom";
+
+  String get roomId => "room_id";
+  String get name => "name";
+  String get topic => "topic";
+  String get quantity => "quantity";
+  String get passcode => "passcode";
+  String get createdAt => "created_at";
+  String get isActive => "isactive";
+  String get userId => "user_id";
+}

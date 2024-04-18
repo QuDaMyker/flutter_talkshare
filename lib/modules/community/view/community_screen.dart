@@ -8,6 +8,7 @@ import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/community/controllers/community_controller.dart';
 import 'package:flutter_talkshare/modules/community/view/audio_room_page.dart';
 import 'package:flutter_talkshare/modules/community/view/create_audio_room.dart';
+import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
 
 class CommnityScreen extends StatelessWidget {
@@ -232,7 +233,7 @@ class CommnityScreen extends StatelessWidget {
                   shrinkWrap: true,
                   physics: NeverScrollableScrollPhysics(),
                   itemBuilder: (context, index) {
-                    return AudioRoomItem();
+                    return AudioRoomItem(context);
                   },
                   separatorBuilder: (context, index) => const SizedBox(
                         height: 16,
@@ -366,129 +367,220 @@ class CommnityScreen extends StatelessWidget {
     );
   }
 
-  Widget AudioRoomItem() {
-    return Container(
-      margin: const EdgeInsets.all(4),
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.20),
-            blurRadius: 8,
-            offset: const Offset(0, 2), // changes position of shadow
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
+  Widget AudioRoomItem(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        showModalBottomSheet(
+            isScrollControlled: true,
+            context: context,
+            builder: (context) {
+              return Container(
+                padding: MediaQuery.of(context).viewInsets,
                 decoration: BoxDecoration(
-                  gradient: const LinearGradient(
-                    colors: AppColors.primaryGradient,
+                  borderRadius: BorderRadius.circular(20),
+                  color: Colors.white,
+                ),
+                child: Padding(
+                  padding: const EdgeInsets.all(20.0),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: Text(
+                              "Passcode",
+                              style: TextStyle(
+                                  fontSize: 18,
+                                  color: AppColors.primary20,
+                                  fontWeight: FontWeight.w700),
+                            ),
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Get.back();
+                            },
+                            child: SvgPicture.asset(ImageAssets.icClose2),
+                          )
+                        ],
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      TextField(
+                        maxLength: 6,
+                        cursorColor: AppColors.primary40,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.primary20,
+                            fontSize: 16),
+                        decoration: InputDecoration(
+                          hintText: 'Nhập passcode',
+                          hintStyle: const TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.gray40,
+                          ),
+                          focusedBorder: customBorderWhenFocus(),
+                          enabledBorder: customBorder(),
+                        ),
+                      ),
+                      SizedBox(
+                        height: 24,
+                      ),
+                      InkWell(
+                        onTap: () {
+                          Get.back();
+                          Get.to(AudioRoomPage(
+                            roomID: '123',
+                            isHost: false,
+                          ));
+                        },
+                        child: Container(
+                          width: double.infinity,
+                          padding: const EdgeInsets.all(16),
+                          decoration: BoxDecoration(
+                              color: AppColors.secondary20,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: const Text(
+                            'OK',
+                            style: TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                                color: Colors.white),
+                            textAlign: TextAlign.center,
+                          ),
+                        ),
+                      )
+                    ],
                   ),
-                  borderRadius: BorderRadius.circular(12),
                 ),
-                padding:
-                    const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
-                child: Row(
-                  children: [
-                    SvgPicture.asset(ImageAssets.icUnlock),
-                    const SizedBox(
-                      width: 4,
-                    ),
-                    const Text(
-                      "Công khai",
-                      style: TextStyle(
-                          fontSize: 10,
-                          fontWeight: FontWeight.w700,
-                          color: Colors.white),
-                    )
-                  ],
-                ),
-              ),
-              const Spacer(),
-              const Text(
-                "7",
-                style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w700,
-                    color: AppColors.primary40),
-              ),
-              const SizedBox(
-                width: 4,
-              ),
-              SvgPicture.asset(ImageAssets.icUsersGreen)
-            ],
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          const Text(
-            "Free room early",
-            style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w600,
-                color: AppColors.primary20),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          const Text(
-            "What did you do yesterday?",
-            style: TextStyle(
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
-                color: AppColors.gray20),
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            children: [
-              const CircleAvatar(
-                radius: 20.0,
-                backgroundImage: NetworkImage(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'),
-                backgroundColor: Colors.transparent,
-              ),
-              const SizedBox(
-                width: 8,
-              ),
-              const Expanded(
-                child: Text(
-                  "20 phút trước",
-                  style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.gray40),
-                ),
-              ),
-              InkWell(
-                onTap: () {},
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+              );
+            });
+      },
+      child: Container(
+        margin: const EdgeInsets.all(4),
+        padding: const EdgeInsets.all(20),
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.circular(12),
+          color: Colors.white,
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.20),
+              blurRadius: 8,
+              offset: const Offset(0, 2), // changes position of shadow
+            ),
+          ],
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Container(
                   decoration: BoxDecoration(
-                      color: AppColors.secondary20,
-                      borderRadius: BorderRadius.circular(12)),
-                  child: const Text(
-                    "Tham gia",
+                    gradient: const LinearGradient(
+                      colors: AppColors.primaryGradient,
+                    ),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 4, horizontal: 10),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(ImageAssets.icUnlock),
+                      const SizedBox(
+                        width: 4,
+                      ),
+                      const Text(
+                        "Công khai",
+                        style: TextStyle(
+                            fontSize: 10,
+                            fontWeight: FontWeight.w700,
+                            color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
+                const Spacer(),
+                const Text(
+                  "7",
+                  style: TextStyle(
+                      fontSize: 10,
+                      fontWeight: FontWeight.w700,
+                      color: AppColors.primary40),
+                ),
+                const SizedBox(
+                  width: 4,
+                ),
+                SvgPicture.asset(ImageAssets.icUsersGreen)
+              ],
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            const Text(
+              "Free room early",
+              style: TextStyle(
+                  fontSize: 16,
+                  fontWeight: FontWeight.w600,
+                  color: AppColors.primary20),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            const Text(
+              "What did you do yesterday?",
+              style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.gray20),
+            ),
+            const SizedBox(
+              height: 8,
+            ),
+            Row(
+              children: [
+                const CircleAvatar(
+                  radius: 20.0,
+                  backgroundImage: NetworkImage(
+                      'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'),
+                  backgroundColor: Colors.transparent,
+                ),
+                const SizedBox(
+                  width: 8,
+                ),
+                const Expanded(
+                  child: Text(
+                    "20 phút trước",
                     style: TextStyle(
                         fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        color: Colors.white),
-                    textAlign: TextAlign.center,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.gray40),
                   ),
                 ),
-              )
-            ],
-          )
-        ],
+                InkWell(
+                  onTap: () {},
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                    decoration: BoxDecoration(
+                        color: AppColors.secondary20,
+                        borderRadius: BorderRadius.circular(12)),
+                    child: const Text(
+                      "Tham gia",
+                      style: TextStyle(
+                          fontSize: 12,
+                          fontWeight: FontWeight.w700,
+                          color: Colors.white),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+              ],
+            )
+          ],
+        ),
       ),
     );
   }

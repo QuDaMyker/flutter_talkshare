@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/create_new_list_vocab/controller/create_new_list_vocab_controller.dart';
+import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
 
 class CreateNewListVocabScreen extends StatelessWidget {
@@ -225,25 +226,5 @@ class CreateNewListVocabScreen extends StatelessWidget {
                 )
               ]),
             )));
-  }
-
-  OutlineInputBorder customBorder() {
-    return OutlineInputBorder(
-      borderSide: const BorderSide(
-        color: AppColors.gray40,
-        width: 1.0,
-      ),
-      borderRadius: BorderRadius.circular(14.0),
-    );
-  }
-
-  OutlineInputBorder customBorderWhenFocus() {
-    return OutlineInputBorder(
-      borderSide: const BorderSide(
-        color: AppColors.primary40,
-        width: 2.0,
-      ),
-      borderRadius: BorderRadius.circular(14.0),
-    );
   }
 }
