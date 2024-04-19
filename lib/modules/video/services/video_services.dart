@@ -7,10 +7,18 @@ class VideoServices {
   static final VideoServices instance = VideoServices._internal();
   factory VideoServices() => instance;
 
-  Future<List<SubtitleModel>> getCaptions(String videoId) async {
+  Future<int> getCountSub({required String videoId}) async {
+    return await SupabaseService.instance.getCountSub(id_video: videoId);
+  }
+
+  Future<List<SubtitleModel>> getCaptions({
+    required String videoId,
+  }) async {
     try {
-      List<SubtitleModel> listSub =
-          await SupabaseService.instance.getSubtitle(id_video: videoId);
+      List<SubtitleModel> listSub = await SupabaseService.instance.getSubtitle(
+        id_video: videoId,
+      );
+      print('length-log: listSub ${listSub.length}');
 
       return listSub;
     } catch (e) {

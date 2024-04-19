@@ -290,52 +290,51 @@ class SupabaseService {
     }
   }
 
+  Future<int> getCountSub({required String id_video}) async {
+    final queryCount = await supabase
+        .from('subtitle')
+        .select('id')
+        .eq('id_video', id_video)
+        .count();
+
+    return queryCount.count;
+  }
+
   Future<List<SubtitleModel>> getSubtitle({
     required String id_video,
   }) async {
     try {
-      print('log-data: id_video $id_video');
-      final queryCount = await supabase
-          .from('subtitle')
-          .select('id')
-          .eq('id_video', id_video)
-          .count();
-
-      int count = queryCount.count;
-      print('log-data: count $count');
       List<SubtitleModel> listSub = [];
 
-      if (count > 0) {
-        int batchSize = 1000;
-        int batches = (count / batchSize).ceil();
+      // final response = await supabase
+      //     .from('subtitle')
+      //     .select('id, id_video, index, content, start, duration, end')
+      //     .eq('id_video', id_video);
 
-        for (int i = 0; i < batches; i++) {
-          int from = i * batchSize;
-          int to = (i + 1) * batchSize;
-          if (to > count) {
-            to = count;
-          }
+      // if (response.isEmpty) {
+      //   return [];
+      // }
 
-          final query = await supabase
-              .from('subtitle')
-              .select('id, id_video, index, content, start, duration, end')
-              .eq('id_video', id_video)
-              .range(from, to);
-          print('log-data: query.length ${query.length}');
-          listSub.addAll(
-            query.map(
-              (sub) => SubtitleModel.fromMap(sub),
-            ),
-          );
+      // List<dynamic> data = response;
+      // listSub.addAll(data.map((sub) => SubtitleModel.fromMap(sub)).toList());
+
+      await supabase
+          .from('subtitle')
+          .select('id, id_video, index, content, start, duration, end')
+          .eq('id_video', id_video)
+          .order('index', ascending: true)
+          .then((value) {
+        for (int i = 0; i < value.length; i++) {
+          listSub.add(SubtitleModel.fromMap(value[i]));
         }
-      }
 
-      print('log-data: listSub.length ${listSub.length}');
+        return listSub;
+      });
 
       return listSub;
     } catch (e) {
-      debugPrint(e.toString());
-      return [];
+      debugPrint('Error fetching subtitles: $e');
+      throw Exception('Failed to fetch subtitles');
     }
   }
 }

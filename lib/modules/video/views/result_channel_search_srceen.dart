@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/video/controllers/result_channel_search_controller.dart';
 import 'package:flutter_talkshare/modules/video/models/channel_model.dart';
 import 'package:flutter_talkshare/modules/video/models/video_model.dart';
@@ -76,8 +77,8 @@ class _ResultChannelSearchScreenState extends State<ResultChannelSearchScreen> {
   Center _buildLoading() {
     return Center(
       child: LoadingAnimationWidget.flickr(
-        leftDotColor: const Color(0xfffe0079),
-        rightDotColor: const Color(0xff0056d6),
+        leftDotColor: AppColors.primary40,
+        rightDotColor: AppColors.secondary20,
         size: 20,
       ),
     );

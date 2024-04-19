@@ -42,7 +42,7 @@ class SubtitleModel {
   Map<String, dynamic> toMap() {
     return <String, dynamic>{
       'id': id,
-      'idVideo': idVideo,
+      'id_video': idVideo,
       'index': index,
       'content': content,
       'start': start,
@@ -57,9 +57,9 @@ class SubtitleModel {
       idVideo: map['id_video'] as String,
       index: map['index'] as int,
       content: map['content'] as String,
-      start: map['start'] as double,
-      duration: map['duration'] as double,
-      end: map['end'] as double,
+      start: map['start'] * 1.0 as double,
+      duration: map['duration'] * 1.0 as double,
+      end: map['end'] * 1.0 as double,
     );
   }
 
