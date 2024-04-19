@@ -1,9 +1,6 @@
 import 'dart:async';
 
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_talkshare/modules/video/models/caption_response.dart';
 import 'package:flutter_talkshare/modules/video/models/item_caption_model.dart';
 import 'package:flutter_talkshare/modules/video/models/subtitle_model.dart';
 import 'package:flutter_talkshare/modules/video/models/video_model.dart';
@@ -33,12 +30,10 @@ class StreamVideoController extends GetxController {
   @override
   void onInit() async {
     yt = YoutubeExplode();
-
     await fetchVideoInfo();
+    await getCaptions(videoModel.id);
     initScrollController();
     initYtController();
-    // await getCaptions(video.id.toString());
-    await getCaptions(videoModel.id);
     isLoading.value = false;
     super.onInit();
   }
@@ -86,45 +81,49 @@ class StreamVideoController extends GetxController {
       ),
     );
 
-    // ytController.addListener(() {
-    //   if (ytController.value.playerState == PlayerState.playing) {
-    //     String duration = formatDuration(captions.value[0].start);
-    //     String positon =
-    //         formatMilliseconds(ytController.value.position.inMilliseconds);
-    //     if (duration == positon) {
-    //       debugPrint('compare: $duration - $positon');
+    ytController.addListener(() {
+      if (ytController.value.playerState == PlayerState.playing) {
+        String duration = formatDuration(captions.value[0].start);
+        String positon =
+            formatMilliseconds(ytController.value.position.inMilliseconds);
+        if (duration == positon) {
+          debugPrint('compare: $duration - $positon');
 
-    //       currentCaption.value =
-    //           '${captions.value[0].start}: ${captions.value[0].content}';
+          currentCaption.value =
+              '${captions.value[0].start}: ${captions.value[0].content}';
 
-    //       int selectedIndex = originCaptions.value.indexOf(captions.value[0]);
+          int selectedIndex = originCaptions.value.indexOf(captions.value[0]);
 
-    //       scrollToIndex(selectedIndex);
+          scrollToIndex(selectedIndex);
 
-    //       ItemCaptionModel itemCaptionModel = ItemCaptionModel(
-    //           subtitleModel: originCaptions.value[selectedIndex],
-    //           isSelected: true);
+          ItemCaptionModel itemCaptionModel = ItemCaptionModel(
+              subtitleModel: originCaptions.value[selectedIndex],
+              isSelected: true);
 
-    //       listCaptionsShowing.value = [
-    //         ...listCaptionsShowing.value.sublist(0, selectedIndex),
-    //         itemCaptionModel,
-    //         ...listCaptionsShowing.value.sublist(selectedIndex + 1)
-    //       ];
+          listCaptionsShowing.value = [
+            ...listCaptionsShowing.value.sublist(0, selectedIndex),
+            itemCaptionModel,
+            ...listCaptionsShowing.value.sublist(selectedIndex + 1)
+          ];
 
-    //       if (listCaptionsShowing.value.length != originCaptions.value.length) {
-    //         Get.snackbar('title',
-    //             '${listCaptionsShowing.value.length} - ${originCaptions.value.length}');
-    //       }
-    //       update();
+          if (listCaptionsShowing.value.length != originCaptions.value.length) {
+            Get.snackbar('title',
+                '${listCaptionsShowing.value.length} - ${originCaptions.value.length}');
+          }
+          update();
 
-    //       captions.value = [...captions.value.sublist(1)];
-    //     }
-    //   }
-    // });
+          captions.value = [...captions.value.sublist(1)];
+        }
+      }
+    });
   }
 
   Future<void> getCaptions(String videoId) async {
-    captions.value = await VideoServices().getCaptions(videoId);
+    captions.value.addAll(await VideoServices.instance.getCaptions(
+      videoId: videoId,
+    ));
+    print('log-data: cap[0] ${captions.value[0]}');
+
     originCaptions.value = [...captions.value];
     listCaptionsShowing.value = originCaptions.value
         .map((item) => ItemCaptionModel(subtitleModel: item))
