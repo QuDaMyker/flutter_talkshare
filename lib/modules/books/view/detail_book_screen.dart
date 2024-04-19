@@ -5,23 +5,26 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/models/book.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:webview_flutter/webview_flutter.dart';
 
 class DetailBookScreen extends StatelessWidget {
   final Book book;
+  final String bookUrl = "https://utc.iath.virginia.edu/uncletom/uthp.html";
 
   const DetailBookScreen({required this.book});
 
-  get controller => null;
 
   @override
   Widget build(BuildContext context) {
     final double deviceHeight = MediaQuery.of(context).size.height;
     final double deviceWidth = MediaQuery.of(context).size.width;
+    debugPrint('detail của' + book.title);
+    
 
     return SafeArea(
         child: Scaffold(
       appBar: _buildAppBar(context),
-      body: _buildBody(deviceHeight, deviceWidth, book),
+      body: _buildBody(context, deviceHeight, deviceWidth, book),
     ));
   }
 
@@ -37,7 +40,27 @@ class DetailBookScreen extends StatelessWidget {
     );
   }
 
-  Stack _buildBody(double deviceHeight, double deviceWidth, Book book) {
+  Stack _buildBody(BuildContext context, double deviceHeight, double deviceWidth, Book book) {
+    WebViewController controller = WebViewController()
+  ..setJavaScriptMode(JavaScriptMode.unrestricted)
+  ..setBackgroundColor(const Color(0x00000000))
+  ..setNavigationDelegate(
+    NavigationDelegate(
+      onProgress: (int progress) {
+        // Update loading bar.
+      },
+      onPageStarted: (String url) {},
+      onPageFinished: (String url) {},
+      onWebResourceError: (WebResourceError error) {},
+      onNavigationRequest: (NavigationRequest request) {
+        if (request.url.startsWith('https://www.youtube.com/')) {
+          return NavigationDecision.prevent;
+        }
+        return NavigationDecision.navigate;
+      },
+    ),
+  )
+  ..loadRequest(Uri.parse(bookUrl));
     return Stack(
       children: [
         Column(
@@ -81,7 +104,7 @@ class DetailBookScreen extends StatelessWidget {
                         book.description,
                         style: const TextStyle(
                           color: AppColors.gray20,
-                          fontSize: 12,
+                          fontSize: 13,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -103,7 +126,7 @@ class DetailBookScreen extends StatelessWidget {
                         book.snippet,
                         style: const TextStyle(
                           color: AppColors.gray20,
-                          fontSize: 12,
+                          fontSize: 13,
                           fontWeight: FontWeight.w500,
                         ),
                       ),
@@ -170,7 +193,17 @@ class DetailBookScreen extends StatelessWidget {
                         ),
                         child: TextButton(
                           onPressed: () {
-                            // Xử lý sự kiện khi nút được nhấn
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => Scaffold(
+                                  appBar: AppBar(),
+                                  body: WebViewWidget(
+                                    controller: controller,
+                                  ),
+                                ),
+                              ),
+                            );
                           },
                           child: const Text(
                             'Đọc sách',

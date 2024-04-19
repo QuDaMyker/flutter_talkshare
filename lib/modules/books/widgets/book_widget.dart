@@ -9,13 +9,13 @@ class BookWidget extends StatelessWidget {
   final Book book;
   final double heightOfBook;
   final double widthOfBook;
-  late BookWidgetCntroller controller;
+  late BookWidgetCotroller controller;
 
   BookWidget(this.heightOfBook, this.widthOfBook, this.book, {super.key});
 
   @override
   Widget build(BuildContext context) {
-    controller  = Get.put(BookWidgetCntroller(book: book));
+    controller  = Get.put(BookWidgetCotroller(book: book));
 
     return Padding(
       padding: const EdgeInsets.only(right: 3),
@@ -23,7 +23,7 @@ class BookWidget extends StatelessWidget {
         width: widthOfBook,
         child: GestureDetector (
           onTap: () {
-            debugPrint(book.title);
+            debugPrint(controller.book.title);
             controller.moveToDetailBook();
           },
           child: Column(
