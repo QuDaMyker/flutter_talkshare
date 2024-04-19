@@ -55,292 +55,335 @@ class CommnityScreen extends StatelessWidget {
         iconData: CupertinoIcons.add_circled_solid,
         backGroundColor: AppColors.secondary90,
       ),
-      body: Container(
-        color: Colors.white,
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-              Obx(() => Row(
-                    children: [
-                      Expanded(
-                          child: ToggleButton(type: CommunityTab.INTERACTION)),
-                      const SizedBox(
-                        width: 12,
-                      ),
-                      Expanded(child: ToggleButton(type: CommunityTab.BLOG)),
-                    ],
-                  )),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                children: [
-                  SvgPicture.asset(ImageAssets.icMicrophone),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  const Expanded(
-                      child: Text(
-                    "Phòng nói",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: AppColors.primary20,
-                        fontWeight: FontWeight.w700),
-                  )),
-                  InkWell(
-                    onTap: () {
-                      showModalBottomSheet(
-                          useRootNavigator: true,
-                          context: context,
-                          builder: (context) {
-                            return Container(
-                              padding: EdgeInsets.all(20),
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(20),
-                                color: Colors.white,
-                              ),
-                              child: Column(
-                                mainAxisSize: MainAxisSize.min,
-                                children: [
-                                  Row(
-                                    children: [
-                                      Expanded(
-                                        child: Text(
-                                          "Lọc theo loại phòng",
-                                          style: TextStyle(
-                                              fontSize: 18,
-                                              color: AppColors.primary20,
-                                              fontWeight: FontWeight.w700),
-                                        ),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          Get.back();
-                                        },
-                                        child: SvgPicture.asset(
-                                            ImageAssets.icClose2),
-                                      )
-                                    ],
-                                  ),
-                                  ListTile(
-                                    contentPadding: EdgeInsets.zero,
-                                    title: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            "Tất cả",
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: AppColors.primary20,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    trailing: Transform.scale(
-                                      scale: 1,
-                                      child: Radio(
-                                        groupValue: 1,
-                                        value: 0,
-                                        activeColor: AppColors.secondary20,
-                                        onChanged: (int? value) {
-                                          // Get.back();
-                                        },
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      // Get.back();
-                                    },
-                                  ),
-                                  ListTile(
-                                    contentPadding: EdgeInsets.zero,
-                                    title: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            "Công khai",
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: AppColors.primary20,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    trailing: Transform.scale(
-                                      scale: 1,
-                                      child: Radio(
-                                        groupValue: 1,
-                                        value: 1,
-                                        activeColor: AppColors.secondary20,
-                                        onChanged: (int? value) {
-                                          // Get.back();
-                                        },
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      // Get.back();
-                                    },
-                                  ),
-                                  ListTile(
-                                    contentPadding: EdgeInsets.zero,
-                                    title: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            "Riêng tư",
-                                            style: TextStyle(
-                                                fontSize: 16,
-                                                color: AppColors.primary20,
-                                                fontWeight: FontWeight.w600),
-                                          ),
-                                        )
-                                      ],
-                                    ),
-                                    trailing: Transform.scale(
-                                      scale: 1,
-                                      child: Radio(
-                                        groupValue: 1,
-                                        value: 2,
-                                        activeColor: AppColors.secondary20,
-                                        onChanged: (int? value) {
-                                          // Get.back();
-                                        },
-                                      ),
-                                    ),
-                                    onTap: () {
-                                      // Get.back();
-                                    },
-                                  ),
-                                ],
-                              ),
-                            );
-                          });
-                    },
-                    child: SvgPicture.asset(ImageAssets.icFilter),
-                  )
-                ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Obx(() => ListView.separated(
-                  shrinkWrap: true,
-                  physics: NeverScrollableScrollPhysics(),
-                  itemBuilder: (context, index) {
-                    return AudioRoomItem(context, controller.listRoom[index]);
-                  },
-                  separatorBuilder: (context, index) => const SizedBox(
-                        height: 16,
-                      ),
-                  itemCount: controller.listRoom.length)),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(
-                children: [
-                  SvgPicture.asset(ImageAssets.icLivestream),
-                  const SizedBox(
-                    width: 4,
-                  ),
-                  const Expanded(
-                      child: Text(
-                    "Livestream",
-                    style: TextStyle(
-                        fontSize: 18,
-                        color: AppColors.primary20,
-                        fontWeight: FontWeight.w700),
-                  )),
-                ],
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Container(
-                padding: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(12),
-                  image: DecorationImage(
-                      image: const NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'),
-                      fit: BoxFit.cover,
-                      colorFilter: ColorFilter.mode(
-                          Colors.black.withOpacity(0.5), BlendMode.darken)),
-                ),
+      body: RefreshIndicator(
+        onRefresh: () async {
+          String type = controller.selectedType.value != 0
+              ? (controller.selectedType.value == 1 ? "Công khai" : "Riêng tư")
+              : "Tất cả";
+          controller.filter(type);
+        },
+        child: ListView(
+          physics: AlwaysScrollableScrollPhysics(),
+          children: [
+            Container(
+              color: Colors.white,
+              padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+              child: SingleChildScrollView(
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
+                    Obx(() => Row(
+                          children: [
+                            Expanded(
+                                child: ToggleButton(
+                                    type: CommunityTab.INTERACTION)),
+                            const SizedBox(
+                              width: 12,
+                            ),
+                            Expanded(
+                                child: ToggleButton(type: CommunityTab.BLOG)),
+                          ],
+                        )),
+                    const SizedBox(
+                      height: 16,
+                    ),
                     Row(
                       children: [
-                        const Expanded(
-                          child: Text(
-                            "Free room early",
-                            style: TextStyle(
-                                fontSize: 16,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ),
-                        ),
-                        const Spacer(),
-                        const Text(
-                          "7",
-                          style: TextStyle(
-                              fontSize: 10,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.white),
-                        ),
+                        SvgPicture.asset(ImageAssets.icMicrophone),
                         const SizedBox(
                           width: 4,
                         ),
-                        SvgPicture.asset(ImageAssets.icUsersWhite)
+                        const Expanded(
+                            child: Text(
+                          "Phòng nói",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: AppColors.primary20,
+                              fontWeight: FontWeight.w700),
+                        )),
+                        InkWell(
+                          onTap: () {
+                            showModalBottomSheet(
+                                useRootNavigator: true,
+                                context: context,
+                                builder: (context) {
+                                  return Obx(() => Container(
+                                        padding: EdgeInsets.all(20),
+                                        decoration: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color: Colors.white,
+                                        ),
+                                        child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          children: [
+                                            Row(
+                                              children: [
+                                                Expanded(
+                                                  child: Text(
+                                                    "Lọc theo loại phòng",
+                                                    style: TextStyle(
+                                                        fontSize: 18,
+                                                        color:
+                                                            AppColors.primary20,
+                                                        fontWeight:
+                                                            FontWeight.w700),
+                                                  ),
+                                                ),
+                                                InkWell(
+                                                  onTap: () {
+                                                    Get.back();
+                                                  },
+                                                  child: SvgPicture.asset(
+                                                      ImageAssets.icClose2),
+                                                )
+                                              ],
+                                            ),
+                                            ListTile(
+                                              contentPadding: EdgeInsets.zero,
+                                              title: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      "Tất cả",
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: AppColors
+                                                              .primary20,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              trailing: Transform.scale(
+                                                scale: 1,
+                                                child: Radio(
+                                                  groupValue: controller
+                                                      .selectedType.value,
+                                                  value: 0,
+                                                  activeColor:
+                                                      AppColors.secondary20,
+                                                  onChanged: (int? value) {
+                                                    controller.selectedType
+                                                        .value = value ?? 0;
+                                                    controller.filter("Tất cả");
+                                                    Get.back();
+                                                  },
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                // Get.back();
+                                              },
+                                            ),
+                                            ListTile(
+                                              contentPadding: EdgeInsets.zero,
+                                              title: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      "Công khai",
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: AppColors
+                                                              .primary20,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              trailing: Transform.scale(
+                                                scale: 1,
+                                                child: Radio(
+                                                  groupValue: controller
+                                                      .selectedType.value,
+                                                  value: 1,
+                                                  activeColor:
+                                                      AppColors.secondary20,
+                                                  onChanged: (int? value) {
+                                                    controller.selectedType
+                                                        .value = value ?? 0;
+                                                    controller
+                                                        .filter("Công khai");
+                                                    Get.back();
+                                                  },
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                // Get.back();
+                                              },
+                                            ),
+                                            ListTile(
+                                              contentPadding: EdgeInsets.zero,
+                                              title: Row(
+                                                mainAxisAlignment:
+                                                    MainAxisAlignment.start,
+                                                children: [
+                                                  Expanded(
+                                                    child: Text(
+                                                      "Riêng tư",
+                                                      style: TextStyle(
+                                                          fontSize: 16,
+                                                          color: AppColors
+                                                              .primary20,
+                                                          fontWeight:
+                                                              FontWeight.w600),
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
+                                              trailing: Transform.scale(
+                                                scale: 1,
+                                                child: Radio(
+                                                  groupValue: controller
+                                                      .selectedType.value,
+                                                  value: 2,
+                                                  activeColor:
+                                                      AppColors.secondary20,
+                                                  onChanged: (int? value) {
+                                                    controller.selectedType
+                                                        .value = value ?? 0;
+                                                    controller
+                                                        .filter("Riêng tư");
+                                                    Get.back();
+                                                  },
+                                                ),
+                                              ),
+                                              onTap: () {
+                                                // Get.back();
+                                              },
+                                            ),
+                                          ],
+                                        ),
+                                      ));
+                                });
+                          },
+                          child: SvgPicture.asset(ImageAssets.icFilter),
+                        )
                       ],
                     ),
                     const SizedBox(
-                      height: 8,
+                      height: 16,
+                    ),
+                    Obx(() => ListView.separated(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return AudioRoomItem(
+                              context, controller.listRoom[index]);
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                              height: 16,
+                            ),
+                        itemCount: controller.listRoom.length)),
+                    const SizedBox(
+                      height: 16,
                     ),
                     Row(
                       children: [
-                        const Expanded(
-                          child: Text(
-                            "20 phút trước",
-                            style: TextStyle(
-                                fontSize: 12,
-                                fontWeight: FontWeight.w600,
-                                color: Colors.white),
-                          ),
+                        SvgPicture.asset(ImageAssets.icLivestream),
+                        const SizedBox(
+                          width: 4,
                         ),
-                        InkWell(
-                          onTap: () {},
-                          child: Container(
-                            padding: const EdgeInsets.symmetric(
-                                vertical: 8, horizontal: 16),
-                            decoration: BoxDecoration(
-                                color: AppColors.secondary20,
-                                borderRadius: BorderRadius.circular(12)),
-                            child: const Text(
-                              "Tham gia",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w700,
-                                  color: Colors.white),
-                              textAlign: TextAlign.center,
-                            ),
-                          ),
-                        )
+                        const Expanded(
+                            child: Text(
+                          "Livestream",
+                          style: TextStyle(
+                              fontSize: 18,
+                              color: AppColors.primary20,
+                              fontWeight: FontWeight.w700),
+                        )),
                       ],
+                    ),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    Container(
+                      padding: const EdgeInsets.all(20),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                        image: DecorationImage(
+                            image: const NetworkImage(
+                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'),
+                            fit: BoxFit.cover,
+                            colorFilter: ColorFilter.mode(
+                                Colors.black.withOpacity(0.5),
+                                BlendMode.darken)),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            children: [
+                              const Expanded(
+                                child: Text(
+                                  "Free room early",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              const Spacer(),
+                              const Text(
+                                "7",
+                                style: TextStyle(
+                                    fontSize: 10,
+                                    fontWeight: FontWeight.w700,
+                                    color: Colors.white),
+                              ),
+                              const SizedBox(
+                                width: 4,
+                              ),
+                              SvgPicture.asset(ImageAssets.icUsersWhite)
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 8,
+                          ),
+                          Row(
+                            children: [
+                              const Expanded(
+                                child: Text(
+                                  "20 phút trước",
+                                  style: TextStyle(
+                                      fontSize: 12,
+                                      fontWeight: FontWeight.w600,
+                                      color: Colors.white),
+                                ),
+                              ),
+                              InkWell(
+                                onTap: () {},
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 8, horizontal: 16),
+                                  decoration: BoxDecoration(
+                                      color: AppColors.secondary20,
+                                      borderRadius: BorderRadius.circular(12)),
+                                  child: const Text(
+                                    "Tham gia",
+                                    style: TextStyle(
+                                        fontSize: 12,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.white),
+                                    textAlign: TextAlign.center,
+                                  ),
+                                ),
+                              )
+                            ],
+                          )
+                        ],
+                      ),
                     )
                   ],
                 ),
-              )
-            ],
-          ),
+              ),
+            ),
+          ],
         ),
       ),
     );

@@ -17,6 +17,7 @@ class CommunityController extends GetxController
   TextEditingController passcodeCtrl = TextEditingController();
   RxList<AudioRoom> listRoom = RxList.empty();
   TextEditingController confirmPasscodeCtrl = TextEditingController();
+  var selectedType = 0.obs;
 
   @override
   void onInit() async {
@@ -46,5 +47,11 @@ class CommunityController extends GetxController
         createdAt: DateTime.now().toUtc().millisecondsSinceEpoch,
         isActive: true);
     SupabaseService.instance.insertRoom(audioRoom);
+  }
+
+  void filter(String type) async {
+    var list = await SupabaseService.instance.getAllAudioRoom(filter: type);
+    listRoom.clear();
+    listRoom.addAll(list);
   }
 }
