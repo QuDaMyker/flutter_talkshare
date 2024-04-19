@@ -6,10 +6,10 @@ import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/books/widgets/book_widget.dart';
 
 class BooksSameTypeScreen extends StatelessWidget {
-  final List<Book> books = listBooks;
-  final String type = "Viễn tưởng";
+  final List<Book> books ;
+  final String type;
 
-  // BooksSameTypeScreen(this.type, this.books);
+  BooksSameTypeScreen({required this.type, required this.books});
 
   get controller => null;
 

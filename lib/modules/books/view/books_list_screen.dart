@@ -3,12 +3,17 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/models/book.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/books/controller/book_list_screen_controller.dart';
+import 'package:flutter_talkshare/modules/books/widgets/book_widget.dart';
 import 'package:flutter_talkshare/modules/books/widgets/scrollable_books_widget.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 
 class BooksListScreen extends StatelessWidget {
-  const BooksListScreen({super.key});
+  BooksListScreen({super.key});
 
-  get controller => null;
+  final BookListScreenController boolListController =
+      Get.put(BookListScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,7 @@ class BooksListScreen extends StatelessWidget {
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: _buildAppBar(context),
-        body: _buildBody(deviceHeight, deviceWidth, controller),
+        body: _buildBody(deviceHeight, deviceWidth, boolListController),
       ),
     );
   }
@@ -49,11 +54,16 @@ class BooksListScreen extends StatelessWidget {
     );
   }
 
-  Padding _buildBody(double deviceHeight, double deviceWidth, controller) {
+  Padding _buildBody(
+      double deviceHeight, double deviceWidth, boolListController) {
     return Padding(
-      padding: const EdgeInsets.only(top: 20, left: 20, bottom: 20, right: 5),
+      padding: const EdgeInsets.only(top: 20, left: 20, bottom: 20, right: 20),
       child: Column(children: [
         TextField(
+          controller: boolListController.searchController,
+          onChanged: (value) => {
+            boolListController.searchBook(value),
+          },
           decoration: InputDecoration(
             enabledBorder: OutlineInputBorder(
               borderRadius: BorderRadius.circular(12),
@@ -78,7 +88,9 @@ class BooksListScreen extends StatelessWidget {
             prefixIconConstraints: const BoxConstraints(),
             suffixIcon: GestureDetector(
               onTap: () {
-                controller.clear();
+                boolListController.searchController.clear();
+                boolListController.isSearching.value = false;
+
               },
               child: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -91,35 +103,68 @@ class BooksListScreen extends StatelessWidget {
         const SizedBox(
           height: 20,
         ),
-        SizedBox(
-          height: deviceHeight * 0.75,
-          child: ListView(
-            scrollDirection: Axis.vertical,
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
-                child: ScrollableBooksWidget(
-                    deviceHeight * 0.26, deviceWidth - 25, listBooks),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
-                child: ScrollableBooksWidget(
-                    deviceHeight * 0.26, deviceWidth - 25, listBooks),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
-                child: ScrollableBooksWidget(
-                    deviceHeight * 0.26, deviceWidth - 25, listBooks),
-              ),
-              Padding(
-                padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
-                child: ScrollableBooksWidget(
-                    deviceHeight * 0.26, deviceWidth - 25, listBooks),
-              )
-            ],
-          ),
-        )
+        Container(
+          child: Obx(() => _buildListBook(deviceHeight *0.75, deviceWidth)) )
       ]),
+    );
+  }
+  SizedBox _buildListBook(double deviceHeight, double deviceWidth) {
+    if (boolListController.isSearching.value) {
+      return _searchedBooks(deviceHeight, deviceWidth,
+          boolListController, boolListController.searchedBooks);
+    } else {
+      return _allBooksInList(
+          deviceHeight, deviceWidth - 25, boolListController);
+    }
+  }
+
+  SizedBox _allBooksInList(
+      double deviceHeight, double deviceWidth, boolListController) {
+    return SizedBox(
+      height: deviceHeight ,
+      child: ListView(
+        scrollDirection: Axis.vertical,
+        children: [
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
+            child: ScrollableBooksWidget(deviceHeight * 0.35, deviceWidth - 25,
+                boolListController.books),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
+            child: ScrollableBooksWidget(deviceHeight * 0.35, deviceWidth - 25,
+                boolListController.books),
+          ),
+          Padding(
+            padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
+            child: ScrollableBooksWidget(deviceHeight * 0.35, deviceWidth - 25,
+                boolListController.books),
+          ),
+          Padding(
+              padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
+              child: ScrollableBooksWidget(deviceHeight * 0.35,
+                  deviceWidth - 25, boolListController.books))
+        ],
+      ),
+    );
+  }
+
+  SizedBox _searchedBooks(double deviceHeight, double deviceWidth,
+      boolListController, List<Book> books) {
+    return SizedBox(
+      height: deviceHeight ,
+      child: GridView.builder(
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 3,
+            childAspectRatio: (deviceWidth / 3) / (deviceHeight/2.7),
+            crossAxisSpacing: 15,
+            mainAxisSpacing: 20,
+          ),
+          itemCount: books.length,
+          itemBuilder: (context, index) {
+            return BookWidget(
+                deviceHeight* 0.35 * 0.65, deviceWidth * 0.3, books[index]);
+          }),
     );
   }
 }

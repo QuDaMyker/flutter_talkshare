@@ -7,9 +7,9 @@ import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 
 class DetailBookScreen extends StatelessWidget {
-  final Book book = listBooks.first;
+  final Book book;
 
-  //const DetailBookScreen(this.book);
+  const DetailBookScreen({required this.book});
 
   get controller => null;
 
