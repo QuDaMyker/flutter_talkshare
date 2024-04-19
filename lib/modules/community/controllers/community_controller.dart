@@ -41,4 +41,6 @@ class CommunityController extends GetxController
         isActive: true);
     SupabaseService.instance.insertRoom(audioRoom);
   }
+
+  
 }

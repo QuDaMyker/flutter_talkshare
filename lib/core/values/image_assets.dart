@@ -46,5 +46,6 @@ abstract class ImageAssets {
   static const icUnlock = 'assets/images/svg/ic_unlock.svg';
   static const icUsersGreen = 'assets/images/svg/ic_users_green.svg';
   static const icUsersWhite = 'assets/images/svg/ic_users_white.svg';
-
+  static const icStar = 'assets/images/svg/ic_star.svg';
+  static const icRemove = 'assets/images/svg/ic_remove.svg';
 }
