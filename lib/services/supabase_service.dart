@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/core/models/audio_room.dart';
+import 'package:flutter_talkshare/core/models/livestream.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/models/wordset.dart';
 import 'package:flutter_talkshare/core/values/supabase_table.dart';
@@ -16,6 +17,7 @@ part 'user_service.dart';
 part 'vocab_service.dart';
 part 'wordset_service.dart';
 part 'audio_room_service.dart';
+part 'livestream_service.dart';
 
 class SupabaseService {
   SupabaseService._internal();

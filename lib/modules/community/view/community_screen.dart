@@ -1,17 +1,21 @@
 import 'package:floating_action_bubble/floating_action_bubble.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/enums/community_tab.dart';
 import 'package:flutter_talkshare/core/models/audio_room.dart';
+import 'package:flutter_talkshare/core/models/livestream.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/community/controllers/community_controller.dart';
 import 'package:flutter_talkshare/modules/community/view/audio_room_page.dart';
 import 'package:flutter_talkshare/modules/community/view/create_audio_room.dart';
+import 'package:flutter_talkshare/modules/community/view/live_page.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 class CommnityScreen extends StatelessWidget {
   CommnityScreen({super.key});
@@ -44,6 +48,14 @@ class CommnityScreen extends StatelessWidget {
             titleStyle: TextStyle(fontSize: 16, color: Colors.white),
             onPress: () {
               controller.animationController.reverse();
+              var uuid = const Uuid();
+              String streamId = uuid.v4();
+              controller.creatLivestream(streamId);
+              Get.back();
+              Get.to(LivePage(
+                isHost: true,
+                liveID: streamId,
+              ));
             },
           ),
         ],
@@ -61,6 +73,9 @@ class CommnityScreen extends StatelessWidget {
               ? (controller.selectedType.value == 1 ? "Công khai" : "Riêng tư")
               : "Tất cả";
           controller.filter(type);
+          controller.listStream.clear();
+          controller.listStream
+              .addAll(await SupabaseService.instance.getAllLivestream());
         },
         child: ListView(
           physics: AlwaysScrollableScrollPhysics(),
@@ -302,83 +317,16 @@ class CommnityScreen extends StatelessWidget {
                     const SizedBox(
                       height: 16,
                     ),
-                    Container(
-                      padding: const EdgeInsets.all(20),
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(12),
-                        image: DecorationImage(
-                            image: const NetworkImage(
-                                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'),
-                            fit: BoxFit.cover,
-                            colorFilter: ColorFilter.mode(
-                                Colors.black.withOpacity(0.5),
-                                BlendMode.darken)),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            children: [
-                              const Expanded(
-                                child: Text(
-                                  "Free room early",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white),
-                                ),
-                              ),
-                              const Spacer(),
-                              const Text(
-                                "7",
-                                style: TextStyle(
-                                    fontSize: 10,
-                                    fontWeight: FontWeight.w700,
-                                    color: Colors.white),
-                              ),
-                              const SizedBox(
-                                width: 4,
-                              ),
-                              SvgPicture.asset(ImageAssets.icUsersWhite)
-                            ],
-                          ),
-                          const SizedBox(
-                            height: 8,
-                          ),
-                          Row(
-                            children: [
-                              const Expanded(
-                                child: Text(
-                                  "20 phút trước",
-                                  style: TextStyle(
-                                      fontSize: 12,
-                                      fontWeight: FontWeight.w600,
-                                      color: Colors.white),
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {},
-                                child: Container(
-                                  padding: const EdgeInsets.symmetric(
-                                      vertical: 8, horizontal: 16),
-                                  decoration: BoxDecoration(
-                                      color: AppColors.secondary20,
-                                      borderRadius: BorderRadius.circular(12)),
-                                  child: const Text(
-                                    "Tham gia",
-                                    style: TextStyle(
-                                        fontSize: 12,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.white),
-                                    textAlign: TextAlign.center,
-                                  ),
-                                ),
-                              )
-                            ],
-                          )
-                        ],
-                      ),
-                    )
+                    Obx(() => ListView.separated(
+                        shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                          return LivestreamItem(controller.listStream[index]);
+                        },
+                        separatorBuilder: (context, index) => const SizedBox(
+                              height: 16,
+                            ),
+                        itemCount: controller.listStream.length)),
                   ],
                 ),
               ),
@@ -408,6 +356,74 @@ class CommnityScreen extends StatelessWidget {
               color: isSelected ? Colors.white : AppColors.gray20),
           textAlign: TextAlign.center,
         ),
+      ),
+    );
+  }
+
+  Widget LivestreamItem(Livestream livestream) {
+    var currentTime = DateTime.now().toUtc().millisecondsSinceEpoch;
+    var roomCreatedAt = livestream.createdAt!;
+    var timeDifference = currentTime - roomCreatedAt;
+    var minutesAgo = (timeDifference / (1000 * 60)).floor();
+    var hoursAgo = (timeDifference / (1000 * 60 * 60)).floor();
+    //TODO: query user information
+
+    return Container(
+      padding: const EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        image: DecorationImage(
+            image: const NetworkImage(
+                'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'),
+            fit: BoxFit.cover,
+            colorFilter: ColorFilter.mode(
+                Colors.black.withOpacity(0.5), BlendMode.darken)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            "Lê Bảo Như",
+            style: TextStyle(
+                fontSize: 16, fontWeight: FontWeight.w600, color: Colors.white),
+          ),
+          const SizedBox(
+            height: 8,
+          ),
+          Row(
+            children: [
+              Expanded(
+                child: Text(
+                  minutesAgo < 60
+                      ? "$minutesAgo phút trước"
+                      : "$hoursAgo giờ trước",
+                  style: TextStyle(
+                      fontSize: 12,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
+                ),
+              ),
+              InkWell(
+                onTap: () {},
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+                  decoration: BoxDecoration(
+                      color: AppColors.secondary20,
+                      borderRadius: BorderRadius.circular(12)),
+                  child: const Text(
+                    "Tham gia",
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w700,
+                        color: Colors.white),
+                    textAlign: TextAlign.center,
+                  ),
+                ),
+              )
+            ],
+          )
+        ],
       ),
     );
   }

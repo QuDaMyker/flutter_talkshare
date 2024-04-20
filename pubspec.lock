@@ -1374,10 +1374,10 @@ packages:
     dependency: transitive
     description:
       name: zego_uikit
-      sha256: "203e929f8fbf24486d0383831e6ef2e10e0e88ff0f73bacacb169a8b6961afaa"
+      sha256: "01a1f13352aeeb4375e0629d21760b1916b98ea930ccd55083540b9d4c44e674"
       url: "https://pub.dev"
     source: hosted
-    version: "2.21.5"
+    version: "2.22.2"
   zego_uikit_prebuilt_live_audio_room:
     dependency: "direct main"
     description:
@@ -1385,8 +1385,16 @@ packages:
       relative: true
     source: path
     version: "3.6.5"
+  zego_uikit_prebuilt_live_streaming:
+    dependency: "direct main"
+    description:
+      name: zego_uikit_prebuilt_live_streaming
+      sha256: ca6f1f32f2af45231e28663c67ce3530ad2e5e9d5c762eb4a28e4d5df5c48faa
+      url: "https://pub.dev"
+    source: hosted
+    version: "3.5.3"
   zego_uikit_signaling_plugin:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: zego_uikit_signaling_plugin
       sha256: "2f6fb396b707971324558edb82bfcf9589dc7bd0480a5a33341d89239bc7702b"

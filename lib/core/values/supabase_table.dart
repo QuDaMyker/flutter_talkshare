@@ -99,3 +99,15 @@ class AudioRoomSupabaseTable implements SupabaseTable {
   String get isActive => "isactive";
   String get userId => "user_id";
 }
+
+class LivestreamSupabaseTable implements SupabaseTable {
+  const LivestreamSupabaseTable();
+
+  @override
+  String get tableName => "livestream";
+
+  String get streamId => "stream_id";
+  String get createdAt => "created_at";
+  String get isActive => "isactive";
+  String get userId => "user_id";
+}
