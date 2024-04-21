@@ -1,20 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_talkshare/core/models/definition.dart';
+import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/vocab_list_detail/controllers/vocab_list_detail_controller.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:wave_linear_progress_indicator/wave_linear_progress_indicator.dart';
 
 class VocabListDetailScreen extends StatelessWidget {
-  const VocabListDetailScreen({super.key});
+  const VocabListDetailScreen({
+    super.key,
+    required this.listVocabAddToCard,
+  });
+
+  final List<Definition> listVocabAddToCard;
 
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-    final VocabListDetailController vocabListDetailController =
-        Get.put(VocabListDetailController());
+    final vocabListDetailController = Get.put(
+      VocabListDetailController(
+        listVocabAddToCard: listVocabAddToCard,
+      ),
+    );
     return SafeArea(
       child: Scaffold(
         appBar: _buildAppBar(vocabListDetailController),
@@ -134,27 +145,43 @@ class VocabListDetailScreen extends StatelessWidget {
   ) {
     return SizedBox(
       height: deviceHeight,
-      child: Column(
-        mainAxisSize: MainAxisSize.max,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Expanded(
-            flex: 1,
-            child: _buildLinearProgressIndicator(controller),
-          ),
-          Expanded(
-            flex: 1,
-            child: _buildIndexWord(deviceHeight, deviceWidth, controller),
-          ),
-          Expanded(
-            flex: 5,
-            child: _buildPresentWord(deviceHeight, deviceWidth, controller),
-          ),
-          Expanded(
-            flex: 2,
-            child: _buidGroupButton(deviceHeight, deviceWidth, controller),
-          ),
-        ],
+      child: Obx(
+        () => !controller.isLoading.value
+            ? Column(
+                mainAxisSize: MainAxisSize.max,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Expanded(
+                    flex: 1,
+                    child: _buildLinearProgressIndicator(controller),
+                  ),
+                  Expanded(
+                    flex: 1,
+                    child:
+                        _buildIndexWord(deviceHeight, deviceWidth, controller),
+                  ),
+                  Expanded(
+                    flex: 5,
+                    child: _buildPresentWord(
+                        deviceHeight, deviceWidth, controller),
+                  ),
+                  Expanded(
+                    flex: 2,
+                    child:
+                        _buidGroupButton(deviceHeight, deviceWidth, controller),
+                  ),
+                ],
+              )
+            : _buildLoading(),
+      ),
+    );
+  }
+
+  Center _buildLoading() {
+    return Center(
+      child: LoadingAnimationWidget.fourRotatingDots(
+        color: AppColors.primary40,
+        size: 200,
       ),
     );
   }
@@ -458,7 +485,7 @@ class VocabListDetailScreen extends StatelessWidget {
         value: (controller.currentIndexCard.value + 1) /
             controller.listVocab.value.length,
         enableBounceAnimation: true,
-        waveColor: Colors.orange,
+        waveColor: AppColors.primary40,
         backgroundColor: Colors.grey[150],
         minHeight: 10,
       ),
@@ -475,7 +502,7 @@ class VocabListDetailScreen extends StatelessWidget {
           '${controller.currentIndexCard.value + 1}/${controller.listVocab.value.length}',
           style: const TextStyle(
             fontWeight: FontWeight.w700,
-            fontSize: 22,
+            fontSize: 20,
           ),
         ),
       ),

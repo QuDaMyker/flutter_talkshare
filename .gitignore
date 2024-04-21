@@ -3,13 +3,13 @@
 *.log
 *.pyc
 *.swp
+.env
 .DS_Store
 .atom/
 .buildlog/
 .history
 .svn/
 migrate_working_dir/
-.env
 .env.example
 
 # IntelliJ related
@@ -43,3 +43,5 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+.env

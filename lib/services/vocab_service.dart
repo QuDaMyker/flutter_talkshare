@@ -15,7 +15,6 @@ extension VocabService on SupabaseService {
     var response = await http.get(url);
     if (response.statusCode == 200) {
       List<dynamic> body = json.decode(response.body);
-      debugPrint(body.length.toString());
       Map<String, dynamic> item = body[0];
       String temp = item['meanings'][0]['definitions'][0]['definition'];
       String primaryMeaning = await tranlateToVN(temp);
@@ -52,36 +51,34 @@ extension VocabService on SupabaseService {
   Future<void> insertVocab(Vocab word) async {
     await supabase.from(Vocab.table.tableName).insert(word.toJson());
   }
-    //cho phép lưu dưới 10 từ
-    Future<void> saveVocabToSharedPreferences(String vocab) async {
-      final SharedPreferences prefs = await SharedPreferences.getInstance();
 
-      List<String>? history = [];
-      history =  await getSearchedHistory();
-      if(!(history!.contains(vocab))){
-        if(history.length == 10){
-          history.removeLast();
-        }
-        history = [vocab, ...history];
-        prefs.setStringList('history', history);
-        
-        debugPrint('vocabService: đã lưu xong');
-      }
-      else {
-        debugPrint('vocab_service: history rỗng');
-      }
-
-    }
-
-  Future<List<String>?> getSearchedHistory() async {
+  //cho phép lưu dưới 10 từ
+  Future<void> saveVocabToSharedPreferences(String vocab) async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    List<String>? keys = prefs.getStringList('history');
-          debugPrint('length of history: '+ keys!.length.toString());
-          return keys;
 
+    List<String> history = [];
+    history = await getSearchedHistory();
+    if (!history.contains(vocab)) {
+      if (history.length == 10) {
+        history.removeLast();
+      }
+      history = [vocab, ...history];
+      prefs.setStringList('history', history);
+
+      debugPrint('vocabService: đã lưu xong');
+    } else {
+      debugPrint('vocab_service: history rỗng');
+    }
   }
 
-   Future<Set<String>> getAllKeysHistory() async {
+  Future<List<String>> getSearchedHistory() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    List<String> keys = prefs.getStringList('history') ?? [];
+
+    return keys;
+  }
+
+  Future<Set<String>> getAllKeysHistory() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
     Set<String> keys = prefs.getKeys();
     return keys;

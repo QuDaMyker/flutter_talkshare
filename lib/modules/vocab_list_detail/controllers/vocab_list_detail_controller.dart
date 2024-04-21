@@ -1,37 +1,48 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
+import 'package:flutter_talkshare/core/models/definition.dart';
+import 'package:flutter_talkshare/core/models/vocab.dart';
+import 'package:flutter_talkshare/modules/vocab_list_detail/widgets/custom_dialog.dart';
 import 'package:flutter_talkshare/modules/vocab_list_detail/widgets/item_detail_vocab.dart';
+import 'package:flutter_talkshare/services/supabase_service.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 
-class VocabListDetailController extends GetxController {
-  late final CardSwiperController controllerCard;
+import '../../../core/configuration/injection.dart';
 
+class VocabListDetailController extends GetxController {
+  final List<Definition> listVocabAddToCard;
+
+  VocabListDetailController({required this.listVocabAddToCard});
+
+  late final CardSwiperController controllerCard;
   var isLoading = Rx<bool>(false);
   var currentIndexCard = Rx<int>(0);
   var listVocab = Rx<List<ItemDetailVocav>>([]);
   RxList<ItemDetailVocav> listStuying = <ItemDetailVocav>[].obs;
   RxList<ItemDetailVocav> listStudied = <ItemDetailVocav>[].obs;
-
   @override
   void onInit() async {
     controllerCard = CardSwiperController();
     await getData();
+    isLoading.value = false;
     super.onInit();
   }
 
   @override
   void onClose() {
-    // TODO: implement onClose
     super.onClose();
   }
 
   Future<void> getData() async {
-    List<ItemDetailVocav> cards = [
-      ItemDetailVocav(word: '1'),
-      ItemDetailVocav(word: '2'),
-      ItemDetailVocav(word: '3'),
-      ItemDetailVocav(word: '4'),
-    ];
+    List<ItemDetailVocav> cards = [];
+    isLoading.value = true;
+    for (var item in listVocabAddToCard) {
+      cards.add(ItemDetailVocav(
+        word: item.word,
+        primaryMeaning: item.meaning,
+      ));
+    }
 
     listVocab.value = cards;
   }
@@ -59,6 +70,31 @@ class VocabListDetailController extends GetxController {
     debugPrint(
       'The card $previousIndex was swiped to the ${direction.name}. Now the card $currentIndex is on top',
     );
+
+    // if (currentIndexCard.value + 1 == listVocab.value.length) {
+    //   Get.dialog(
+    //     PopScope(
+    //       canPop: true,
+    //       child: CustomDialog(
+    //         countStudied: listStudied.length.toString(),
+    //         countStudying: listStuying.length.toString(),
+    //       ),
+    //     ),
+    //   );
+    // }
+
+    if (currentIndexCard.value + 1 == listVocab.value.length) {
+      Get.dialog(
+        PopScope(
+          canPop: true,
+          child: CustomDialog(
+            countStudied:
+                (listVocab.value.length - listStudied.length).toString(),
+            countStudying: listStuying.length.toString(),
+          ),
+        ),
+      );
+    }
     return true;
   }
 
