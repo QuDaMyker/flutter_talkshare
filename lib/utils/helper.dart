@@ -1,7 +1,9 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
-import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:translator_plus/translator_plus.dart';
 
 import '../core/configuration/injection.dart';
@@ -13,8 +15,7 @@ pickImage(ImageSource source) async {
   if (file != null) {
     return await file.readAsBytes();
   }
-  //Get.snackbar('Notify', 'No image selected');
-  print('No image selected');
+  debugPrint('No image selected');
 }
 
 showSnackBar(String content, BuildContext context) {
@@ -45,4 +46,84 @@ Future playWithTTS(String word) async {
   await tts.isLanguageAvailable("en-US");
 
   await tts.speak(word);
+}
+
+String formatDuration(double durationInSeconds) {
+  Duration duration = Duration(seconds: durationInSeconds.toInt());
+  int hours = duration.inHours;
+  int minutes = duration.inMinutes.remainder(60);
+  int seconds = duration.inSeconds.remainder(60);
+  return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+}
+
+String formatMilliseconds(int milliseconds) {
+  Duration duration = Duration(milliseconds: milliseconds);
+  int hours = duration.inHours;
+  int minutes = duration.inMinutes.remainder(60);
+  int seconds = duration.inSeconds.remainder(60);
+  return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
+}
+
+String formatDateTimeToDdMmYyyy(DateTime date) {
+  final formatter = DateFormat('dd-MM-yyyy');
+  return formatter.format(date);
+}
+
+String formatDateTimeToHHMMDdMmYyyy(DateTime date) {
+  final formatter = DateFormat('hh:mm, dd-MM-yyyy');
+  return formatter.format(date);
+}
+
+String formatDateTimeToHHMM(DateTime date) {
+  final formatter = DateFormat('hh:mm a');
+  return formatter.format(date);
+}
+
+String formatDateTimeToHms(DateTime date) {
+  return DateFormat.Hms().format(date).toString();
+}
+
+DateTime combineTwoDateTime(DateTime date, TimeOfDay time) {
+  return DateTime(date.year, date.month, date.day, time.hour, time.minute);
+}
+
+int dateTimeToTimeStamp(DateTime dateTime) {
+  return dateTime.millisecondsSinceEpoch;
+}
+
+int timeOfDayToTimeStamp(TimeOfDay dateTime) {
+  return dateTimeToTimeStamp(DateTime(dateTime.hour, dateTime.minute));
+}
+
+DateTime timeStampToDateTime(int timeStamp) {
+  return DateTime.fromMillisecondsSinceEpoch(timeStamp);
+}
+
+String intToTimeLeft(int value) {
+  int h, m, s;
+  h = value ~/ 3600;
+  m = ((value - h * 3600)) ~/ 60;
+  s = value - (h * 3600) - (m * 60);
+  String hourLeft = h.toString().length < 2 ? "0$h" : h.toString();
+  String minuteLeft = m.toString().length < 2 ? "0$m" : m.toString();
+  String secondsLeft = s.toString().length < 2 ? "0$s" : s.toString();
+  String result = "$hourLeft:$minuteLeft:$secondsLeft";
+  return result;
+}
+
+String capitalizeFirstLetter(String word) {
+  if (word.isEmpty) return word;
+  return word[0].toUpperCase() + word.substring(1);
+}
+
+String capitalizeFirstLetterOfEachWord(String input) {
+  List<String> words = input.split(' ');
+  List<String> capitalizedWords =
+      words.map((word) => capitalizeFirstLetter(word)).toList();
+  return capitalizedWords.join(' ');
+}
+
+int generateRandomInt(int min, int max) {
+  final random = Random();
+  return min + random.nextInt(max - min + 1);
 }

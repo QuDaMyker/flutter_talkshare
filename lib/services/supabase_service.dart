@@ -1,7 +1,12 @@
+// ignore_for_file: non_constant_identifier_names
+
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_talkshare/modules/video/models/channel_model.dart';
+import 'package:flutter_talkshare/modules/video/models/subtitle_model.dart';
+import 'package:flutter_talkshare/modules/video/models/video_model.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -156,6 +161,180 @@ class SupabaseService {
     } catch (e) {
       debugPrint(e.toString());
       return [];
+    }
+  }
+
+  Future<List<ChannelModel>> getListChannel(int limit) async {
+    try {
+      List<ChannelModel> listChannel = [];
+
+      await supabase
+          .from('channel')
+          .select('id, imgUrlBrand, nameOfBrand')
+          .limit(limit)
+          .then((value) {
+        value.map((channel) {
+          listChannel.add(ChannelModel.fromMap(channel));
+        }).toList();
+        return listChannel;
+      });
+
+      return listChannel;
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
+  }
+
+  Future<List<VideoModel>> getListVideo(int limit) async {
+    try {
+      List<VideoModel> listVideo = [];
+      await supabase
+          .from('videos')
+          .select(
+              'id, title, thumbnail, duration, urlVideo, channel(id, imgUrlBrand, nameOfBrand)')
+          .limit(limit)
+          .then((videos) {
+        videos.map((video) {
+          //print('video: ${video.toString()}');
+          listVideo.add(VideoModel.fromMap(video));
+        }).toList();
+        return listVideo;
+      });
+
+      return listVideo;
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
+  }
+
+  Future<List<VideoModel>> getListVideoByIdChannel({
+    required String idChannel,
+    required int limit,
+  }) async {
+    try {
+      List<VideoModel> listVideo = [];
+
+      await supabase
+          .from('channel')
+          .select(
+              'id, imgUrlBrand, nameOfBrand, videos(id, title, id_channel, thumbnail, duration, urlVideo)')
+          .eq('id', idChannel)
+          .limit(limit)
+          .then((videos) {
+        videos.map((video) {
+          ChannelModel channelModel = ChannelModel(
+            id: video['id'],
+            imgUrlBrand: video['imgUrlBrand'],
+            nameOfBrand: video['nameOfBrand'],
+          );
+
+          (video['videos'] as List<dynamic>).map((item) {
+            listVideo.add(
+              VideoModel.fromMapChannelModel(
+                map: item,
+                channelModel: channelModel,
+              ),
+            );
+          }).toList();
+        }).toList();
+        return listVideo;
+      });
+
+      return listVideo;
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
+  }
+
+  Future<String> addVideo({
+    required String title,
+    required String thumbnail,
+    required String id_channel,
+    required int duration,
+    required String urlVideo,
+  }) async {
+    try {
+      await supabase.from('videos').insert({
+        'title': title,
+        'thumbnail': thumbnail,
+        'id_channel': id_channel,
+        'duration': duration,
+        'urlVideo': urlVideo,
+      });
+      return 'done';
+    } catch (e) {
+      debugPrint(e.toString());
+      return 'error';
+    }
+  }
+
+  Future<String> addSubtitle({
+    required SubtitleModel subtitleModel,
+  }) async {
+    try {
+      await supabase.from('subtitle').insert({
+        'id_video': subtitleModel.idVideo,
+        'index': subtitleModel.index,
+        'content': subtitleModel.content,
+        'start': subtitleModel.start,
+        'duration': subtitleModel.duration,
+        'end': subtitleModel.end,
+      });
+      return 'done';
+    } catch (e) {
+      debugPrint(e.toString());
+      return 'error';
+    }
+  }
+
+  Future<int> getCountSub({required String id_video}) async {
+    final queryCount = await supabase
+        .from('subtitle')
+        .select('id')
+        .eq('id_video', id_video)
+        .count();
+
+    return queryCount.count;
+  }
+
+  Future<List<SubtitleModel>> getSubtitle({
+    required String id_video,
+  }) async {
+    try {
+      List<SubtitleModel> listSub = [];
+
+      // final response = await supabase
+      //     .from('subtitle')
+      //     .select('id, id_video, index, content, start, duration, end')
+      //     .eq('id_video', id_video);
+
+      // if (response.isEmpty) {
+      //   return [];
+      // }
+
+      // List<dynamic> data = response;
+      // listSub.addAll(data.map((sub) => SubtitleModel.fromMap(sub)).toList());
+
+      await supabase
+          .from('subtitle')
+          .select('id, id_video, index, content, start, duration, end')
+          .eq('id_video', id_video)
+          .order('index', ascending: true)
+          .then((value) {
+        for (int i = 0; i < value.length; i++) {
+          listSub.add(SubtitleModel.fromMap(value[i]));
+        }
+
+        return listSub;
+      });
+
+      return listSub;
+    } catch (e) {
+      debugPrint('Error fetching subtitles: $e');
+      throw Exception('Failed to fetch subtitles');
     }
   }
 }
