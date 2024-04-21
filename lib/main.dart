@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:flutter_talkshare/modules/community/view/audio_room_page.dart';
+import 'package:flutter_talkshare/modules/community/view/community_screen.dart';
+import 'package:flutter_talkshare/modules/community/view/post_blog_screen.dart';
 import 'package:flutter_talkshare/core/models/book.dart';
 import 'package:flutter_talkshare/modules/books/view/books_list_screen.dart';
 import 'package:flutter_talkshare/modules/books/view/books_same_type_screen.dart';
@@ -15,7 +18,7 @@ import 'core/configuration/injection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await dotenv.load(fileName: '.env.example');
+  await dotenv.load(fileName: '.env');
   await SupabaseService.instance.init();
 
   configureDependencies();

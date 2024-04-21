@@ -34,6 +34,24 @@ Future<String> tranlateToVN(String word) async {
   return translation.text;
 }
 
+OutlineInputBorder customBorder() {
+  return OutlineInputBorder(
+    borderSide: const BorderSide(
+      color: AppColors.gray40,
+      width: 1.0,
+    ),
+    borderRadius: BorderRadius.circular(14.0),
+  );
+}
+
+OutlineInputBorder customBorderWhenFocus() {
+  return OutlineInputBorder(
+    borderSide: const BorderSide(
+      color: AppColors.primary40,
+      width: 2.0,
+    ),
+    borderRadius: BorderRadius.circular(14.0),
+  );
 Future playWithTTS(String word) async {
   var tts = getIt<FlutterTts>();
 
