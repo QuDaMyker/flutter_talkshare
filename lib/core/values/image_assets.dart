@@ -55,4 +55,5 @@ abstract class ImageAssets {
   static const imageHowInno = 'assets/images/jpg/How_innovation_works.jpg';
   static const imageCookieWriter = 'assets/images/jpg/Cookie_writer.jpg';
 
+  static const icPlay = 'assets/images/svg/ic_play.svg';
 }

@@ -2,6 +2,9 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get/get.dart';
+
 import 'package:flutter_talkshare/modules/video/views/video_dashboard_screen.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
@@ -16,6 +19,9 @@ import 'package:flutter_talkshare/modules/irregular_verbs/view/irregular_verbs_s
 import 'package:flutter_talkshare/modules/create_new_list_vocab/view/creare_new%20_list_vocab_screen.dart';
 import 'package:flutter_talkshare/modules/home/controller/home_controller.dart';
 import 'package:flutter_talkshare/modules/home/widgets/item_recent_word.dart';
+import 'package:flutter_talkshare/modules/idioms/view/idioms_screen.dart';
+import 'package:flutter_talkshare/modules/irregular_verbs/view/irregular_verbs_screen.dart';
+import 'package:flutter_talkshare/modules/video/views/video_dashboard_screen.dart';
 import 'package:flutter_talkshare/modules/vocab/views/vocab_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -71,6 +77,7 @@ class HomeScreen extends StatelessWidget {
                   List<String> result = homeController.searchSuggest(search);
                   return result;
                 }
+                return null;
               },
               emptyBuilder: (context) =>
                   const Text('Không tìm thấy từ bạn cần!'),
@@ -121,7 +128,7 @@ class HomeScreen extends StatelessWidget {
                     ) : null,
                     suffixIconConstraints: const BoxConstraints(),
                   ),
-                );  
+                );
 
                 });
               },
@@ -282,15 +289,12 @@ class HomeScreen extends StatelessWidget {
                               "Bài nghe", ImageAssets.icHeadphone, () {})),
                       Expanded(
                           child: sourceItem("Đọc sách", ImageAssets.icBook, () {
-                        
+
                         Get.to(() => BooksListScreen());
                       })),
                       Expanded(
-                          child: sourceItem("Video", ImageAssets.icVideo, () {
-                        Get.to(
-                          () => const VideoDashBoardScreen(),
-                        );
-                      })),
+                          child:
+                              sourceItem("Video", ImageAssets.icVideo, () {})),
                       Expanded(
                           child: sourceItem(
                               "Ngữ pháp", ImageAssets.icGrammar, () {}))

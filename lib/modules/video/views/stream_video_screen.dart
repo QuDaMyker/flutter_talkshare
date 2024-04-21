@@ -67,8 +67,8 @@ class _StreamVideoState extends State<StreamVideo> {
   Center _buildLoading() {
     return Center(
       child: LoadingAnimationWidget.flickr(
-        leftDotColor: const Color(0xfffe0079),
-        rightDotColor: const Color(0xff0056d6),
+        leftDotColor: AppColors.primary40,
+        rightDotColor: AppColors.secondary20,
         size: 20,
       ),
     );

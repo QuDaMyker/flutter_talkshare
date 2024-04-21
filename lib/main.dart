@@ -5,7 +5,6 @@ import 'package:flutter_talkshare/modules/books/view/books_list_screen.dart';
 import 'package:flutter_talkshare/modules/books/view/books_same_type_screen.dart';
 import 'package:flutter_talkshare/modules/books/view/detail_book_screen.dart';
 import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
-import 'package:flutter_talkshare/modules/vocab_list_detail/views/vocab_list_detail.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 import 'core/configuration/injection.dart';
