@@ -13,7 +13,11 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class StreamVideoController extends GetxController {
   final VideoModel videoModel;
-  StreamVideoController({required this.videoModel});
+  final bool isModeTitle;
+  StreamVideoController({
+    required this.videoModel,
+    required this.isModeTitle,
+  });
 
   var isLoading = Rx<bool>(true);
   var isTimeout = Rx<bool>(false);
@@ -21,6 +25,11 @@ class StreamVideoController extends GetxController {
   var originCaptions = Rx<List<SubtitleModel>>([]);
   var listCaptionsShowing = Rx<List<ItemCaptionModel>>([]);
   var currentCaption = Rx<String>('');
+
+  var paragraph = Rx<String>('');
+  var listSubSplit = Rx<List<String>>([]);
+  var blankIndexes = Rx<List<int>>([]);
+
   late YoutubeExplode yt;
   late Video video;
   late YoutubePlayerController ytController;
@@ -70,17 +79,41 @@ class StreamVideoController extends GetxController {
   void initYtController() {
     ytController = YoutubePlayerController(
       initialVideoId: video.id.toString(),
-      flags: const YoutubePlayerFlags(
+      flags: YoutubePlayerFlags(
         autoPlay: true,
         mute: false,
         enableCaption: false,
         controlsVisibleAtStart: false,
         hideThumbnail: true,
         forceHD: true,
-        hideControls: true,
+        hideControls: isModeTitle ? true : false,
       ),
     );
+    if (isModeTitle) {
+      addListenerYt();
+    } else {
+      handleSplitSub();
+    }
+  }
 
+  void handleSplitSub() {
+    for (var caption in captions.value) {
+      paragraph.value += caption.content;
+      listSubSplit.value.addAll(caption.content.split(' '));
+    }
+    paragraph.value =
+        capitalizeFirstLetter(paragraph.value.split(' ').join(' '));
+    blankIndexes.value = List.generate(
+      10,
+      (index) => generateRandomInt(1, listSubSplit.value.length),
+    );
+
+    blankIndexes.value
+        .map((item) => print('log-data: blankIndexes : $item'))
+        .toList();
+  }
+
+  void addListenerYt() {
     ytController.addListener(() {
       if (ytController.value.playerState == PlayerState.playing) {
         String duration = formatDuration(captions.value[0].start);
@@ -122,7 +155,6 @@ class StreamVideoController extends GetxController {
     captions.value.addAll(await VideoServices.instance.getCaptions(
       videoId: videoId,
     ));
-    print('log-data: cap[0] ${captions.value[0]}');
 
     originCaptions.value = [...captions.value];
     listCaptionsShowing.value = originCaptions.value
