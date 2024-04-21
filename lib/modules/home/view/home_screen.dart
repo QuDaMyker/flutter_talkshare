@@ -2,18 +2,17 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_talkshare/modules/video/views/video_dashboard_screen.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
-import 'package:flutter_talkshare/modules/idioms/view/idioms_screen.dart';
-import 'package:flutter_talkshare/modules/irregular_verbs/view/irregular_verbs_screen.dart';
-import 'package:flutter_talkshare/modules/create_new_list_vocab/view/creare_new%20_list_vocab_screen.dart';
 import 'package:flutter_talkshare/modules/home/controller/home_controller.dart';
 import 'package:flutter_talkshare/modules/home/widgets/item_recent_word.dart';
+import 'package:flutter_talkshare/modules/idioms/view/idioms_screen.dart';
+import 'package:flutter_talkshare/modules/irregular_verbs/view/irregular_verbs_screen.dart';
+import 'package:flutter_talkshare/modules/video/views/video_dashboard_screen.dart';
 import 'package:flutter_talkshare/modules/vocab/views/vocab_screen.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -68,6 +67,7 @@ class HomeScreen extends StatelessWidget {
                   List<String> result = homeController.searchSuggest(search);
                   return result;
                 }
+                return null;
               },
               builder: (context, controller, focusNode) {
                 suggessController = controller;
