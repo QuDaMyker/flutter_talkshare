@@ -1,15 +1,18 @@
+import 'dart:io';
+
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/community/controllers/post_blog_screen_controller.dart';
 import 'package:get/get.dart';
 
 class PostBlogScreen extends StatelessWidget {
   PostBlogScreen({super.key});
 
-  //final IrregularVerbScreenController controller = Get.put(IrregularVerbScreenController());
+  final PostBlogScreenController controller = Get.put(PostBlogScreenController());
 
   @override
   Widget build(BuildContext context) {
@@ -27,12 +30,11 @@ class PostBlogScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [          
-          // Obx(()=>
           SingleChildScrollView(
                   // scrollDirection: Axis.horizontal,
             child: Row(children: [
               InkWell(
-                // onTap: () => ,
+                onTap: () => controller.pickImages(),
                 child:  Container(
                   height: 70,
                   width: 70,
@@ -54,18 +56,18 @@ class PostBlogScreen extends StatelessWidget {
               Expanded(child: 
                 SizedBox(
                 height: 85,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 2,
-                  itemBuilder: (context, index) {
-                    return PhotoItem();
-                    // ItemIrregularVerbs(
-                    //   infinitive: verb.infinitive,
-                    //   pastSimple: verb.pastSimple,
-                    //   pastParticiple: verb.pastParticiple,
-                    //   meaning: verb.meaning,
-                    // );
-                  },
+                child: Obx (
+                  () => ListView.builder(
+                    scrollDirection: Axis.horizontal,
+                    itemCount: controller.images.length,
+                    itemBuilder: (context, index) {
+                      return PhotoItem(
+                        controller.images[index],
+                        onDelete:() {
+                          controller.images.removeAt(index);
+                        },);
+                    },
+                  ),
                 ),
               ),
               ),
@@ -87,23 +89,24 @@ class PostBlogScreen extends StatelessWidget {
             height: 5,
           ), 
 
-          TextField(
-            maxLines: null, // Đặt maxLines thành null để cho phép `TextField` tự động xuống hàng
-            keyboardType: TextInputType.multiline, 
-            minLines: 10,
-            decoration: InputDecoration(
-              hintText: 'Nhập văn bản của bạn...',
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0), 
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12.0), 
-                borderSide: BorderSide(color: Colors.black, width: 1), 
+          Container(
+            height: 255,
+            child: TextField(
+              maxLines: null, // Đặt maxLines thành null để cho phép `TextField` tự động xuống hàng
+              keyboardType: TextInputType.multiline, 
+              minLines: 9,
+              decoration: InputDecoration(
+                hintText: 'Nhập văn bản của bạn...',
+                border: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0), 
+                ),
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12.0), 
+                  borderSide: BorderSide(color: Colors.black, width: 1), 
+                ),
               ),
             ),
-          ),
-
-          
+          ), 
         ],
       ),
     );
@@ -130,21 +133,21 @@ class PostBlogScreen extends StatelessWidget {
     );
   }
               
-  Widget PhotoItem(){
+  Widget PhotoItem(File imageFile, {required void Function() onDelete}){
     return Container(
       width: 85,
       height: 85,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12), 
-        color: Colors.transparent, 
+        borderRadius: BorderRadius.circular(12), // Bo góc container
+        color: Colors.transparent, // Màu nền container
       ),
         child: Stack(children: [
           Container(
             padding: const EdgeInsets.all(7),
               child: ClipRRect(
                 borderRadius: BorderRadius.circular(12),
-                child: Image.network(
-                  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s', // URL hình ảnh
+                child: Image.file(
+                  imageFile,
                   fit: BoxFit.cover,
                 ),
               ),
@@ -153,9 +156,9 @@ class PostBlogScreen extends StatelessWidget {
             top:0,
             right: 0,
             child: GestureDetector(
-              onTap: () => { },
+              onTap: onDelete, 
               child: SvgPicture.asset(ImageAssets.icRemove),
-            ),            
+            ),
           ),
         ],
           ),
@@ -168,6 +171,7 @@ class PostBlogScreen extends StatelessWidget {
         icon: SvgPicture.asset(ImageAssets.icBack),
         onPressed: () {
           Navigator.pop(context);
+          controller.Clear();
         },
       ),
 
