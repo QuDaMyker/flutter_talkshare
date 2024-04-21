@@ -1,18 +1,22 @@
+import 'package:flutter_talkshare/core/models/definition.dart';
 import 'package:flutter_talkshare/modules/vocab_list/services/vocab_list_service.dart';
+import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
 
+import '../../../core/configuration/injection.dart';
+
 class VocabListScreenController extends GetxController {
+  final String wordsetId;
+
+  VocabListScreenController({required this.wordsetId});
+
   var isLoading = Rx<bool>(false);
-  var listVocab = Rx<List<Map<String, dynamic>>>([]);
+  var listVocab = Rx<List<Definition>>([]);
 
   @override
   void onInit() async {
-    isLoading.value = true;
     await getListVocab();
 
-    Future.delayed(const Duration(seconds: 2), () {
-      isLoading.value = false;
-    });
     super.onInit();
   }
 
@@ -22,6 +26,8 @@ class VocabListScreenController extends GetxController {
   }
 
   Future<void> getListVocab() async {
-    listVocab.value = await VocabListServices().getVocabList();
+    isLoading.value = true;
+    listVocab.value = await VocabListServices().getVocabList(wordsetId);
+    isLoading.value = false;
   }
 }

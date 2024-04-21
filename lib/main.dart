@@ -1,17 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_talkshare/modules/idioms/view/idioms_screen.dart';
 import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
-//import 'package:flutter_talkshare/modules/vocab_list_detail/views/vocab_list_detail.dart';
+import 'package:flutter_talkshare/modules/vocab_list_detail/views/vocab_list_detail.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
-//import 'core/configuration/injection.dart';
+import 'core/configuration/injection.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
   await SupabaseService.instance.init();
-  //configureDependencies();
+
+  configureDependencies();
   runApp(const MyApp());
 }
 
