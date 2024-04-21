@@ -5,7 +5,7 @@ abstract class ImageAssets {
   static const icAdd = 'assets/images/svg/ic_add.svg';
   static const icBack = 'assets/images/svg/ic_back.svg';
   static const icBook = 'assets/images/svg/ic_book.svg';
-  static const icClose2 = 'assets/images/svg/ic_close2.svg';
+  static const icClose2 = 'assets/images/svg/ic_close_2.svg';
   static const icClose = 'assets/images/svg/ic_close.svg';
   static const icEdit = 'assets/images/svg/ic_edit.svg';
   static const icFlashcard = 'assets/images/svg/ic_flashcard.svg';
@@ -38,6 +38,17 @@ abstract class ImageAssets {
   static const imageFish = 'assets/images/png/image_fish.png';
   static const icEditThin = 'assets/images/svg/ic_edit_thin.svg';
   static const icFolder2 = 'assets/images/svg/ic_folder_2.svg';
+
+  static const icFilter = 'assets/images/svg/ic_filter.svg';
+  static const icLivestream = 'assets/images/svg/ic_livestream.svg';
+  static const icLock = 'assets/images/svg/ic_lock.svg';
+  static const icMicrophone = 'assets/images/svg/ic_microphone.svg';
+  static const icUnlock = 'assets/images/svg/ic_unlock.svg';
+  static const icUsersGreen = 'assets/images/svg/ic_users_green.svg';
+  static const icUsersWhite = 'assets/images/svg/ic_users_white.svg';
+  static const icStar = 'assets/images/svg/ic_star.svg';
+  static const icRemove = 'assets/images/svg/ic_remove.svg';
+  
   static const icPlay = 'assets/images/svg/ic_play.svg';
 
   static const imageBookPsychology = 'assets/images/png/Psychology_of_money.png';

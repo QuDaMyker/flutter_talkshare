@@ -1,3 +1,5 @@
+import 'package:freezed_annotation/freezed_annotation.dart';
+
 abstract class SupabaseTable {
   const SupabaseTable();
   String get tableName;
@@ -82,4 +84,34 @@ class WordsetVocabSupabaseTable implements SupabaseTable {
 
   String get word => "word";
   String get wordsetId => "wordset_id";
+}
+
+class AudioRoomSupabaseTable implements SupabaseTable {
+  const AudioRoomSupabaseTable();
+
+  @override
+  String get tableName => "audioroom";
+
+  String get roomId => "room_id";
+  String get name => "name";
+  String get topic => "topic";
+  String get quantity => "quantity";
+  String get passcode => "passcode";
+  String get createdAt => "created_at";
+  String get isActive => "isactive";
+  String get userId => "user_id";
+}
+
+class BlogSupabaseTable implements SupabaseTable {
+  const BlogSupabaseTable();
+  
+  @override
+  String get tableName => "blog";  
+
+  String get blogId => "blog_id";  
+  String get userName => "user_name";
+  String get avatUrl => "avat_url";  
+  String get time => "time";
+  String get images => "images";  
+  String get content => "content";  
 }

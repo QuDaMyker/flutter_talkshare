@@ -13,19 +13,19 @@ class RootViewController extends GetxController {
   var isReadList = Rx<List<String>>([]);
   final text = TextEditingController();
 
-  final screens =  [
+  final screens = [
     HomeScreen(),
     CommnityScreen(),
-    HomeworkScreen(),
+    // HomeworkScreen(),
     GameScreen(),
     ProfileScreen(),
   ];
 
   @override
   void onInit() {
-    Get.lazyPut(() =>  HomeScreen());
-    Get.lazyPut(() => const CommnityScreen());
-    Get.lazyPut(() => const HomeworkScreen());
+    Get.lazyPut(() => HomeScreen());
+    Get.lazyPut(() => CommnityScreen());
+    // Get.lazyPut(() => const HomeworkScreen());
     Get.lazyPut(() => const GameScreen());
     Get.lazyPut(() => const ProfileScreen());
 
