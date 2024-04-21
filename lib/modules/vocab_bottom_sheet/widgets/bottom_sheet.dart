@@ -110,14 +110,25 @@ class BottomSheetVocab extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  InkWell(
-                                    child: SvgPicture.asset(
+                                  Obx((){
+                                    return InkWell(
+                                    child: controller.isSave.value ? 
+                                    SvgPicture.asset(
+                                      ImageAssets.icSaved,
+                                      width: 24,
+                                      height: 24,
+                                    ) :  SvgPicture.asset(
                                       ImageAssets.icSave,
                                       width: 24,
                                       height: 24,
-                                    ),
-                                    onTap: () {},
-                                  ),
+                                    )
+                                    ,
+                                    onTap: () {
+                                      debugPrint('Lưu từ này');
+                                      controller.onPressBookmark();
+                                    },
+                                  );
+                                  }),
                                   const SizedBox(width: 15),
                                   InkWell(
                                       child: SvgPicture.asset(

@@ -76,13 +76,18 @@ class HomeScreen extends StatelessWidget {
                   const Text('Không tìm thấy từ bạn cần!'),
               builder: (context, controller, focusNode) {
                 homeController.textSearchController = controller;
-                return TextField(
+                return Obx((){
+                  return TextField(
                   controller: homeController.textSearchController,
                   focusNode: focusNode,
                   onSubmitted: (value) {
                     debugPrint('gọi ở thanh search $value');
                     homeController.handleSearchSubmit(context, value);
                     controller.clear();
+                  },
+                  onChanged: (value) {
+                    homeController.updateInputNotEmpty(value);
+                    debugPrint(homeController.isInputNotEmpty.toString());
                   },
                   decoration: InputDecoration(
                     isDense: true,
@@ -104,18 +109,21 @@ class HomeScreen extends StatelessWidget {
                       child: SvgPicture.asset(ImageAssets.icSearch),
                     ),
                     prefixIconConstraints: const BoxConstraints(),
-                    suffixIcon: GestureDetector(
+                    suffixIcon: homeController.isInputNotEmpty.value ? GestureDetector(
                       onTap: () {
-                        controller.clear();
+                        homeController.textSearchController.clear();
+                        homeController.isInputNotEmpty.value = false;
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: SvgPicture.asset(ImageAssets.icClose),
                       ),
-                    ),
+                    ) : null,
                     suffixIconConstraints: const BoxConstraints(),
                   ),
-                );
+                );  
+
+                });
               },
               itemBuilder: (context, value) {
                 return ListTile(
@@ -274,7 +282,7 @@ class HomeScreen extends StatelessWidget {
                               "Bài nghe", ImageAssets.icHeadphone, () {})),
                       Expanded(
                           child: sourceItem("Đọc sách", ImageAssets.icBook, () {
-                            debugPrint('đá ấn đọc sách');
+                        
                         Get.to(() => BooksListScreen());
                       })),
                       Expanded(
@@ -394,7 +402,7 @@ class HomeScreen extends StatelessWidget {
 
   Widget sourceItem(String title, String icon, Function onPress) {
     return InkWell(
-      onTap: () => onPress,
+      onTap: () => onPress(),
       child: Column(
         children: [
           SvgPicture.asset(icon),

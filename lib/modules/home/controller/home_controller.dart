@@ -10,6 +10,7 @@ import 'package:flutter_talkshare/modules/vocab_bottom_sheet/controller/bottom_s
 import 'package:flutter_talkshare/modules/vocab_bottom_sheet/widgets/bottom_sheet.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
+import 'package:get/get_rx/get_rx.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:translator_plus/translator_plus.dart';
 
@@ -20,6 +21,8 @@ class HomeController extends GetxController {
   late TrieEngine trieEngine;
   late GoogleTranslator translator;
   RxList<String> recentSharedVocab = <String>[].obs;
+  
+  RxBool isInputNotEmpty = false.obs;
 
   bool isBottomShetInit = false;
   @override
@@ -44,6 +47,10 @@ class HomeController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  void updateInputNotEmpty(String value) {
+    isInputNotEmpty.value = value.isNotEmpty;
   }
 
   Future<String> translate(String value) async {

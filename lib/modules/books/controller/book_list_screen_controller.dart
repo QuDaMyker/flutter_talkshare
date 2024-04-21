@@ -10,6 +10,7 @@ class BookListScreenController extends GetxController {
   var bookPop = <Book>[].obs;
   var bookAd = <Book>[].obs;
   var bookChild = <Book>[].obs;
+  var isInputNotEmpty = false.obs;
 
   RxBool isSearching = false.obs;
   var searchedBooks = <Book>[].obs;
@@ -26,6 +27,10 @@ class BookListScreenController extends GetxController {
     bookChild.addAll(listChild);
   
     searchController = TextEditingController();
+  }
+  
+  void updateIsInputNotEmpty(String value){
+    isInputNotEmpty.value = value.isNotEmpty;
   }
 
   void searchBook(String value) {

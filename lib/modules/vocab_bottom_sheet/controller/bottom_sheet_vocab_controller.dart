@@ -18,6 +18,8 @@ class BottomSheetVocabController extends GetxController {
   final player = AudioPlayer();
   var isLoading = Rx<bool>(false);
   var isNotFound = Rx<bool>(false);
+  var isSave = false.obs;
+
   Map<String, List<Definition>> listDefinitions ={};
 
   @override
@@ -31,6 +33,12 @@ class BottomSheetVocabController extends GetxController {
     super.onClose();
     debugPrint('onClose');
     Get.delete<BottomSheetVocabController>();
+  }
+
+   void onPressBookmark() async {
+    isSave.value = !isSave.value;
+    await SupabaseService.instance
+        .addRemoveBookmark(word, 'f6d32d14-961c-4fba-94ff-7e76f9031a09');
   }
 
   //call api lấy Vocab từ word
