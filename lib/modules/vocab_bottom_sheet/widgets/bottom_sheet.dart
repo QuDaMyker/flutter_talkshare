@@ -1,9 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/models/definition.dart';
-import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/vocab_bottom_sheet/controller/bottom_sheet_vocab_controller.dart';
@@ -53,7 +50,6 @@ class BottomSheetVocab extends StatelessWidget {
                         const Text('Không tìm thấy từ bạn cần'),
                         ElevatedButton(
                           onPressed: () {
-
                             Get.back();
                           },
                           child: const Text('Thử lại'),
@@ -110,24 +106,24 @@ class BottomSheetVocab extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Obx((){
+                                  Obx(() {
                                     return InkWell(
-                                    child: controller.isSave.value ? 
-                                    SvgPicture.asset(
-                                      ImageAssets.icSaved,
-                                      width: 24,
-                                      height: 24,
-                                    ) :  SvgPicture.asset(
-                                      ImageAssets.icSave,
-                                      width: 24,
-                                      height: 24,
-                                    )
-                                    ,
-                                    onTap: () {
-                                      debugPrint('Lưu từ này');
-                                      controller.onPressBookmark();
-                                    },
-                                  );
+                                      child: controller.isSave.value
+                                          ? SvgPicture.asset(
+                                              ImageAssets.icSaved,
+                                              width: 24,
+                                              height: 24,
+                                            )
+                                          : SvgPicture.asset(
+                                              ImageAssets.icSave,
+                                              width: 24,
+                                              height: 24,
+                                            ),
+                                      onTap: () {
+                                        debugPrint('Lưu từ này');
+                                        controller.onPressBookmark();
+                                      },
+                                    );
                                   }),
                                   const SizedBox(width: 15),
                                   InkWell(
@@ -180,7 +176,7 @@ class BottomSheetVocab extends StatelessWidget {
         },
       ),
     );
-  }  
+  }
 }
 
 class ItemPartOfSpeech extends StatelessWidget {

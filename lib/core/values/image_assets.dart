@@ -49,10 +49,10 @@ abstract class ImageAssets {
   static const icStar = 'assets/images/svg/ic_star.svg';
   static const icRemove = 'assets/images/svg/ic_remove.svg';
 
-
   static const icPlay = 'assets/images/svg/ic_play.svg';
 
-  static const imageBookPsychology = 'assets/images/png/Psychology_of_money.png';
+  static const imageBookPsychology =
+      'assets/images/png/Psychology_of_money.png';
 
   static const imageBook1 = 'assets/images/jpg/Hp1.jpg';
   static const imageBook2 = 'assets/images/jpg/Hp2.jpg';
@@ -61,11 +61,11 @@ abstract class ImageAssets {
   static const imageBook5 = 'assets/images/jpg/Hp5.jpg';
   static const imageBook6 = 'assets/images/jpg/Hp6.jpg';
 
-  static const imagePsychologyOfMonet = 'assets/images/jpg/Psychology_of_money.jpg';
-  static const imageSummer = 'assets/images/jpg/Summer_in_red_mustang_cookies.jpg';
+  static const imagePsychologyOfMonet =
+      'assets/images/jpg/Psychology_of_money.jpg';
+  static const imageSummer =
+      'assets/images/jpg/Summer_in_red_mustang_cookies.jpg';
   static const imageUncleTom = 'assets/images/jpg/Uncle_Toms_cabin.jpg';
   static const imageHowInno = 'assets/images/jpg/How_innovation_works.jpg';
   static const imageCookieWriter = 'assets/images/jpg/Cookie_writer.jpg';
-
-  static const icPlay = 'assets/images/svg/ic_play.svg';
 }

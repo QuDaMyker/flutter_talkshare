@@ -21,7 +21,7 @@ class HomeController extends GetxController {
   late TrieEngine trieEngine;
   late GoogleTranslator translator;
   RxList<String> recentSharedVocab = <String>[].obs;
-  
+
   RxBool isInputNotEmpty = false.obs;
 
   bool isBottomShetInit = false;
@@ -63,7 +63,7 @@ class HomeController extends GetxController {
     return result;
   }
 
-  Future<void> handleSearchSubmit(BuildContext context, String vocab) async{
+  Future<void> handleSearchSubmit(BuildContext context, String vocab) async {
     await showBottomSheet(context, vocab);
     textSearchController.clear();
   }
@@ -71,18 +71,16 @@ class HomeController extends GetxController {
   Future<void> showBottomSheet(BuildContext context, String vocab) async {
     if (vocab.isNotEmpty) {
       showModalBottomSheet(
-        isDismissible: false,
-        context: context,
-        builder: (context) =>  BottomSheetVocab(word: vocab)
-        
-      ).whenComplete(() async {
+              isDismissible: false,
+              context: context,
+              builder: (context) => BottomSheetVocab(word: vocab))
+          .whenComplete(() async {
         debugPrint('whenComplete');
         recentSharedVocab.value =
             (await SupabaseService.instance.getSearchedHistory());
         Get.delete<BottomSheetVocabController>();
-        Get.delete<BottomSheetVocab>();
+        //Get.delete<BottomSheetVocab>();
       });
-
     }
   }
 }
