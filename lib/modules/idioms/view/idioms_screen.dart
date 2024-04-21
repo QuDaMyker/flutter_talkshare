@@ -63,9 +63,12 @@ class IdiomsScreen extends StatelessWidget {
               filled: true,
               fillColor: Colors.white,
               border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(12),          
+              ),  
+              focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: AppColors.gray40),              
-              ),            
+                borderSide: BorderSide(color: Colors.black),              
+              ),          
               prefixIcon: Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 16),
                 child: SvgPicture.asset(ImageAssets.icSearch),
