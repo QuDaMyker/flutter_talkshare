@@ -14,14 +14,15 @@ import 'package:lottie/lottie.dart';
 class BottomSheetVocab extends StatelessWidget {
   const BottomSheetVocab({super.key, required this.word});
   final String word;
+
   @override
   Widget build(BuildContext context) {
+    debugPrint('bắt đâu build bottom sheet cho từ: $word');
+
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
-
     final BottomSheetVocabController controller =
         Get.put(BottomSheetVocabController(word: word));
-
     return Container(
       width: deviceWidth,
       child: Obx(
@@ -52,6 +53,7 @@ class BottomSheetVocab extends StatelessWidget {
                         const Text('Không tìm thấy từ bạn cần'),
                         ElevatedButton(
                           onPressed: () {
+
                             Get.back();
                           },
                           child: const Text('Thử lại'),
@@ -108,14 +110,25 @@ class BottomSheetVocab extends StatelessWidget {
                                 mainAxisSize: MainAxisSize.max,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  InkWell(
-                                    child: SvgPicture.asset(
+                                  Obx((){
+                                    return InkWell(
+                                    child: controller.isSave.value ? 
+                                    SvgPicture.asset(
+                                      ImageAssets.icSaved,
+                                      width: 24,
+                                      height: 24,
+                                    ) :  SvgPicture.asset(
                                       ImageAssets.icSave,
                                       width: 24,
                                       height: 24,
-                                    ),
-                                    onTap: () {},
-                                  ),
+                                    )
+                                    ,
+                                    onTap: () {
+                                      debugPrint('Lưu từ này');
+                                      controller.onPressBookmark();
+                                    },
+                                  );
+                                  }),
                                   const SizedBox(width: 15),
                                   InkWell(
                                       child: SvgPicture.asset(
@@ -130,6 +143,10 @@ class BottomSheetVocab extends StatelessWidget {
                                       child:
                                           SvgPicture.asset(ImageAssets.icClose),
                                       onTap: () {
+                                        // controller.onClose();
+                                        // Get.back();
+                                        debugPrint('click close bottom sheet');
+                                        Navigator.pop(context);
                                         controller.onClose();
                                       }),
                                 ],
@@ -163,7 +180,7 @@ class BottomSheetVocab extends StatelessWidget {
         },
       ),
     );
-  }
+  }  
 }
 
 class ItemPartOfSpeech extends StatelessWidget {
