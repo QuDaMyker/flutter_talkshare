@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:image_picker/image_picker.dart';
@@ -107,4 +109,21 @@ String intToTimeLeft(int value) {
   String secondsLeft = s.toString().length < 2 ? "0$s" : s.toString();
   String result = "$hourLeft:$minuteLeft:$secondsLeft";
   return result;
+}
+
+String capitalizeFirstLetter(String word) {
+  if (word.isEmpty) return word;
+  return word[0].toUpperCase() + word.substring(1);
+}
+
+String capitalizeFirstLetterOfEachWord(String input) {
+  List<String> words = input.split(' ');
+  List<String> capitalizedWords =
+      words.map((word) => capitalizeFirstLetter(word)).toList();
+  return capitalizedWords.join(' ');
+}
+
+int generateRandomInt(int min, int max) {
+  final random = Random();
+  return min + random.nextInt(max - min + 1);
 }
