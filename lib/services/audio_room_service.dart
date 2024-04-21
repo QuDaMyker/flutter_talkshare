@@ -11,4 +11,30 @@ extension AudioRoomService on SupabaseService {
         .update({AudioRoom.table.isActive: false}).match(
             {AudioRoom.table.roomId: roomId});
   }
+
+  Future<List<AudioRoom>> getAllAudioRoom({String? filter}) async {
+    List<dynamic> res = await supabase
+        .from(AudioRoom.table.tableName)
+        .select()
+        .eq(AudioRoom.table.isActive, true);
+    List<AudioRoom> listRoom;
+    if (filter != null) {
+      if (filter == "Riêng tư") {
+        listRoom = res
+            .map((e) => AudioRoom.fromJson(e))
+            .where((element) => element.passcode != null)
+            .toList();
+      } else if (filter == "Công khai") {
+        listRoom = res
+            .map((e) => AudioRoom.fromJson(e))
+            .where((element) => element.passcode == null)
+            .toList();
+      } else {
+        listRoom = res.map((e) => AudioRoom.fromJson(e)).toList();
+      }
+    } else {
+      listRoom = res.map((e) => AudioRoom.fromJson(e)).toList();
+    }
+    return listRoom;
+  }
 }

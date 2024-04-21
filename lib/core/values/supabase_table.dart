@@ -104,14 +104,25 @@ class AudioRoomSupabaseTable implements SupabaseTable {
 
 class BlogSupabaseTable implements SupabaseTable {
   const BlogSupabaseTable();
-  
-  @override
-  String get tableName => "blog";  
 
-  String get blogId => "blog_id";  
+  @override
+  String get tableName => "blog";
+
+  String get blogId => "blog_id";
   String get userName => "user_name";
-  String get avatUrl => "avat_url";  
+  String get avatUrl => "avat_url";
   String get time => "time";
-  String get images => "images";  
-  String get content => "content";  
+  String get images => "images";
+  String get content => "content";
+}
+class LivestreamSupabaseTable implements SupabaseTable {
+  const LivestreamSupabaseTable();
+
+  @override
+  String get tableName => "livestream";
+
+  String get streamId => "stream_id";
+  String get createdAt => "created_at";
+  String get isActive => "isactive";
+  String get userId => "user_id";
 }

@@ -147,3 +147,23 @@ int generateRandomInt(int min, int max) {
   final random = Random();
   return min + random.nextInt(max - min + 1);
 }
+
+OutlineInputBorder customBorder() {
+  return OutlineInputBorder(
+    borderSide: const BorderSide(
+      color: AppColors.gray40,
+      width: 1.0,
+    ),
+    borderRadius: BorderRadius.circular(14.0),
+  );
+}
+
+OutlineInputBorder customBorderWhenFocus() {
+  return OutlineInputBorder(
+    borderSide: const BorderSide(
+      color: AppColors.primary40,
+      width: 2.0,
+    ),
+    borderRadius: BorderRadius.circular(14.0),
+  );
+}

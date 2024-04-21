@@ -48,7 +48,8 @@ abstract class ImageAssets {
   static const icUsersWhite = 'assets/images/svg/ic_users_white.svg';
   static const icStar = 'assets/images/svg/ic_star.svg';
   static const icRemove = 'assets/images/svg/ic_remove.svg';
-  
+
+
   static const icPlay = 'assets/images/svg/ic_play.svg';
 
   static const imageBookPsychology = 'assets/images/png/Psychology_of_money.png';

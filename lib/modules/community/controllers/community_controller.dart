@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/enums/community_tab.dart';
 import 'package:flutter_talkshare/core/models/audio_room.dart';
+import 'package:flutter_talkshare/core/models/livestream.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
@@ -15,9 +16,16 @@ class CommunityController extends GetxController
   TextEditingController roomNameCtrl = TextEditingController();
   TextEditingController roomTopicCtrl = TextEditingController();
   TextEditingController passcodeCtrl = TextEditingController();
+  RxList<AudioRoom> listRoom = RxList.empty();
+  RxList<Livestream> listStream = RxList.empty();
+  TextEditingController confirmPasscodeCtrl = TextEditingController();
+  var selectedType = 0.obs;
 
   @override
-  void onInit() {
+  void onInit() async {
+    listRoom.addAll(await SupabaseService.instance.getAllAudioRoom());
+    listStream.addAll(await SupabaseService.instance.getAllLivestream());
+
     animationController = AnimationController(
       vsync: this,
       duration: Duration(milliseconds: 260),
@@ -26,6 +34,7 @@ class CommunityController extends GetxController
     final curvedAnimation =
         CurvedAnimation(curve: Curves.easeInOut, parent: animationController);
     animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
+
     super.onInit();
   }
 
@@ -42,5 +51,19 @@ class CommunityController extends GetxController
     SupabaseService.instance.insertRoom(audioRoom);
   }
 
-  
+  void creatLivestream(String streamId) {
+    //TODO: modify hard-code userId
+    Livestream livestream = Livestream(
+        streamId: streamId,
+        userId: 'f6ee03f6-55a3-4d03-9cd2-3a3e0450e352',
+        createdAt: DateTime.now().toUtc().millisecondsSinceEpoch,
+        isActive: true);
+    SupabaseService.instance.insertLivestream(livestream);
+  }
+
+  void filter(String type) async {
+    var list = await SupabaseService.instance.getAllAudioRoom(filter: type);
+    listRoom.clear();
+    listRoom.addAll(list);
+  }
 }
