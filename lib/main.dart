@@ -10,6 +10,8 @@ import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 import 'core/configuration/injection.dart';
 
+import 'core/configuration/injection.dart';
+
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
