@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/models/book.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/books/controller/book_widget_controller.dart';
+import 'package:flutter_talkshare/modules/books/view/detail_book_screen.dart';
 import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 
@@ -24,7 +25,7 @@ class BookWidget extends StatelessWidget {
         child: GestureDetector (
           onTap: () {
             debugPrint(controller.book.title);
-            controller.moveToDetailBook();
+            Get.to(() => DetailBookScreen(book: book));
           },
           child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,

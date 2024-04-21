@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/models/book.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
 class DetailBookScreen extends StatelessWidget {
@@ -13,13 +14,11 @@ class DetailBookScreen extends StatelessWidget {
 
   const DetailBookScreen({required this.book});
 
-
   @override
   Widget build(BuildContext context) {
     final double deviceHeight = MediaQuery.of(context).size.height;
     final double deviceWidth = MediaQuery.of(context).size.width;
     debugPrint('detail của' + book.title);
-    
 
     return SafeArea(
         child: Scaffold(
@@ -40,27 +39,29 @@ class DetailBookScreen extends StatelessWidget {
     );
   }
 
-  Stack _buildBody(BuildContext context, double deviceHeight, double deviceWidth, Book book) {
+  Stack _buildBody(BuildContext context, double deviceHeight,
+      double deviceWidth, Book book) {
     WebViewController controller = WebViewController()
-  ..setJavaScriptMode(JavaScriptMode.unrestricted)
-  ..setBackgroundColor(const Color(0x00000000))
-  ..setNavigationDelegate(
-    NavigationDelegate(
-      onProgress: (int progress) {
-        // Update loading bar.
-      },
-      onPageStarted: (String url) {},
-      onPageFinished: (String url) {},
-      onWebResourceError: (WebResourceError error) {},
-      onNavigationRequest: (NavigationRequest request) {
-        if (request.url.startsWith('https://www.youtube.com/')) {
-          return NavigationDecision.prevent;
-        }
-        return NavigationDecision.navigate;
-      },
-    ),
-  )
-  ..loadRequest(Uri.parse(bookUrl));
+        ..setJavaScriptMode(JavaScriptMode.unrestricted)
+        ..setBackgroundColor(const Color(0x00000000))
+        ..setNavigationDelegate(
+          NavigationDelegate(
+            onProgress: (int progress) {
+              // Update loading bar.
+            },
+            onPageStarted: (String url) {},
+            onPageFinished: (String url) {},
+            onWebResourceError: (WebResourceError error) {},
+            onNavigationRequest: (NavigationRequest request) {
+              if (request.url.startsWith('https://www.youtube.com/')) {
+                return NavigationDecision.prevent;
+              }
+              return NavigationDecision.navigate;
+            },
+          ),
+        )
+        ..loadRequest(Uri.parse(book.url));
+
     return Stack(
       children: [
         Column(
@@ -219,7 +220,7 @@ class DetailBookScreen extends StatelessWidget {
                   ),
                 ),
                 Container(
-                  height: deviceHeight * 0.3,
+                  height: deviceHeight * 0.27,
                   width: (deviceWidth - 70) / 2,
                   decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(12),

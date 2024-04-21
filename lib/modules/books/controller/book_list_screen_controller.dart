@@ -7,15 +7,24 @@ import 'package:get/get_rx/get_rx.dart';
 
 class BookListScreenController extends GetxController {
   var books = <Book>[].obs;
+  var bookPop = <Book>[].obs;
+  var bookAd = <Book>[].obs;
+  var bookChild = <Book>[].obs;
 
   RxBool isSearching = false.obs;
   var searchedBooks = <Book>[].obs;
 
   late TextEditingController searchController;
+  
   @override
   void onInit() {
     super.onInit();
     books.addAll(listBooks);
+  
+    bookPop.addAll(listPopular);
+    bookAd.addAll(listAdventure);
+    bookChild.addAll(listChild);
+  
     searchController = TextEditingController();
   }
 

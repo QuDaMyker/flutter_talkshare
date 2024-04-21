@@ -6,7 +6,7 @@ import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/books/widgets/book_widget.dart';
 
 class BooksSameTypeScreen extends StatelessWidget {
-  final List<Book> books ;
+  final List<Book> books;
   final String type;
 
   BooksSameTypeScreen({required this.type, required this.books});
@@ -17,7 +17,6 @@ class BooksSameTypeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final screenHeight = MediaQuery.of(context).size.height*0.85;
     final screenWidth = MediaQuery.of(context).size.width - 20;
-
 
     return SafeArea(
       child: Scaffold(

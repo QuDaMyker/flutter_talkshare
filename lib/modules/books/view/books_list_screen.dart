@@ -128,17 +128,17 @@ class BooksListScreen extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
             child: ScrollableBooksWidget(deviceHeight * 0.35, deviceWidth - 25,
-                boolListController.books),
+                boolListController.bookPop),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
             child: ScrollableBooksWidget(deviceHeight * 0.35, deviceWidth - 25,
-                boolListController.books),
+                boolListController.bookAd),
           ),
           Padding(
             padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),
             child: ScrollableBooksWidget(deviceHeight * 0.35, deviceWidth - 25,
-                boolListController.books),
+                boolListController.bookChild),
           ),
           Padding(
               padding: EdgeInsets.symmetric(vertical: deviceHeight * 0.01),

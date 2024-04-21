@@ -13,7 +13,6 @@ class BookWidgetCotroller extends GetxController{
   void moveToDetailBook(){
 
      debugPrint(book.title);
-
      Get.to(() => DetailBookScreen(book: book));
   }
 

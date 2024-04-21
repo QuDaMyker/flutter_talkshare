@@ -12,8 +12,10 @@ class ScrollableBooksWidgetController extends GetxController{
   });
 
    void viewAllBooksInType() {
-    debugPrint(books.length.toString());
     String type = books.first.type;
+
+    debugPrint(type);
+
     Get.to(() => BooksSameTypeScreen(type: type, books: books));
   }
 }
