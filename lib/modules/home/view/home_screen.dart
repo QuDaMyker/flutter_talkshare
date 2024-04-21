@@ -5,9 +5,18 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 
+import 'package:flutter_talkshare/modules/video/views/video_dashboard_screen.dart';
+import 'package:flutter_typeahead/flutter_typeahead.dart';
+import 'package:get/get.dart';
+
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/books/view/books_list_screen.dart';
+import 'package:flutter_talkshare/modules/idioms/view/idioms_screen.dart';
+import 'package:flutter_talkshare/modules/irregular_verbs/view/irregular_verbs_screen.dart';
+import 'package:flutter_talkshare/modules/irregular_verbs/view/irregular_verbs_screen.dart';
+import 'package:flutter_talkshare/modules/create_new_list_vocab/view/creare_new%20_list_vocab_screen.dart';
 import 'package:flutter_talkshare/modules/home/controller/home_controller.dart';
 import 'package:flutter_talkshare/modules/home/widgets/item_recent_word.dart';
 import 'package:flutter_talkshare/modules/idioms/view/idioms_screen.dart';
@@ -31,6 +40,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.put(HomeController());
+
     late TextEditingController suggessController;
     return Stack(children: [
       Container(
@@ -69,16 +79,22 @@ class HomeScreen extends StatelessWidget {
                 }
                 return null;
               },
+              emptyBuilder: (context) =>
+                  const Text('Không tìm thấy từ bạn cần!'),
               builder: (context, controller, focusNode) {
-                suggessController = controller;
-                return TextField(
-                  controller: suggessController,
+                homeController.textSearchController = controller;
+                return Obx((){
+                  return TextField(
+                  controller: homeController.textSearchController,
                   focusNode: focusNode,
-                  onChanged: (value) {},
                   onSubmitted: (value) {
-                    homeController.showBottomSheet(context, value);
-                    homeController.textSearchController.clear();
-                    suggessController.clear();
+                    debugPrint('gọi ở thanh search $value');
+                    homeController.handleSearchSubmit(context, value);
+                    controller.clear();
+                  },
+                  onChanged: (value) {
+                    homeController.updateInputNotEmpty(value);
+                    debugPrint(homeController.isInputNotEmpty.toString());
                   },
                   decoration: InputDecoration(
                     isDense: true,
@@ -100,18 +116,21 @@ class HomeScreen extends StatelessWidget {
                       child: SvgPicture.asset(ImageAssets.icSearch),
                     ),
                     prefixIconConstraints: const BoxConstraints(),
-                    suffixIcon: GestureDetector(
+                    suffixIcon: homeController.isInputNotEmpty.value ? GestureDetector(
                       onTap: () {
-                        controller.clear();
+                        homeController.textSearchController.clear();
+                        homeController.isInputNotEmpty.value = false;
                       },
                       child: Padding(
                         padding: const EdgeInsets.symmetric(horizontal: 16),
                         child: SvgPicture.asset(ImageAssets.icClose),
                       ),
-                    ),
+                    ) : null,
                     suffixIconConstraints: const BoxConstraints(),
                   ),
                 );
+
+                });
               },
               itemBuilder: (context, value) {
                 return ListTile(
@@ -133,9 +152,14 @@ class HomeScreen extends StatelessWidget {
                 );
               },
               onSelected: (value) {
-                homeController.showBottomSheet(context, value);
-                homeController.textSearchController.clear();
-                suggessController.clear();
+                debugPrint('gọi từ tab đề xuất $value');
+                homeController.handleSearchSubmit(context, value);
+
+                //uggessController.clear();
+                // homeController.showBottomSheet(context, value);
+                // homeController.textSearchController.clear();
+
+                //homeController.textSearchController.clear();
               },
             ),
             const SizedBox(
@@ -155,13 +179,15 @@ class HomeScreen extends StatelessWidget {
                           itemCount: homeController.recentSharedVocab.length,
                           itemBuilder: (context, index) {
                             return GestureDetector(
-                              child: ItemRecentWord(
-                                vocab: homeController.recentSharedVocab[index],
-                              ),
-                              onTap: () => homeController.showBottomSheet(
-                                  context,
-                                  homeController.recentSharedVocab[index]),
-                            );
+                                child: ItemRecentWord(
+                                  vocab:
+                                      homeController.recentSharedVocab[index],
+                                ),
+                                onTap: () {
+                                  debugPrint('gọi từ recent');
+                                  homeController.showBottomSheet(context,
+                                      homeController.recentSharedVocab[index]);
+                                });
                           },
                           separatorBuilder: (BuildContext context, int index) {
                             return const SizedBox(
@@ -262,14 +288,13 @@ class HomeScreen extends StatelessWidget {
                           child: sourceItem(
                               "Bài nghe", ImageAssets.icHeadphone, () {})),
                       Expanded(
-                          child: sourceItem(
-                              "Đọc sách", ImageAssets.icBook, () {})),
-                      Expanded(
-                          child: sourceItem("Video", ImageAssets.icVideo, () {
-                        Get.to(
-                          () => const VideoDashBoardScreen(),
-                        );
+                          child: sourceItem("Đọc sách", ImageAssets.icBook, () {
+
+                        Get.to(() => BooksListScreen());
                       })),
+                      Expanded(
+                          child:
+                              sourceItem("Video", ImageAssets.icVideo, () {})),
                       Expanded(
                           child: sourceItem(
                               "Ngữ pháp", ImageAssets.icGrammar, () {}))
