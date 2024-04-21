@@ -3,6 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/idioms/view/idioms_screen.dart';
+import 'package:flutter_talkshare/modules/irregular_verbs/view/irregular_verbs_screen.dart';
+import 'package:flutter_talkshare/modules/irregular_verbs/view/irregular_verbs_screen.dart';
 import 'package:flutter_talkshare/modules/create_new_list_vocab/view/creare_new%20_list_vocab_screen.dart';
 import 'package:flutter_talkshare/modules/home/controller/home_controller.dart';
 import 'package:flutter_talkshare/modules/home/widgets/item_recent_word.dart';
@@ -324,6 +327,13 @@ class HomeScreen extends StatelessWidget {
                       ),
                       Expanded(
                         child: InkWell(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => IrregulerVerbs()),
+                            );
+                          },
                           child: Container(
                             padding: const EdgeInsets.all(20),
                             decoration: BoxDecoration(
