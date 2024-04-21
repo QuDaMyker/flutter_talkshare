@@ -38,4 +38,5 @@ abstract class ImageAssets {
   static const imageFish = 'assets/images/png/image_fish.png';
   static const icEditThin = 'assets/images/svg/ic_edit_thin.svg';
   static const icFolder2 = 'assets/images/svg/ic_folder_2.svg';
+  static const icPlay = 'assets/images/svg/ic_play.svg';
 }
