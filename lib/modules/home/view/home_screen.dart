@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_talkshare/modules/books/view/books_list_screen.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 
@@ -174,211 +175,212 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       Positioned.fill(
-          top: 280,
-          child: Container(
-            padding: const EdgeInsets.all(20),
-            decoration: const BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(20),
-                    topRight: Radius.circular(20))),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    "Từ vựng",
-                    style: TextStyle(
-                        color: AppColors.primary20,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Container(
-                    padding: const EdgeInsets.all(20),
-                    decoration: BoxDecoration(
-                        color: AppColors.secondary90,
-                        borderRadius: BorderRadius.circular(20)),
-                    child: Row(
-                      children: [
-                        SvgPicture.asset(ImageAssets.bannerVocab),
-                        Expanded(
-                            child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            const Text(
-                              "Hãy bắt đầu học để ghi nhớ từ trong kho từ vựng của bạn ngay bây giờ!",
-                              style: TextStyle(
-                                  color: AppColors.primary20,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 10),
-                              textAlign: TextAlign.end,
-                            ),
-                            const SizedBox(
-                              height: 12,
-                            ),
-                            InkWell(
-                              onTap: () {
-                                Get.to(() => VocabScreen());
-                              },
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 8, horizontal: 16),
-                                decoration: BoxDecoration(
-                                    color: AppColors.secondary20,
-                                    borderRadius: BorderRadius.circular(12)),
-                                child: const Text(
-                                  "Đến Kho từ",
-                                  style: TextStyle(
-                                      color: Colors.white,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 12),
-                                ),
+        top: 280,
+        child: Container(
+          padding: const EdgeInsets.all(20),
+          decoration: const BoxDecoration(
+              color: Colors.white,
+              borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(20), topRight: Radius.circular(20))),
+          child: SingleChildScrollView(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                const Text(
+                  "Từ vựng",
+                  style: TextStyle(
+                      color: AppColors.primary20,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Container(
+                  padding: const EdgeInsets.all(20),
+                  decoration: BoxDecoration(
+                      color: AppColors.secondary90,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: Row(
+                    children: [
+                      SvgPicture.asset(ImageAssets.bannerVocab),
+                      Expanded(
+                          child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
+                          const Text(
+                            "Hãy bắt đầu học để ghi nhớ từ trong kho từ vựng của bạn ngay bây giờ!",
+                            style: TextStyle(
+                                color: AppColors.primary20,
+                                fontWeight: FontWeight.w600,
+                                fontSize: 10),
+                            textAlign: TextAlign.end,
+                          ),
+                          const SizedBox(
+                            height: 12,
+                          ),
+                          InkWell(
+                            onTap: () {
+                              Get.to(() => VocabScreen());
+                            },
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(
+                                  vertical: 8, horizontal: 16),
+                              decoration: BoxDecoration(
+                                  color: AppColors.secondary20,
+                                  borderRadius: BorderRadius.circular(12)),
+                              child: const Text(
+                                "Đến Kho từ",
+                                style: TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 12),
                               ),
-                            )
-                          ],
-                        ))
-                      ],
+                            ),
+                          )
+                        ],
+                      ))
+                    ],
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Nguồn học",
+                  style: TextStyle(
+                      color: AppColors.primary20,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                        child: sourceItem(
+                            "Bài nghe", ImageAssets.icHeadphone, () {})),
+                    Expanded(
+                        child: sourceItem("Đọc sách", ImageAssets.icBook, () {
+                      Get.to(() => BooksListScreen());
+                    })),
+                    Expanded(
+                        child: sourceItem("Video", ImageAssets.icVideo, () {
+                      Get.to(
+                        () => const VideoDashBoardScreen(),
+                      );
+                    })),
+                    Expanded(
+                        child: sourceItem(
+                            "Ngữ pháp", ImageAssets.icGrammar, () {}))
+                  ],
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                const Text(
+                  "Ghi nhớ",
+                  style: TextStyle(
+                      color: AppColors.primary20,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 18),
+                ),
+                const SizedBox(
+                  height: 12,
+                ),
+                Row(
+                  children: [
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IdiomsScreen()),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: AppColors.secondary80,
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Column(
+                            children: [
+                              SvgPicture.asset(ImageAssets.icIdiom),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              const Text(
+                                "Idioms",
+                                style: TextStyle(
+                                    color: AppColors.primary20,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              const Text(
+                                "Thành ngữ Tiếng Anh",
+                                style: TextStyle(
+                                    color: AppColors.primary20, fontSize: 12),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    "Nguồn học",
-                    style: TextStyle(
-                        color: AppColors.primary20,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                          child: sourceItem(
-                              "Bài nghe", ImageAssets.icHeadphone, () {})),
-                      Expanded(
-                          child: sourceItem(
-                              "Đọc sách", ImageAssets.icBook, () {})),
-                      Expanded(
-                          child: sourceItem("Video", ImageAssets.icVideo, () {
-                        Get.to(
-                          () => const VideoDashBoardScreen(),
-                        );
-                      })),
-                      Expanded(
-                          child: sourceItem(
-                              "Ngữ pháp", ImageAssets.icGrammar, () {}))
-                    ],
-                  ),
-                  const SizedBox(
-                    height: 20,
-                  ),
-                  const Text(
-                    "Ghi nhớ",
-                    style: TextStyle(
-                        color: AppColors.primary20,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 18),
-                  ),
-                  const SizedBox(
-                    height: 12,
-                  ),
-                  Row(
-                    children: [
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => IdiomsScreen()),
-                            );
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                                color: AppColors.secondary80,
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Column(
-                              children: [
-                                SvgPicture.asset(ImageAssets.icIdiom),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                const Text(
-                                  "Idioms",
-                                  style: TextStyle(
-                                      color: AppColors.primary20,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 18),
-                                ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                const Text(
-                                  "Thành ngữ Tiếng Anh",
-                                  style: TextStyle(
-                                      color: AppColors.primary20, fontSize: 12),
-                                ),
-                              ],
-                            ),
+                    const SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(
+                      child: InkWell(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => IrregulerVerbs()),
+                          );
+                        },
+                        child: Container(
+                          padding: const EdgeInsets.all(20),
+                          decoration: BoxDecoration(
+                              color: const Color(0xFFEBFFDE),
+                              borderRadius: BorderRadius.circular(12)),
+                          child: Column(
+                            children: [
+                              SvgPicture.asset(ImageAssets.icIrrVerb),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              const Text(
+                                "Irregular Verbs",
+                                style: TextStyle(
+                                    color: AppColors.primary20,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 18),
+                              ),
+                              const SizedBox(
+                                height: 4,
+                              ),
+                              const Text(
+                                "Động từ bất quy tắc",
+                                style: TextStyle(
+                                    color: AppColors.primary20, fontSize: 12),
+                              ),
+                            ],
                           ),
                         ),
                       ),
-                      const SizedBox(
-                        width: 20,
-                      ),
-                      Expanded(
-                        child: InkWell(
-                          onTap: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => IrregulerVerbs()),
-                            );
-                          },
-                          child: Container(
-                            padding: const EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                                color: const Color(0xFFEBFFDE),
-                                borderRadius: BorderRadius.circular(12)),
-                            child: Column(
-                              children: [
-                                SvgPicture.asset(ImageAssets.icIrrVerb),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                const Text(
-                                  "Irregular Verbs",
-                                  style: TextStyle(
-                                      color: AppColors.primary20,
-                                      fontWeight: FontWeight.w700,
-                                      fontSize: 18),
-                                ),
-                                const SizedBox(
-                                  height: 4,
-                                ),
-                                const Text(
-                                  "Động từ bất quy tắc",
-                                  style: TextStyle(
-                                      color: AppColors.primary20, fontSize: 12),
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      )
-                    ],
-                  ),
-                ],
-              ),
+                    )
+                  ],
+                ),
+              ],
             ),
-          ))
+          ),
+        ),
+      ),
     ]);
   }
 

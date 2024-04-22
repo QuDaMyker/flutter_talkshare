@@ -9,4 +9,16 @@ class CreateNewListVocabController extends GetxController {
     super.onInit();
     wordTCs.add(TextEditingController(text: ""));
   }
+
+  void SaveNewListVocab() {
+
+  }
+
+  bool isNameListDuplicate(String name){
+    if(true){
+      return true;
+    };
+    return false;
+  }
+
 }
