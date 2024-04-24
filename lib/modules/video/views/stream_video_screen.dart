@@ -1,5 +1,7 @@
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -93,57 +95,74 @@ class _StreamVideoState extends State<StreamVideo> {
               : Obx(
                   () => SingleChildScrollView(
                     child: Container(
-                      //padding: const EdgeInsets.symmetric(horizontal: 12),
-
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
                       decoration: const BoxDecoration(),
-                      // child: RichText(
-                      //   text: TextSpan(
-                      //     children: [
-                      //       for (int i = 0;
-                      //           i < controller.listSubSplit.value.length;
-                      //           i++)
-                      //         if (controller.blankIndexes.value.contains(i))
-                      //           const WidgetSpan(
-                      //             child: SizedBox(
-                      //               width: 100,
-                      //               child: TextField(
-                      //                 decoration: InputDecoration(
-                      //                   border: OutlineInputBorder(),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           )
-                      //         else
-                      //           TextSpan(
-                      //             text: "${controller.listSubSplit.value[i]} ",
-                      //             style: const TextStyle(
-                      //               fontSize: 18,
-                      //               fontWeight: FontWeight.normal,
-                      //               color: Colors.black,
-                      //             ),
-                      //           ),
-                      //     ],
-                      //   ),
-                      // ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: controller.listSubSplit.value
-                            .mapIndexed((index, text) {
-                          if (controller.blankIndexes.value.contains(index)) {
-                            return Expanded(
-                              child: Container(
-                                width: 100,
-                                child: TextField(),
+                      child: Expanded(
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Expanded(
+                              child: Text.rich(
+                                TextSpan(
+                                  children: controller.listSubSplit.value
+                                      .mapIndexed((index, text) {
+                                    if (controller.blankIndexes.value
+                                        .contains(index)) {
+                                      print('co');
+                                      return WidgetSpan(
+                                        child: Container(
+                                          margin: const EdgeInsets.symmetric(
+                                            horizontal: 10,
+                                          ),
+                                          width: 80,
+                                          height: 20,
+                                          decoration: const BoxDecoration(
+                                            color: Colors.red,
+                                          ),
+                                          child: TextFormField(
+                                            style: TextStyle(
+                                              color: AppColors.primary40,
+                                              fontSize: 18,
+                                            ),
+                                            onFieldSubmitted: (value) {},
+                                            onChanged: (value) {},
+                                            cursorColor: AppColors.primary40,
+                                            decoration: InputDecoration(
+                                              fillColor: AppColors.primary40,
+                                              hintText: '................',
+                                              hintStyle: const TextStyle(
+                                                color: AppColors.primary40,
+                                              ),
+                                              contentPadding:
+                                                  const EdgeInsets.all(0),
+                                              focusedBorder:
+                                                  const OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 0,
+                                                    color: Colors.transparent),
+                                              ),
+                                              enabledBorder:
+                                                  const OutlineInputBorder(
+                                                borderSide: BorderSide(
+                                                    width: 0,
+                                                    color: Colors.transparent),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      );
+                                    } else {
+                                      return TextSpan(
+                                        text:
+                                            '${controller.listSubSplit.value[index]} ',
+                                      );
+                                    }
+                                  }).toList(),
+                                ),
                               ),
-                            );
-                          } else {
-                            return Expanded(
-                              child: Text(
-                                controller.listSubSplit.value[index],
-                              ),
-                            );
-                          }
-                        }).toList(),
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   ),

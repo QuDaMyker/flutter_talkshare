@@ -18,7 +18,6 @@ class VideoServices {
       List<SubtitleModel> listSub = await SupabaseService.instance.getSubtitle(
         id_video: videoId,
       );
-      print('length-log: listSub ${listSub.length}');
 
       return listSub;
     } catch (e) {

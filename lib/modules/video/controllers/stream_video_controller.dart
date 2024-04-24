@@ -42,7 +42,7 @@ class StreamVideoController extends GetxController {
     await fetchVideoInfo();
     await getCaptions(videoModel.id);
     initScrollController();
-    initYtController();
+    await initYtController();
     isLoading.value = false;
     super.onInit();
   }
@@ -76,7 +76,7 @@ class StreamVideoController extends GetxController {
     );
   }
 
-  void initYtController() {
+  Future<void> initYtController() async {
     ytController = YoutubePlayerController(
       initialVideoId: video.id.toString(),
       flags: YoutubePlayerFlags(
@@ -99,18 +99,17 @@ class StreamVideoController extends GetxController {
   void handleSplitSub() {
     for (var caption in captions.value) {
       paragraph.value += caption.content;
-      listSubSplit.value.addAll(caption.content.split(' '));
+
+      listSubSplit.value.addAll(caption.content.split(' ').map((e) {
+        return e.toString().trim();
+      }).toList());
     }
     paragraph.value =
         capitalizeFirstLetter(paragraph.value.split(' ').join(' '));
     blankIndexes.value = List.generate(
-      10,
+      listSubSplit.value.length ~/ 100,
       (index) => generateRandomInt(1, listSubSplit.value.length),
     );
-
-    blankIndexes.value
-        .map((item) => print('log-data: blankIndexes : $item'))
-        .toList();
   }
 
   void addListenerYt() {

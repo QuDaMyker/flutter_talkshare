@@ -98,10 +98,10 @@ class _VideoDashBoardScreenState extends State<VideoDashBoardScreen>
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          Expanded(
-            flex: 0,
-            child: _buildSearchField(controller),
-          ),
+          // Expanded(
+          //   flex: 0,
+          //   child: _buildSearchField(controller),
+          // ),
           const SizedBox(
             height: 10,
           ),
