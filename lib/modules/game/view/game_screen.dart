@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_talkshare/core/values/app_colors.dart';
 
 class GameScreen extends StatelessWidget {
   const GameScreen({super.key});
@@ -7,7 +8,13 @@ class GameScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('GameScreen'),
+        child: Text(
+          'Comming Soon',
+          style: TextStyle(
+            color: AppColors.primary20,
+            fontSize: 20,
+          ),
+        ),
       ),
     );
   }

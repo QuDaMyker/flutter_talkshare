@@ -259,11 +259,46 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                        child: sourceItem(
-                            "Bài nghe", ImageAssets.icHeadphone, () {})),
+                        child:
+                            sourceItem("Bài nghe", ImageAssets.icHeadphone, () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Center(
+                              child: Container(
+                                width: Get.width * 0.5,
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Align(
+                                  child: const Text('Comming Soon'),
+                                ),
+                              ),
+                            );
+                          });
+                    })),
                     Expanded(
                         child: sourceItem("Đọc sách", ImageAssets.icBook, () {
-                      Get.to(() => BooksListScreen());
+                      // Get.to(() => BooksListScreen());
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Center(
+                              child: Container(
+                                width: Get.width * 0.5,
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Align(
+                                  child: const Text('Comming Soon'),
+                                ),
+                              ),
+                            );
+                          });
                     })),
                     Expanded(
                         child: sourceItem("Video", ImageAssets.icVideo, () {
@@ -272,8 +307,26 @@ class HomeScreen extends StatelessWidget {
                       );
                     })),
                     Expanded(
-                        child: sourceItem(
-                            "Ngữ pháp", ImageAssets.icGrammar, () {}))
+                        child:
+                            sourceItem("Ngữ pháp", ImageAssets.icGrammar, () {
+                      showDialog(
+                          context: context,
+                          builder: (BuildContext context) {
+                            return Center(
+                              child: Container(
+                                width: Get.width * 0.5,
+                                height: 200,
+                                decoration: BoxDecoration(
+                                  color: Colors.white,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Align(
+                                  child: const Text('Comming Soon'),
+                                ),
+                              ),
+                            );
+                          });
+                    }))
                   ],
                 ),
                 const SizedBox(

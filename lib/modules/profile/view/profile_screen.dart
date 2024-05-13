@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_talkshare/core/values/app_colors.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -7,7 +8,13 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: Text('ProfileScreen'),
+        child: Text(
+          'Comming Soon',
+          style: TextStyle(
+            color: AppColors.primary20,
+            fontSize: 20,
+          ),
+        ),
       ),
     );
   }
