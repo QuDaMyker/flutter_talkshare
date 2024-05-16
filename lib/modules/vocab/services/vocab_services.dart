@@ -78,7 +78,7 @@ class VocabService {
     if (response.statusCode == 200) {
       WordResponseModel responseModel =
           WordResponseModel.fromJson(json.decode(response.body)[0]);
-      String primaryMeaning = await tranlateToVN(word);
+      String primaryMeaning = await Helper.instance.tranlateToVN(word);
       return Vocab(
         word: word,
         // primaryMeaning: responseModel.meanings![0].definitions![0].definition!,
@@ -114,7 +114,7 @@ class VocabService {
       Map<String, dynamic> item = body[0];
 
       String temp = item['meanings'][0]['definitions'][0]['definition'];
-      String primaryMeaning = await tranlateToVN(temp);
+      String primaryMeaning = await Helper.instance.tranlateToVN(temp);
       String audioUrl;
 
       if (item['phonetics'][0]['audio'] == '') {

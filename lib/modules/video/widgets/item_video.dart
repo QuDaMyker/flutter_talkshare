@@ -110,7 +110,7 @@ class ItemVideo extends StatelessWidget {
           color: AppColors.gray40.withOpacity(0.7),
         ),
         child: Text(
-          intToTimeLeft(videoModel.duration),
+          Helper.instance.intToTimeLeft(videoModel.duration),
           style: TextStyle(
             color: Colors.white.withOpacity(0.9),
             fontWeight: FontWeight.bold,

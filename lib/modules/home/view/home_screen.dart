@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:flutter_talkshare/modules/books/view/books_list_screen.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
@@ -32,6 +33,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.put(HomeController());
+    final AuthController authController = Get.find<AuthController>();
+
     late TextEditingController suggessController;
     return Stack(children: [
       Container(
@@ -52,8 +55,8 @@ class HomeScreen extends StatelessWidget {
                   fontSize: 16.0),
             ),
             const SizedBox(height: 4),
-            const Text(
-              'Lê Bảo Như',
+            Text(
+              authController.user.fullname,
               style: TextStyle(
                   fontWeight: FontWeight.w700,
                   color: Colors.white,

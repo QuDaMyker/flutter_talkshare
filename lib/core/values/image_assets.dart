@@ -48,8 +48,13 @@ abstract class ImageAssets {
   static const icUsersWhite = 'assets/images/svg/ic_users_white.svg';
   static const icStar = 'assets/images/svg/ic_star.svg';
   static const icRemove = 'assets/images/svg/ic_remove.svg';
-
   static const icPlay = 'assets/images/svg/ic_play.svg';
+  static const icAuth = 'assets/images/svg/ic_auth.svg';
+  static const icEmail = 'assets/images/svg/ic_email.svg';
+  static const icFullName = 'assets/images/svg/ic_fullName.svg';
+  static const icPassword = 'assets/images/svg/ic_password.svg';
+  static const icGoogle = 'assets/images/svg/ic_google.svg';
+  static const icSplash = 'assets/images/svg/ic_splash.svg';
 
   static const imageBookPsychology =
       'assets/images/png/Psychology_of_money.png';

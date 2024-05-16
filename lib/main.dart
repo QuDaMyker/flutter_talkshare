@@ -1,19 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_talkshare/modules/community/view/audio_room_page.dart';
-import 'package:flutter_talkshare/modules/community/view/community_screen.dart';
-import 'package:flutter_talkshare/modules/community/view/post_blog_screen.dart';
-import 'package:flutter_talkshare/core/models/book.dart';
-import 'package:flutter_talkshare/modules/books/view/books_list_screen.dart';
-import 'package:flutter_talkshare/modules/books/view/books_same_type_screen.dart';
-import 'package:flutter_talkshare/modules/books/view/detail_book_screen.dart';
-import 'package:flutter_talkshare/modules/community/view/audio_room_page.dart';
-import 'package:flutter_talkshare/modules/community/view/community_screen.dart';
-import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
+import 'package:flutter_talkshare/modules/auth/views/login_screen.dart';
+import 'package:flutter_talkshare/modules/splash/views/splash_screen.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
-import 'core/configuration/injection.dart';
-
 import 'core/configuration/injection.dart';
 
 void main() async {
@@ -31,6 +21,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+      smartManagement: SmartManagement.full,
+      showPerformanceOverlay: false,
       title: 'Flutter Demo',
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
@@ -38,7 +30,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: RootViewScreen(),
+      home: SplashScreen(),
     );
   }
 }

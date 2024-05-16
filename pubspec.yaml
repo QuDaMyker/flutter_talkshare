@@ -79,6 +79,8 @@ dependencies:
     path: "./packages/zego_uikit_prebuilt_live_audio_room-3.6.5"
   zego_uikit_signaling_plugin: ^2.7.6
   zego_uikit_prebuilt_live_streaming: ^3.5.3
+  either_dart: ^1.0.0
+  google_sign_in: ^6.2.1
 
 dev_dependencies:
   flutter_test:

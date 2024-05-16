@@ -445,8 +445,9 @@ class CommnityScreen extends StatelessWidget {
                             fontWeight: FontWeight.w600,
                             color: AppColors.gray40,
                           ),
-                          focusedBorder: customBorderWhenFocus(),
-                          enabledBorder: customBorder(),
+                          focusedBorder:
+                              Helper.instance.customBorderWhenFocus(),
+                          enabledBorder: Helper.instance.customBorder(),
                         ),
                       ),
                       SizedBox(
