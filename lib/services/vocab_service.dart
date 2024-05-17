@@ -17,7 +17,7 @@ extension VocabService on SupabaseService {
       List<dynamic> body = json.decode(response.body);
       Map<String, dynamic> item = body[0];
       String temp = item['meanings'][0]['definitions'][0]['definition'];
-      String primaryMeaning = await tranlateToVN(temp);
+      String primaryMeaning = await Helper.instance.tranlateToVN(temp);
       String phonetic = '';
       String audioUrl = '';
 

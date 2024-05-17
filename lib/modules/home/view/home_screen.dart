@@ -2,6 +2,7 @@ import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:flutter_talkshare/modules/books/view/books_list_screen.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
@@ -32,6 +33,8 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final HomeController homeController = Get.put(HomeController());
+    final AuthController authController = Get.find<AuthController>();
+
     late TextEditingController suggessController;
     return Stack(children: [
       Container(
@@ -52,8 +55,8 @@ class HomeScreen extends StatelessWidget {
                   fontSize: 16.0),
             ),
             const SizedBox(height: 4),
-            const Text(
-              'Lê Bảo Như',
+            Text(
+              authController.user.fullname,
               style: TextStyle(
                   fontWeight: FontWeight.w700,
                   color: Colors.white,
@@ -175,7 +178,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       Positioned.fill(
-        top: 280,
+        top: 230,
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: const BoxDecoration(
@@ -183,6 +186,7 @@ class HomeScreen extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20))),
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -301,6 +305,7 @@ class HomeScreen extends StatelessWidget {
                           );
                         },
                         child: Container(
+                          constraints: const BoxConstraints(minHeight: 150),
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                               color: AppColors.secondary80,
@@ -344,11 +349,13 @@ class HomeScreen extends StatelessWidget {
                           );
                         },
                         child: Container(
+                          constraints: const BoxConstraints(minHeight: 150),
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                               color: const Color(0xFFEBFFDE),
                               borderRadius: BorderRadius.circular(12)),
                           child: Column(
+                            mainAxisSize: MainAxisSize.max,
                             children: [
                               SvgPicture.asset(ImageAssets.icIrrVerb),
                               const SizedBox(
@@ -364,10 +371,15 @@ class HomeScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 4,
                               ),
-                              const Text(
-                                "Động từ bất quy tắc",
-                                style: TextStyle(
-                                    color: AppColors.primary20, fontSize: 12),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: const Text(
+                                  "Động từ bất quy tắc",
+                                  style: TextStyle(
+                                    color: AppColors.primary20,
+                                    fontSize: 12,
+                                  ),
+                                ),
                               ),
                             ],
                           ),
