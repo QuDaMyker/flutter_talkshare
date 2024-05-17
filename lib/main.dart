@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_talkshare/modules/auth/views/login_screen.dart';
+import 'package:flutter_talkshare/modules/onboarding/views/onboarding_screen.dart';
 import 'package:flutter_talkshare/modules/splash/views/splash_screen.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
@@ -31,6 +31,7 @@ class MyApp extends StatelessWidget {
         useMaterial3: true,
       ),
       home: SplashScreen(),
+      //home: OnBoardingScreen(),
     );
   }
 }

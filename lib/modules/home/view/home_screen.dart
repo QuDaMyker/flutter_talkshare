@@ -178,7 +178,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       Positioned.fill(
-        top: 280,
+        top: 230,
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: const BoxDecoration(
@@ -186,6 +186,7 @@ class HomeScreen extends StatelessWidget {
               borderRadius: BorderRadius.only(
                   topLeft: Radius.circular(20), topRight: Radius.circular(20))),
           child: SingleChildScrollView(
+            physics: BouncingScrollPhysics(),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -304,6 +305,7 @@ class HomeScreen extends StatelessWidget {
                           );
                         },
                         child: Container(
+                          constraints: const BoxConstraints(minHeight: 150),
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                               color: AppColors.secondary80,
@@ -347,11 +349,13 @@ class HomeScreen extends StatelessWidget {
                           );
                         },
                         child: Container(
+                          constraints: const BoxConstraints(minHeight: 150),
                           padding: const EdgeInsets.all(20),
                           decoration: BoxDecoration(
                               color: const Color(0xFFEBFFDE),
                               borderRadius: BorderRadius.circular(12)),
                           child: Column(
+                            mainAxisSize: MainAxisSize.max,
                             children: [
                               SvgPicture.asset(ImageAssets.icIrrVerb),
                               const SizedBox(
@@ -367,10 +371,15 @@ class HomeScreen extends StatelessWidget {
                               const SizedBox(
                                 height: 4,
                               ),
-                              const Text(
-                                "Động từ bất quy tắc",
-                                style: TextStyle(
-                                    color: AppColors.primary20, fontSize: 12),
+                              Align(
+                                alignment: Alignment.bottomCenter,
+                                child: const Text(
+                                  "Động từ bất quy tắc",
+                                  style: TextStyle(
+                                    color: AppColors.primary20,
+                                    fontSize: 12,
+                                  ),
+                                ),
                               ),
                             ],
                           ),

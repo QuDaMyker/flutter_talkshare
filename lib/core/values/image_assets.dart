@@ -55,6 +55,19 @@ abstract class ImageAssets {
   static const icPassword = 'assets/images/svg/ic_password.svg';
   static const icGoogle = 'assets/images/svg/ic_google.svg';
   static const icSplash = 'assets/images/svg/ic_splash.svg';
+  static const icRedStar = 'assets/images/svg/ic_red_star.svg';
+  static const icOrangeStar = 'assets/images/svg/ic_orange_star.svg';
+  static const icYellowStar = 'assets/images/svg/ic_yellow_star.svg';
+  static const icGreenStar = 'assets/images/svg/ic_green_star.svg';
+  static const icGreenLightStar = 'assets/images/svg/ic_green_light_star.svg';
+  static const icChecked = 'assets/images/svg/ic_checked.svg';
+  static const icAgentEquest = 'assets/images/svg/ic_equest.svg';
+  static const icAgentIla = 'assets/images/svg/ic_ila.svg';
+  static const icAgentLangmaster = 'assets/images/svg/ic_langmaster.svg';
+  static const icAgentApollo = 'assets/images/svg/ic_apollo.svg';
+  static const icAgentAnhle = 'assets/images/svg/ic_anhle.svg';
+  static const icAgentIeltsFighter = 'assets/images/svg/ic_ielts_fighter.svg';
+  static const icAgentVus = 'assets/images/svg/ic_vus.svg';
 
   static const imageBookPsychology =
       'assets/images/png/Psychology_of_money.png';

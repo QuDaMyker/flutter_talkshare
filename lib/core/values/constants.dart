@@ -6,4 +6,5 @@ class Constants {
   static const STATUS_AUTH = 'status_login';
   static const USER_ID = 'user_id';
   static const TAG_AUTHCONTROLLER = 'auth_controller';
+  static const USER_STRING = 'user_string';
 }

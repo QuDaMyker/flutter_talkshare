@@ -1,4 +1,5 @@
 import 'package:either_dart/either.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/configuration/injection.dart';
 import 'package:flutter_talkshare/core/values/constants.dart';
 import 'package:flutter_talkshare/modules/auth/models/fail_model.dart';
@@ -6,6 +7,7 @@ import 'package:flutter_talkshare/modules/auth/models/meta_data_model.dart';
 import 'package:flutter_talkshare/modules/auth/models/success_model.dart';
 import 'package:flutter_talkshare/modules/auth/models/user_model.dart';
 import 'package:flutter_talkshare/modules/auth/services/auth_services.dart';
+import 'package:flutter_talkshare/modules/onboarding/views/onboarding_screen.dart';
 import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -44,9 +46,18 @@ class AuthController extends GetxController {
         );
 
     if (res.isRight) {
-      var sharePrefernces = await getIt<SharedPreferences>();
-      sharePrefernces.setBool(Constants.STATUS_AUTH, true);
-      Get.offAll(() => RootViewScreen());
+      final _user = await AuthServices.instance.getUserFromDB(email: email);
+      if (_user != null) {
+        user = _user;
+        await saveUserString(user);
+        Get.offAll(() => RootViewScreen());
+      } else {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: const Text('Khong tim thay'),
+          ),
+        );
+      }
     }
     isLoadingSignUp.value = false;
   }
@@ -75,9 +86,12 @@ class AuthController extends GetxController {
       var rs = await AuthServices.instance.addUserProfile(userModel: userModel);
       if (rs.isRight) {
         user = rs.right;
-        var sharePrefernces = await getIt<SharedPreferences>();
-        sharePrefernces.setBool(Constants.STATUS_AUTH, true);
-        Get.offAll(() => RootViewScreen());
+        // var sharePrefernces = await getIt<SharedPreferences>();
+        // sharePrefernces.setBool(Constants.STATUS_AUTH, true);
+        // sharePrefernces.setString(
+        //     Constants.USER_STRING, userModel.toJson().toString());
+        await saveUserString(user);
+        Get.offAll(() => OnBoardingScreen());
       } else {
         if (rs.left.message.toString().contains('users_pkey')) {
           Get.snackbar(
@@ -107,8 +121,9 @@ class AuthController extends GetxController {
       );
       var addDb = await AuthServices.instance.addUserProfile(userModel: user);
       if (addDb.isRight) {
-        var sharePrefernces = await getIt<SharedPreferences>();
-        sharePrefernces.setBool(Constants.STATUS_AUTH, true);
+        // var sharePrefernces = await getIt<SharedPreferences>();
+        // sharePrefernces.setBool(Constants.STATUS_AUTH, true);
+        await saveUserString(user);
         Get.offAll(() => RootViewScreen());
       } else {
         print(addDb.left);
@@ -129,5 +144,21 @@ class AuthController extends GetxController {
 
   void onObscureText() {
     isObscureText.value = !isObscureText.value;
+  }
+
+  Future<void> saveUserString(UserModel userModel) async {
+    var sharePrefernces = await getIt<SharedPreferences>();
+    sharePrefernces.setString(
+        Constants.USER_STRING, userModel.toJson().toString());
+  }
+
+  Future<bool> isLogin() async {
+    var sharePrefernces = await getIt<SharedPreferences>();
+    String? userString = await sharePrefernces.getString(Constants.USER_STRING);
+    if (userString == null) {
+      return false;
+    }
+    user = UserModel.fromJson(userString);
+    return true;
   }
 }

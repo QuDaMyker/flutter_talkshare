@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
@@ -98,7 +100,7 @@ class AuthServices {
           'fullname': userModel.fullname,
           'avatar_url': userModel.avatar_url,
           'password': userModel.password,
-          'email': userModel.email,
+          'email': userModel.email.toLowerCase(),
           'isGoogle': userModel.isGoogle,
         });
       }
@@ -115,5 +117,21 @@ class AuthServices {
     final query =
         await supabase.from('users').select('email').eq('email', email).count();
     return query.count;
+  }
+
+  Future<UserModel?> getUserFromDB({required String email}) async {
+    try {
+      final query = await supabase
+          .from('users')
+          .select(
+            'user_id, fullname, avatar_url, password, email, isGoogle',
+          )
+          .eq('email', email);
+
+      return UserModel.fromJson(jsonEncode(query[0]));
+    } catch (e) {
+      debugPrint(e.toString());
+      return null;
+    }
   }
 }

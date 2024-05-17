@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
-import 'package:flutter_talkshare/core/values/constants.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
-import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:flutter_talkshare/modules/splash/controller/splash_controller.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
