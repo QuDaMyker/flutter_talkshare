@@ -118,8 +118,8 @@ class CreateNewListVocabScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SvgPicture.asset(ImageAssets.icEdit),
                     ),
-                    focusedBorder: customBorderWhenFocus(),
-                    enabledBorder: customBorder(),
+                    focusedBorder: Helper.instance.customBorderWhenFocus(),
+                    enabledBorder: Helper.instance.customBorder(),
                   ),
                 ),
                 const SizedBox(
@@ -177,8 +177,9 @@ class CreateNewListVocabScreen extends StatelessWidget {
                                           ? ImageAssets.icAdd2
                                           : ImageAssets.icTag),
                                 ),
-                                focusedBorder: customBorderWhenFocus(),
-                                enabledBorder: customBorder(),
+                                focusedBorder:
+                                    Helper.instance.customBorderWhenFocus(),
+                                enabledBorder: Helper.instance.customBorder(),
                               ),
                             )),
                     ],
@@ -200,8 +201,8 @@ class CreateNewListVocabScreen extends StatelessWidget {
                       padding: const EdgeInsets.symmetric(horizontal: 16),
                       child: SvgPicture.asset(ImageAssets.icChevronDown),
                     ),
-                    focusedBorder: customBorderWhenFocus(),
-                    enabledBorder: customBorder(),
+                    focusedBorder: Helper.instance.customBorderWhenFocus(),
+                    enabledBorder: Helper.instance.customBorder(),
                   ),
                 ),
                 const SizedBox(

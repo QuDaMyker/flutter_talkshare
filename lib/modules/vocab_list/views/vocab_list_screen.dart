@@ -136,7 +136,7 @@ class VocabListScreen extends StatelessWidget {
                 translatedWordForm: definition.meaning,
                 typeOfWord: definition.partOfSpeech,
                 onSpeak: () {
-                  playWithTTS(definition.word);
+                  Helper.instance.playWithTTS(definition.word);
                 },
               );
             },

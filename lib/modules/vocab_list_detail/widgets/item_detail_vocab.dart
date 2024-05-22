@@ -160,7 +160,7 @@ class ItemDetailVocav extends StatelessWidget {
               alignment: Alignment.centerRight,
               child: InkWell(
                 onTap: () async {
-                  playWithTTS(word);
+                  Helper.instance.playWithTTS(word);
                 },
                 child: Padding(
                   padding: const EdgeInsets.all(16),

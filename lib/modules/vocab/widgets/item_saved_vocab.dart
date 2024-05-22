@@ -100,7 +100,7 @@ class ItemSavedVocab extends StatelessWidget {
               InkWell(
                 onTap: () async {
                   // ENVENT SPEAK
-                  playWithTTS(enWordForm);
+                  Helper.instance.playWithTTS(enWordForm);
                 },
                 child: SizedBox(
                   width: 16,

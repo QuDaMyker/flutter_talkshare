@@ -35,7 +35,8 @@ class ItemCaptionWidget extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Text(formatDuration(itemCaptionModel.subtitleModel.start)),
+            child: Text(Helper.instance
+                .formatDuration(itemCaptionModel.subtitleModel.start)),
           ),
           Expanded(
             flex: 5,

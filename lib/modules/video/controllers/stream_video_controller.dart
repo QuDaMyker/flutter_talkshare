@@ -104,20 +104,22 @@ class StreamVideoController extends GetxController {
         return e.toString().trim();
       }).toList());
     }
-    paragraph.value =
-        capitalizeFirstLetter(paragraph.value.split(' ').join(' '));
+    paragraph.value = Helper.instance
+        .capitalizeFirstLetter(paragraph.value.split(' ').join(' '));
     blankIndexes.value = List.generate(
-      listSubSplit.value.length ~/ 100,
-      (index) => generateRandomInt(1, listSubSplit.value.length),
+      10,
+      (index) =>
+          Helper.instance.generateRandomInt(1, listSubSplit.value.length),
     );
   }
 
   void addListenerYt() {
     ytController.addListener(() {
       if (ytController.value.playerState == PlayerState.playing) {
-        String duration = formatDuration(captions.value[0].start);
-        String positon =
-            formatMilliseconds(ytController.value.position.inMilliseconds);
+        String duration =
+            Helper.instance.formatDuration(captions.value[0].start);
+        String positon = Helper.instance
+            .formatMilliseconds(ytController.value.position.inMilliseconds);
         if (duration == positon) {
           debugPrint('compare: $duration - $positon');
 

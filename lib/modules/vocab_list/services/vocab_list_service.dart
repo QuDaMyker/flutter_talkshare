@@ -1,4 +1,3 @@
-
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
@@ -45,7 +44,7 @@ class VocabListServices {
     if (response.statusCode == 200) {
       WordResponseModel responseModel =
           WordResponseModel.fromJson(json.decode(response.body)[0]);
-      String primaryMeaning = await tranlateToVN(word);
+      String primaryMeaning = await Helper.instance.tranlateToVN(word);
       return Definition(
         definitionId: responseModel
             .meanings![responseModel.meanings!.length - 1]

@@ -93,7 +93,7 @@ class ItemRecentVocab extends StatelessWidget {
           flex: 2,
           child: IconButton(
             onPressed: () {
-              playWithTTS(enWordForm);
+              Helper.instance.playWithTTS(enWordForm);
             },
             icon: const Icon(
               Icons.volume_up_outlined,
