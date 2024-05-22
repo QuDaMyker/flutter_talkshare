@@ -95,14 +95,10 @@ class AuthServices {
   }) async {
     try {
       if (await AuthServices.instance.getEmail(userModel.email) == 0) {
-        await supabase.from('users').insert({
-          'user_id': userModel.user_id,
-          'fullname': userModel.fullname,
-          'avatar_url': userModel.avatar_url,
-          'password': userModel.password,
-          'email': userModel.email.toLowerCase(),
-          'isGoogle': userModel.isGoogle,
-        });
+        await supabase.from('users').insert(userModel.toJson());
+      } else {
+        UserModel? existUser = await getUserFromDB(email: userModel.email);
+        return Right(existUser!);
       }
 
       print('thanh cong');
@@ -124,7 +120,7 @@ class AuthServices {
       final query = await supabase
           .from('users')
           .select(
-            'user_id, fullname, avatar_url, password, email, isGoogle',
+            'user_id, fullname, avatar_url, password, email, isGoogle, role',
           )
           .eq('email', email);
 

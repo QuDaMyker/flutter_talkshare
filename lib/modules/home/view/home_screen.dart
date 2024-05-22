@@ -178,7 +178,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       Positioned.fill(
-        top: 230,
+        top: 260,
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: const BoxDecoration(
@@ -364,9 +364,11 @@ class HomeScreen extends StatelessWidget {
                               const Text(
                                 "Irregular Verbs",
                                 style: TextStyle(
-                                    color: AppColors.primary20,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 18),
+                                  color: AppColors.primary20,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
                               const SizedBox(
                                 height: 4,

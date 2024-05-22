@@ -20,7 +20,8 @@ class AuthController extends GetxController {
   var isObscureText = Rx<bool>(true);
 
   @override
-  void onInit() {
+  void onInit() async {
+    await isLogin();
     super.onInit();
   }
 
@@ -82,6 +83,7 @@ class AuthController extends GetxController {
         email: email,
         password: password,
         isGoogle: false,
+        role: Constants.ROLE_STUDENT,
       );
       var rs = await AuthServices.instance.addUserProfile(userModel: userModel);
       if (rs.isRight) {
@@ -118,12 +120,13 @@ class AuthController extends GetxController {
         avatar_url: metaDataModel.avatarUrl,
         email: metaDataModel.email,
         isGoogle: true,
+        role: Constants.ROLE_STUDENT,
       );
       var addDb = await AuthServices.instance.addUserProfile(userModel: user);
       if (addDb.isRight) {
         // var sharePrefernces = await getIt<SharedPreferences>();
         // sharePrefernces.setBool(Constants.STATUS_AUTH, true);
-        await saveUserString(user);
+        await saveUserString(addDb.right);
         Get.offAll(() => RootViewScreen());
       } else {
         print(addDb.left);

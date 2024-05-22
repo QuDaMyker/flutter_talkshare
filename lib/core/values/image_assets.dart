@@ -68,6 +68,11 @@ abstract class ImageAssets {
   static const icAgentAnhle = 'assets/images/svg/ic_anhle.svg';
   static const icAgentIeltsFighter = 'assets/images/svg/ic_ielts_fighter.svg';
   static const icAgentVus = 'assets/images/svg/ic_vus.svg';
+  static const icElectric = 'assets/images/svg/ic_electric.svg';
+  static const icRight = 'assets/images/svg/ic_right.svg';
+  static const icStreak = 'assets/images/svg/ic_streak.svg';
+  static const icBookmarkFilled = 'assets/images/svg/ic_bookmark_filled.svg';
+  static const icCrown = 'assets/images/svg/ic_crown.svg';
 
   static const imageBookPsychology =
       'assets/images/png/Psychology_of_money.png';
