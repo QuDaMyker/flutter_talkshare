@@ -17,6 +17,11 @@ class AppColors {
     Color(0xFFb1d8ab),
     Color(0xFF219f94),
   ];
+  static const secondaryGradient = [
+    Color(0xFFFFFFEE),
+    Color(0xFFb1d8ab),
+    Color(0xFF219f94),
+  ];
   static const backgroundGradient = [
     Color(0xFFffffff),
     Color(0xFFffffff),

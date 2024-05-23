@@ -68,6 +68,13 @@ abstract class ImageAssets {
   static const icAgentAnhle = 'assets/images/svg/ic_anhle.svg';
   static const icAgentIeltsFighter = 'assets/images/svg/ic_ielts_fighter.svg';
   static const icAgentVus = 'assets/images/svg/ic_vus.svg';
+  static const icCopy = 'assets/images/svg/ic_copy.svg';
+  static const icThumbtack = 'assets/images/svg/ic_thumbtack.svg';
+  static const bgCreateGame = 'assets/images/png/bg_create_game.png';
+  static const bgWaiting = 'assets/images/png/bg_waiting.png';
+  static const btnFriend = 'assets/images/png/btn_friend.png';
+  static const btnRandom = 'assets/images/png/btn_random.png';
+  static const gameTitle = 'assets/images/png/game_title.png';
 
   static const imageBookPsychology =
       'assets/images/png/Psychology_of_money.png';
