@@ -55,9 +55,10 @@ class AuthServices {
 
   Future<Either<FailModel, AuthResponse>> nativeGoogleSignIn() async {
     try {
-      final webClientId = '${dotenv.get('google_client_id')}';
+      final webClientId = '${dotenv.get('web_google_client_id')}';
       print(webClientId);
-      const iosClientId = 'my-ios.apps.googleusercontent.com';
+      final iosClientId = '${dotenv.get('ios_google_client_id')}';
+      print(webClientId);
       final GoogleSignIn googleSignIn = GoogleSignIn(
         clientId: iosClientId,
         serverClientId: webClientId,
@@ -126,7 +127,7 @@ class AuthServices {
 
       return UserModel.fromJson(jsonEncode(query[0]));
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('[AuthServices][getUserFromDB]: ${e.toString()}');
       return null;
     }
   }

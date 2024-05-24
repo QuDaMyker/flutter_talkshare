@@ -70,17 +70,18 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
         ],
       ),
       child: TableCalendar(
+        availableGestures: AvailableGestures.horizontalSwipe,
         firstDay: DateTime.utc(2024, 1, 1),
         lastDay: DateTime.utc(2030, 1, 1),
         focusedDay: _focusedDay,
         selectedDayPredicate: (day) => isSameDay(_selectedDay, day),
         calendarFormat: _calendarFormat,
         startingDayOfWeek: StartingDayOfWeek.monday,
-        onDaySelected: _onDaySelected,
-        //onRangeSelected: _onRangeSelected,
-        rangeSelectionMode: RangeSelectionMode.toggledOn,
+        // onDaySelected: _onDaySelected,
+        rangeSelectionMode: RangeSelectionMode.toggledOff,
         rangeStartDay: widget.start,
         rangeEndDay: widget.end,
+
         rowHeight: 45,
         formatAnimationCurve: Curves.bounceIn,
         onFormatChanged: (format) {
@@ -106,29 +107,29 @@ class _TableCalendarWidgetState extends State<TableCalendarWidget> {
         ),
         headerVisible: true,
         calendarStyle: const CalendarStyle(
-          rangeHighlightColor: AppColors.primary50,
+          rangeHighlightColor: AppColors.secondary60,
           rangeHighlightScale: 1,
           rangeEndTextStyle: const TextStyle(color: Colors.white),
           rangeStartTextStyle: const TextStyle(color: Colors.white),
           rangeStartDecoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.primary40,
+            color: AppColors.secondary20,
           ),
           rangeEndDecoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.primary40,
+            color: AppColors.secondary20,
           ),
           outsideDaysVisible: false,
           defaultTextStyle: TextStyle(
             color: Colors.black,
           ),
           todayTextStyle: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w600,
+            color: Colors.black,
+            fontWeight: FontWeight.w500,
           ),
           todayDecoration: BoxDecoration(
             shape: BoxShape.circle,
-            color: AppColors.secondary20,
+            color: AppColors.primary50,
           ),
           selectedTextStyle: TextStyle(
             color: Colors.white,

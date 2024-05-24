@@ -3,16 +3,18 @@ import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/request_teacher/controller/request_teacher_controller.dart';
 import 'package:flutter_talkshare/modules/request_teacher/widgets/custom_teacher_text_field.dart';
 import 'package:get/get.dart';
+import 'package:loading_animation_widget/loading_animation_widget.dart';
 
-class CreateRequestRoleTeacher extends StatefulWidget {
-  const CreateRequestRoleTeacher({super.key});
+class CreateRequestRoleTeacherScreen extends StatefulWidget {
+  const CreateRequestRoleTeacherScreen({super.key});
 
   @override
-  State<CreateRequestRoleTeacher> createState() =>
-      _CreateRequestRoleTeacherState();
+  State<CreateRequestRoleTeacherScreen> createState() =>
+      _CreateRequestRoleTeacherScreenState();
 }
 
-class _CreateRequestRoleTeacherState extends State<CreateRequestRoleTeacher> {
+class _CreateRequestRoleTeacherScreenState
+    extends State<CreateRequestRoleTeacherScreen> {
   late final GlobalKey<FormState> formKey;
   late final TextEditingController agentController;
   late final TextEditingController teacherIdController;
@@ -64,7 +66,7 @@ class _CreateRequestRoleTeacherState extends State<CreateRequestRoleTeacher> {
                   maxLines: 5,
                 ),
                 const Spacer(),
-                _buildButtonSendRequest(),
+                _buildButtonSendRequest(controller: requestTeacherController),
                 const SizedBox(
                   height: 20,
                 ),
@@ -76,35 +78,54 @@ class _CreateRequestRoleTeacherState extends State<CreateRequestRoleTeacher> {
     );
   }
 
-  GestureDetector _buildButtonSendRequest() {
-    return GestureDetector(
-      onTap: () {
-        if (formKey.currentState!.validate()) {
-          print('object');
-        }
-      },
-      child: Row(
-        children: [
-          Expanded(
-            child: Container(
-              padding: const EdgeInsets.symmetric(vertical: 12),
-              decoration: BoxDecoration(
-                color: AppColors.secondary20,
-                borderRadius: BorderRadius.circular(12),
+  Widget _buildButtonSendRequest({
+    required RequestTeacherController controller,
+  }) {
+    return Obx(
+      () => controller.isLoadingSubmit.value == false
+          ? GestureDetector(
+              onTap: () async {
+                if (formKey.currentState!.validate()) {
+                  formKey.currentState!.save();
+
+                  await requestTeacherController.setRole(
+                    agentName: agentController.text.trim(),
+                    teacherId: teacherIdController.text.trim(),
+                    content: contentController.text.trim(),
+                  );
+                }
+              },
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 12),
+                      decoration: BoxDecoration(
+                        color: AppColors.secondary20,
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Text(
+                        'Gửi yêu cầu',
+                        style: const TextStyle(
+                          color: Colors.white,
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                        ),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
               ),
-              child: Text(
-                'Gửi yêu cầu',
-                style: const TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-                textAlign: TextAlign.center,
+            )
+          : Center(
+              child: LoadingAnimationWidget.discreteCircle(
+                secondRingColor: AppColors.secondary20,
+                thirdRingColor: AppColors.gray40,
+                color: AppColors.primary40,
+                size: 30,
               ),
             ),
-          ),
-        ],
-      ),
     );
   }
 

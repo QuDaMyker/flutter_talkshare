@@ -1,6 +1,7 @@
 import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/configuration/injection.dart';
+import 'package:flutter_talkshare/core/enums/role.dart';
 import 'package:flutter_talkshare/core/values/constants.dart';
 import 'package:flutter_talkshare/modules/auth/models/fail_model.dart';
 import 'package:flutter_talkshare/modules/auth/models/meta_data_model.dart';
@@ -83,7 +84,8 @@ class AuthController extends GetxController {
         email: email,
         password: password,
         isGoogle: false,
-        role: Constants.ROLE_STUDENT,
+        // role: Constants.ROLE_STUDENT,
+        role: Role.ROLE_STUDENT.toStringValue,
       );
       var rs = await AuthServices.instance.addUserProfile(userModel: userModel);
       if (rs.isRight) {
@@ -111,7 +113,6 @@ class AuthController extends GetxController {
   Future<void> onGoogleAuth() async {
     var res = await AuthServices.instance.nativeGoogleSignIn();
     if (res.isRight) {
-      Get.snackbar('title', 'message');
       MetaDataModel metaDataModel = MetaDataModel.fromMap(
           res.right.user!.userMetadata as Map<String, dynamic>);
       user = UserModel(
@@ -120,7 +121,8 @@ class AuthController extends GetxController {
         avatar_url: metaDataModel.avatarUrl,
         email: metaDataModel.email,
         isGoogle: true,
-        role: Constants.ROLE_STUDENT,
+        // role: Constants.ROLE_STUDENT,
+        role: Role.ROLE_STUDENT.toStringValue,
       );
       var addDb = await AuthServices.instance.addUserProfile(userModel: user);
       if (addDb.isRight) {

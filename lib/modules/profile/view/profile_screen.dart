@@ -1,24 +1,31 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:flutter_talkshare/core/configuration/injection.dart';
+import 'package:flutter_talkshare/core/enums/role.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
-import 'package:flutter_talkshare/core/values/constants.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
+import 'package:flutter_talkshare/modules/profile/controller/profile_controller.dart';
 import 'package:flutter_talkshare/modules/profile/widgets/circle_winner_widget.dart';
 import 'package:flutter_talkshare/modules/profile/widgets/table_calendar_widget.dart';
 import 'package:flutter_talkshare/modules/ranking/views/ranking_screen.dart';
-import 'package:flutter_talkshare/modules/request_teacher/views/create_request_role_teacher.dart';
+import 'package:flutter_talkshare/modules/request_teacher/views/create_request_role_teacher_screen.dart';
 import 'package:get/get.dart';
 
-class ProfileScreen extends StatelessWidget {
+class ProfileScreen extends StatefulWidget {
   const ProfileScreen({super.key});
 
   @override
+  State<ProfileScreen> createState() => _ProfileScreenState();
+}
+
+class _ProfileScreenState extends State<ProfileScreen> {
+  @override
   Widget build(BuildContext context) {
     AuthController authController = Get.find<AuthController>();
-    // Get.find<AuthController>();
+    // ProfileController profileController = Get.find<ProfileController>();
+    ProfileController profileController = Get.put(ProfileController());
+
     return Scaffold(
       backgroundColor: AppColors.secondary80,
       body: SingleChildScrollView(
@@ -26,8 +33,14 @@ class ProfileScreen extends StatelessWidget {
         child: Container(
           child: Column(
             children: [
-              _buildTopComponent(authController),
-              _buildMainBody(authController),
+              _buildTopComponent(
+                authController: authController,
+                profileController: profileController,
+              ),
+              _buildMainBody(
+                authController: authController,
+                profileController: profileController,
+              ),
             ],
           ),
         ),
@@ -35,7 +48,10 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Container _buildMainBody(AuthController authController) {
+  Container _buildMainBody({
+    required AuthController authController,
+    required ProfileController profileController,
+  }) {
     return Container(
       padding: const EdgeInsets.symmetric(horizontal: 15),
       child: Column(
@@ -56,11 +72,22 @@ class ProfileScreen extends StatelessWidget {
           const SizedBox(
             height: 20,
           ),
-          authController.user.role != Constants.ROLE_STUDENT
+          // authController.user.role != Role.ROLE_STUDENT.toStringValue
+          authController.user.role == Role.ROLE_STUDENT.toStringValue
               ? Column(
                   children: [
-                    _buildButtonChangeRoleTeacher(onTap: () {
-                      Get.to(() => CreateRequestRoleTeacher());
+                    _buildButtonChangeRoleTeacher(onTap: () async {
+                      //Get.to(() => CreateRequestRoleTeacherScreen());
+                      final signal = await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                CreateRequestRoleTeacherScreen(),
+                          ));
+                      print(signal);
+                      if (signal['result'] == 'success') {
+                        setState(() {});
+                      }
                     }),
                     const SizedBox(
                       height: 20,
@@ -122,28 +149,32 @@ class ProfileScreen extends StatelessWidget {
         ),
         Row(
           mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            Column(
-              children: [
-                const Text(
-                  '12',
-                  style: TextStyle(
-                    fontSize: 48,
-                    color: AppColors.secondary20,
-                    fontWeight: FontWeight.bold,
+            Expanded(
+              child: Column(
+                children: [
+                  const Text(
+                    '12',
+                    style: TextStyle(
+                      fontSize: 48,
+                      color: AppColors.secondary20,
+                      fontWeight: FontWeight.bold,
+                    ),
                   ),
-                ),
-                const Text(
-                  'Ngày Streak',
-                  style: TextStyle(),
-                ),
-              ],
+                  const Text(
+                    'Ngày Streak',
+                    style: TextStyle(),
+                  ),
+                ],
+              ),
             ),
-            SvgPicture.asset(
-              ImageAssets.icElectric,
-              height: 100,
-              width: 100,
+            Expanded(
+              child: SvgPicture.asset(
+                ImageAssets.icElectric,
+                height: 100,
+                width: 100,
+              ),
             ),
           ],
         ),
@@ -151,7 +182,10 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Stack _buildTopComponent(AuthController authController) {
+  Stack _buildTopComponent({
+    required AuthController authController,
+    required ProfileController profileController,
+  }) {
     return Stack(
       //fit: StackFit.expand,
       children: [
@@ -177,7 +211,10 @@ class ProfileScreen extends StatelessWidget {
         Positioned.fill(
           child: Align(
             alignment: Alignment.bottomCenter,
-            child: _buildLabelUser(authController: authController),
+            child: _buildLabelUser(
+              authController: authController,
+              profileController: profileController,
+            ),
           ),
         ),
       ],
@@ -186,6 +223,7 @@ class ProfileScreen extends StatelessWidget {
 
   Widget _buildLabelUser({
     required AuthController authController,
+    required ProfileController profileController,
   }) {
     return Container(
       height: 100,
@@ -233,10 +271,10 @@ class ProfileScreen extends StatelessWidget {
           Expanded(
             flex: 4,
             child: _buildNavigateRank(
-              ontap: () {
-                Get.to(() => RankingScreen());
-              },
-            ),
+                ontap: () {
+                  Get.to(() => RankingScreen());
+                },
+                profileController: profileController),
           ),
         ],
       ),
@@ -272,17 +310,17 @@ class ProfileScreen extends StatelessWidget {
         Container(
           padding: const EdgeInsets.all(4),
           decoration: BoxDecoration(
-            color: authController.user.role == Constants.ROLE_STUDENT
+            color: authController.user.role == Role.ROLE_STUDENT.toStringValue
                 ? AppColors.gray80
                 : AppColors.primary40,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Text(
-            authController.user.role == Constants.ROLE_STUDENT
+            authController.user.role == Role.ROLE_STUDENT.toStringValue
                 ? 'Thành viên'
                 : 'Giáo viên',
             style: TextStyle(
-              color: authController.user.role == Constants.ROLE_STUDENT
+              color: authController.user.role == Role.ROLE_STUDENT.toStringValue
                   ? AppColors.gray20
                   : Colors.white,
               fontSize: 12,
@@ -294,7 +332,10 @@ class ProfileScreen extends StatelessWidget {
     );
   }
 
-  Widget _buildNavigateRank({required Function() ontap}) {
+  Widget _buildNavigateRank({
+    required Function() ontap,
+    required ProfileController profileController,
+  }) {
     return GestureDetector(
       onTap: ontap,
       child: Container(
@@ -328,12 +369,14 @@ class ProfileScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      const Text(
-                        '2',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.black,
-                          fontWeight: FontWeight.w600,
+                      Obx(
+                        () => Text(
+                          profileController.sumPoint.value.toString(),
+                          style: TextStyle(
+                            fontSize: 20,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w600,
+                          ),
                         ),
                       ),
                       const SizedBox(
