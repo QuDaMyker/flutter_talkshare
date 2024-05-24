@@ -8,6 +8,7 @@ class UserModel {
   final String password;
   final String email;
   final bool isGoogle;
+  final String role;
   UserModel({
     required this.user_id,
     required this.fullname,
@@ -15,6 +16,7 @@ class UserModel {
     this.password = '',
     required this.email,
     required this.isGoogle,
+    required this.role,
   });
 
   UserModel copyWith({
@@ -24,6 +26,7 @@ class UserModel {
     String? password,
     String? email,
     bool? isGoogle,
+    String? role,
   }) {
     return UserModel(
       user_id: user_id ?? this.user_id,
@@ -32,6 +35,7 @@ class UserModel {
       password: password ?? this.password,
       email: email ?? this.email,
       isGoogle: isGoogle ?? this.isGoogle,
+      role: role ?? this.role,
     );
   }
 
@@ -43,6 +47,7 @@ class UserModel {
       'password': password,
       'email': email,
       'isGoogle': isGoogle,
+      'role': role,
     };
   }
 
@@ -54,6 +59,7 @@ class UserModel {
       password: map['password'] as String,
       email: map['email'] as String,
       isGoogle: map['isGoogle'] as bool,
+      role: map['role'] as String,
     );
   }
 
@@ -64,7 +70,7 @@ class UserModel {
 
   @override
   String toString() {
-    return 'UserModel(user_id: $user_id, fullname: $fullname, avatar_url: $avatar_url, password: $password, email: $email), isGoogle: $isGoogle';
+    return 'UserModel(user_id: $user_id, fullname: $fullname, avatar_url: $avatar_url, password: $password, email: $email, isGoogle: $isGoogle, role: $role)';
   }
 
   @override
@@ -76,7 +82,8 @@ class UserModel {
         other.avatar_url == avatar_url &&
         other.password == password &&
         other.email == email &&
-        other.isGoogle == isGoogle;
+        other.isGoogle == isGoogle &&
+        other.role == role;
   }
 
   @override
@@ -86,6 +93,7 @@ class UserModel {
         avatar_url.hashCode ^
         password.hashCode ^
         email.hashCode ^
-        isGoogle.hashCode;
+        isGoogle.hashCode ^
+        role.hashCode;
   }
 }

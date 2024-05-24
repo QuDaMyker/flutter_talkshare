@@ -7,7 +7,6 @@ import 'package:flutter_talkshare/modules/books/controller/book_list_screen_cont
 import 'package:flutter_talkshare/modules/books/widgets/book_widget.dart';
 import 'package:flutter_talkshare/modules/books/widgets/scrollable_books_widget.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class BooksListScreen extends StatelessWidget {
   BooksListScreen({super.key});
@@ -89,17 +88,19 @@ class BooksListScreen extends StatelessWidget {
                   child: SvgPicture.asset(ImageAssets.icSearch),
                 ),
                 prefixIconConstraints: const BoxConstraints(),
-                suffixIcon: boolListController.isInputNotEmpty.value ? GestureDetector(
-                  onTap: () {
-                    boolListController.searchController.clear();
-                    boolListController.isInputNotEmpty.value = false;
-                    boolListController.isSearching.value = false;
-                  },
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: SvgPicture.asset(ImageAssets.icClose),
-                  ),
-                ) : null,
+                suffixIcon: boolListController.isInputNotEmpty.value
+                    ? GestureDetector(
+                        onTap: () {
+                          boolListController.searchController.clear();
+                          boolListController.isInputNotEmpty.value = false;
+                          boolListController.isSearching.value = false;
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: SvgPicture.asset(ImageAssets.icClose),
+                        ),
+                      )
+                    : null,
                 suffixIconConstraints: const BoxConstraints(),
               ),
             );
@@ -108,7 +109,8 @@ class BooksListScreen extends StatelessWidget {
             height: 20,
           ),
           Container(
-              child: Obx(() => _buildListBook(deviceHeight * 0.75, deviceWidth)))
+              child:
+                  Obx(() => _buildListBook(deviceHeight * 0.75, deviceWidth)))
         ]),
       ),
     );

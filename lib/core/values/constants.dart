@@ -7,4 +7,7 @@ class Constants {
   static const USER_ID = 'user_id';
   static const TAG_AUTHCONTROLLER = 'auth_controller';
   static const USER_STRING = 'user_string';
+  static const ROLE_ADMIN = 'role_admin';
+  static const ROLE_STUDENT = 'role_student';
+  static const ROLE_TEACHER = 'role_teacher';
 }
