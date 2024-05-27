@@ -1,23 +1,35 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
+import 'package:flutter_talkshare/core/values/grammar.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/grammar/controllers/gramar_controller.dart';
+import 'package:get/get.dart';
+import 'package:flutter/services.dart' show rootBundle;
+
+
 
 class DetailGrammarScreen extends StatelessWidget {
   final String grammar;
   final String meaning;
 
-  const DetailGrammarScreen({super.key, required this.grammar, required this.meaning});
+  DetailGrammarScreen(
+      {super.key, required this.grammar, required this.meaning});
+
 
   @override
   Widget build(BuildContext context) {
-    double deviceHeight = MediaQuery.of(context).size.height;
-    double deviceWidth = MediaQuery.of(context).size.width;
+
+    final GrammarController controller = Get.put(GrammarController(grammar: grammar));
+    
+
+    final double deviceHeight = MediaQuery.of(context).size.height;
+    final double deviceWidth = MediaQuery.of(context).size.width;
 
     return SafeArea(
         child: Scaffold(
       appBar: _buildAppBar(context),
-      body: _buildBody(context, deviceHeight, deviceWidth),
+      body: _buildBody(context, deviceHeight, deviceWidth,  controller),
     ));
   }
 
@@ -48,7 +60,7 @@ class DetailGrammarScreen extends StatelessWidget {
   }
 
   Padding _buildBody(
-      BuildContext context, double deviceHeight, double deviceWidth) {
+      BuildContext context, double deviceHeight, double deviceWidth, GrammarController grammarController) {
     return Padding(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -93,60 +105,59 @@ class DetailGrammarScreen extends StatelessWidget {
               ],
             ),
           ),
-          
-        SizedBox(height: 20,),
-        Container(
-          height: deviceHeight * 0.615,
-          width: deviceWidth - 40,
-          decoration: BoxDecoration(color: Colors.amber),
-          child: SingleChildScrollView(
-            child: Text(
-            "dòng này chứa nooi" * 100,
-            style: TextStyle(
-              color: AppColors.gray20,
-              fontSize: 15,
-              fontWeight: FontWeight.w300,
+          SizedBox(
+            height: 15,
+          ),
+          Container(
+              height: deviceHeight * 0.632,
+              width: deviceWidth - 40,
+              decoration: BoxDecoration(color: Colors.amber),
+              child: SingleChildScrollView(
+                  child:
+                  Text(
+                  grammarController.fileContent.value,
+                  style: TextStyle(
+                    color: AppColors.gray20,
+                    fontSize: 15,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                  )),
+          SizedBox(
+            height: 15,
+          ),
+          Container(
+            height: deviceHeight * 0.08,
+            decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(12),
+                border: Border.all(
+                  color: AppColors.gray20,
+                )),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Làm bài tập",
+                  style: TextStyle(
+                    color: AppColors.gray20,
+                    fontSize: 18,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+                SizedBox(
+                  width: 5,
+                ),
+                Text(
+                  "(sắp ra mắt)",
+                  style: TextStyle(
+                    color: AppColors.gray20,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ],
             ),
-          ),
           )
-        ),
-        SizedBox(height: 20,),
-
-        Container(
-          height: deviceHeight * 0.08,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(12),
-            border: Border.all(
-              color: AppColors.gray20,
-            )
-          ),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Text(
-                "Làm bài tập",
-                style: TextStyle(
-                  color: AppColors.gray20,
-                  fontSize: 18,
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-              SizedBox(width: 5,),
-              Text(
-                "(sắp ra mắt)",
-                style: TextStyle(
-                  color: AppColors.gray20,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w300,
-                ),
-              ),
-              
-            ],
-          ),
-        )
-
-        
-
         ],
       ),
     );
