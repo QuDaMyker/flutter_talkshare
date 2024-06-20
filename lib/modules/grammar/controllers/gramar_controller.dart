@@ -132,7 +132,6 @@ class GrammarController extends GetxController {
         break;
       case "Future Continuous":
         // Xử lý cho "Future Continuous"
-        print("Handling Future Continuous");
         fileName = Grammar.future_continuous;
 
         break;

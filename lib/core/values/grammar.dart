@@ -33,6 +33,6 @@ abstract class Grammar {
   static const wh_questions = 'assets/grammar/wh_questions.txt';
   static const tags_questions = 'assets/grammar/tags_questions.txt';
   static const definiting_non_definiting_relatives_clauses = 'assets/grammar/definiting_non_definiting_relatives_clauses.txt';
-  static const relative_pronounns = 'assets/grammar/relative_pronounns.txt';
+  static const relative_pronounns = 'assets/grammar/relative_pronouns.txt';
 
 }

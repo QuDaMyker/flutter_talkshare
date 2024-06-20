@@ -1,0 +1,44 @@
+###I. Định nghĩa và cách dùng câu điều kiện hỗn hợp (Mixed Conditional)
+Câu điều kiện hỗn hợp (Mixed Conditional) được sử dụng để diễn tả các tình huống giả định liên quan đến thời gian hiện tại và quá khứ, nơi mệnh đề điều kiện và mệnh đề chính nằm ở các thời gian khác nhau. Thông thường, có hai loại câu điều kiện hỗn hợp chính: giả định quá khứ - hiện tại và giả định hiện tại - quá khứ.
+
+###II. Các loại câu điều kiện hỗn hợp và cấu trúc
+*1. Giả định quá khứ - hiện tại
+Câu điều kiện hỗn hợp loại này được dùng để diễn tả một điều kiện không có thật trong quá khứ và kết quả giả định ở hiện tại.
+
+a. Công thức:
+
+If + S + had + V-ed/V3, S + would + V (nguyên thể).
+b. Ví dụ:
+
+If I had studied harder, I would have a better job now. (Nếu tôi đã học chăm chỉ hơn, tôi đã có công việc tốt hơn bây giờ.)
+If he had taken the medicine, he would feel better now. (Nếu anh ấy đã uống thuốc, anh ấy sẽ cảm thấy tốt hơn bây giờ.)
+*2. Giả định hiện tại - quá khứ
+Câu điều kiện hỗn hợp loại này được dùng để diễn tả một điều kiện không có thật ở hiện tại và kết quả giả định trong quá khứ.
+
+a. Công thức:
+
+If + S + V (quá khứ đơn), S + would have + V-ed/V3.
+b. Ví dụ:
+
+If she were more careful, she wouldn't have made that mistake yesterday. (Nếu cô ấy cẩn thận hơn, cô ấy đã không mắc lỗi đó hôm qua.)
+If I were rich, I would have bought that house last year. (Nếu tôi giàu, tôi đã mua ngôi nhà đó năm ngoái.)
+###III. Các cách dùng cụ thể của câu điều kiện hỗn hợp
+*1.Diễn tả các tình huống giả định liên quan đến quá khứ và hiện tại:
+Ví dụ: If they had left earlier, they would be here now. (Nếu họ đã rời đi sớm hơn, họ đã ở đây bây giờ.)
+*2.Diễn tả các tình huống giả định liên quan đến hiện tại và quá khứ:
+Ví dụ: If I weren't afraid of heights, I would have climbed the mountain with you. (Nếu tôi không sợ độ cao, tôi đã leo núi cùng bạn.)
+###IV. Dấu hiệu nhận biết câu điều kiện hỗn hợp
+*1.Câu có từ "if" và mệnh đề điều kiện nằm ở một thì khác với mệnh đề chính:
+Ví dụ: If he had studied harder, he would be successful now. (Nếu anh ấy đã học chăm chỉ hơn, anh ấy đã thành công bây giờ.)
+*2.Cấu trúc của câu điều kiện hỗn hợp kết hợp giữa các thì của câu điều kiện loại 2 và loại 3:
+Ví dụ: If I weren't so busy, I would have gone to the party last night. (Nếu tôi không quá bận, tôi đã đi dự tiệc tối qua.)
+###V. Câu khẳng định, phủ định và nghi vấn với câu điều kiện hỗn hợp
+*1.Câu khẳng định:
+If + S + had + V-ed/V3, S + would + V (nguyên thể).
+Ví dụ: If she had been more attentive, she would know what to do now. (Nếu cô ấy chú ý hơn, cô ấy đã biết phải làm gì bây giờ.)
+*2.Câu phủ định:
+If + S + hadn't + V-ed/V3, S + wouldn't + V (nguyên thể).
+Ví dụ: If they hadn't missed the train, they would be here now. (Nếu họ không lỡ chuyến tàu, họ đã ở đây bây giờ.)
+*3.Câu nghi vấn:
+Would + S + V (nguyên thể) + if + S + had + V-ed/V3?
+Ví dụ: Would you be happy if you had married him? (Bạn có hạnh phúc không nếu bạn đã kết hôn với anh ấy?)
