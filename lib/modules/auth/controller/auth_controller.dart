@@ -8,6 +8,7 @@ import 'package:flutter_talkshare/modules/auth/models/meta_data_model.dart';
 import 'package:flutter_talkshare/modules/auth/models/success_model.dart';
 import 'package:flutter_talkshare/modules/auth/models/user_model.dart';
 import 'package:flutter_talkshare/modules/auth/services/auth_services.dart';
+import 'package:flutter_talkshare/modules/auth/widgets/custom_auth_dialog.dart';
 import 'package:flutter_talkshare/modules/onboarding/views/onboarding_screen.dart';
 import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
 import 'package:get/get.dart';
@@ -18,6 +19,7 @@ class AuthController extends GetxController {
 
   var isLoadingLogin = Rx<bool>(false);
   var isLoadingSignUp = Rx<bool>(false);
+  var isLoadingForgotPassword = Rx<bool>(false);
   var isObscureText = Rx<bool>(true);
 
   @override
@@ -56,12 +58,18 @@ class AuthController extends GetxController {
       } else {
         ScaffoldMessenger.of(Get.context!).showSnackBar(
           SnackBar(
-            content: const Text('Khong tim thay'),
+            content: const Text('Không tìm thấy tài khoản'),
           ),
         );
       }
+    } else {
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
+        SnackBar(
+          content: Text('Lỗi: ${res.left}'),
+        ),
+      );
     }
-    isLoadingSignUp.value = false;
+    isLoadingLogin.value = false;
   }
 
   Future<void> onSignUp({
@@ -152,6 +160,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> saveUserString(UserModel userModel) async {
+    user = userModel;
     var sharePrefernces = await getIt<SharedPreferences>();
     sharePrefernces.setString(
         Constants.USER_STRING, userModel.toJson().toString());
@@ -165,5 +174,51 @@ class AuthController extends GetxController {
     }
     user = UserModel.fromJson(userString);
     return true;
+  }
+
+  Future<void> forgotPassword({required String email}) async {
+    isLoadingForgotPassword.value = true;
+    var result = await AuthServices.instance.resetPassword(email: email);
+
+    if (result.isRight) {
+      Get.dialog(
+        PopScope(
+          canPop: false,
+          child: CustomAuthDialog(
+            pathBackgroundLottie:
+                'assets/images/lottie/ic_text_congratulation.json',
+            pathLottie: 'assets/images/lottie/ic_effect_congratulation.json',
+            titleButton: 'Vui lòng kiểm tra email để lấy lại mật khẩu',
+            onTap: () {
+              Navigator.pop(Get.context!);
+              // Navigator.pop(
+              //   Get.context!,
+              //   {'result': 'success'},
+              // );
+            },
+          ),
+        ),
+      );
+    } else {
+      Get.dialog(
+        PopScope(
+          canPop: false,
+          child: CustomAuthDialog(
+            pathBackgroundLottie:
+                'assets/images/lottie/ic_text_congratulation.json',
+            pathLottie: 'assets/images/lottie/ic_effect_congratulation.json',
+            titleButton: result.left.message,
+            onTap: () {
+              Navigator.pop(Get.context!);
+              // Navigator.pop(
+              //   Get.context!,
+              //   {'result': 'success'},
+              // );
+            },
+          ),
+        ),
+      );
+    }
+    isLoadingForgotPassword.value = false;
   }
 }

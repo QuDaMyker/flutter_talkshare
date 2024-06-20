@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_talkshare/modules/onboarding/views/onboarding_screen.dart';
-import 'package:flutter_talkshare/modules/profile/view/profile_screen.dart';
 import 'package:flutter_talkshare/modules/splash/views/splash_screen.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
@@ -12,7 +10,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
   await SupabaseService.instance.init();
-
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+  );
   configureDependencies();
 
   runApp(const MyApp());

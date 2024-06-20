@@ -70,6 +70,10 @@ class Helper {
     return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
+  String formatDateTimeToYyyyMmDd(DateTime date) {
+    return DateFormat('yyyy-MM-dd').format(date);
+  }
+
   String formatDateTimeToDdMmYyyy(DateTime date) {
     final formatter = DateFormat('dd-MM-yyyy');
     return formatter.format(date);
