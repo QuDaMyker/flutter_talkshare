@@ -7,8 +7,6 @@ import 'package:flutter_talkshare/modules/grammar/controllers/gramar_controller.
 import 'package:get/get.dart';
 import 'package:flutter/services.dart' show rootBundle;
 
-
-
 class DetailGrammarScreen extends StatelessWidget {
   final String grammar;
   final String meaning;
@@ -16,12 +14,10 @@ class DetailGrammarScreen extends StatelessWidget {
   DetailGrammarScreen(
       {super.key, required this.grammar, required this.meaning});
 
-
   @override
   Widget build(BuildContext context) {
-
-    final GrammarController controller = Get.put(GrammarController(grammar: grammar));
-    
+    final GrammarController controller =
+        Get.put(GrammarController(grammar: grammar));
 
     final double deviceHeight = MediaQuery.of(context).size.height;
     final double deviceWidth = MediaQuery.of(context).size.width;
@@ -29,7 +25,7 @@ class DetailGrammarScreen extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: _buildAppBar(context),
-      body: _buildBody(context, deviceHeight, deviceWidth,  controller),
+      body: _buildBody(context, deviceHeight, deviceWidth, controller),
     ));
   }
 
@@ -59,8 +55,8 @@ class DetailGrammarScreen extends StatelessWidget {
     );
   }
 
-  Padding _buildBody(
-      BuildContext context, double deviceHeight, double deviceWidth, GrammarController grammarController) {
+  Padding _buildBody(BuildContext context, double deviceHeight,
+      double deviceWidth, GrammarController grammarController) {
     return Padding(
       padding: EdgeInsets.all(20),
       child: Column(
@@ -111,18 +107,45 @@ class DetailGrammarScreen extends StatelessWidget {
           Container(
               height: deviceHeight * 0.632,
               width: deviceWidth - 40,
-              decoration: BoxDecoration(color: Colors.amber),
-              child: SingleChildScrollView(
-                  child:
-                  Text(
-                  grammarController.fileContent.value,
-                  style: TextStyle(
-                    color: AppColors.gray20,
-                    fontSize: 15,
-                    fontWeight: FontWeight.w300,
-                  ),
-                ),
-                  )),
+              child: ListView.builder(
+                  itemCount: grammarController.lines.length,
+                  itemBuilder: (context, index) {
+                    final line = grammarController.lines[index];
+                    if (line.startsWith('###')) {
+                      return Text(
+                        line.substring(3).trim(),
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: AppColors.primary40,
+                          fontSize: 16,
+                        ),
+                      );
+                    } else if (line.startsWith('*')) {
+                      return Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 5, vertical: 10),
+                        child: Text(
+                          line.substring(1).trim(),
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            color: AppColors.secondary20,
+                            fontSize: 16,
+                          ),
+                        ),
+                      );
+                    } else {
+                      return Padding(
+                        padding: const EdgeInsets.only(bottom: 6),
+                        child: Text(
+                          line.trim(),
+                          style: TextStyle(
+                            color: AppColors.gray20,
+                            fontSize: 14,
+                          ),
+                        ),
+                      );
+                    }
+                  })),
           SizedBox(
             height: 15,
           ),

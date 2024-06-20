@@ -80,6 +80,7 @@ class ListGrammaScreen extends StatelessWidget {
       "Điểu kiện loại 3",
       "Điều kiện hỗn hợp",
       "Câu bị động",
+      "Câu gián tiếp",
       "Câu hỏi Yes/No",
       "Câu hỏi Wh-",
       "Câu hỏi đuôi",
@@ -153,13 +154,18 @@ Padding _buildBody(double deviceHeight, double deviceWidth,
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(
+                          SizedBox(
+                            width: deviceWidth * 0.7,
+                            child: Text(
                             grammars[index],
                             style: TextStyle(
                               color: AppColors.primary20,
                               fontSize: 18,
                               fontWeight: FontWeight.w700,
                             ),
+                            softWrap: true,
+                            overflow: TextOverflow.visible,
+                          ),
                           ),
                           SizedBox(
                             height: 5,
