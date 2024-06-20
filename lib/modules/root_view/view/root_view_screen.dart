@@ -17,15 +17,15 @@ class RootViewScreen extends StatelessWidget {
     return AnnotatedRegion(
       value: const SystemUiOverlayStyle(
         statusBarColor: Colors.transparent,
-        statusBarIconBrightness: Brightness.dark,
-        statusBarBrightness: Brightness.dark,
-        systemNavigationBarIconBrightness: Brightness.dark,
+        statusBarIconBrightness: Brightness.light,
+        statusBarBrightness: Brightness.light,
+        systemNavigationBarIconBrightness: Brightness.light,
       ),
       child: Material(
         color: Colors.transparent,
         child: Scaffold(
           body: PageView(
-            onPageChanged: rootViewController.animateToTab,
+            onPageChanged: (value) => rootViewController.animateToTab(value),
             controller: rootViewController.pageController,
             // physics: const NeverScrollableScrollPhysics(),
             children: rootViewController.screens,

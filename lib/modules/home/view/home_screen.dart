@@ -262,9 +262,9 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    Expanded(
-                        child: sourceItem(
-                            "Bài nghe", ImageAssets.icHeadphone, () {})),
+                    // Expanded(
+                    //     child: sourceItem(
+                    //         "Bài nghe", ImageAssets.icHeadphone, () {})),
                     Expanded(
                         child: sourceItem("Đọc sách", ImageAssets.icBook, () {
                       Get.to(() => BooksListScreen());
@@ -275,9 +275,9 @@ class HomeScreen extends StatelessWidget {
                         () => const VideoDashBoardScreen(),
                       );
                     })),
-                    Expanded(
-                        child: sourceItem(
-                            "Ngữ pháp", ImageAssets.icGrammar, () {}))
+                    // Expanded(
+                    //     child: sourceItem(
+                    //         "Ngữ pháp", ImageAssets.icGrammar, () {}))
                   ],
                 ),
                 const SizedBox(
@@ -364,9 +364,11 @@ class HomeScreen extends StatelessWidget {
                               const Text(
                                 "Irregular Verbs",
                                 style: TextStyle(
-                                    color: AppColors.primary20,
-                                    fontWeight: FontWeight.w700,
-                                    fontSize: 18),
+                                  color: AppColors.primary20,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 18,
+                                ),
+                                textAlign: TextAlign.center,
                               ),
                               const SizedBox(
                                 height: 4,

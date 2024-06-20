@@ -55,9 +55,10 @@ class AuthServices {
 
   Future<Either<FailModel, AuthResponse>> nativeGoogleSignIn() async {
     try {
-      final webClientId = '${dotenv.get('google_client_id')}';
+      final webClientId = '${dotenv.get('web_google_client_id')}';
       print(webClientId);
-      const iosClientId = 'my-ios.apps.googleusercontent.com';
+      final iosClientId = '${dotenv.get('ios_google_client_id')}';
+      print(webClientId);
       final GoogleSignIn googleSignIn = GoogleSignIn(
         clientId: iosClientId,
         serverClientId: webClientId,
@@ -95,14 +96,10 @@ class AuthServices {
   }) async {
     try {
       if (await AuthServices.instance.getEmail(userModel.email) == 0) {
-        await supabase.from('users').insert({
-          'user_id': userModel.user_id,
-          'fullname': userModel.fullname,
-          'avatar_url': userModel.avatar_url,
-          'password': userModel.password,
-          'email': userModel.email.toLowerCase(),
-          'isGoogle': userModel.isGoogle,
-        });
+        await supabase.from('users').insert(userModel.toJson());
+      } else {
+        UserModel? existUser = await getUserFromDB(email: userModel.email);
+        return Right(existUser!);
       }
 
       print('thanh cong');
@@ -124,13 +121,13 @@ class AuthServices {
       final query = await supabase
           .from('users')
           .select(
-            'user_id, fullname, avatar_url, password, email, isGoogle',
+            'user_id, fullname, avatar_url, password, email, isGoogle, role',
           )
           .eq('email', email);
 
       return UserModel.fromJson(jsonEncode(query[0]));
     } catch (e) {
-      debugPrint(e.toString());
+      debugPrint('[AuthServices][getUserFromDB]: ${e.toString()}');
       return null;
     }
   }
