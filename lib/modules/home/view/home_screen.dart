@@ -178,7 +178,7 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
       Positioned.fill(
-        top: 260,
+        top: 230,
         child: Container(
           padding: const EdgeInsets.all(20),
           decoration: const BoxDecoration(
