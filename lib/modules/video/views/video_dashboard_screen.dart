@@ -55,6 +55,7 @@ class _VideoDashBoardScreenState extends State<VideoDashBoardScreen>
 
     return SafeArea(
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         appBar: _buildAppBar(),
         body: _buildBody(deviceHeight, deviceWidth, videoDashBoardController),
       ),

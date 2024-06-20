@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/modules/community/view/community_screen.dart';
 import 'package:flutter_talkshare/modules/game/view/game_screen.dart';
 import 'package:flutter_talkshare/modules/home/view/home_screen.dart';
-import 'package:flutter_talkshare/modules/homework/view/homework_screen.dart';
 import 'package:flutter_talkshare/modules/profile/view/profile_screen.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +15,6 @@ class RootViewController extends GetxController {
   final screens = [
     HomeScreen(),
     CommnityScreen(),
-    // HomeworkScreen(),
     GameScreen(),
     ProfileScreen(),
   ];

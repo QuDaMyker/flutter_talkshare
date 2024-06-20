@@ -75,6 +75,11 @@ abstract class ImageAssets {
   static const btnFriend = 'assets/images/png/btn_friend.png';
   static const btnRandom = 'assets/images/png/btn_random.png';
   static const gameTitle = 'assets/images/png/game_title.png';
+  static const icElectric = 'assets/images/svg/ic_electric.svg';
+  static const icRight = 'assets/images/svg/ic_right.svg';
+  static const icStreak = 'assets/images/svg/ic_streak.svg';
+  static const icBookmarkFilled = 'assets/images/svg/ic_bookmark_filled.svg';
+  static const icCrown = 'assets/images/svg/ic_crown.svg';
 
   static const imageBookPsychology =
       'assets/images/png/Psychology_of_money.png';
