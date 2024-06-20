@@ -26,6 +26,7 @@ part 'vocab_service.dart';
 part 'wordset_service.dart';
 part 'audio_room_service.dart';
 part 'livestream_service.dart';
+part 'game_service.dart';
 
 class SupabaseService {
   SupabaseService._internal();

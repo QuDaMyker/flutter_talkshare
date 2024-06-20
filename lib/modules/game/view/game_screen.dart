@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/modules/game/controllers/game_controller.dart';
 import 'package:flutter_talkshare/modules/game/view/play_with_friend_screen.dart';
 import 'package:flutter_talkshare/modules/game/view/waiting_screen.dart';
 import 'package:get/get.dart';
 
 class GameScreen extends StatelessWidget {
-  const GameScreen({super.key});
+  GameScreen({super.key});
+  GameController controller = Get.put(GameController());
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +45,7 @@ class GameScreen extends StatelessWidget {
                     ),
                     SizedBox(height: 8),
                     Text(
-                      "Lê Bảo Như",
+                      controller.currentUser?.fullname ?? '',
                       style: TextStyle(
                           fontSize: 16,
                           fontWeight: FontWeight.w600,
@@ -76,7 +78,7 @@ class GameScreen extends StatelessWidget {
                                     color: AppColors.gray20),
                               ),
                               SizedBox(
-                                width: 8,
+                                width: 4,
                               ),
                               SvgPicture.asset(ImageAssets.icCopy)
                             ],
@@ -156,7 +158,7 @@ class GameScreen extends StatelessWidget {
             ),
             InkWell(
               onTap: () {
-                Get.to(WaitingScreen());
+                controller.onPlayRandom();
               },
               child: Container(
                   width: Get.width - 100,
