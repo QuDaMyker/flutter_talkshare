@@ -51,6 +51,7 @@ class AuthController extends GetxController {
       final _user = await AuthServices.instance.getUserFromDB(email: email);
       if (_user != null) {
         user = _user;
+        print(user);
         await saveUserString(user);
         Get.offAll(() => RootViewScreen());
       } else {
@@ -61,7 +62,7 @@ class AuthController extends GetxController {
         );
       }
     }
-    isLoadingSignUp.value = false;
+    isLoadingLogin.value = false;
   }
 
   Future<void> onSignUp({
@@ -87,6 +88,7 @@ class AuthController extends GetxController {
         // role: Constants.ROLE_STUDENT,
         role: Role.ROLE_STUDENT.toStringValue,
       );
+      //print(userModel.toMap());
       var rs = await AuthServices.instance.addUserProfile(userModel: userModel);
       if (rs.isRight) {
         user = rs.right;
