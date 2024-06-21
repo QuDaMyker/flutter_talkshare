@@ -170,12 +170,17 @@ Padding _buildBody(double deviceHeight, double deviceWidth,
                           SizedBox(
                             height: 5,
                           ),
-                          Text(
-                            meanings[index],
-                            style: TextStyle(
-                              color: AppColors.primary40,
-                              fontSize: 15,
-                              fontWeight: FontWeight.w500,
+                          SizedBox(
+                            width: deviceWidth*0.7,
+                            child: Text(
+                              meanings[index],
+                              softWrap: true,
+                              overflow: TextOverflow.visible,
+                              style: TextStyle(
+                                color: AppColors.primary40,
+                                fontSize: 15,
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           )
                         ],

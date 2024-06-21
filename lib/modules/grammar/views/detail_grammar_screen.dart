@@ -17,7 +17,8 @@ class DetailGrammarScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final GrammarController controller =
-        Get.put(GrammarController(grammar: grammar));
+        Get.put(GrammarController(grammar: grammar), tag: grammar);
+    debugPrint('build $grammar');
 
     final double deviceHeight = MediaQuery.of(context).size.height;
     final double deviceWidth = MediaQuery.of(context).size.width;
@@ -34,6 +35,8 @@ class DetailGrammarScreen extends StatelessWidget {
       leading: IconButton(
         icon: SvgPicture.asset(ImageAssets.icBack),
         onPressed: () {
+          debugPrint("xóa");
+          Get.delete<GrammarController>(tag: grammar);
           Navigator.pop(context);
         },
       ),
@@ -71,6 +74,7 @@ class DetailGrammarScreen extends StatelessWidget {
               children: [
                 Container(
                     width: 80,
+  
                     child: SvgPicture.asset(
                       ImageAssets.bookGrammar,
                       height: 48,
@@ -80,20 +84,30 @@ class DetailGrammarScreen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(
-                      grammar,
-                      style: TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white,
+                    SizedBox(
+                      width: deviceWidth * 0.7,
+                      child: Text(
+                        grammar,
+                        style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: Colors.white,
+                        ),
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ),
-                    Text(
-                      meaning,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.w400,
-                        color: Colors.white,
+                    SizedBox(
+                      width: deviceWidth * 0.7,
+                      child: Text(
+                        meaning,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.w400,
+                          color: Colors.white,
+                        ),
+                        softWrap: true,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     )
                   ],
@@ -104,48 +118,53 @@ class DetailGrammarScreen extends StatelessWidget {
           SizedBox(
             height: 15,
           ),
-          Container(
-              height: deviceHeight * 0.632,
-              width: deviceWidth - 40,
-              child: ListView.builder(
-                  itemCount: grammarController.lines.length,
-                  itemBuilder: (context, index) {
-                    final line = grammarController.lines[index];
-                    if (line.startsWith('###')) {
-                      return Text(
-                        line.substring(3).trim(),
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          color: AppColors.primary40,
-                          fontSize: 16,
-                        ),
-                      );
-                    } else if (line.startsWith('*')) {
-                      return Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 5, vertical: 10),
-                        child: Text(
-                          line.substring(1).trim(),
+          Obx(() {
+            if (grammarController.isLoading.value) {
+              return const Center(child: CircularProgressIndicator());
+            }
+            return Container(
+                height: deviceHeight * 0.632,
+                width: deviceWidth - 40,
+                child: ListView.builder(
+                    itemCount: grammarController.lines.length,
+                    itemBuilder: (context, index) {
+                      final line = grammarController.lines[index];
+                      if (line.startsWith('###')) {
+                        return Text(
+                          line.substring(3).trim(),
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
-                            color: AppColors.secondary20,
+                            color: AppColors.primary40,
                             fontSize: 16,
                           ),
-                        ),
-                      );
-                    } else {
-                      return Padding(
-                        padding: const EdgeInsets.only(bottom: 6),
-                        child: Text(
-                          line.trim(),
-                          style: TextStyle(
-                            color: AppColors.gray20,
-                            fontSize: 14,
+                        );
+                      } else if (line.startsWith('*')) {
+                        return Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 5, vertical: 10),
+                          child: Text(
+                            line.substring(1).trim(),
+                            style: TextStyle(
+                              fontWeight: FontWeight.bold,
+                              color: AppColors.secondary20,
+                              fontSize: 16,
+                            ),
                           ),
-                        ),
-                      );
-                    }
-                  })),
+                        );
+                      } else {
+                        return Padding(
+                          padding: const EdgeInsets.only(bottom: 6),
+                          child: Text(
+                            line.trim(),
+                            style: TextStyle(
+                              color: AppColors.gray20,
+                              fontSize: 14,
+                            ),
+                          ),
+                        );
+                      }
+                    }));
+          }),
           SizedBox(
             height: 15,
           ),

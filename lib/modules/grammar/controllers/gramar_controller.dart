@@ -6,8 +6,12 @@ import 'package:flutter/services.dart' show rootBundle;
 class GrammarController extends GetxController {
   final String grammar;
    var lines = <String>[].obs;
+  var isLoading = Rx<bool>(false);
 
-  GrammarController ({required this.grammar});
+  GrammarController ({required this.grammar}){
+    debugPrint(lines.length.toString());
+    loadGrammarFile(grammar);
+  }
 
  @override
   Future<void> onInit()async {
@@ -15,7 +19,17 @@ class GrammarController extends GetxController {
     await loadGrammarFile(grammar);
   }
   
+  // @override
+  // void onClose() {
+  //   super.onClose();
+  //   debugPrint('onClose');
+  //   Get.delete<GrammarController>;
+  // }
+
+
   Future<void> loadGrammarFile(String grammar) async {
+    isLoading.value = true;
+
     String fileName = '';
     switch (grammar) {
       case "Nouns":
@@ -30,7 +44,7 @@ class GrammarController extends GetxController {
         break;
       case "Adjective":
         // Xử lý cho "Adjective"
-        print("Handling Adjective");
+        debugPrint("Handling Adjective");
         fileName = Grammar.adjective;
 
         break;
@@ -210,7 +224,7 @@ class GrammarController extends GetxController {
       case "Tag Questions":
         // Xử lý cho "Tag Questions"
         print("Handling Tag Questions");
-        fileName = Grammar.tags_questions;
+        fileName = Grammar.tag_questions;
 
         break;
       case "Defining and Non-defining relative clauses":
@@ -232,10 +246,10 @@ class GrammarController extends GetxController {
 
     try {
       String content = await rootBundle.loadString(fileName);
-      debugPrint(content);
-
       lines.value = content.split('\n');
-      //debugPrint(lines.value.length as String?);
+      debugPrint ("load file " + lines.length.toString());
+    isLoading.value = false;
+
 
     } catch (e) {
       lines.value = "Error loading file" as List<String>;

@@ -31,7 +31,7 @@ abstract class Grammar {
   static const reported_speech = 'assets/grammar/reported_speech.txt';
   static const yes_no_questions = 'assets/grammar/yes_no_questions.txt';
   static const wh_questions = 'assets/grammar/wh_questions.txt';
-  static const tags_questions = 'assets/grammar/tags_questions.txt';
+  static const tag_questions = 'assets/grammar/tag_questions.txt';
   static const definiting_non_definiting_relatives_clauses = 'assets/grammar/definiting_non_definiting_relatives_clauses.txt';
   static const relative_pronounns = 'assets/grammar/relative_pronouns.txt';
 
