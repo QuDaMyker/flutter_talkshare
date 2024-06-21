@@ -88,6 +88,7 @@ class AuthController extends GetxController {
         // role: Constants.ROLE_STUDENT,
         role: Role.ROLE_STUDENT.toStringValue,
       );
+      //print(userModel.toMap());
       var rs = await AuthServices.instance.addUserProfile(userModel: userModel);
       if (rs.isRight) {
         user = rs.right;
