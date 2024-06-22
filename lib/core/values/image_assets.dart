@@ -75,6 +75,7 @@ abstract class ImageAssets {
   static const btnFriend = 'assets/images/png/btn_friend.png';
   static const btnRandom = 'assets/images/png/btn_random.png';
   static const gameTitle = 'assets/images/png/game_title.png';
+  static const bgWinner = 'assets/images/png/confetti.gif';
   static const icElectric = 'assets/images/svg/ic_electric.svg';
   static const icRight = 'assets/images/svg/ic_right.svg';
   static const icStreak = 'assets/images/svg/ic_streak.svg';

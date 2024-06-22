@@ -38,8 +38,18 @@ extension GameRoomService on SupabaseService {
 
   Stream<Map<String, dynamic>> onRoomJoined(String roomId) {
     return supabase
-        .from('gameroom:id=eq.$roomId')
-        .stream(primaryKey: ['player2_id']).map((data) => data.first);
+        .from('gameroom')
+        .stream(primaryKey: ['id'])
+        .eq('id', roomId)
+        .map((data) => data.first);
+  }
+
+  Future<void> endGame(String roomId, String winnerId) async {
+    await supabase.from(GameroomSupabaseTable().tableName).update({
+      'status': 'ended',
+      'winner_id': winnerId,
+      'updated_at': DateTime.now().toIso8601String(),
+    }).eq('id', roomId);
   }
 
   Future<void> sendInvitation(
@@ -118,8 +128,11 @@ extension GameRoomService on SupabaseService {
 
   Stream<Map<String, dynamic>> onReceiveMessage(String roomId) {
     return supabase
-        .from('${GamewordsSupabaseTable().tableName}:room_id=eq.$roomId')
+        .from('${GamewordsSupabaseTable().tableName}')
         .stream(primaryKey: ['id'])
+        .eq('room_id', roomId)
+        .order('created_at', ascending: false)
+        .limit(1)
         .map((data) => data.first);
   }
 }
