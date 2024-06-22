@@ -96,7 +96,7 @@ class AuthServices {
   }) async {
     try {
       if (await AuthServices.instance.getEmail(userModel.email) == 0) {
-        await supabase.from('users').insert(userModel.toJson());
+        await supabase.from('users').insert(userModel.toMap());
       } else {
         UserModel? existUser = await getUserFromDB(email: userModel.email);
         return Right(existUser!);
