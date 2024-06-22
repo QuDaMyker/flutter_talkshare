@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:flutter_talkshare/modules/auth/models/user_model.dart';
 import 'package:flutter_talkshare/modules/game/view/waiting_screen.dart';
@@ -8,6 +9,7 @@ class GameController extends GetxController {
   final AuthController authController = Get.find<AuthController>();
   UserModel? currentUser;
   var supabaseService = SupabaseService.instance;
+  TextEditingController friendIdCtrl = TextEditingController();
 
   @override
   void onInit() {
@@ -19,12 +21,24 @@ class GameController extends GetxController {
     final room = await supabaseService.findWaitingRoom();
 
     if (room != null) {
-      await supabaseService.joinRoom(room['id'], 'f6ee03f6-55a3-4d03-9cd2-3a3e0450e352');
-      Get.to(() => WaitingScreen(), arguments: {'roomId': room['id'], 'isPlayer2': true});
+      await supabaseService.joinRoom(
+          room['id'], 'f6ee03f6-55a3-4d03-9cd2-3a3e0450e352');
+      Get.to(() => WaitingScreen(),
+          arguments: {'roomId': room['id'], 'isPlayer2': true});
     } else {
-      final newRoom =
-          await supabaseService.createRoom('f6ee03f6-55a3-4d03-9cd2-3a3e0450e352');
-      Get.to(() => WaitingScreen(), arguments: {'roomId': newRoom['id'], 'isPlayer2': false});
+      final newRoom = await supabaseService
+          .createRoom('f6ee03f6-55a3-4d03-9cd2-3a3e0450e352', isRandom: true);
+      Get.to(() => WaitingScreen(),
+          arguments: {'roomId': newRoom['id'], 'isPlayer2': false});
     }
+  }
+
+  void onInviteFriend() async {
+    final newRoom = await supabaseService
+        .createRoom('f6ee03f6-55a3-4d03-9cd2-3a3e0450e352', isRandom: false);
+    Get.to(() => WaitingScreen(),
+        arguments: {'roomId': newRoom['id'], 'isPlayer2': false});
+    supabaseService.sendInvitation('f6ee03f6-55a3-4d03-9cd2-3a3e0450e352',
+        friendIdCtrl.text, newRoom['id']);
   }
 }

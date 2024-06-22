@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter_talkshare/modules/game/view/playing_screen.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 
@@ -34,12 +35,13 @@ class WaitingController extends GetxController {
     countdownTimer = Timer.periodic(Duration(seconds: 1), (timer) {
       if (countdown.value == 0) {
         timer.cancel();
-        // Get.to(() => GameScreen(roomId: roomId));
-        ScaffoldMessenger.of(Get.context!).showSnackBar(
-          SnackBar(
-            content: const Text('Bat dau'),
-          ),
-        );
+        Get.back();
+        Get.to(PlayingScreen());
+        // ScaffoldMessenger.of(Get.context!).showSnackBar(
+        //   SnackBar(
+        //     content: const Text('Bat dau'),
+        //   ),
+        // );
       } else {
         countdown.value--;
       }

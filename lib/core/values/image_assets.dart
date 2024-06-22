@@ -80,6 +80,7 @@ abstract class ImageAssets {
   static const icStreak = 'assets/images/svg/ic_streak.svg';
   static const icBookmarkFilled = 'assets/images/svg/ic_bookmark_filled.svg';
   static const icCrown = 'assets/images/svg/ic_crown.svg';
+  static const txtTurn = 'assets/images/svg/txtTurn.svg';
 
   static const imageBookPsychology =
       'assets/images/png/Psychology_of_money.png';
