@@ -62,7 +62,7 @@ extension GameRoomService on SupabaseService {
         .map((data) => data.first);
   }
 
-  Future<void> endGame(String roomId, String winnerId) async {
+  Future<void> endGame(String roomId, String? winnerId) async {
     await supabase.from(GameroomSupabaseTable().tableName).update({
       'status': 'ended',
       'winner_id': winnerId,
@@ -163,5 +163,52 @@ extension GameRoomService on SupabaseService {
         .single();
 
     return response['id'] as String?;
+  }
+
+  Future<UserModel?> getUserById(String userId) async {
+    final response = UserModel.fromMap(await supabase
+        .from(UserSupabaseTable().tableName)
+        .select()
+        .eq('user_id', userId)
+        .single());
+
+    return response;
+  }
+
+  Future<String?> getPlayerIdByRoomId(String roomId, bool isPlayer2) async {
+    final response = await supabase
+        .from(GameroomSupabaseTable().tableName)
+        .select(isPlayer2 ? 'player1_id' : 'player2_id')
+        .eq('id', roomId)
+        .single();
+
+    return isPlayer2
+        ? response['player1_id'] as String?
+        : response['player2_id'] as String?;
+  }
+
+  Future<Map<String, int>> getUserWinsAndLosses(String userId) async {
+    final winsResponse = await supabase
+        .from(GameroomSupabaseTable().tableName)
+        .select('id')
+        .eq('winner_id', userId)
+        .count(CountOption.exact);
+
+    int wins = winsResponse.count;
+
+    final lossesResponse = await supabase
+        .from(GameroomSupabaseTable().tableName)
+        .select('id')
+        .or('player1_id.eq.$userId,player2_id.eq.$userId')
+        .neq('winner_id', userId)
+        .not('winner_id', 'is', null)
+        .count(CountOption.exact);
+
+    int losses = lossesResponse.count;
+
+    return {
+      'wins': wins,
+      'losses': losses,
+    };
   }
 }

@@ -14,11 +14,12 @@ import 'package:isitaword/isitaword.dart';
 class PlayingController extends GetxController {
   var supabaseService = SupabaseService.instance;
   final AuthController authController = Get.find<AuthController>();
+  UserModel? currentUser;
+  UserModel? peerUser;
 
   RxList<Map<String, dynamic>> messages = <Map<String, dynamic>>[].obs;
   final TextEditingController textController = TextEditingController();
   String roomId = '';
-  UserModel? currentUser;
   StreamSubscription? roomSubscription;
   RxBool isMyTurn = false.obs;
   RxInt remainingSeconds = 0.obs;
@@ -31,11 +32,13 @@ class PlayingController extends GetxController {
   void onInit() {
     super.onInit();
     roomId = Get.arguments['roomId'] as String;
+    peerUser = Get.arguments['peerUser'] as UserModel?;
+    currentUser = authController.user;
+
     bool myTurn = Get.arguments['isMyTurn'] as bool;
     if (myTurn) {
       startTurn();
     }
-    currentUser = authController.user;
 
     listenForMessages();
   }
@@ -78,12 +81,12 @@ class PlayingController extends GetxController {
       if (message['user_id'] != currentUser?.user_id) {
         startTurn();
         peerScore.value += message['word'].toString().trim().length;
-        if (peerScore.value >= 40) {
+        if (peerScore.value >= 20) {
           endRoom(message['user_id']);
         }
       } else {
         myScore.value += message['word'].toString().trim().length;
-        if (myScore.value >= 40) {
+        if (myScore.value >= 20) {
           endRoom(message['user_id']);
         }
       }
@@ -120,6 +123,8 @@ class PlayingController extends GetxController {
   Future<void> endRoom(String winnerId) async {
     await supabaseService.endGame(roomId, winnerId);
     _timer?.cancel();
+    UserModel? winner =
+        winnerId == currentUser?.user_id ? currentUser : peerUser;
     showModalBottomSheet(
         isScrollControlled: true,
         context: Get.context!,
@@ -158,15 +163,15 @@ class PlayingController extends GetxController {
                                     color: AppColors.primary20),
                               ),
                               SizedBox(height: 12),
-                              const CircleAvatar(
+                              CircleAvatar(
                                 radius: 30.0,
                                 backgroundImage: NetworkImage(
-                                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'),
+                                    winner != null ? winner.avatar_url : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'),
                                 backgroundColor: Colors.transparent,
                               ),
                               SizedBox(height: 8),
                               Text(
-                                winnerId,
+                                winner != null ? winner.fullname : '',
                                 style: TextStyle(
                                     fontSize: 16,
                                     fontWeight: FontWeight.w600,

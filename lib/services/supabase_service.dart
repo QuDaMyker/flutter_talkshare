@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/core/models/audio_room.dart';
 import 'package:flutter_talkshare/core/models/livestream.dart';
+import 'package:flutter_talkshare/modules/auth/models/user_model.dart';
 import 'package:flutter_talkshare/modules/video/models/channel_model.dart';
 import 'package:flutter_talkshare/modules/video/models/subtitle_model.dart';
 import 'package:flutter_talkshare/modules/video/models/video_model.dart';

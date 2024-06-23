@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/game/controllers/playing_controller.dart';
@@ -28,20 +29,23 @@ class PlayingScreen extends StatelessWidget {
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.end,
             children: [
-              InkWell(
+              Expanded(
                 child: Container(
-                  width: 34,
-                  height: 34,
-                  child: SvgPicture.asset(
-                    ImageAssets.icBack,
+                  padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  decoration: BoxDecoration(
+                      color: AppColors.secondary90,
+                      borderRadius: BorderRadius.circular(12)),
+                  child: Text(
+                    'Đạt 20 điểm trước để thắng',
+                    style: TextStyle(
+                        color: AppColors.secondary20,
+                        fontWeight: FontWeight.w700),
                   ),
                 ),
-                onTap: () {
-                  Get.back();
-                },
               ),
-              Spacer(),
+              SizedBox(width: 20),
               Text(
                 'Bạn',
                 style:
@@ -50,15 +54,16 @@ class PlayingScreen extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 12,
+            height: 20,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.start,
             children: [
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 30.0,
-                backgroundImage: NetworkImage(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'),
+                backgroundImage: NetworkImage(controller.peerUser != null
+                    ? controller.peerUser!.avatar_url
+                    : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'),
                 backgroundColor: Colors.transparent,
               ),
               SizedBox(width: 12),
@@ -78,10 +83,11 @@ class PlayingScreen extends StatelessWidget {
                         color: Colors.white),
                   )),
               SizedBox(width: 12),
-              const CircleAvatar(
+              CircleAvatar(
                 radius: 30.0,
-                backgroundImage: NetworkImage(
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'),
+                backgroundImage: NetworkImage(controller.currentUser != null
+                    ? controller.currentUser!.avatar_url
+                    : 'https://t4.ftcdn.net/jpg/05/49/98/39/360_F_549983970_bRCkYfk0P6PP5fKbMhZMIb07mCJ6esXL.jpg'),
                 backgroundColor: Colors.transparent,
               ),
             ],
@@ -275,7 +281,7 @@ class PlayingScreen extends StatelessWidget {
                         child: IconButton(
                           padding: const EdgeInsets.only(right: 8.0),
                           icon: SvgPicture.asset(
-                            ImageAssets.icVideo,
+                            ImageAssets.icSentFast,
                             width: 25,
                             height: 25,
                             color: const Color(0xFF1E2731),

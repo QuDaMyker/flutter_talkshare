@@ -82,6 +82,9 @@ abstract class ImageAssets {
   static const icBookmarkFilled = 'assets/images/svg/ic_bookmark_filled.svg';
   static const icCrown = 'assets/images/svg/ic_crown.svg';
   static const txtTurn = 'assets/images/svg/txtTurn.svg';
+  static const txtFinding = 'assets/images/svg/txt_finding.svg';
+  static const txtReady = 'assets/images/svg/txt_ready.svg';
+  static const icSentFast = 'assets/images/svg/ic-sent-fast.svg';
 
   static const imageBookPsychology =
       'assets/images/png/Psychology_of_money.png';
