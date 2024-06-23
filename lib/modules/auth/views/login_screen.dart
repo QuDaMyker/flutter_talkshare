@@ -3,6 +3,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
+import 'package:flutter_talkshare/modules/auth/views/forgot_password_srceen.dart';
 import 'package:flutter_talkshare/modules/auth/views/sign_up_screen.dart';
 import 'package:flutter_talkshare/modules/auth/widgets/email_text_field.dart';
 import 'package:flutter_talkshare/modules/auth/widgets/password_text_field.dart';
@@ -276,7 +277,13 @@ class _LoginScreenState extends State<LoginScreen> {
         style: TextButton.styleFrom(
           foregroundColor: AppColors.primary40,
         ),
-        onPressed: () {},
+        onPressed: () async {
+          Navigator.of(context).push(
+            MaterialPageRoute(
+              builder: (context) => ForgotPasswordScreen(),
+            ),
+          );
+        },
         child: const Text(
           'Quên mật khẩu',
           style: TextStyle(

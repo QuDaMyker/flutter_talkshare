@@ -8,19 +8,25 @@ class ProfileController extends GetxController {
 
   var focuseDay = Rx<DateTime>(DateTime.now());
   var sumPoint = Rx<int>(0);
-
+  var streakCount = Rx<int>(0);
   DateTime? _selectedDay;
 
   @override
   void onInit() async {
     _selectedDay = focuseDay.value;
     await getSumPoint(userId: authController.user.user_id);
+    await getStreakDay();
     super.onInit();
   }
 
   @override
   void onClose() {
     super.onClose();
+  }
+
+  Future<void> getStreakDay() async {
+    streakCount.value = (await PointLearningServices.instance
+        .getStreakDay(user_id: authController.user.user_id))!;
   }
 
   void onDaySelected(DateTime selectedDay, DateTime fDay) {

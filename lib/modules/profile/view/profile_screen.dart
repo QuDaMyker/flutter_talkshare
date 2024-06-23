@@ -61,7 +61,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(
             height: 20,
           ),
-          _buildStreakValue(),
+          _buildStreakValue(profileController: profileController),
           const SizedBox(
             height: 20,
           ),
@@ -132,7 +132,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Column _buildStreakValue() {
+  Column _buildStreakValue({required ProfileController profileController}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -154,12 +154,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Expanded(
               child: Column(
                 children: [
-                  const Text(
-                    '12',
-                    style: TextStyle(
-                      fontSize: 48,
-                      color: AppColors.secondary20,
-                      fontWeight: FontWeight.bold,
+                  Obx(
+                    () => Text(
+                      profileController.streakCount.value.toString(),
+                      style: TextStyle(
+                        fontSize: 48,
+                        color: AppColors.secondary20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const Text(

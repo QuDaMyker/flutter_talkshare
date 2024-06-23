@@ -137,4 +137,16 @@ class AuthServices {
       return null;
     }
   }
+
+  Future<Either<FailModel, bool>> resetPassword({required String email}) async {
+    try {
+      await supabase.auth.resetPasswordForEmail(
+        email,
+      );
+      return Right(true);
+    } catch (e) {
+      debugPrint('[AuthController][resetPassword]: ${e.toString()}');
+      return Left(FailModel(message: e.toString()));
+    }
+  }
 }
