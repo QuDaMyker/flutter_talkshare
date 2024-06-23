@@ -82,69 +82,55 @@ class _StreamVideoState extends State<StreamVideo> {
           flex: 2,
           child: _buildYoutubeView(controller),
         ),
-        Expanded(
-          flex: 1,
-          child: _buildVideoTitle(controller),
-        ),
+        _buildVideoTitle(controller),
         Expanded(
           flex: 4,
           child: widget.optionView == Constants.sub
               ? _buildScrollTitle(controller)
               : Obx(
                   () => SingleChildScrollView(
-                    child: Container(
-                      //padding: const EdgeInsets.symmetric(horizontal: 12),
-
-                      decoration: const BoxDecoration(),
-                      // child: RichText(
-                      //   text: TextSpan(
-                      //     children: [
-                      //       for (int i = 0;
-                      //           i < controller.listSubSplit.value.length;
-                      //           i++)
-                      //         if (controller.blankIndexes.value.contains(i))
-                      //           const WidgetSpan(
-                      //             child: SizedBox(
-                      //               width: 100,
-                      //               child: TextField(
-                      //                 decoration: InputDecoration(
-                      //                   border: OutlineInputBorder(),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           )
-                      //         else
-                      //           TextSpan(
-                      //             text: "${controller.listSubSplit.value[i]} ",
-                      //             style: const TextStyle(
-                      //               fontSize: 18,
-                      //               fontWeight: FontWeight.normal,
-                      //               color: Colors.black,
-                      //             ),
-                      //           ),
-                      //     ],
-                      //   ),
-                      // ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: controller.listSubSplit.value
-                            .mapIndexed((index, text) {
-                          if (controller.blankIndexes.value.contains(index)) {
-                            return Expanded(
-                              child: Container(
-                                width: 100,
-                                child: TextField(),
+                    child: Stack(
+                      children: [
+                        Container(
+                          padding: const EdgeInsets.only(top: 12),
+                          decoration: const BoxDecoration(),
+                          child: Row(
+                            mainAxisSize: MainAxisSize.max,
+                            children: controller.listSubSplit.value
+                                .mapIndexed((index, text) {
+                              if (controller.blankIndexes.value
+                                  .contains(index)) {
+                                return Expanded(
+                                  child: Container(
+                                    width: 100,
+                                    child: TextField(),
+                                  ),
+                                );
+                              } else {
+                                return Expanded(
+                                  child: Text(
+                                    controller.listSubSplit.value[index],
+                                  ),
+                                );
+                              }
+                            }).toList(),
+                          ),
+                        ),
+                        Positioned(
+                          top: 0,
+                          width: 60,
+                          child: Container(
+                            width: Get.width,
+                            decoration: BoxDecoration(
+                              color: AppColors.primary40,
+                              borderRadius: BorderRadius.only(
+                                bottomLeft: Radius.circular(12),
+                                bottomRight: Radius.circular(12),
                               ),
-                            );
-                          } else {
-                            return Expanded(
-                              child: Text(
-                                controller.listSubSplit.value[index],
-                              ),
-                            );
-                          }
-                        }).toList(),
-                      ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 ),
@@ -180,18 +166,15 @@ class _StreamVideoState extends State<StreamVideo> {
     );
   }
 
-  Padding _buildVideoTitle(StreamVideoController controller) {
-    return Padding(
+  Widget _buildVideoTitle(StreamVideoController controller) {
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          const SizedBox(
-            height: 12,
-          ),
           Text(
-            controller.video.title,
+            '${controller.video.title}',
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,

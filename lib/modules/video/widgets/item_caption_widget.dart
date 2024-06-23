@@ -13,30 +13,48 @@ class ItemCaptionWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isSelected = itemCaptionModel.isSelected;
     return Container(
-      //constraints: const BoxConstraints(minHeight: 60),
+      constraints: const BoxConstraints(minHeight: 60),
       margin: const EdgeInsets.only(bottom: 5),
       padding: const EdgeInsets.symmetric(vertical: 5, horizontal: 5),
       decoration: BoxDecoration(
-        color:
-            itemCaptionModel.isSelected ? AppColors.gray60 : Colors.transparent,
+        color: isSelected ? AppColors.secondary60 : Colors.transparent,
         border: const Border(
-          top: BorderSide(width: 0.5, color: AppColors.gray20),
-          bottom: BorderSide(width: 0.5, color: AppColors.gray20),
-          right: BorderSide(width: 0.5, color: AppColors.gray20),
-          left: BorderSide(width: 0.5, color: AppColors.gray20),
+          //top: BorderSide(width: 0.5, color: AppColors.gray20),
+          bottom: BorderSide(width: 2, color: AppColors.primary40),
+          //right: BorderSide(width: 0.5, color: AppColors.primary40),
+          left: BorderSide(width: 2, color: AppColors.primary40),
         ),
-        borderRadius: const BorderRadius.all(
-          Radius.circular(12),
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(4),
+          topRight: Radius.circular(4),
+          bottomLeft: Radius.circular(12),
         ),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
           Expanded(
             flex: 1,
-            child: Text(Helper.instance
-                .formatDuration(itemCaptionModel.subtitleModel.start)),
+            child: Text(
+              Helper.instance
+                  .formatDuration(itemCaptionModel.subtitleModel.start),
+              style: isSelected
+                  ? TextStyle(
+                      color: AppColors.primary40,
+                      fontWeight: FontWeight.w700,
+                    )
+                  : TextStyle(
+                      color: Colors.black.withOpacity(0.5),
+                    ),
+            ),
+          ),
+          VerticalDivider(
+            width: 10,
+            thickness: 0.5,
+            color: Colors.black,
           ),
           Expanded(
             flex: 5,
@@ -44,6 +62,14 @@ class ItemCaptionWidget extends StatelessWidget {
               margin: const EdgeInsets.only(left: 10),
               child: Text(
                 itemCaptionModel.subtitleModel.content.toString(),
+                style: isSelected
+                    ? TextStyle(
+                        color: Colors.black,
+                        fontWeight: FontWeight.w700,
+                      )
+                    : TextStyle(
+                        color: Colors.black.withOpacity(0.5),
+                      ),
               ),
             ),
           )

@@ -71,7 +71,7 @@ class StreamVideoController extends GetxController {
     //   curve: Curves.fastOutSlowIn,
     // );
     itemScrollController.scrollTo(
-      index: index,
+      index: index == 0 ? index : index - 1,
       duration: const Duration(seconds: 1),
     );
   }
