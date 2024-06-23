@@ -701,6 +701,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.18.1"
+  isitaword:
+    dependency: "direct main"
+    description:
+      name: isitaword
+      sha256: e4607b4b71efa66eac2d2699ff1e0d6c0c194d9e7f420eb42c1ca13fc6c696d2
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.0.4"
   js:
     dependency: transitive
     description:

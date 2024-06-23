@@ -27,7 +27,7 @@ class RootViewController extends GetxController {
     Get.lazyPut(() => HomeScreen());
     Get.lazyPut(() => CommnityScreen());
     // Get.lazyPut(() => const HomeworkScreen());
-    Get.lazyPut(() => const GameScreen());
+    Get.lazyPut(() => GameScreen());
     Get.lazyPut(() => const ProfileScreen());
 
     pageController = PageController(initialPage: 0);
