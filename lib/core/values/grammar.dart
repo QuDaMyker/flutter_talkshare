@@ -5,7 +5,7 @@ abstract class Grammar {
   static const verbs = 'assets/grammar/verbs.txt';
   static const adverbs = 'assets/grammar/adverbs.txt';
   static const prepositions = 'assets/grammar/prepositions.txt';
-  static const conjuncsitions = 'assets/grammar/conjuncsitions.txt';
+  static const conjunctions = 'assets/grammar/conjunctions.txt';
   static const interjections = 'assets/grammar/interjections.txt';
   static const articles = 'assets/grammar/articles.txt';
   static const determiners = 'assets/grammar/determiners.txt';
@@ -20,7 +20,7 @@ abstract class Grammar {
   static const future_simple = 'assets/grammar/future_simple.txt';
   static const future_continuous = 'assets/grammar/future_continuous.txt';
   static const future_perfect = 'assets/grammar/future_perfect.txt';
-  static const future_perfect_conntinuous = 'assets/grammar/future_perfect_conntinuous.txt';
+  static const future_perfect_continuous = 'assets/grammar/future_perfect_continuous.txt';
   static const modals = 'assets/grammar/modals.txt';
   static const zero_conditional = 'assets/grammar/zero_conditional.txt';
   static const first_conditional = 'assets/grammar/first_conditional.txt';

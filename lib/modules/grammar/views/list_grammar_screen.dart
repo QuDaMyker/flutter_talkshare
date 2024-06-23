@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
-import 'package:flutter_talkshare/modules/books/view/detail_book_screen.dart';
 import 'package:flutter_talkshare/modules/grammar/views/detail_grammar_screen.dart';
 
 class ListGrammaScreen extends StatelessWidget {

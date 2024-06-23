@@ -69,7 +69,7 @@ class GrammarController extends GetxController {
       case "Conjunctions":
         // Xử lý cho "Conjunctions"
         print("Handling Conjunctions");
-        fileName = Grammar.conjuncsitions;
+        fileName = Grammar.conjunctions;
 
         break;
       case "Interjections":
@@ -158,7 +158,7 @@ class GrammarController extends GetxController {
       case "Future Perfect Continuous":
         // Xử lý cho "Future Perfect Continuous"
         print("Handling Future Perfect Continuous");
-        fileName = Grammar.future_perfect_conntinuous;
+        fileName = Grammar.future_perfect_continuous;
 
         break;
       case "Modals":
