@@ -16,15 +16,33 @@ extension GameRoomService on SupabaseService {
   }
 
   Future<Map<String, dynamic>> createRoom(String userId,
-      {bool isRandom = false}) async {
+      {bool isRandom = false, String? code}) async {
+    if (code != null) {
+      final existingRoom = await supabase
+          .from(GameroomSupabaseTable().tableName)
+          .select('id')
+          .eq('code', code)
+          .eq('status', 'waiting');
+      if (existingRoom.length > 0) {
+        ScaffoldMessenger.of(Get.context!).showSnackBar(
+          SnackBar(
+            content: const Text('Phòng đã tồn tại'),
+          ),
+        );
+        return {};
+      }
+    }
+
     final response =
         await supabase.from(GameroomSupabaseTable().tableName).insert({
       'status': 'waiting',
       'player1_id': userId,
       'israndom': isRandom,
+      'code': code,
       'created_at': DateTime.now().toIso8601String(),
       'updated_at': DateTime.now().toIso8601String(),
     }).select();
+
     return response[0];
   }
 
@@ -134,5 +152,16 @@ extension GameRoomService on SupabaseService {
         .order('created_at', ascending: false)
         .limit(1)
         .map((data) => data.first);
+  }
+
+  Future<String?> getRoomIdByCode(String code) async {
+    final response = await supabase
+        .from(GameroomSupabaseTable().tableName)
+        .select('id')
+        .eq('code', code)
+        .eq('status', 'waiting')
+        .single();
+
+    return response['id'] as String?;
   }
 }

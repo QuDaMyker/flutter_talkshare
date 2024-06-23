@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
+import 'package:flutter_talkshare/core/values/word_list.dart';
 import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:flutter_talkshare/modules/auth/models/user_model.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
@@ -47,7 +48,8 @@ class PlayingController extends GetxController {
   }
 
   void sendMessage() async {
-    if (textController.text != "" && isItAWord(textController.text.trim())) {
+    if (textController.text == " " ||
+        WordList.en.contains(textController.text.trim().toLowerCase())) {
       await supabaseService.sendMessage(
           roomId,
           currentUser?.user_id ?? '',
@@ -60,6 +62,7 @@ class PlayingController extends GetxController {
       ScaffoldMessenger.of(Get.context!).showSnackBar(
         SnackBar(
           content: const Text('Vui lòng nhập từ vựng tiếng Anh'),
+          duration: Duration(milliseconds: 500),
         ),
       );
     }
@@ -107,6 +110,7 @@ class PlayingController extends GetxController {
       if (remainingSeconds.value > 0) {
         remainingSeconds.value--;
       } else {
+        endTurn();
         textController.text = ' ';
         sendMessage();
       }
