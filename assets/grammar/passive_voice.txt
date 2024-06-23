@@ -1,0 +1,65 @@
+###I. Định nghĩa và cách dùng câu bị động (Passive Voice)
+Câu bị động (Passive Voice) được sử dụng để nhấn mạnh hành động hoặc đối tượng bị tác động thay vì người thực hiện hành động. Câu bị động thường được sử dụng khi người thực hiện hành động không quan trọng hoặc không được biết đến.
+
+###II. Cấu trúc câu bị động
+*1.Công thức chung:
+S + be + V-ed/V3 (by O).
+*2.Cấu trúc chi tiết theo từng thì:
+a. Hiện tại đơn (Present Simple):
+
+S + am/is/are + V-ed/V3 (by O).
+Ví dụ: The cake is baked by Mary. (Chiếc bánh được nướng bởi Mary.)
+b. Hiện tại tiếp diễn (Present Continuous):
+
+S + am/is/are + being + V-ed/V3 (by O).
+Ví dụ: The cake is being baked by Mary. (Chiếc bánh đang được nướng bởi Mary.)
+c. Hiện tại hoàn thành (Present Perfect):
+
+S + have/has + been + V-ed/V3 (by O).
+Ví dụ: The cake has been baked by Mary. (Chiếc bánh đã được nướng bởi Mary.)
+d. Quá khứ đơn (Past Simple):
+
+S + was/were + V-ed/V3 (by O).
+Ví dụ: The cake was baked by Mary. (Chiếc bánh đã được nướng bởi Mary.)
+e. Quá khứ tiếp diễn (Past Continuous):
+
+S + was/were + being + V-ed/V3 (by O).
+Ví dụ: The cake was being baked by Mary. (Chiếc bánh đang được nướng bởi Mary.)
+f. Quá khứ hoàn thành (Past Perfect):
+
+S + had + been + V-ed/V3 (by O).
+Ví dụ: The cake had been baked by Mary. (Chiếc bánh đã được nướng bởi Mary.)
+g. Tương lai đơn (Future Simple):
+
+S + will + be + V-ed/V3 (by O).
+Ví dụ: The cake will be baked by Mary. (Chiếc bánh sẽ được nướng bởi Mary.)
+h. Tương lai hoàn thành (Future Perfect):
+
+S + will + have + been + V-ed/V3 (by O).
+Ví dụ: The cake will have been baked by Mary. (Chiếc bánh sẽ được nướng bởi Mary.)
+###III. Các cách dùng cụ thể của câu bị động
+*1.Khi người thực hiện hành động không quan trọng hoặc không được biết đến:
+Ví dụ: The window was broken. (Cửa sổ đã bị vỡ.)
+*2.Khi muốn nhấn mạnh hành động hoặc đối tượng bị tác động:
+Ví dụ: A new bridge is being built over the river. (Một cây cầu mới đang được xây dựng qua sông.)
+*3.Khi người thực hiện hành động là chung chung (như mọi người, người ta, v.v.):
+Ví dụ: English is spoken all over the world. (Tiếng Anh được nói khắp nơi trên thế giới.)
+###IV. Dấu hiệu nhận biết câu bị động
+*1.Câu có động từ "be" kết hợp với quá khứ phân từ (past participle) của động từ chính:
+Ví dụ: The book was written by Mark Twain. (Cuốn sách được viết bởi Mark Twain.)
+*2.Câu thường có từ "by" để chỉ người hoặc vật thực hiện hành động:
+Ví dụ: The car is repaired by the mechanic. (Chiếc xe được sửa bởi thợ máy.)
+###V. Câu khẳng định, phủ định và nghi vấn với câu bị động
+*1.Câu khẳng định:
+S + be + V-ed/V3 (by O).
+Ví dụ: The letter is sent by John. (Lá thư được gửi bởi John.)
+*2.Câu phủ định:
+S + be + not + V-ed/V3 (by O).
+Ví dụ: The letter is not sent by John. (Lá thư không được gửi bởi John.)
+*3.Câu nghi vấn:
+Be + S + V-ed/V3 (by O)?
+Ví dụ: Is the letter sent by John? (Lá thư có được gửi bởi John không?)
+
+
+
+

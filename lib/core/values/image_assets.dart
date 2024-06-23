@@ -81,6 +81,7 @@ abstract class ImageAssets {
   static const icStreak = 'assets/images/svg/ic_streak.svg';
   static const icBookmarkFilled = 'assets/images/svg/ic_bookmark_filled.svg';
   static const icCrown = 'assets/images/svg/ic_crown.svg';
+  static const bookGrammar = 'assets/images/svg/book_grammar.svg';
   static const txtTurn = 'assets/images/svg/txtTurn.svg';
   static const txtFinding = 'assets/images/svg/txt_finding.svg';
   static const txtReady = 'assets/images/svg/txt_ready.svg';

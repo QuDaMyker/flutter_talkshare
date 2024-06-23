@@ -22,4 +22,50 @@ class PointLearningServices {
       return null;
     }
   }
+
+  Future<int?> getCountDate(
+      {required String today, required String user_id}) async {
+    try {
+      final query = await supabase
+          .from('streak_daily')
+          .select('date')
+          .eq('date', today)
+          .eq('user_id', user_id)
+          .count();
+      return query.count;
+    } catch (e) {
+      debugPrint('[RootViewServices][getCountDate]: ${e.toString()}');
+      return null;
+    }
+  }
+
+  Future<int?> getStreakDay({
+    required String user_id,
+  }) async {
+    try {
+      final query = await supabase
+          .from('streak_daily')
+          .select('date')
+          .eq('user_id', user_id)
+          .count();
+      return query.count;
+    } catch (e) {
+      debugPrint('[RootViewServices][getCountDate]: ${e.toString()}');
+      return null;
+    }
+  }
+
+  Future<void> addStreak({
+    required String user_id,
+    required String today,
+  }) async {
+    try {
+      await supabase.from('streak_daily').insert({
+        'user_id': user_id,
+        'date': today,
+      });
+    } catch (e) {
+      debugPrint('[RootViewServices][addStreak]: ${e.toString()}');
+    }
+  }
 }

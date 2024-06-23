@@ -5,7 +5,7 @@ import 'package:flutter_talkshare/services/supabase_service.dart';
 class VideoServices {
   VideoServices._internal();
   static final VideoServices instance = VideoServices._internal();
-  factory VideoServices() => instance;
+  ces() => instance;
 
   Future<int> getCountSub({required String videoId}) async {
     return await SupabaseService.instance.getCountSub(id_video: videoId);
