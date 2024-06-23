@@ -23,6 +23,32 @@ class PointLearningServices {
     }
   }
 
+  Future<void> addPoint({
+    required String userId,
+    required int pointValue,
+  }) async {
+    try {
+      int? currentPoint = await getSumPoint(userId: userId);
+      if (currentPoint == null) {
+        await supabase.from('point_learning').insert({
+          'user_id': userId,
+          'sum_point': pointValue,
+        });
+        debugPrint(
+            '[PointLearningServices][addPoint]: Insert new ${pointValue} points');
+      } else {
+        await supabase.from('point_learning').update({
+          'sum_point': currentPoint + pointValue,
+        }).eq('user_id', userId);
+        debugPrint(
+            '[PointLearningServices][addPoint]: Updated new ${currentPoint + pointValue} points');
+      }
+    } catch (e) {
+      debugPrint('[PointLearningServices][getSumPoint]: ${e.toString()}');
+      return null;
+    }
+  }
+
   Future<int?> getCountDate(
       {required String today, required String user_id}) async {
     try {

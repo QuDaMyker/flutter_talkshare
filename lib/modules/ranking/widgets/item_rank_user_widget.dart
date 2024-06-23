@@ -49,7 +49,7 @@ class ItemRankUserWidget extends StatelessWidget {
               Expanded(
                 flex: 1,
                 child: Container(
-                  margin: const EdgeInsets.only(right: 10),
+                  margin: const EdgeInsets.only(right: 5),
                   child: CircleAvatar(
                     backgroundImage: CachedNetworkImageProvider(
                       item.avatar_url,
@@ -94,7 +94,7 @@ class ItemRankUserWidget extends StatelessWidget {
           ),
         ),
         const Divider(
-          color: AppColors.gray20,
+          color: AppColors.gray40,
           indent: 10,
         )
       ],
