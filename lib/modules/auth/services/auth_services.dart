@@ -20,6 +20,7 @@ class AuthServices {
     required String password,
   }) async {
     try {
+      email = email.toLowerCase();
       final AuthResponse res = await supabase.auth.signInWithPassword(
         email: email,
         password: password,
@@ -41,6 +42,7 @@ class AuthServices {
       print(email);
       print(fullname);
       print(password);
+      email = email.toLowerCase();
       final res = await supabase.auth.signUp(
         email: email,
         password: password,
@@ -95,10 +97,12 @@ class AuthServices {
     required UserModel userModel,
   }) async {
     try {
-      if (await AuthServices.instance.getEmail(userModel.email) == 0) {
-        await supabase.from('users').insert(userModel.toJson());
+      if (await AuthServices.instance.getEmail(userModel.email.toLowerCase()) ==
+          0) {
+        await supabase.from('users').insert(userModel.toMap());
       } else {
-        UserModel? existUser = await getUserFromDB(email: userModel.email);
+        UserModel? existUser =
+            await getUserFromDB(email: userModel.email.toLowerCase());
         return Right(existUser!);
       }
 
@@ -111,6 +115,7 @@ class AuthServices {
   }
 
   Future<int> getEmail(String email) async {
+    email = email.toLowerCase();
     final query =
         await supabase.from('users').select('email').eq('email', email).count();
     return query.count;
@@ -118,6 +123,7 @@ class AuthServices {
 
   Future<UserModel?> getUserFromDB({required String email}) async {
     try {
+      email = email.toLowerCase();
       final query = await supabase
           .from('users')
           .select(

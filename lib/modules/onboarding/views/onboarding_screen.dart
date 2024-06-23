@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_talkshare/core/configuration/injection.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
+import 'package:flutter_talkshare/core/values/constants.dart';
+import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:flutter_talkshare/modules/auth/views/login_screen.dart';
+import 'package:flutter_talkshare/modules/home/view/home_screen.dart';
 import 'package:flutter_talkshare/modules/onboarding/controller/onboarding_controller.dart';
+import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
 import 'package:get/get.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 
 class OnBoardingScreen extends StatefulWidget {
@@ -102,17 +108,24 @@ class _OnBoardingScreenState extends State<OnBoardingScreen> {
 
   GestureDetector _buildButtonNext() {
     return GestureDetector(
-      onTap: () {
+      onTap: () async {
         if (controller.isFinalPage.value) {
-          Get.off(
-            () => const LoginScreen(),
-            transition: Transition.rightToLeftWithFade,
+          var sharePrefernces = await getIt<SharedPreferences>();
+          sharePrefernces.getString(Constants.USER_STRING) != null
+              ? Get.offAll(
+                  () => RootViewScreen(),
+                  transition: Transition.rightToLeftWithFade,
+                )
+              : Get.off(
+                  () => const LoginScreen(),
+                  transition: Transition.rightToLeftWithFade,
+                );
+        } else {
+          controller.pagesController.nextPage(
+            duration: const Duration(milliseconds: 500),
+            curve: Curves.ease,
           );
         }
-        controller.pagesController.nextPage(
-          duration: const Duration(milliseconds: 500),
-          curve: Curves.ease,
-        );
       },
       child: Container(
         alignment: Alignment.center,

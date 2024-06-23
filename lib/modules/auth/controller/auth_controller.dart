@@ -2,6 +2,7 @@ import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/configuration/injection.dart';
 import 'package:flutter_talkshare/core/enums/role.dart';
+import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/constants.dart';
 import 'package:flutter_talkshare/modules/auth/models/fail_model.dart';
 import 'package:flutter_talkshare/modules/auth/models/meta_data_model.dart';
@@ -12,6 +13,7 @@ import 'package:flutter_talkshare/modules/auth/widgets/custom_auth_dialog.dart';
 import 'package:flutter_talkshare/modules/onboarding/views/onboarding_screen.dart';
 import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
@@ -53,6 +55,7 @@ class AuthController extends GetxController {
       final _user = await AuthServices.instance.getUserFromDB(email: email);
       if (_user != null) {
         user = _user;
+        print(user);
         await saveUserString(user);
         Get.offAll(() => RootViewScreen());
       } else {
@@ -63,13 +66,54 @@ class AuthController extends GetxController {
         );
       }
     } else {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(
-        SnackBar(
-          content: Text('Lỗi: ${res.left}'),
-        ),
+      showError(
+        message:
+            'Tài khoản hoặc mật khẩu không chính xác, vui lòng thử lại sau',
       );
     }
     isLoadingLogin.value = false;
+  }
+
+  void showError({required String message}) {
+    ScaffoldMessenger.of(Get.context!).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.transparent,
+        padding: const EdgeInsets.all(4),
+        elevation: 0,
+        content: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: AppColors.primary40,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: const Icon(
+                  Icons.info,
+                  size: 20,
+                  color: Colors.white,
+                ),
+              ),
+              Expanded(
+                flex: 8,
+                child: Text(
+                  message,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Future<void> onSignUp({
@@ -92,16 +136,13 @@ class AuthController extends GetxController {
         email: email,
         password: password,
         isGoogle: false,
-        // role: Constants.ROLE_STUDENT,
         role: Role.ROLE_STUDENT.toStringValue,
       );
+      //print(userModel.toMap());
       var rs = await AuthServices.instance.addUserProfile(userModel: userModel);
       if (rs.isRight) {
         user = rs.right;
-        // var sharePrefernces = await getIt<SharedPreferences>();
-        // sharePrefernces.setBool(Constants.STATUS_AUTH, true);
-        // sharePrefernces.setString(
-        //     Constants.USER_STRING, userModel.toJson().toString());
+
         await saveUserString(user);
         Get.offAll(() => OnBoardingScreen());
       } else {

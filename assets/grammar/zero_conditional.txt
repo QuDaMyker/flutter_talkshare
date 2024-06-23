@@ -1,0 +1,33 @@
+###I. Định nghĩa và cách dùng câu điều kiện loại 0
+Câu điều kiện loại 0 (Zero Conditional) được sử dụng để diễn tả các sự thật hiển nhiên, các chân lý phổ quát hoặc các thói quen mà kết quả luôn luôn xảy ra khi điều kiện được thỏa mãn. Thì này thường được sử dụng để nói về các quy luật tự nhiên, các sự kiện khoa học và các sự kiện luôn đúng trong hiện tại.
+
+###II. Cấu trúc câu điều kiện loại 0
+*1.Công thức:
+If + S + V (hiện tại đơn), S + V (hiện tại đơn).
+Cả mệnh đề điều kiện (if-clause) và mệnh đề chính (main clause) đều dùng thì hiện tại đơn.
+*2.Ví dụ:
+If you heat water to 100 degrees Celsius, it boils. (Nếu bạn đun nước đến 100 độ C, nó sôi.)
+If it rains, the ground gets wet. (Nếu trời mưa, mặt đất bị ướt.)
+If you mix red and blue, you get purple. (Nếu bạn trộn màu đỏ và màu xanh, bạn có màu tím.)
+###III. Các cách dùng cụ thể của câu điều kiện loại 0
+*1.Diễn tả các sự thật hiển nhiên hoặc các chân lý phổ quát:
+Ví dụ: If you freeze water, it turns into ice. (Nếu bạn làm đông nước, nó biến thành đá.)
+*2.Diễn tả các thói quen hoặc các sự kiện lặp đi lặp lại:
+Ví dụ: If I feel tired, I go to bed early. (Nếu tôi cảm thấy mệt, tôi đi ngủ sớm.)
+*3.Diễn tả các hướng dẫn hoặc quy tắc chung:
+Ví dụ: If you press this button, the machine starts. (Nếu bạn nhấn nút này, máy sẽ khởi động.)
+###IV. Dấu hiệu nhận biết câu điều kiện loại 0
+*1.Câu có từ "if" và cả hai mệnh đề đều sử dụng thì hiện tại đơn:
+Ví dụ: If you touch a flame, you get burned. (Nếu bạn chạm vào ngọn lửa, bạn bị bỏng.)
+*2.Câu có thể thay "if" bằng "when" mà không làm thay đổi nghĩa:
+Ví dụ: When you mix blue and yellow, you get green. (Khi bạn trộn màu xanh và màu vàng, bạn có màu xanh lá cây.)
+###V. Câu khẳng định, phủ định và nghi vấn với câu điều kiện loại 0
+*1.Câu khẳng định:
+If + S + V (hiện tại đơn), S + V (hiện tại đơn).
+Ví dụ: If you eat too much, you gain weight. (Nếu bạn ăn quá nhiều, bạn tăng cân.)
+*2.Câu phủ định:
+If + S + don't/doesn't + V (hiện tại đơn), S + don't/doesn't + V (hiện tại đơn).
+Ví dụ: If you don't water plants, they die. (Nếu bạn không tưới nước cho cây, chúng sẽ chết.)
+*3.Câu nghi vấn:
+If + S + V (hiện tại đơn), do/does + S + V (hiện tại đơn)?
+Ví dụ: If it rains, do you take an umbrella? (Nếu trời mưa, bạn có mang ô không?)
