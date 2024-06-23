@@ -3,12 +3,15 @@
 import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/core/models/audio_room.dart';
 import 'package:flutter_talkshare/core/models/livestream.dart';
+import 'package:flutter_talkshare/modules/auth/models/user_model.dart';
 import 'package:flutter_talkshare/modules/video/models/channel_model.dart';
 import 'package:flutter_talkshare/modules/video/models/subtitle_model.dart';
 import 'package:flutter_talkshare/modules/video/models/video_model.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -26,6 +29,7 @@ part 'vocab_service.dart';
 part 'wordset_service.dart';
 part 'audio_room_service.dart';
 part 'livestream_service.dart';
+part 'game_service.dart';
 
 class SupabaseService {
   SupabaseService._internal();

@@ -2,15 +2,18 @@ import 'package:either_dart/either.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/configuration/injection.dart';
 import 'package:flutter_talkshare/core/enums/role.dart';
+import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/constants.dart';
 import 'package:flutter_talkshare/modules/auth/models/fail_model.dart';
 import 'package:flutter_talkshare/modules/auth/models/meta_data_model.dart';
 import 'package:flutter_talkshare/modules/auth/models/success_model.dart';
 import 'package:flutter_talkshare/modules/auth/models/user_model.dart';
 import 'package:flutter_talkshare/modules/auth/services/auth_services.dart';
+import 'package:flutter_talkshare/modules/auth/widgets/custom_auth_dialog.dart';
 import 'package:flutter_talkshare/modules/onboarding/views/onboarding_screen.dart';
 import 'package:flutter_talkshare/modules/root_view/view/root_view_screen.dart';
 import 'package:get/get.dart';
+import 'package:get/get_connect/http/src/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class AuthController extends GetxController {
@@ -18,6 +21,7 @@ class AuthController extends GetxController {
 
   var isLoadingLogin = Rx<bool>(false);
   var isLoadingSignUp = Rx<bool>(false);
+  var isLoadingForgotPassword = Rx<bool>(false);
   var isObscureText = Rx<bool>(true);
 
   @override
@@ -29,6 +33,15 @@ class AuthController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+  }
+
+  Future<void> refreshUser() async {
+    debugPrint('[LOG][refreshUser]: onRefresh');
+    UserModel? userRefresh =
+        await AuthServices.instance.getUserFromDB(email: user.email);
+    if (userRefresh != null) {
+      user = userRefresh;
+    }
   }
 
   Future<void> onLogin({
@@ -57,12 +70,59 @@ class AuthController extends GetxController {
       } else {
         ScaffoldMessenger.of(Get.context!).showSnackBar(
           SnackBar(
-            content: const Text('Khong tim thay'),
+            content: const Text('Không tìm thấy tài khoản'),
           ),
         );
       }
+    } else {
+      showError(
+        message:
+            'Tài khoản hoặc mật khẩu không chính xác, vui lòng thử lại sau',
+      );
     }
     isLoadingLogin.value = false;
+  }
+
+  void showError({required String message}) {
+    ScaffoldMessenger.of(Get.context!).showSnackBar(
+      SnackBar(
+        backgroundColor: Colors.transparent,
+        padding: const EdgeInsets.all(4),
+        elevation: 0,
+        content: Container(
+          padding: const EdgeInsets.all(8),
+          decoration: BoxDecoration(
+            color: AppColors.primary40,
+            borderRadius: BorderRadius.circular(12),
+          ),
+          child: Row(
+            mainAxisSize: MainAxisSize.min,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Expanded(
+                child: const Icon(
+                  Icons.info,
+                  size: 20,
+                  color: Colors.white,
+                ),
+              ),
+              Expanded(
+                flex: 8,
+                child: Text(
+                  message,
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 18,
+                  ),
+                  maxLines: 3,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 
   Future<void> onSignUp({
@@ -85,17 +145,13 @@ class AuthController extends GetxController {
         email: email,
         password: password,
         isGoogle: false,
-        // role: Constants.ROLE_STUDENT,
         role: Role.ROLE_STUDENT.toStringValue,
       );
       //print(userModel.toMap());
       var rs = await AuthServices.instance.addUserProfile(userModel: userModel);
       if (rs.isRight) {
         user = rs.right;
-        // var sharePrefernces = await getIt<SharedPreferences>();
-        // sharePrefernces.setBool(Constants.STATUS_AUTH, true);
-        // sharePrefernces.setString(
-        //     Constants.USER_STRING, userModel.toJson().toString());
+
         await saveUserString(user);
         Get.offAll(() => OnBoardingScreen());
       } else {
@@ -154,6 +210,7 @@ class AuthController extends GetxController {
   }
 
   Future<void> saveUserString(UserModel userModel) async {
+    user = userModel;
     var sharePrefernces = await getIt<SharedPreferences>();
     sharePrefernces.setString(
         Constants.USER_STRING, userModel.toJson().toString());
@@ -167,5 +224,51 @@ class AuthController extends GetxController {
     }
     user = UserModel.fromJson(userString);
     return true;
+  }
+
+  Future<void> forgotPassword({required String email}) async {
+    isLoadingForgotPassword.value = true;
+    var result = await AuthServices.instance.resetPassword(email: email);
+
+    if (result.isRight) {
+      Get.dialog(
+        PopScope(
+          canPop: false,
+          child: CustomAuthDialog(
+            pathBackgroundLottie:
+                'assets/images/lottie/ic_text_congratulation.json',
+            pathLottie: 'assets/images/lottie/ic_effect_congratulation.json',
+            titleButton: 'Vui lòng kiểm tra email để lấy lại mật khẩu',
+            onTap: () {
+              Navigator.pop(Get.context!);
+              // Navigator.pop(
+              //   Get.context!,
+              //   {'result': 'success'},
+              // );
+            },
+          ),
+        ),
+      );
+    } else {
+      Get.dialog(
+        PopScope(
+          canPop: false,
+          child: CustomAuthDialog(
+            pathBackgroundLottie:
+                'assets/images/lottie/ic_text_congratulation.json',
+            pathLottie: 'assets/images/lottie/ic_effect_congratulation.json',
+            titleButton: result.left.message,
+            onTap: () {
+              Navigator.pop(Get.context!);
+              // Navigator.pop(
+              //   Get.context!,
+              //   {'result': 'success'},
+              // );
+            },
+          ),
+        ),
+      );
+    }
+    isLoadingForgotPassword.value = false;
   }
 }

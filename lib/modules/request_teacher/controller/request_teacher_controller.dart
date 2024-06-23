@@ -62,7 +62,8 @@ class RequestTeacherController extends GetxController {
                     'assets/images/lottie/ic_effect_congratulation.json',
                 titleButton:
                     'Gửi yêu cầu thành công, yêu cầu sẽ được xem xét trong 24h tiếp theo',
-                onTap: () {
+                onTap: () async {
+                  await authController.refreshUser();
                   Navigator.pop(Get.context!);
                   Navigator.pop(
                     Get.context!,

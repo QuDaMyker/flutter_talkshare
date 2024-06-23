@@ -70,6 +70,10 @@ class Helper {
     return '$hours:${minutes.toString().padLeft(2, '0')}:${seconds.toString().padLeft(2, '0')}';
   }
 
+  String formatDateTimeToYyyyMmDd(DateTime date) {
+    return DateFormat('yyyy-MM-dd').format(date);
+  }
+
   String formatDateTimeToDdMmYyyy(DateTime date) {
     final formatter = DateFormat('dd-MM-yyyy');
     return formatter.format(date);
@@ -167,5 +171,10 @@ class Helper {
         r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
     RegExp regExp = new RegExp(pattern);
     return regExp.hasMatch(password);
+  }
+
+  String upperCaseFirstChar(String text) {
+    if (text.isEmpty) return text;
+    return text[0].toUpperCase() + text.substring(1);
   }
 }

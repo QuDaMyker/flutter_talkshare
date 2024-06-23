@@ -19,13 +19,60 @@ class ProfileScreen extends StatefulWidget {
   State<ProfileScreen> createState() => _ProfileScreenState();
 }
 
-class _ProfileScreenState extends State<ProfileScreen> {
+class _ProfileScreenState extends State<ProfileScreen>
+    with WidgetsBindingObserver {
+  late AuthController authController;
+  // ProfileController profileController = Get.find<ProfileController>();
+  late ProfileController profileController;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addObserver(this);
+    authController = Get.find<AuthController>();
+    profileController = Get.put(ProfileController());
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    //WidgetsBinding.instance.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) async {
+    print('didChangeAppLifecycleState');
+    if (state == AppLifecycleState.resumed) {
+      await authController.refreshUser();
+    }
+  }
+
+  @override
+  void didUpdateWidget(covariant ProfileScreen oldWidget) {
+    print('didUpdateWidget');
+    super.didUpdateWidget(oldWidget);
+  }
+
+  @override
+  void activate() {
+    print('activate');
+    super.activate();
+  }
+
+  @override
+  void deactivate() {
+    print('deactivate');
+    super.deactivate();
+  }
+
+  @override
+  void didChangeDependencies() async {
+    await profileController.onRefreshProfile();
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
-    AuthController authController = Get.find<AuthController>();
-    // ProfileController profileController = Get.find<ProfileController>();
-    ProfileController profileController = Get.put(ProfileController());
-
     return Scaffold(
       backgroundColor: AppColors.secondary80,
       body: SingleChildScrollView(
@@ -61,7 +108,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           const SizedBox(
             height: 20,
           ),
-          _buildStreakValue(),
+          _buildStreakValue(profileController: profileController),
           const SizedBox(
             height: 20,
           ),
@@ -77,13 +124,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
               ? Column(
                   children: [
                     _buildButtonChangeRoleTeacher(onTap: () async {
-                      //Get.to(() => CreateRequestRoleTeacherScreen());
                       final signal = await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                CreateRequestRoleTeacherScreen(),
-                          ));
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) =>
+                              CreateRequestRoleTeacherScreen(),
+                        ),
+                      );
                       print(signal);
                       if (signal['result'] == 'success') {
                         setState(() {});
@@ -132,7 +179,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Column _buildStreakValue() {
+  Column _buildStreakValue({required ProfileController profileController}) {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -154,12 +201,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
             Expanded(
               child: Column(
                 children: [
-                  const Text(
-                    '12',
-                    style: TextStyle(
-                      fontSize: 48,
-                      color: AppColors.secondary20,
-                      fontWeight: FontWeight.bold,
+                  Obx(
+                    () => Text(
+                      profileController.streakCount.value.toString(),
+                      style: TextStyle(
+                        fontSize: 48,
+                        color: AppColors.secondary20,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                   const Text(

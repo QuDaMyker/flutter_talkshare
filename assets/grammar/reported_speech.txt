@@ -1,0 +1,72 @@
+###I. Định nghĩa và cách dùng câu tường thuật (Reported Speech)
+Câu tường thuật (Reported Speech) được sử dụng để thuật lại lời nói hoặc suy nghĩ của ai đó mà không cần dùng nguyên văn lời của họ. Trong câu tường thuật, ta thường thay đổi đại từ, thì của động từ và các từ chỉ thời gian, nơi chốn sao cho phù hợp với ngữ cảnh mới.
+
+###II. Cấu trúc câu tường thuật
+*1. Câu trần thuật
+a. Cấu trúc:
+
+S + said (that) + S + V (lùi một thì).
+Ví dụ: Direct speech: "I am happy," she said.
+Reported speech: She said (that) she was happy.
+b. Quy tắc lùi thì:
+
+Hiện tại đơn (Present Simple) → Quá khứ đơn (Past Simple)
+"I like ice cream," he said. → He said (that) he liked ice cream.
+Hiện tại tiếp diễn (Present Continuous) → Quá khứ tiếp diễn (Past Continuous)
+"I am reading a book," she said. → She said (that) she was reading a book.
+Hiện tại hoàn thành (Present Perfect) → Quá khứ hoàn thành (Past Perfect)
+"I have finished my homework," he said. → He said (that) he had finished his homework.
+Quá khứ đơn (Past Simple) → Quá khứ hoàn thành (Past Perfect)
+"I saw the movie," she said. → She said (that) she had seen the movie.
+Quá khứ tiếp diễn (Past Continuous) → Quá khứ hoàn thành tiếp diễn (Past Perfect Continuous)
+"I was cooking dinner," he said. → He said (that) he had been cooking dinner.
+Tương lai đơn (Future Simple) → Tương lai trong quá khứ (Future in the Past)
+"I will go to the store," she said. → She said (that) she would go to the store.
+*2. Câu hỏi
+a. Câu hỏi Yes/No:
+
+Cấu trúc: S + asked + if/whether + S + V (lùi một thì).
+Ví dụ: Direct speech: "Are you coming?" he asked.
+Reported speech: He asked if I was coming.
+b. Câu hỏi Wh-:
+
+Cấu trúc: S + asked + Wh- word + S + V (lùi một thì).
+Ví dụ: Direct speech: "Where do you live?" she asked.
+Reported speech: She asked where I lived.
+*3. Câu mệnh lệnh và yêu cầu
+a. Câu mệnh lệnh:
+
+Cấu trúc: S + told + O + (not) to + V (nguyên thể).
+Ví dụ: Direct speech: "Close the door," she said.
+Reported speech: She told me to close the door.
+b. Câu yêu cầu:
+
+Cấu trúc: S + asked + O + (not) to + V (nguyên thể).
+Ví dụ: Direct speech: "Please help me," he said.
+Reported speech: He asked me to help him.
+###III. Các thay đổi khi chuyển từ câu trực tiếp sang câu tường thuật
+*1.Đại từ:
+I → he/she, we → they
+Ví dụ: "I am tired," he said. → He said (that) he was tired.
+*2.Thì của động từ:
+Hiện tại đơn → Quá khứ đơn, hiện tại tiếp diễn → Quá khứ tiếp diễn, v.v.
+Ví dụ: "She is cooking," he said. → He said (that) she was cooking.
+*3.Từ chỉ thời gian và nơi chốn:
+Now → then, today → that day, tomorrow → the next day, here → there, v.v.
+Ví dụ: "I will do it tomorrow," she said. → She said (that) she would do it the next day.
+###IV. Các ví dụ cụ thể về câu tường thuật
+*1.Câu trần thuật:
+Direct speech: "I am learning English," he said.
+Reported speech: He said (that) he was learning English.
+*2.Câu hỏi Yes/No:
+Direct speech: "Do you like coffee?" she asked.
+Reported speech: She asked if I liked coffee.
+*3.Câu hỏi Wh-:
+Direct speech: "Why are you late?" the teacher asked.
+Reported speech: The teacher asked why I was late.
+*4.Câu mệnh lệnh:
+Direct speech: "Turn off the lights," he said.
+Reported speech: He told me to turn off the lights.
+*5.Câu yêu cầu:
+Direct speech: "Can you help me?" she asked.
+Reported speech: She asked me to help her.

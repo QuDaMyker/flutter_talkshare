@@ -68,6 +68,14 @@ abstract class ImageAssets {
   static const icAgentAnhle = 'assets/images/svg/ic_anhle.svg';
   static const icAgentIeltsFighter = 'assets/images/svg/ic_ielts_fighter.svg';
   static const icAgentVus = 'assets/images/svg/ic_vus.svg';
+  static const icCopy = 'assets/images/svg/ic_copy.svg';
+  static const icThumbtack = 'assets/images/svg/ic_thumbtack.svg';
+  static const bgCreateGame = 'assets/images/png/bg_create_game.png';
+  static const bgWaiting = 'assets/images/png/bg_waiting.png';
+  static const btnFriend = 'assets/images/png/btn_friend.png';
+  static const btnRandom = 'assets/images/png/btn_random.png';
+  static const gameTitle = 'assets/images/png/game_title.png';
+  static const bgWinner = 'assets/images/png/confetti.gif';
   static const icElectric = 'assets/images/svg/ic_electric.svg';
   static const icRight = 'assets/images/svg/ic_right.svg';
   static const icStreak = 'assets/images/svg/ic_streak.svg';
@@ -87,6 +95,11 @@ abstract class ImageAssets {
   static const icSpeed10 = 'assets/images/svg/ic_speed_10.svg';
   static const icSpeed05 = 'assets/images/svg/ic_speed_05.svg';
   static const icSpeed20 = 'assets/images/svg/ic_speed_20.svg';
+  static const bookGrammar = 'assets/images/svg/book_grammar.svg';
+  static const txtTurn = 'assets/images/svg/txtTurn.svg';
+  static const txtFinding = 'assets/images/svg/txt_finding.svg';
+  static const txtReady = 'assets/images/svg/txt_ready.svg';
+  static const icSentFast = 'assets/images/svg/ic-sent-fast.svg';
 
   static const imageBookPsychology =
       'assets/images/png/Psychology_of_money.png';

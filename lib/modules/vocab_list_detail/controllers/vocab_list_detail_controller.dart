@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_card_swiper/flutter_card_swiper.dart';
 import 'package:flutter_talkshare/core/models/definition.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
+import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
+import 'package:flutter_talkshare/modules/profile/services/point_learning_services.dart';
 import 'package:flutter_talkshare/modules/vocab_list_detail/widgets/custom_dialog.dart';
 import 'package:flutter_talkshare/modules/vocab_list_detail/widgets/item_detail_vocab.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
@@ -47,11 +49,11 @@ class VocabListDetailController extends GetxController {
     listVocab.value = cards;
   }
 
-  bool onSwipe(
+  Future<bool> onSwipe(
     int previousIndex,
     int? currentIndex,
     CardSwiperDirection direction,
-  ) {
+  ) async {
     // if (direction.name == CardSwiperDirection.right) {
     //   currentIndexCard.value = currentIndex! + 1;
     // } else {
@@ -84,6 +86,11 @@ class VocabListDetailController extends GetxController {
     // }
 
     if (currentIndexCard.value + 1 == listVocab.value.length) {
+      String user_id = Get.find<AuthController>().user.user_id;
+      await PointLearningServices.instance.addPoint(
+        pointValue: 10,
+        userId: user_id,
+      );
       Get.dialog(
         PopScope(
           canPop: true,

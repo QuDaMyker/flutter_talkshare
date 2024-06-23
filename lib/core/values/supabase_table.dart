@@ -126,3 +126,45 @@ class LivestreamSupabaseTable implements SupabaseTable {
   String get isActive => "isactive";
   String get userId => "user_id";
 }
+
+class GameroomSupabaseTable implements SupabaseTable {
+  const GameroomSupabaseTable();
+
+  @override
+  String get tableName => "gameroom";
+
+  String get id => "id";
+  String get status => "status";
+  String get player1Id => "player1_id";
+  String get player2Id => "player2_id";
+  String get winnerId => "winner_id";
+  String get createdAt => "created_at";
+  String get updatedAt => "updated_at";
+}
+
+class InvitationsSupabaseTable implements SupabaseTable {
+  const InvitationsSupabaseTable();
+
+  @override
+  String get tableName => "invitations";
+
+  String get id => "id";
+  String get fromUserId => "from_user_id";
+  String get toUserId => "to_user_id";
+  String get roomId => "room_id";
+  String get status => "status";
+  String get createdAt => "created_at";
+}
+
+class GamewordsSupabaseTable implements SupabaseTable {
+  const GamewordsSupabaseTable();
+
+  @override
+  String get tableName => "gamewords";
+
+  String get id => "id";
+  String get roomId => "room_id";
+  String get word => "word";
+  String get userId => "user_id";
+  String get createdAt => "created_at";
+}

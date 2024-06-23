@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-import 'package:flutter_talkshare/modules/idioms/view/idioms_screen.dart';
-import 'package:flutter_talkshare/modules/listening/view/listening_screen.dart';
+import 'package:flutter_talkshare/core/values/app_colors.dart';
+import 'package:flutter_talkshare/modules/grammar/views/detail_grammar_screen.dart';
+import 'package:flutter_talkshare/modules/grammar/views/list_grammar_screen.dart';
+import 'package:flutter_talkshare/modules/home/view/home_screen.dart';
 import 'package:flutter_talkshare/modules/onboarding/views/onboarding_screen.dart';
 import 'package:flutter_talkshare/modules/profile/view/profile_screen.dart';
 import 'package:flutter_talkshare/modules/splash/views/splash_screen.dart';
@@ -14,7 +16,9 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load(fileName: '.env');
   await SupabaseService.instance.init();
-
+  SystemChrome.setPreferredOrientations(
+    [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown],
+  );
   configureDependencies();
 
   runApp(const MyApp());
@@ -35,7 +39,9 @@ class MyApp extends StatelessWidget {
       // ],
       theme: ThemeData(
         fontFamily: 'Manrope',
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        colorScheme: ColorScheme.fromSeed(
+          seedColor: AppColors.primary40,
+        ),
         useMaterial3: true,
       ),
       home: SplashScreen(),
