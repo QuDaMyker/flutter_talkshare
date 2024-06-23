@@ -1,0 +1,33 @@
+
+###I. Mệnh đề quan hệ (Relative Clauses)
+Mệnh đề quan hệ (Relative Clauses) là mệnh đề được sử dụng để cung cấp thông tin bổ sung về một danh từ hoặc một ngữ danh từ trong câu. Có hai loại chính là mệnh đề quan hệ xác định (defining relative clauses) và mệnh đề quan hệ không xác định (non-defining relative clauses).
+###II. Mệnh đề quan hệ xác định (Defining Relative Clauses)
+Mệnh đề quan hệ xác định được sử dụng để cung cấp thông tin cụ thể và cần thiết để nhận diện rõ ràng đối tượng hoặc người được đề cập. Nó không thể bị loại bỏ mà không làm thay đổi ý nghĩa cơ bản của câu gốc.
+*1. Cấu trúc:
+a. Dạng chủ ngữ (Subject relative clauses):
+Who/That + động từ
+Ví dụ: The man who/that lives next door is a doctor.
+b. Dạng tân ngữ (Object relative clauses):
+Who/Whom/That + động từ
+Ví dụ: I met the woman who/whom/that you were talking about.
+*2. Đặc điểm:
+a. Không thể bị loại bỏ mà không làm thay đổi ý nghĩa câu.
+b. Thường được sử dụng để xác định hoặc hạn chế danh từ mà nó mô tả.
+*3. Ví dụ:
+a. "The book that is on the table is mine." (Cuốn sách đang trên bàn là của tôi.)
+b. "She is the woman who helped me yesterday." (Cô ấy là người phụ nữ đã giúp tôi ngày hôm qua.)
+###III. Mệnh đề quan hệ không xác định (Non-defining Relative Clauses)
+Mệnh đề quan hệ không xác định được sử dụng để cung cấp thông tin bổ sung về người hoặc vật mà không cần thiết phải xác định rõ ràng. Thông tin trong mệnh đề này có thể bị loại bỏ mà không ảnh hưởng đến ý nghĩa cơ bản của câu gốc.
+*1. Cấu trúc:
+a. Bắt đầu bằng các từ như "who", "which", "whose" khi nó nằm giữa hai dấu phẩy.
+Ví dụ: My brother, who lives in Paris, is a chef.
+*2. Đặc điểm:
+a. Có thể bị loại bỏ mà không làm thay đổi ý nghĩa cơ bản của câu.
+b. Thông tin trong mệnh đề này cung cấp thêm thông tin, nhưng không ảnh hưởng đến sự hiểu biết chung về người hoặc vật được đề cập.
+*3. Ví dụ:
+a. "Jane, who is my best friend, is coming to visit." (Jane, người là bạn thân của tôi, đang đến thăm.)
+b. "The Taj Mahal, which is in India, is a famous tourist attraction." (Taj Mahal, nằm ở Ấn Độ, là một điểm du lịch nổi tiếng.)
+###IV. Lưu ý khi sử dụng mệnh đề quan hệ
+*1. Chọn đúng từ nối (who, whom, whose, which, that) phù hợp với chức năng của mệnh đề.
+*2. Đảm bảo rằng mệnh đề quan hệ xác định và không xác định được đặt đúng vị trí và có dấu phẩy phù hợp.
+*3. Hiểu rõ mục đích và tác dụng của mỗi loại mệnh đề quan hệ để sử dụng chính xác trong văn cảnh.

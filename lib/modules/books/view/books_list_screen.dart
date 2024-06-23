@@ -7,7 +7,6 @@ import 'package:flutter_talkshare/modules/books/controller/book_list_screen_cont
 import 'package:flutter_talkshare/modules/books/widgets/book_widget.dart';
 import 'package:flutter_talkshare/modules/books/widgets/scrollable_books_widget.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 
 class BooksListScreen extends StatelessWidget {
   BooksListScreen({super.key});
@@ -58,57 +57,62 @@ class BooksListScreen extends StatelessWidget {
       double deviceHeight, double deviceWidth, boolListController) {
     return Padding(
       padding: const EdgeInsets.only(top: 20, left: 20, bottom: 20, right: 20),
-      child: Column(children: [
-        Obx(() {
-          return TextField(
-            controller: boolListController.searchController,
-            onChanged: (value) => {
-              boolListController.updateIsInputNotEmpty(value),
-              boolListController.searchBook(value),
-            },
-            decoration: InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(
-                  color: AppColors.primary40,
+      child: SingleChildScrollView(
+        child: Column(children: [
+          Obx(() {
+            return TextField(
+              controller: boolListController.searchController,
+              onChanged: (value) => {
+                boolListController.updateIsInputNotEmpty(value),
+                boolListController.searchBook(value),
+              },
+              decoration: InputDecoration(
+                enabledBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(
+                    color: AppColors.primary40,
+                  ),
                 ),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: const BorderSide(color: Colors.green, width: 2.0),
-              ),
-              hintText: "Tìm kiếm",
-              hintStyle: const TextStyle(
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.gray20,
-                  fontSize: 16.0),
-              contentPadding: const EdgeInsets.symmetric(vertical: 12),
-              prefixIcon: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: SvgPicture.asset(ImageAssets.icSearch),
-              ),
-              prefixIconConstraints: const BoxConstraints(),
-              suffixIcon: boolListController.isInputNotEmpty.value ? GestureDetector(
-                onTap: () {
-                  boolListController.searchController.clear();
-                  boolListController.isInputNotEmpty.value = false;
-                  boolListController.isSearching.value = false;
-                },
-                child: Padding(
+                focusedBorder: OutlineInputBorder(
+                  borderRadius: BorderRadius.circular(12),
+                  borderSide: const BorderSide(color: Colors.green, width: 2.0),
+                ),
+                hintText: "Tìm kiếm",
+                hintStyle: const TextStyle(
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.gray20,
+                    fontSize: 16.0),
+                contentPadding: const EdgeInsets.symmetric(vertical: 12),
+                prefixIcon: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: SvgPicture.asset(ImageAssets.icClose),
+                  child: SvgPicture.asset(ImageAssets.icSearch),
                 ),
-              ) : null,
-              suffixIconConstraints: const BoxConstraints(),
-            ),
-          );
-        }),
-        const SizedBox(
-          height: 20,
-        ),
-        Container(
-            child: Obx(() => _buildListBook(deviceHeight * 0.75, deviceWidth)))
-      ]),
+                prefixIconConstraints: const BoxConstraints(),
+                suffixIcon: boolListController.isInputNotEmpty.value
+                    ? GestureDetector(
+                        onTap: () {
+                          boolListController.searchController.clear();
+                          boolListController.isInputNotEmpty.value = false;
+                          boolListController.isSearching.value = false;
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 16),
+                          child: SvgPicture.asset(ImageAssets.icClose),
+                        ),
+                      )
+                    : null,
+                suffixIconConstraints: const BoxConstraints(),
+              ),
+            );
+          }),
+          const SizedBox(
+            height: 20,
+          ),
+          Container(
+              child:
+                  Obx(() => _buildListBook(deviceHeight * 0.75, deviceWidth)))
+        ]),
+      ),
     );
   }
 
