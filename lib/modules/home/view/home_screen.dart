@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:flutter_talkshare/modules/books/view/books_list_screen.dart';
+import 'package:flutter_talkshare/modules/listening/view/listening_screen.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 
@@ -262,9 +263,10 @@ class HomeScreen extends StatelessWidget {
                 ),
                 Row(
                   children: [
-                    // Expanded(
-                    //     child: sourceItem(
-                    //         "Bài nghe", ImageAssets.icHeadphone, () {})),
+                    Expanded(
+                        child: sourceItem("Bài nghe", ImageAssets.icHeadphone, () {
+                          Get.to(() => ListeningScreen());
+                        })),
                     Expanded(
                         child: sourceItem("Đọc sách", ImageAssets.icBook, () {
                       Get.to(() => BooksListScreen());

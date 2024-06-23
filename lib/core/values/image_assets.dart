@@ -73,6 +73,20 @@ abstract class ImageAssets {
   static const icStreak = 'assets/images/svg/ic_streak.svg';
   static const icBookmarkFilled = 'assets/images/svg/ic_bookmark_filled.svg';
   static const icCrown = 'assets/images/svg/ic_crown.svg';
+  static const icItemPlay = 'assets/images/svg/ic_item_play.svg';
+  static const icPlay_ = 'assets/images/svg/ic_play_.svg';
+  static const icNext_ = 'assets/images/svg/ic_next_.svg';
+  static const icPrevious_ = 'assets/images/svg/ic_previous_.svg';
+  static const icVolume = 'assets/images/svg/ic_volume.svg';
+  static const icEye = 'assets/images/svg/ic_eye.svg';
+  static const icEyeSlash_ = 'assets/images/svg/ic_eye_slash.svg';
+  static const icClockCircle_ = 'assets/images/svg/ic_clock_circle.svg';
+  static const icPause = 'assets/images/svg/ic_pause.svg';
+  static const icMuted = 'assets/images/svg/ic_mute.svg';
+  static const icMaxVolume = 'assets/images/svg/ic_max_volume.svg';
+  static const icSpeed10 = 'assets/images/svg/ic_speed_10.svg';
+  static const icSpeed05 = 'assets/images/svg/ic_speed_05.svg';
+  static const icSpeed20 = 'assets/images/svg/ic_speed_20.svg';
 
   static const imageBookPsychology =
       'assets/images/png/Psychology_of_money.png';
