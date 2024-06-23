@@ -172,4 +172,9 @@ class Helper {
     RegExp regExp = new RegExp(pattern);
     return regExp.hasMatch(password);
   }
+
+  String upperCaseFirstChar(String text) {
+    if (text.isEmpty) return text;
+    return text[0].toUpperCase() + text.substring(1);
+  }
 }

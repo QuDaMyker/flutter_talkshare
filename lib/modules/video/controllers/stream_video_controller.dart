@@ -5,6 +5,7 @@ import 'package:flutter_talkshare/modules/video/models/item_caption_model.dart';
 import 'package:flutter_talkshare/modules/video/models/subtitle_model.dart';
 import 'package:flutter_talkshare/modules/video/models/video_model.dart';
 import 'package:flutter_talkshare/modules/video/services/video_services.dart';
+import 'package:flutter_talkshare/modules/video/widgets/custom_dialog_counter.dart';
 import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -14,11 +15,13 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class StreamVideoController extends GetxController {
   final VideoModel videoModel;
   final bool isModeTitle;
+
   StreamVideoController({
     required this.videoModel,
     required this.isModeTitle,
   });
 
+  final formkey = GlobalKey<FormState>();
   var isLoading = Rx<bool>(true);
   var isTimeout = Rx<bool>(false);
   var captions = Rx<List<SubtitleModel>>([]);
@@ -29,6 +32,7 @@ class StreamVideoController extends GetxController {
   var paragraph = Rx<String>('');
   var listSubSplit = Rx<List<String>>([]);
   var blankIndexes = Rx<List<int>>([]);
+  var counterCorrectWord = Rx<int>(0);
 
   late YoutubeExplode yt;
   late Video video;
@@ -42,7 +46,7 @@ class StreamVideoController extends GetxController {
     await fetchVideoInfo();
     await getCaptions(videoModel.id);
     initScrollController();
-    initYtController();
+    await initYtController();
     isLoading.value = false;
     super.onInit();
   }
@@ -71,12 +75,12 @@ class StreamVideoController extends GetxController {
     //   curve: Curves.fastOutSlowIn,
     // );
     itemScrollController.scrollTo(
-      index: index,
+      index: index == 0 ? index : index - 1,
       duration: const Duration(seconds: 1),
     );
   }
 
-  void initYtController() {
+  Future<void> initYtController() async {
     ytController = YoutubePlayerController(
       initialVideoId: video.id.toString(),
       flags: YoutubePlayerFlags(
@@ -89,6 +93,7 @@ class StreamVideoController extends GetxController {
         hideControls: isModeTitle ? true : false,
       ),
     );
+
     if (isModeTitle) {
       addListenerYt();
     } else {
@@ -99,58 +104,60 @@ class StreamVideoController extends GetxController {
   void handleSplitSub() {
     for (var caption in captions.value) {
       paragraph.value += caption.content;
-      listSubSplit.value.addAll(caption.content.split(' '));
+
+      listSubSplit.value.addAll(caption.content.split(' ').map((e) {
+        return e.toString().trim();
+      }).toList());
     }
     paragraph.value = Helper.instance
         .capitalizeFirstLetter(paragraph.value.split(' ').join(' '));
     blankIndexes.value = List.generate(
-      10,
-      (index) =>
-          Helper.instance.generateRandomInt(1, listSubSplit.value.length),
+      listSubSplit.value.length ~/ 100,
+      (index) => Helper().generateRandomInt(1, listSubSplit.value.length),
     );
-
-    blankIndexes.value
-        .map((item) => print('log-data: blankIndexes : $item'))
-        .toList();
   }
 
   void addListenerYt() {
-    ytController.addListener(() {
-      if (ytController.value.playerState == PlayerState.playing) {
-        String duration =
-            Helper.instance.formatDuration(captions.value[0].start);
-        String positon = Helper.instance
-            .formatMilliseconds(ytController.value.position.inMilliseconds);
-        if (duration == positon) {
-          debugPrint('compare: $duration - $positon');
+    ytController.addListener(onAddListenerYtController);
+  }
 
-          currentCaption.value =
-              '${captions.value[0].start}: ${captions.value[0].content}';
+  void onAddListenerYtController() {
+    if (ytController.value.playerState == PlayerState.playing) {
+      String duration = Helper.instance.formatDuration(captions.value[0].start);
+      String positon = Helper.instance
+          .formatMilliseconds(ytController.value.position.inMilliseconds);
+      if (duration == positon) {
+        debugPrint('compare: $duration - $positon');
 
-          int selectedIndex = originCaptions.value.indexOf(captions.value[0]);
+        currentCaption.value =
+            '${captions.value[0].start}: ${captions.value[0].content}';
 
-          scrollToIndex(selectedIndex);
+        int selectedIndex = originCaptions.value.indexOf(captions.value[0]);
 
-          ItemCaptionModel itemCaptionModel = ItemCaptionModel(
-              subtitleModel: originCaptions.value[selectedIndex],
-              isSelected: true);
+        scrollToIndex(selectedIndex);
 
-          listCaptionsShowing.value = [
-            ...listCaptionsShowing.value.sublist(0, selectedIndex),
-            itemCaptionModel,
-            ...listCaptionsShowing.value.sublist(selectedIndex + 1)
-          ];
+        ItemCaptionModel itemCaptionModel = ItemCaptionModel(
+            subtitleModel: originCaptions.value[selectedIndex],
+            isSelected: true);
 
-          if (listCaptionsShowing.value.length != originCaptions.value.length) {
-            Get.snackbar('title',
-                '${listCaptionsShowing.value.length} - ${originCaptions.value.length}');
-          }
-          update();
+        listCaptionsShowing.value = [
+          ...listCaptionsShowing.value.sublist(0, selectedIndex),
+          itemCaptionModel,
+          ...listCaptionsShowing.value.sublist(selectedIndex + 1)
+        ];
 
-          captions.value = [...captions.value.sublist(1)];
+        if (listCaptionsShowing.value.length != originCaptions.value.length) {
+          Get.snackbar('title',
+              '${listCaptionsShowing.value.length} - ${originCaptions.value.length}');
         }
+        update();
+
+        captions.value = [...captions.value.sublist(1)];
       }
-    });
+    } else if (ytController.value.playerState == PlayerState.ended) {
+      onVideoEnded();
+      ytController.removeListener(() {});
+    }
   }
 
   Future<void> getCaptions(String videoId) async {
@@ -162,5 +169,52 @@ class StreamVideoController extends GetxController {
     listCaptionsShowing.value = originCaptions.value
         .map((item) => ItemCaptionModel(subtitleModel: item))
         .toList();
+  }
+
+  void onVideoEnded() {
+    if (isModeTitle) {
+      onFormValidate();
+      showDialog(
+        firstString: 'Bạn đã đúng được $counterCorrectWord từ',
+        secondString:
+            'Chỉ còn ${blankIndexes.value.length - counterCorrectWord.value} từ chưa chính xác thôi, cố lên nào!!!',
+        onClick: () {
+          Get.back();
+        },
+      );
+    } else {
+      showDialog(
+        firstString: 'Bạn đã hoàn thành luyện tiếng anh cùng video',
+        secondString: 'Hãy tiếp tục luyện tập nhé',
+        onClick: () {
+          Get.back();
+        },
+      );
+    }
+  }
+
+  void showDialog({
+    required String firstString,
+    required String secondString,
+    Function()? onClick,
+  }) {
+    onClick ??= () => Get.back();
+
+    Get.dialog(
+      PopScope(
+        canPop: false,
+        child: CustomDialogCounter(
+          firstString: firstString,
+          secondString: secondString,
+          onClick: onClick,
+        ),
+      ),
+    );
+  }
+
+  void onFormValidate() {
+    if (formkey.currentState!.validate()) {
+      print(counterCorrectWord);
+    }
   }
 }

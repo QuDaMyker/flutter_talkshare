@@ -1,5 +1,9 @@
+import 'dart:ui';
+
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
 import 'package:scrollable_positioned_list/scrollable_positioned_list.dart';
@@ -27,6 +31,7 @@ class StreamVideo extends StatefulWidget {
 
 class _StreamVideoState extends State<StreamVideo> {
   late StreamVideoController streamVideoController;
+
   @override
   void initState() {
     streamVideoController = Get.put(
@@ -82,74 +87,97 @@ class _StreamVideoState extends State<StreamVideo> {
           flex: 2,
           child: _buildYoutubeView(controller),
         ),
-        Expanded(
-          flex: 1,
-          child: _buildVideoTitle(controller),
-        ),
+        _buildVideoTitle(controller),
         Expanded(
           flex: 4,
           child: widget.optionView == Constants.sub
               ? _buildScrollTitle(controller)
-              : Obx(
-                  () => SingleChildScrollView(
-                    child: Container(
-                      //padding: const EdgeInsets.symmetric(horizontal: 12),
+              : _buildFillBlank(controller),
+        ),
+      ],
+    );
+  }
 
-                      decoration: const BoxDecoration(),
-                      // child: RichText(
-                      //   text: TextSpan(
-                      //     children: [
-                      //       for (int i = 0;
-                      //           i < controller.listSubSplit.value.length;
-                      //           i++)
-                      //         if (controller.blankIndexes.value.contains(i))
-                      //           const WidgetSpan(
-                      //             child: SizedBox(
-                      //               width: 100,
-                      //               child: TextField(
-                      //                 decoration: InputDecoration(
-                      //                   border: OutlineInputBorder(),
-                      //                 ),
-                      //               ),
-                      //             ),
-                      //           )
-                      //         else
-                      //           TextSpan(
-                      //             text: "${controller.listSubSplit.value[i]} ",
-                      //             style: const TextStyle(
-                      //               fontSize: 18,
-                      //               fontWeight: FontWeight.normal,
-                      //               color: Colors.black,
-                      //             ),
-                      //           ),
-                      //     ],
-                      //   ),
-                      // ),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: controller.listSubSplit.value
-                            .mapIndexed((index, text) {
-                          if (controller.blankIndexes.value.contains(index)) {
-                            return Expanded(
-                              child: Container(
-                                width: 100,
-                                child: TextField(),
-                              ),
-                            );
-                          } else {
-                            return Expanded(
-                              child: Text(
-                                controller.listSubSplit.value[index],
-                              ),
-                            );
-                          }
-                        }).toList(),
+  Obx _buildFillBlank(StreamVideoController controller) {
+    return Obx(
+      () => SingleChildScrollView(
+        child: Container(
+          padding: const EdgeInsets.symmetric(horizontal: 12),
+          decoration: const BoxDecoration(),
+          child: Form(
+            key: streamVideoController.formkey,
+            child: Expanded(
+              child: Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Expanded(
+                    child: Text.rich(
+                      TextSpan(
+                        children: controller.listSubSplit.value.mapIndexed(
+                          (index, text) {
+                            if (controller.blankIndexes.value.contains(index)) {
+                              return WidgetSpan(
+                                child: Container(
+                                  margin: const EdgeInsets.symmetric(
+                                    horizontal: 10,
+                                  ),
+                                  width: 80,
+                                  height: 20,
+                                  decoration: const BoxDecoration(
+                                    color: AppColors.secondary40,
+                                  ),
+                                  child: TextFormField(
+                                    style: TextStyle(
+                                      color: AppColors.primary40,
+                                      fontSize: 18,
+                                    ),
+                                    onFieldSubmitted: (value) {},
+                                    validator: (value) {
+                                      if (value == text) {
+                                        controller.counterCorrectWord.value++;
+                                      }
+                                      return null;
+                                    },
+                                    onChanged: (value) {},
+                                    cursorColor: AppColors.primary40,
+                                    decoration: InputDecoration(
+                                      fillColor: AppColors.primary40,
+                                      hintText: '................',
+                                      hintStyle: const TextStyle(
+                                        color: AppColors.primary40,
+                                      ),
+                                      contentPadding: const EdgeInsets.all(0),
+                                      focusedBorder: const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: 0,
+                                            color: Colors.transparent),
+                                      ),
+                                      enabledBorder: const OutlineInputBorder(
+                                        borderSide: BorderSide(
+                                            width: 0,
+                                            color: Colors.transparent),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              );
+                            } else {
+                              return TextSpan(
+                                text:
+                                    '${controller.listSubSplit.value[index]} ',
+                              );
+                            }
+                          },
+                        ).toList(),
                       ),
                     ),
                   ),
-                ),
+                ],
+              ),
+            ),
+          ),
         ),
-      ],
+      ),
     );
   }
 
@@ -180,18 +208,15 @@ class _StreamVideoState extends State<StreamVideo> {
     );
   }
 
-  Padding _buildVideoTitle(StreamVideoController controller) {
-    return Padding(
+  Widget _buildVideoTitle(StreamVideoController controller) {
+    return Container(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
-          const SizedBox(
-            height: 12,
-          ),
           Text(
-            controller.video.title,
+            '${controller.video.title}',
             style: const TextStyle(
               fontSize: 18,
               fontWeight: FontWeight.bold,
@@ -206,19 +231,62 @@ class _StreamVideoState extends State<StreamVideo> {
 
   Obx _buildScrollTitle(StreamVideoController controller) {
     return Obx(
-      () => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 12),
-        child: ScrollablePositionedList.builder(
-          itemScrollController: controller.itemScrollController,
-          itemCount: controller.listCaptionsShowing.value.length,
-          itemBuilder: (context, index) {
-            ItemCaptionModel itemCaptionModel =
-                controller.listCaptionsShowing.value[index];
-            return ItemCaptionWidget(
-              itemCaptionModel: itemCaptionModel,
-            );
-          },
-        ),
+      () => Stack(
+        fit: StackFit.passthrough,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: ScrollablePositionedList.builder(
+              itemScrollController: controller.itemScrollController,
+              itemCount: controller.listCaptionsShowing.value.length,
+              itemBuilder: (context, index) {
+                ItemCaptionModel itemCaptionModel =
+                    controller.listCaptionsShowing.value[index];
+                if (index == 0) {
+                  return Column(
+                    children: [
+                      Container(
+                        height: 60,
+                        width: Get.width,
+                        color: Colors.white,
+                      ),
+                      ItemCaptionWidget(
+                        itemCaptionModel: itemCaptionModel,
+                      ),
+                    ],
+                  );
+                }
+
+                return ItemCaptionWidget(
+                  itemCaptionModel: itemCaptionModel,
+                );
+              },
+            ),
+          ),
+          // Positioned(
+          //   top: 0,
+          //   child: Container(
+          //     height: 60,
+          //     width: Get.width,
+          //     child: ClipRect(
+          //       child: BackdropFilter(
+          //         filter: ImageFilter.blur(
+          //           sigmaX: 15,
+          //           sigmaY: 15,
+          //           tileMode: TileMode.mirror,
+          //         ),
+          //         child: Container(
+          //           height: 60,
+          //           decoration: BoxDecoration(
+          //             color: Colors.white.withOpacity(0.021),
+          //           ),
+          //         ),
+          //         //blendMode: BlendMode.color,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+        ],
       ),
     );
   }

@@ -24,6 +24,12 @@ class ProfileController extends GetxController {
     super.onClose();
   }
 
+  Future<void> onRefreshProfile() async {
+    await authController.refreshUser();
+    await getSumPoint(userId: authController.user.user_id);
+    await getStreakDay();
+  }
+
   Future<void> getStreakDay() async {
     streakCount.value = (await PointLearningServices.instance
         .getStreakDay(user_id: authController.user.user_id))!;

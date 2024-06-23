@@ -35,6 +35,15 @@ class AuthController extends GetxController {
     super.onClose();
   }
 
+  Future<void> refreshUser() async {
+    debugPrint('[LOG][refreshUser]: onRefresh');
+    UserModel? userRefresh =
+        await AuthServices.instance.getUserFromDB(email: user.email);
+    if (userRefresh != null) {
+      user = userRefresh;
+    }
+  }
+
   Future<void> onLogin({
     required String email,
     required String password,
