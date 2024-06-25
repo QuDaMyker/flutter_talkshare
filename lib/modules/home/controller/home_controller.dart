@@ -15,7 +15,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:translator_plus/translator_plus.dart';
 
 class HomeController extends GetxController {
-  late final TextEditingController textSearchController;
+  final TextEditingController textSearchController = TextEditingController();
   // controller cuar TextField || TextFormField
   List<String> suggestList = WordList.en;
   late TrieEngine trieEngine;
@@ -80,6 +80,7 @@ class HomeController extends GetxController {
             (await SupabaseService.instance.getSearchedHistory());
         Get.delete<BottomSheetVocabController>();
         //Get.delete<BottomSheetVocab>();
+        textSearchController.clear();
       });
     }
   }

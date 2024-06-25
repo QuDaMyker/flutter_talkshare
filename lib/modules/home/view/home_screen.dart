@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:flutter_talkshare/modules/books/view/books_list_screen.dart';
+import 'package:flutter_talkshare/modules/grammar/views/list_grammar_screen.dart';
 import 'package:flutter_talkshare/modules/listening/view/listening_screen.dart';
+import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:flutter_typeahead/flutter_typeahead.dart';
 import 'package:get/get.dart';
 
@@ -82,7 +84,7 @@ class HomeScreen extends StatelessWidget {
                   onChanged: (value) {},
                   onSubmitted: (value) {
                     homeController.showBottomSheet(context, value);
-                    homeController.textSearchController.clear();
+
                     suggessController.clear();
                   },
                   decoration: InputDecoration(
@@ -264,9 +266,10 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                        child: sourceItem("Bài nghe", ImageAssets.icHeadphone, () {
-                          Get.to(() => ListeningScreen());
-                        })),
+                        child:
+                            sourceItem("Bài nghe", ImageAssets.icHeadphone, () {
+                      Get.to(() => ListeningScreen());
+                    })),
                     Expanded(
                         child: sourceItem("Đọc sách", ImageAssets.icBook, () {
                       Get.to(() => BooksListScreen());
@@ -277,9 +280,11 @@ class HomeScreen extends StatelessWidget {
                         () => const VideoDashBoardScreen(),
                       );
                     })),
-                    // Expanded(
-                    //     child: sourceItem(
-                    //         "Ngữ pháp", ImageAssets.icGrammar, () {}))
+                    Expanded(
+                        child: sourceItem("Ngữ pháp", ImageAssets.icGrammar,
+                            () async {
+                      Get.to(() => ListGrammaScreen());
+                    })),
                   ],
                 ),
                 const SizedBox(

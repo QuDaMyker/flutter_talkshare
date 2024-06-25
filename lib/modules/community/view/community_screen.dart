@@ -13,6 +13,7 @@ import 'package:flutter_talkshare/modules/community/view/audio_room_page.dart';
 import 'package:flutter_talkshare/modules/community/view/create_audio_room.dart';
 import 'package:flutter_talkshare/modules/community/view/live_page.dart';
 import 'package:flutter_talkshare/modules/community/view/post_blog_screen.dart';
+import 'package:flutter_talkshare/modules/community/widget/blog_item.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
@@ -22,66 +23,70 @@ class CommnityScreen extends StatelessWidget {
   CommnityScreen({super.key});
   CommunityController controller = Get.put(CommunityController());
 
-  // List<String> url = ['https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s',
-  //  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s',
-  //  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s',
-  //  'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'];
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: _buildAppBar(),
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
-      floatingActionButton: FloatingActionBubble(
-        items: <Bubble>[
-          Bubble(
-            title: "Tạo phòng nói",
-            iconColor: Colors.white,
-            bubbleColor: AppColors.primary40,
-            icon: CupertinoIcons.mic_fill,
-            titleStyle: TextStyle(fontSize: 16, color: Colors.white),
-            onPress: () {
-              controller.animationController.reverse();
-              // Get.to(AudioRoomPage(roomID: '123', isHost: true,));
-              Get.to(CreateAudioRoom());
-            },
-          ),
-          Bubble(
-            title: "Tạo livestream",
-            iconColor: Colors.white,
-            bubbleColor: AppColors.primary40,
-            icon: CupertinoIcons.videocam_fill,
-            titleStyle: TextStyle(fontSize: 16, color: Colors.white),
-            onPress: () {
-              controller.animationController.reverse();
-              var uuid = const Uuid();
-              String streamId = uuid.v4();
-              controller.creatLivestream(streamId);
-              Get.back();
-              Get.to(LivePage(
-                isHost: true,
-                liveID: streamId,
-              ));
-            },
-          ),
-        ],
-        animation: controller.animation,
-        onPress: () => controller.selectedTab.value == CommunityTab.INTERACTION
-            ? (
-                controller.animationController.isCompleted
-                    ? controller.animationController.reverse()
-                    : controller.animationController.forward(),
-              )
-            : (
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(builder: (context) => PostBlogScreen()),
+      floatingActionButton: Obx(
+        () => controller.selectedTab.value != CommunityTab.INTERACTION
+            ?  (controller.authController.user.role == 'role_teacher'
+              ? FloatingActionBubble(
+                  items: <Bubble>[],
+                  animation: controller.animation,
+                  onPress: () => Navigator.push(
+                            context,
+                            MaterialPageRoute(builder: (context) => PostBlogScreen()),
+                          ),
+                  iconColor: AppColors.primary40,
+                  iconData: CupertinoIcons.add_circled_solid,
+                  backGroundColor: AppColors.secondary90,
+                )
+              : SizedBox.shrink()    )
+            : FloatingActionBubble(
+              items: <Bubble>[
+                Bubble(
+                  title: "Tạo phòng nói",
+                  iconColor: Colors.white,
+                  bubbleColor: AppColors.primary40,
+                  icon: CupertinoIcons.mic_fill,
+                  titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+                  onPress: () {
+                    controller.animationController.reverse();
+                    // Get.to(AudioRoomPage(roomID: '123', isHost: true,));
+                    Get.to(CreateAudioRoom());
+                  },
                 ),
-              ),
-        iconColor: AppColors.primary40,
-        iconData: CupertinoIcons.add_circled_solid,
-        backGroundColor: AppColors.secondary90,
+                Bubble(
+                  title: "Tạo livestream",
+                  iconColor: Colors.white,
+                  bubbleColor: AppColors.primary40,
+                  icon: CupertinoIcons.videocam_fill,
+                  titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+                  onPress: () {
+                    controller.animationController.reverse();
+                    var uuid = const Uuid();
+                    String streamId = uuid.v4();
+                    controller.creatLivestream(streamId);
+                    Get.back();
+                    Get.to(LivePage(
+                      isHost: true,
+                      liveID: streamId,
+                    ));
+                  },
+                ),
+              ],
+              animation: controller.animation,
+              onPress: () => controller.animationController.isCompleted
+                          ? controller.animationController.reverse()
+                          : controller.animationController.forward(),
+              iconColor: AppColors.primary40,
+              iconData: CupertinoIcons.add_circled_solid,
+              backGroundColor: AppColors.secondary90,
+            ),
       ),
+
+
       body: RefreshIndicator(
         onRefresh: () async {
           String type = controller.selectedType.value != 0
@@ -626,247 +631,20 @@ class CommnityScreen extends StatelessWidget {
   Column Blog(BuildContext context) {
     return Column(
       children: [
-        // Obx(()=>
-        SingleChildScrollView(
+        Obx(()=> SingleChildScrollView(
           child: SizedBox(
-            height: 900,
+            height: MediaQuery.of(context).size.height*0.73,
             child: ListView.builder(
               padding: EdgeInsets.only(top: 10),
               scrollDirection: Axis.vertical,
-              itemCount: 6,
+              itemCount: controller.listBlog.length,
               itemBuilder: (context, index) {
-                // IrregularVerb verb = controller.searched_list[index];
-                return BlogItem(context);
-                // ItemIrregularVerbs(
-                //   infinitive: verb.infinitive,
-                //   pastSimple: verb.pastSimple,
-                //   pastParticiple: verb.pastParticiple,
-                //   meaning: verb.meaning,
-                // );
+                return ItemBlog(blog: controller.listBlog[index],);
               },
             ),
           ),
-        ),
-        // ),
+        ), ),
       ],
-    );
-  }
-
-  Container BlogItem(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(5),
-      padding: const EdgeInsets.all(10),
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(8),
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.20),
-            blurRadius: 8,
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Row(
-            children: [
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 0),
-                child: Row(
-                  children: [
-                    const CircleAvatar(
-                      radius: 20.0,
-                      backgroundImage: NetworkImage(
-                          'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'),
-                      backgroundColor: Colors.transparent,
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            SvgPicture.asset(ImageAssets.icStar),
-                            const SizedBox(
-                              width: 4,
-                            ),
-                            const Text(
-                              "Teacher",
-                              style: TextStyle(
-                                  fontSize: 12,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.secondary20),
-                            )
-                          ],
-                        ),
-                        const Text(
-                          "Divid",
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                      ],
-                    )
-                  ],
-                ),
-              ),
-              const Spacer(),
-              const Text(
-                "4 giờ trước",
-                style: TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.grey),
-              ),
-            ],
-          ),
-          const SizedBox(
-            height: 8,
-          ),
-          ExpandableText(
-            "Nguyên âm và phụ âm - phần kiến thức quan trọng xuất hiện trong mọi kỳ thi tiếng anh. bạn đã nắm được hết? \n Hôm nay cô giới thiệu tới các bạn bộ nguyên âm",
-            style: TextStyle(
-              fontSize: 12,
-              fontWeight: FontWeight.w500,
-              color: Colors.black,
-            ),
-            expandText: 'Xem thêm',
-            collapseText: 'Thu gọn',
-            maxLines: 5,
-          ),
-          const SizedBox(
-            height: 10,
-          ),
-          //_buildSingleImagePost('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s',context)
-          //_buildFourImagesPost(url),
-          _buildMultipleImagePost(url),
-        ],
-      ),
-    );
-  }
-
-  List<String> url = [
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s',
-    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQT5Uw9KngKXAwYmjplN3_ANBA51ou4fzAdaLZNf23Nkg&s'
-  ];
-
-  Widget _buildSingleImagePost(String imageUrl, BuildContext context) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: GestureDetector(
-        onTap: () {},
-        child: ClipRRect(
-          child: Image.network(
-            imageUrl,
-            width: 350,
-            height: 300,
-            fit: BoxFit.cover,
-          ),
-        ),
-      ),
-    );
-  }
-
-  Widget _buildFourImagesPost(List<String> imageUrls) {
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: GridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: 3,
-        mainAxisSpacing: 3,
-        shrinkWrap: true,
-        children: imageUrls
-            .map(
-              (url) => GestureDetector(
-                onTap: () {
-                  // Xử lý khi nhấn vào hình ảnh
-                },
-                child: ClipRRect(
-                  child: Image.network(
-                    url,
-                    fit: BoxFit.cover,
-                  ),
-                ),
-              ),
-            )
-            .toList(),
-      ),
-    );
-  }
-
-  Widget _buildMultipleImagePost(List<String> imageUrls) {
-    List<Widget> gridItems =
-        imageUrls.sublist(0, 3).map((url) => _buildImageItem(url)).toList();
-
-    gridItems.add(
-      GestureDetector(
-        onTap: () {
-          // Xử lý khi nhấn vào hình ảnh thứ tư
-        },
-        child: Stack(
-          children: [
-            Positioned.fill(
-              child: ClipRRect(
-                child: Image.network(
-                  imageUrls[3],
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            Positioned.fill(
-              child: ClipRRect(
-                child: Container(
-                  color: Colors.black.withOpacity(0.5),
-                  child: const Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Icon(
-                          Icons.add,
-                          color: Colors.white,
-                          size: 40,
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(12),
-      child: GridView.count(
-        crossAxisCount: 2,
-        crossAxisSpacing: 3,
-        mainAxisSpacing: 3,
-        shrinkWrap: true,
-        children: gridItems,
-      ),
-    );
-  }
-
-  Widget _buildImageItem(String imageUrl) {
-    return GestureDetector(
-      onTap: () {},
-      child: ClipRRect(
-        child: Image.network(
-          imageUrl,
-          fit: BoxFit.cover,
-        ),
-      ),
     );
   }
 

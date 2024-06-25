@@ -14,15 +14,17 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class ListeningWriteScreen extends StatelessWidget {
   final Listening listening;
-  const ListeningWriteScreen({Key? key, required this.listening}) : super(key: key);  
+  ListeningWriteScreen({Key? key, required this.listening}) : super(key: key);  
+  ListeningWriteScreenController listeningWriteScreenController = Get.put(ListeningWriteScreenController());
+  final PlayBarController playBarController = Get.put(PlayBarController());
 
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
 
-    final ListeningWriteScreenController listeningWriteScreenController = Get.put(ListeningWriteScreenController());
     listeningWriteScreenController.isTextFieldVisible = false.obs;
+    playBarController.audioUrl = listening.audioURL;
 
     return SafeArea(
       child: Scaffold(
@@ -32,7 +34,6 @@ class ListeningWriteScreen extends StatelessWidget {
       ),
     );
   }
-
  Container _buildBody (
     double deviceHeight,
     double deviceWidth,
