@@ -58,28 +58,34 @@ class DetailGrammarScreen extends StatelessWidget {
     );
   }
 
-  Padding _buildBody(BuildContext context, double deviceHeight,
-      double deviceWidth, GrammarController grammarController) {
+  Padding _buildBody(
+    BuildContext context,
+    double deviceHeight,
+    double deviceWidth,
+    GrammarController grammarController,
+  ) {
     return Padding(
-      padding: EdgeInsets.all(20),
+      padding: EdgeInsets.all(16),
       child: Column(
         children: [
           Container(
             height: deviceHeight * 0.1,
-            width: deviceWidth - 40,
             decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(12),
-                gradient: LinearGradient(colors: AppColors.primaryGradient)),
+              borderRadius: BorderRadius.circular(12),
+              gradient: LinearGradient(
+                colors: AppColors.primaryGradient,
+              ),
+            ),
             child: Row(
               children: [
                 Container(
-                    width: 80,
-  
-                    child: SvgPicture.asset(
-                      ImageAssets.bookGrammar,
-                      height: 48,
-                      width: 48,
-                    )),
+                  width: 80,
+                  child: SvgPicture.asset(
+                    ImageAssets.bookGrammar,
+                    height: 48,
+                    width: 48,
+                  ),
+                ),
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +122,7 @@ class DetailGrammarScreen extends StatelessWidget {
             ),
           ),
           SizedBox(
-            height: 15,
+            height: 12,
           ),
           Obx(() {
             if (grammarController.isLoading.value) {
