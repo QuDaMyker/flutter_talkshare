@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/models/definition.dart';
+import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/models/wordset.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/modules/vocab_list/controllers/vocab_list_screen_controller.dart';
@@ -7,6 +8,7 @@ import 'package:flutter_talkshare/modules/vocab_list/widgets/item_vocab_list.dar
 import 'package:flutter_talkshare/modules/vocab_list_detail/views/vocab_list_detail.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
+import 'package:lottie/lottie.dart';
 
 import '../../../utils/helper.dart';
 
@@ -41,7 +43,8 @@ class VocabListScreen extends StatelessWidget {
   ) {
     return GestureDetector(
       onTap: () {
-        if (controller.listVocab.value.isNotEmpty) {
+        if (controller.listVocab.value.isNotEmpty &&
+            controller.listVocab.value.length > 3) {
           Get.to(
             () => VocabListDetailScreen(
               listVocabAddToCard: controller.listVocab.value,
@@ -49,45 +52,48 @@ class VocabListScreen extends StatelessWidget {
           );
         }
       },
-      child: Container(
-        padding: EdgeInsets.symmetric(
-          vertical: deviceHeight * 0.012,
-        ),
-        margin: EdgeInsets.only(
-          left: deviceWidth * 0.1,
-          right: deviceWidth * 0.1,
-          bottom: 40,
-        ),
-        decoration: const BoxDecoration(
-          color: AppColors.secondary20,
-          border: Border(
-            top: BorderSide(color: Colors.transparent, width: 0),
-            bottom: BorderSide(color: Colors.transparent, width: 0),
-            right: BorderSide(color: Colors.transparent, width: 0),
-            left: BorderSide(color: Colors.transparent, width: 0),
-          ),
-          borderRadius: BorderRadius.all(
-            Radius.circular(
-              8,
-            ),
-          ),
-        ),
-        child: const Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.copy_outlined,
-              color: Colors.white,
-            ),
-            Text(
-              'Học bộ từ này',
-              style: TextStyle(
-                fontWeight: FontWeight.w500,
-                color: Colors.white,
-              ),
-            )
-          ],
-        ),
+      child: Obx(
+        () => controller.listVocab.value.isNotEmpty &&
+                controller.listVocab.value.length > 0
+            ? Container(
+                padding: EdgeInsets.symmetric(
+                  vertical: deviceHeight * 0.012,
+                ),
+                margin: EdgeInsets.only(
+                  left: deviceWidth * 0.1,
+                  right: deviceWidth * 0.1,
+                  bottom: 40,
+                ),
+                decoration: const BoxDecoration(
+                  color: AppColors.secondary20,
+                  border: Border(
+                    top: BorderSide(color: Colors.transparent, width: 0),
+                    bottom: BorderSide(color: Colors.transparent, width: 0),
+                    right: BorderSide(color: Colors.transparent, width: 0),
+                    left: BorderSide(color: Colors.transparent, width: 0),
+                  ),
+                  borderRadius: BorderRadius.all(
+                    Radius.circular(8),
+                  ),
+                ),
+                child: const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(
+                      Icons.copy_outlined,
+                      color: Colors.white,
+                    ),
+                    Text(
+                      'Học bộ từ này',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w500,
+                        color: Colors.white,
+                      ),
+                    )
+                  ],
+                ),
+              )
+            : const SizedBox(),
       ),
     );
   }
@@ -105,12 +111,21 @@ class VocabListScreen extends StatelessWidget {
       child: Obx(
         () => controller.isLoading.value
             ? _buildLoading()
-            : SingleChildScrollView(
-                child: SizedBox(
-                  child: _buildListviewBuilder(
-                      deviceHeight, deviceWidth, controller),
-                ),
-              ),
+            : controller.listVocab.value.isNotEmpty
+                ? SingleChildScrollView(
+                    child: SizedBox(
+                      child: _buildListviewBuilder(
+                          deviceHeight, deviceWidth, controller),
+                    ),
+                  )
+                : Align(
+                    alignment: Alignment.center,
+                    child: Lottie.asset(
+                      'assets/images/lottie/ic_nodata2.json',
+                      width: 200,
+                      height: 200,
+                    ),
+                  ),
       ),
     );
   }
@@ -130,13 +145,13 @@ class VocabListScreen extends StatelessWidget {
             scrollDirection: Axis.vertical,
             itemCount: controller.listVocab.value.length,
             itemBuilder: (context, index) {
-              Definition definition = controller.listVocab.value[index];
+              Vocab vocab = controller.listVocab.value[index];
               return ItemVocabList(
-                enWordForm: definition.word,
-                translatedWordForm: definition.meaning,
-                typeOfWord: definition.partOfSpeech,
+                enWordForm: vocab.word,
+                translatedWordForm: vocab.primaryMeaning,
+                //typeOfWord: vocab.,
                 onSpeak: () {
-                  Helper.instance.playWithTTS(definition.word);
+                  Helper.instance.playWithTTS(vocab.word);
                 },
               );
             },

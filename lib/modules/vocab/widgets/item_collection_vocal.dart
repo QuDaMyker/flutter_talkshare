@@ -91,8 +91,12 @@ class ItemCollectionVocab extends StatelessWidget {
                       ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image(
-                          fit: BoxFit.contain,
-                          image: CachedNetworkImageProvider(wordSet.avatarUrl),
+                          fit: BoxFit.cover,
+                          image: CachedNetworkImageProvider(
+                            wordSet.avatarUrl,
+                            maxWidth: 100,
+                            maxHeight: 100,
+                          ),
                         ),
                       ),
                     ],

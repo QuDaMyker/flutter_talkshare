@@ -15,7 +15,7 @@ class VocabListDetailScreen extends StatelessWidget {
     required this.listVocabAddToCard,
   });
 
-  final List<Definition> listVocabAddToCard;
+  final List<Vocab> listVocabAddToCard;
 
   @override
   Widget build(BuildContext context) {

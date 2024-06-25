@@ -61,7 +61,7 @@ extension WordsetService on SupabaseService {
     return listFolder;
   }
 
-  Future<String> uploadImage(File imageFile) async {
+  Future<String> uploadWordSetImage(File imageFile) async {
     String imgName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
     await supabase.storage.from('Wordset Avatar').upload(imgName, imageFile);
     return imgName;

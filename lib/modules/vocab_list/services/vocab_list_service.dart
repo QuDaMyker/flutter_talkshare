@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_talkshare/core/models/definition.dart';
+import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/core/models/word_response.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:http/http.dart' as http;
@@ -9,14 +10,15 @@ import 'package:http/http.dart' as http;
 import '../../../utils/helper.dart';
 
 class VocabListServices {
-  Future<List<Definition>> getVocabList(String wordsetId) async {
+  Future<List<Vocab>> getVocabList(String wordsetId) async {
     try {
-      List<Definition> result = [];
+      List<Vocab> result = [];
       List<String> listWordString =
           await SupabaseService.instance.getWordsetVocab(wordsetId);
 
       for (var i in listWordString) {
-        Definition vocab = await getWordByMapperJson(i);
+        //Definition vocab = await getWordByMapperJson(i);
+        Vocab vocab = await SupabaseService.instance.getVocabByWord(i);
 
         result.add(vocab);
       }

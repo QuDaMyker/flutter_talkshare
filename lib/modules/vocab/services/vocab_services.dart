@@ -26,7 +26,9 @@ class VocabService {
           .getListSavedVocab(authController.user.user_id);
 
       for (var i in listWordString) {
-        Vocab vocab = await getWordByMapperJson(i);
+        //Vocab vocab = await getWordByMapperJson(i);
+        Vocab vocab = await SupabaseService.instance.getVocabByWord(i);
+
         result.add(vocab);
         print(vocab.word);
       }
@@ -43,7 +45,8 @@ class VocabService {
       List<String> recentVocab = await getSearchedHistory();
       debugPrint('recent: ${recentVocab.length}');
       for (var i in recentVocab) {
-        Vocab rsWord = await getWordByMapperJson(i);
+        //Vocab rsWord = await getWordByMapperJson(i);
+        Vocab rsWord = await SupabaseService.instance.getVocabByWord(i);
         result.add(rsWord);
       }
 
@@ -57,6 +60,8 @@ class VocabService {
 
   Future<List<WordSet>> getVocabCollection() async {
     List<WordSet> result = await SupabaseService.instance.getWordSet();
+    result += await SupabaseService.instance
+        .getWordSetById(userId: authController.user.user_id);
     for (int i = 0; i < result.length; i++) {
       int count =
           await SupabaseService.instance.getCounterWordSet(result[i].wordsetId);

@@ -78,6 +78,26 @@ class SupabaseService {
     }
   }
 
+  Future<List<WordSet>> getWordSetById({required String userId}) async {
+    List<WordSet> listWordSet = [];
+    try {
+      final query = await supabase
+          .from('wordset')
+          .select('wordset_id, name, avatar_url, folder_id, user_id')
+          .eq('user_id', userId);
+
+      for (var i in query) {
+        WordSet wordSet = WordSet.fromJson(i);
+        listWordSet.add(wordSet);
+      }
+
+      return listWordSet;
+    } catch (e) {
+      debugPrint(e.toString());
+      return [];
+    }
+  }
+
   Future<int> getCounterWordSet(String wordsetId) async {
     final query = await supabase
         .from('wordset_vocab')

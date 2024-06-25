@@ -100,9 +100,11 @@ abstract class ImageAssets {
   static const txtFinding = 'assets/images/svg/txt_finding.svg';
   static const txtReady = 'assets/images/svg/txt_ready.svg';
   static const icSentFast = 'assets/images/svg/ic-sent-fast.svg';
+  static const icLogOut = 'assets/images/svg/ic_log_out.svg';
 
   static const imageBookPsychology =
       'assets/images/png/Psychology_of_money.png';
+  static const icStreakPNG = 'assets/images/png/ic_streak.png';
 
   static const imageBook1 = 'assets/images/jpg/Hp1.jpg';
   static const imageBook2 = 'assets/images/jpg/Hp2.jpg';

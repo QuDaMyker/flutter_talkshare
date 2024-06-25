@@ -5,11 +5,14 @@ import 'package:flutter_talkshare/core/enums/role.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
+import 'package:flutter_talkshare/modules/auth/services/auth_services.dart';
+import 'package:flutter_talkshare/modules/auth/views/login_screen.dart';
 import 'package:flutter_talkshare/modules/profile/controller/profile_controller.dart';
 import 'package:flutter_talkshare/modules/profile/widgets/circle_winner_widget.dart';
 import 'package:flutter_talkshare/modules/profile/widgets/table_calendar_widget.dart';
 import 'package:flutter_talkshare/modules/ranking/views/ranking_screen.dart';
 import 'package:flutter_talkshare/modules/request_teacher/views/create_request_role_teacher_screen.dart';
+import 'package:flutter_talkshare/modules/root_view/controller/root_view_controller.dart';
 import 'package:get/get.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -100,13 +103,13 @@ class _ProfileScreenState extends State<ProfileScreen>
     required ProfileController profileController,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 15),
+      padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         mainAxisSize: MainAxisSize.max,
         children: [
           const SizedBox(
-            height: 20,
+            height: 10,
           ),
           _buildStreakValue(profileController: profileController),
           const SizedBox(
@@ -141,7 +144,52 @@ class _ProfileScreenState extends State<ProfileScreen>
                     ),
                   ],
                 )
-              : SizedBox(),
+              : SizedBox(height: 10),
+          Row(
+            children: [
+              Expanded(
+                child: InkWell(
+                  onTap: () async {
+                    await AuthServices.instance.onLogOut()
+                        ? {
+                            Get.offAll(() => LoginScreen()),
+                            Get.delete<RootViewController>(force: true),
+                          }
+                        : null;
+                  },
+                  child: Container(
+                    padding: const EdgeInsets.all(12),
+                    decoration: BoxDecoration(
+                      color: AppColors.secondary20,
+                      borderRadius: BorderRadius.circular(12),
+                    ),
+                    child: Align(
+                      alignment: Alignment.center,
+                      child: Row(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          SvgPicture.asset(
+                            ImageAssets.icLogOut,
+                          ),
+                          const SizedBox(
+                            width: 8,
+                          ),
+                          const Text(
+                            'Đăng xuất',
+                            style: TextStyle(
+                              color: Colors.white,
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ],
       ),
     );
@@ -219,8 +267,8 @@ class _ProfileScreenState extends State<ProfileScreen>
               ),
             ),
             Expanded(
-              child: SvgPicture.asset(
-                ImageAssets.icElectric,
+              child: Image.asset(
+                ImageAssets.icStreakPNG,
                 height: 100,
                 width: 100,
               ),

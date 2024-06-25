@@ -24,7 +24,6 @@ class BottomSheetVocabController extends GetxController {
   var isSave = false.obs;
   final AuthController authController = Get.find<AuthController>();
 
-
   //Map<String, List<Definition>> listDefinitions ={};
 
   @override
@@ -51,6 +50,7 @@ class BottomSheetVocabController extends GetxController {
     isLoading.value = true;
     translationModel =
         await SupabaseService.instance.getTranslation(word: word);
+    await saveWordToHistory(word);
     isLoading.value = false;
   }
 
@@ -169,12 +169,12 @@ class BottomSheetVocabController extends GetxController {
   }
 
   Future<void> playAudio(String urlAudio) async {
-    final duration = await player.setUrl(urlAudio);
+    await player.setUrl(urlAudio);
     player.play();
     debugPrint('phát âm thanh');
   }
 
-  Future<void> saveWordToHistory(Vocab word) async {
-    await SupabaseService.instance.saveVocabToSharedPreferences(word.word);
+  Future<void> saveWordToHistory(String word) async {
+    await SupabaseService.instance.saveVocabToSharedPreferences(word);
   }
 }

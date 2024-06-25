@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 import '../../../core/configuration/injection.dart';
 
 class VocabListDetailController extends GetxController {
-  final List<Definition> listVocabAddToCard;
+  final List<Vocab> listVocabAddToCard;
 
   VocabListDetailController({required this.listVocabAddToCard});
 
@@ -42,7 +42,7 @@ class VocabListDetailController extends GetxController {
     for (var item in listVocabAddToCard) {
       cards.add(ItemDetailVocav(
         word: item.word,
-        primaryMeaning: item.meaning,
+        primaryMeaning: item.primaryMeaning,
       ));
     }
 

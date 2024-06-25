@@ -6,13 +6,13 @@ class ItemVocabList extends StatelessWidget {
     super.key,
     required this.enWordForm,
     required this.translatedWordForm,
-    required this.typeOfWord,
+    //required this.typeOfWord,
     required this.onSpeak,
   });
 
   final String enWordForm;
   final String translatedWordForm;
-  final String typeOfWord;
+  //final String typeOfWord;
   final Function onSpeak;
 
   @override
@@ -21,9 +21,10 @@ class ItemVocabList extends StatelessWidget {
     final deviceHeight = MediaQuery.of(context).size.height;
 
     return Container(
-      constraints: const BoxConstraints(maxHeight: 80),
+      constraints: const BoxConstraints(maxHeight: 90),
       padding: EdgeInsets.symmetric(
         horizontal: deviceWidth * 0.1,
+        //vertical: deviceHeight * 0.01,
       ),
       margin: EdgeInsets.only(
         bottom: deviceHeight * 0.01,
@@ -31,27 +32,13 @@ class ItemVocabList extends StatelessWidget {
       decoration: BoxDecoration(
         color: Colors.white,
         border: const Border(
-          top: BorderSide(
-            color: AppColors.gray60,
-            width: 1,
-          ),
-          bottom: BorderSide(
-            color: AppColors.gray60,
-            width: 1,
-          ),
-          left: BorderSide(
-            color: AppColors.gray60,
-            width: 1,
-          ),
-          right: BorderSide(
-            color: AppColors.gray60,
-            width: 1,
-          ),
+          top: BorderSide(color: AppColors.gray60, width: 1),
+          bottom: BorderSide(color: AppColors.gray60, width: 1),
+          left: BorderSide(color: AppColors.gray60, width: 1),
+          right: BorderSide(color: AppColors.gray60, width: 1),
         ),
         borderRadius: const BorderRadius.all(
-          Radius.circular(
-            8,
-          ),
+          Radius.circular(8),
         ),
         shape: BoxShape.rectangle,
         boxShadow: [
@@ -68,8 +55,8 @@ class ItemVocabList extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          _buildSourceWord(deviceHeight, deviceWidth),
-          _buildTranslatedWord()
+          Expanded(child: _buildSourceWord(deviceHeight, deviceWidth)),
+          Expanded(child: _buildTranslatedWord())
         ],
       ),
     );
@@ -112,48 +99,48 @@ class ItemVocabList extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
-        Container(
-          padding: EdgeInsets.symmetric(
-            vertical: deviceHeight * 0.005,
-            horizontal: deviceWidth * 0.01,
-          ),
-          decoration: const BoxDecoration(
-            color: AppColors.secondary80,
-            borderRadius: BorderRadius.all(
-              Radius.circular(
-                8,
-              ),
-            ),
-            border: Border(
-              top: BorderSide(
-                color: Colors.transparent,
-                width: 0,
-              ),
-              bottom: BorderSide(
-                color: Colors.transparent,
-                width: 0,
-              ),
-              left: BorderSide(
-                color: Colors.transparent,
-                width: 0,
-              ),
-              right: BorderSide(
-                color: Colors.transparent,
-                width: 0,
-              ),
-            ),
-          ),
-          child: Text(
-            typeOfWord,
-            style: const TextStyle(
-              color: AppColors.secondary20,
-              fontWeight: FontWeight.w600,
-              fontSize: 14,
-            ),
-            textAlign: TextAlign.left,
-            maxLines: 2,
-          ),
-        ),
+        // Container(
+        //   padding: EdgeInsets.symmetric(
+        //     vertical: deviceHeight * 0.005,
+        //     horizontal: deviceWidth * 0.01,
+        //   ),
+        //   decoration: const BoxDecoration(
+        //     color: AppColors.secondary80,
+        //     borderRadius: BorderRadius.all(
+        //       Radius.circular(
+        //         8,
+        //       ),
+        //     ),
+        //     border: Border(
+        //       top: BorderSide(
+        //         color: Colors.transparent,
+        //         width: 0,
+        //       ),
+        //       bottom: BorderSide(
+        //         color: Colors.transparent,
+        //         width: 0,
+        //       ),
+        //       left: BorderSide(
+        //         color: Colors.transparent,
+        //         width: 0,
+        //       ),
+        //       right: BorderSide(
+        //         color: Colors.transparent,
+        //         width: 0,
+        //       ),
+        //     ),
+        //   ),
+        //   child: Text(
+        //     typeOfWord,
+        //     style: const TextStyle(
+        //       color: AppColors.secondary20,
+        //       fontWeight: FontWeight.w600,
+        //       fontSize: 14,
+        //     ),
+        //     textAlign: TextAlign.left,
+        //     maxLines: 2,
+        //   ),
+        // ),
         IconButton(
           onPressed: () => onSpeak(),
           icon: const Icon(
@@ -174,7 +161,7 @@ class ItemVocabList extends StatelessWidget {
           fontSize: 14,
         ),
         textAlign: TextAlign.left,
-        maxLines: 2,
+        maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),
     );

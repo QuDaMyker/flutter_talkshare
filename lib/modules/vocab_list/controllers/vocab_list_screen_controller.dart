@@ -1,4 +1,5 @@
 import 'package:flutter_talkshare/core/models/definition.dart';
+import 'package:flutter_talkshare/core/models/vocab.dart';
 import 'package:flutter_talkshare/modules/vocab_list/services/vocab_list_service.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 import 'package:get/get.dart';
@@ -11,7 +12,8 @@ class VocabListScreenController extends GetxController {
   VocabListScreenController({required this.wordsetId});
 
   var isLoading = Rx<bool>(false);
-  var listVocab = Rx<List<Definition>>([]);
+  //var listVocab = Rx<List<Definition>>([]);
+  var listVocab = Rx<List<Vocab>>([]);
 
   @override
   void onInit() async {

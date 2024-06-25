@@ -195,161 +195,161 @@ class CreateNewListVocabScreen extends StatelessWidget {
                     ],
                   ),
                 ),
-                TextField(
-                  readOnly: true,
-                  controller: controller.folderTextCtrl,
-                  onTap: () {
-                    showModalBottomSheet(
-                        useRootNavigator: true,
-                        context: context,
-                        builder: (context) {
-                          return Container(
-                            padding: EdgeInsets.all(20),
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.white,
-                            ),
-                            child: Obx(() => Column(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    Row(
-                                      children: [
-                                        Expanded(
-                                          child: Text(
-                                            "Chọn thư mục",
-                                            style: TextStyle(
-                                                fontSize: 18,
-                                                color: AppColors.primary20,
-                                                fontWeight: FontWeight.w700),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            Get.back();
-                                          },
-                                          child: SvgPicture.asset(
-                                              ImageAssets.icClose2),
-                                        )
-                                      ],
-                                    ),
-                                    ListTile(
-                                      contentPadding: EdgeInsets.zero,
-                                      title: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: [
-                                          Expanded(
-                                            child: Text(
-                                              "Không có",
-                                              style: TextStyle(
-                                                  fontSize: 16,
-                                                  color: AppColors.primary20,
-                                                  fontWeight: FontWeight.w600),
-                                            ),
-                                          )
-                                        ],
-                                      ),
-                                      trailing: Transform.scale(
-                                        scale: 1,
-                                        child: Radio(
-                                          groupValue: controller.selectedFolder
-                                                  .value?.hashCode ??
-                                              0,
-                                          value: 0,
-                                          activeColor: AppColors.secondary20,
-                                          onChanged: (int? value) {
-                                            // controller.selectedType.value =
-                                            //     value ?? 0;
-                                            // controller.filter("Tất cả");
-                                            // Get.back();
-                                            controller.selectedFolder.value =
-                                                null;
-                                            controller.folderTextCtrl.text = '';
-                                            Get.back();
-                                          },
-                                        ),
-                                      ),
-                                      onTap: () {
-                                        // Get.back();
-                                      },
-                                    ),
-                                    ListView.builder(
-                                      shrinkWrap: true,
-                                      itemCount: controller.listFolder.length,
-                                      itemBuilder: (context, index) {
-                                        return ListTile(
-                                          contentPadding: EdgeInsets.zero,
-                                          title: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: [
-                                              Expanded(
-                                                child: Text(
-                                                  controller
-                                                      .listFolder[index].name,
-                                                  style: TextStyle(
-                                                      fontSize: 16,
-                                                      color:
-                                                          AppColors.primary20,
-                                                      fontWeight:
-                                                          FontWeight.w600),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                          trailing: Transform.scale(
-                                            scale: 1,
-                                            child: Radio(
-                                              groupValue: controller
-                                                      .selectedFolder
-                                                      .value
-                                                      ?.hashCode ??
-                                                  0,
-                                              value: controller
-                                                  .listFolder[index].hashCode,
-                                              activeColor:
-                                                  AppColors.secondary20,
-                                              onChanged: (int? value) {
-                                                controller
-                                                        .selectedFolder.value =
-                                                    controller
-                                                        .listFolder[index];
-                                                controller.folderTextCtrl.text =
-                                                    controller
-                                                        .listFolder[index].name;
-                                                Get.back();
-                                              },
-                                            ),
-                                          ),
-                                          onTap: () {
-                                            // Get.back();
-                                          },
-                                        );
-                                      },
-                                    )
-                                  ],
-                                )),
-                          );
-                        });
-                  },
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.primary20,
-                      fontSize: 16),
-                  decoration: InputDecoration(
-                    hintText: 'Thư mục',
-                    prefixIcon: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: SvgPicture.asset(ImageAssets.icFolder2),
-                    ),
-                    suffixIcon: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 16),
-                      child: SvgPicture.asset(ImageAssets.icChevronDown),
-                    ),
-                    focusedBorder: Helper.instance.customBorderWhenFocus(),
-                    enabledBorder: Helper.instance.customBorder(),
-                  ),
-                ),
+                // TextField(
+                //   readOnly: true,
+                //   controller: controller.folderTextCtrl,
+                //   onTap: () {
+                //     showModalBottomSheet(
+                //         useRootNavigator: true,
+                //         context: context,
+                //         builder: (context) {
+                //           return Container(
+                //             padding: EdgeInsets.all(20),
+                //             decoration: BoxDecoration(
+                //               borderRadius: BorderRadius.circular(20),
+                //               color: Colors.white,
+                //             ),
+                //             child: Obx(() => Column(
+                //                   mainAxisSize: MainAxisSize.min,
+                //                   children: [
+                //                     Row(
+                //                       children: [
+                //                         Expanded(
+                //                           child: Text(
+                //                             "Chọn thư mục",
+                //                             style: TextStyle(
+                //                                 fontSize: 18,
+                //                                 color: AppColors.primary20,
+                //                                 fontWeight: FontWeight.w700),
+                //                           ),
+                //                         ),
+                //                         InkWell(
+                //                           onTap: () {
+                //                             Get.back();
+                //                           },
+                //                           child: SvgPicture.asset(
+                //                               ImageAssets.icClose2),
+                //                         )
+                //                       ],
+                //                     ),
+                //                     ListTile(
+                //                       contentPadding: EdgeInsets.zero,
+                //                       title: Row(
+                //                         mainAxisAlignment:
+                //                             MainAxisAlignment.start,
+                //                         children: [
+                //                           Expanded(
+                //                             child: Text(
+                //                               "Không có",
+                //                               style: TextStyle(
+                //                                   fontSize: 16,
+                //                                   color: AppColors.primary20,
+                //                                   fontWeight: FontWeight.w600),
+                //                             ),
+                //                           )
+                //                         ],
+                //                       ),
+                //                       trailing: Transform.scale(
+                //                         scale: 1,
+                //                         child: Radio(
+                //                           groupValue: controller.selectedFolder
+                //                                   .value?.hashCode ??
+                //                               0,
+                //                           value: 0,
+                //                           activeColor: AppColors.secondary20,
+                //                           onChanged: (int? value) {
+                //                             // controller.selectedType.value =
+                //                             //     value ?? 0;
+                //                             // controller.filter("Tất cả");
+                //                             // Get.back();
+                //                             controller.selectedFolder.value =
+                //                                 null;
+                //                             controller.folderTextCtrl.text = '';
+                //                             Get.back();
+                //                           },
+                //                         ),
+                //                       ),
+                //                       onTap: () {
+                //                         // Get.back();
+                //                       },
+                //                     ),
+                //                     ListView.builder(
+                //                       shrinkWrap: true,
+                //                       itemCount: controller.listFolder.length,
+                //                       itemBuilder: (context, index) {
+                //                         return ListTile(
+                //                           contentPadding: EdgeInsets.zero,
+                //                           title: Row(
+                //                             mainAxisAlignment:
+                //                                 MainAxisAlignment.start,
+                //                             children: [
+                //                               Expanded(
+                //                                 child: Text(
+                //                                   controller
+                //                                       .listFolder[index].name,
+                //                                   style: TextStyle(
+                //                                       fontSize: 16,
+                //                                       color:
+                //                                           AppColors.primary20,
+                //                                       fontWeight:
+                //                                           FontWeight.w600),
+                //                                 ),
+                //                               )
+                //                             ],
+                //                           ),
+                //                           trailing: Transform.scale(
+                //                             scale: 1,
+                //                             child: Radio(
+                //                               groupValue: controller
+                //                                       .selectedFolder
+                //                                       .value
+                //                                       ?.hashCode ??
+                //                                   0,
+                //                               value: controller
+                //                                   .listFolder[index].hashCode,
+                //                               activeColor:
+                //                                   AppColors.secondary20,
+                //                               onChanged: (int? value) {
+                //                                 controller
+                //                                         .selectedFolder.value =
+                //                                     controller
+                //                                         .listFolder[index];
+                //                                 controller.folderTextCtrl.text =
+                //                                     controller
+                //                                         .listFolder[index].name;
+                //                                 Get.back();
+                //                               },
+                //                             ),
+                //                           ),
+                //                           onTap: () {
+                //                             // Get.back();
+                //                           },
+                //                         );
+                //                       },
+                //                     )
+                //                   ],
+                //                 )),
+                //           );
+                //         });
+                //   },
+                //   style: const TextStyle(
+                //       fontWeight: FontWeight.w600,
+                //       color: AppColors.primary20,
+                //       fontSize: 16),
+                //   decoration: InputDecoration(
+                //     hintText: 'Thư mục',
+                //     prefixIcon: Padding(
+                //       padding: const EdgeInsets.symmetric(horizontal: 16),
+                //       child: SvgPicture.asset(ImageAssets.icFolder2),
+                //     ),
+                //     suffixIcon: Padding(
+                //       padding: const EdgeInsets.symmetric(horizontal: 16),
+                //       child: SvgPicture.asset(ImageAssets.icChevronDown),
+                //     ),
+                //     focusedBorder: Helper.instance.customBorderWhenFocus(),
+                //     enabledBorder: Helper.instance.customBorder(),
+                //   ),
+                // ),
                 const SizedBox(
                   height: 20,
                 ),

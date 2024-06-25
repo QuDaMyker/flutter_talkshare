@@ -37,8 +37,9 @@ class CreateNewListVocabController extends GetxController {
         name: nameTextCtrl.text,
         avatarUrl: pickedImage.value != null
             ? 'https://huprpremefnsrvgkdhqm.supabase.co/storage/v1/object/public/Wordset%20Avatar/' +
-                await SupabaseService.instance.uploadImage(pickedImage.value!)
-            : '',
+                await SupabaseService.instance
+                    .uploadWordSetImage(pickedImage.value!)
+            : 'https://images.unsplash.com/photo-1543002588-bfa74002ed7e?q=80&w=2574&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D',
         userId: currentUser?.user_id ?? '');
     List<String> words = wordTCs.map((element) => element.text).toList();
     SupabaseService.instance.addWordset(wordSet, words);

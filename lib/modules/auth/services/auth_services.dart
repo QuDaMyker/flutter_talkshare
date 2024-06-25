@@ -149,4 +149,9 @@ class AuthServices {
       return Left(FailModel(message: e.toString()));
     }
   }
+
+  Future<bool> onLogOut() async {
+    await supabase.auth.signOut();
+    return true;
+  }
 }

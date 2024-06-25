@@ -58,6 +58,21 @@ class VocabScreenController extends GetxController {
     debugPrint(listVocabCollection.value.length.toString());
   }
 
+  Future<void> reGetListVocabCollection() async {
+    isLoading.value = true;
+    List<WordSet> rs = await VocabService().getVocabCollection();
+    listVocabCollection.value = [
+      const WordSet(
+          wordsetId: 'wordsetId',
+          name: 'name',
+          avatarUrl: 'avatarUrl',
+          userId: 'userId'),
+      ...rs,
+    ];
+    isLoading.value = false;
+    debugPrint(listVocabCollection.value.length.toString());
+  }
+
   Future<void> playAudio(String urlAudio) async {
     // await player.setUrl(urlAudio);
     // player.play();

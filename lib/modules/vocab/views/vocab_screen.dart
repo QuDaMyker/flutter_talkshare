@@ -15,8 +15,6 @@ import 'package:flutter_talkshare/modules/vocab/widgets/item_create_new_word_set
 import 'package:flutter_talkshare/modules/vocab/widgets/item_recent_vocab.dart';
 import 'package:flutter_talkshare/modules/vocab_list/views/vocab_list_screen.dart';
 
-import '../../../utils/helper.dart';
-
 class VocabScreen extends StatelessWidget {
   const VocabScreen({super.key});
 
@@ -103,30 +101,30 @@ class VocabScreen extends StatelessWidget {
                 fontSize: 18,
               ),
             ),
-            TextButton(
-              style: ButtonStyle(
-                overlayColor: MaterialStateProperty.all<Color>(
-                  AppColors.primary40.withOpacity(0.1),
-                ),
-              ),
-              onPressed: () {
-                showModalBottomSheet(
-                  isScrollControlled: true,
-                  context: context,
-                  builder: (context) => const CustomBottomSheet(),
-                ).whenComplete(() async {
-                  Get.delete<CustomBottomSheetController>();
-                });
-              },
-              child: const Text(
-                'Tạo thư mục mới',
-                style: TextStyle(
-                  color: AppColors.primary40,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 18,
-                ),
-              ),
-            ),
+            // TextButton(
+            //   style: ButtonStyle(
+            //     overlayColor: MaterialStateProperty.all<Color>(
+            //       AppColors.primary40.withOpacity(0.1),
+            //     ),
+            //   ),
+            //   onPressed: () {
+            //     showModalBottomSheet(
+            //       isScrollControlled: true,
+            //       context: context,
+            //       builder: (context) => const CustomBottomSheet(),
+            //     ).whenComplete(() async {
+            //       Get.delete<CustomBottomSheetController>();
+            //     });
+            //   },
+            //   child: const Text(
+            //     'Tạo thư mục mới',
+            //     style: TextStyle(
+            //       color: AppColors.primary40,
+            //       fontWeight: FontWeight.bold,
+            //       fontSize: 18,
+            //     ),
+            //   ),
+            // ),
           ],
         ),
         SizedBox(
@@ -165,7 +163,9 @@ class VocabScreen extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               // navigato  screen create folder
-              Get.to(CreateNewListVocabScreen());
+              Get.to(CreateNewListVocabScreen())!.then((value) async {
+                controller.reGetListVocabCollection();
+              });
             },
             child: ItemCreateNewWordset(
               onPressed: () {
