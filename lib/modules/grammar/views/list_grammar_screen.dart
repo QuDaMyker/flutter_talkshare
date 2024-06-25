@@ -138,7 +138,9 @@ Padding _buildBody(double deviceHeight, double deviceWidth,
                       context,
                       MaterialPageRoute(
                         builder: (context) => DetailGrammarScreen(
-                            grammar: grammars[index], meaning: meanings[index]),
+                          grammar: grammars[index],
+                          meaning: meanings[index],
+                        ),
                       ));
                 },
                 child: Container(
@@ -156,21 +158,21 @@ Padding _buildBody(double deviceHeight, double deviceWidth,
                           SizedBox(
                             width: deviceWidth * 0.7,
                             child: Text(
-                            grammars[index],
-                            style: TextStyle(
-                              color: AppColors.primary20,
-                              fontSize: 18,
-                              fontWeight: FontWeight.w700,
+                              grammars[index],
+                              style: TextStyle(
+                                color: AppColors.primary20,
+                                fontSize: 18,
+                                fontWeight: FontWeight.w700,
+                              ),
+                              softWrap: true,
+                              overflow: TextOverflow.visible,
                             ),
-                            softWrap: true,
-                            overflow: TextOverflow.visible,
-                          ),
                           ),
                           SizedBox(
                             height: 5,
                           ),
                           SizedBox(
-                            width: deviceWidth*0.7,
+                            width: deviceWidth * 0.7,
                             child: Text(
                               meanings[index],
                               softWrap: true,
