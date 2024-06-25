@@ -1,4 +1,5 @@
 import 'package:flutter_flip_card/controllers/flip_card_controllers.dart';
+import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
 
@@ -9,6 +10,8 @@ class ItemDetailVocabController extends GetxController {
   final con1 = FlipCardController();
   final cong = GestureFlipCardController();
   var isBookmarkOn = Rx<bool>(false);
+  final AuthController authController = Get.find<AuthController>();
+
 
   ItemDetailVocabController({required this.word, required this.primaryMeaning});
 
@@ -18,7 +21,7 @@ class ItemDetailVocabController extends GetxController {
   void onInit() async {
     isBookmarkOn.value = await SupabaseService.instance.isBookmarkOn(
       word,
-      'f6d32d14-961c-4fba-94ff-7e76f9031a09',
+      authController.user.user_id,
     );
     super.onInit();
   }
@@ -31,7 +34,7 @@ class ItemDetailVocabController extends GetxController {
   void onPressBookmark() async {
     isBookmarkOn.value = !isBookmarkOn.value;
     await SupabaseService.instance
-        .addRemoveBookmark(word, 'f6d32d14-961c-4fba-94ff-7e76f9031a09');
+        .addRemoveBookmark(word, authController.user.user_id);
   }
 
   void onSpeaker() async {

@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_talkshare/core/models/definition.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
+import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
@@ -12,18 +13,19 @@ class BottomSheetVocabController extends GetxController {
   final String word;
   var searchedVocab;
 
-
   BottomSheetVocabController({required this.word});
   final translator = GoogleTranslator();
   final player = AudioPlayer();
   var isLoading = Rx<bool>(false);
   var isNotFound = Rx<bool>(false);
   var isSave = false.obs;
+  final AuthController authController = Get.find<AuthController>();
 
-  Map<String, List<Definition>> listDefinitions ={};
+
+  Map<String, List<Definition>> listDefinitions = {};
 
   @override
-  Future<void> onInit()async {
+  Future<void> onInit() async {
     super.onInit();
     await getWord(word);
   }
@@ -35,17 +37,16 @@ class BottomSheetVocabController extends GetxController {
     Get.delete<BottomSheetVocabController>();
   }
 
-   void onPressBookmark() async {
+  void onPressBookmark() async {
     isSave.value = !isSave.value;
     await SupabaseService.instance
-        .addRemoveBookmark(word, 'f6d32d14-961c-4fba-94ff-7e76f9031a09');
+        .addRemoveBookmark(word, authController.user.user_id);
   }
 
   //call api lấy Vocab từ word
   Future<void> getWord(String word) async {
+    String search = word.toLowerCase();
 
-    String search  = word.toLowerCase();
-  
     isLoading.value = true;
 
     var headers = {'Content-Type': 'application/json'};
@@ -68,8 +69,7 @@ class BottomSheetVocabController extends GetxController {
       // data.value = item['meanings'][0]['definitions'][0]['example'];
       // List<dynamic> meanings = item['meanings'];
 
-      String temp =
-          item['meanings'][0]['definitions'][0]['definition'];
+      String temp = item['meanings'][0]['definitions'][0]['definition'];
       String primaryMeaning = await tranlateToVN(temp);
       //lấy Vocab
       String phonetic = '';
@@ -102,47 +102,50 @@ class BottomSheetVocabController extends GetxController {
         phonetic: phonetic,
         audioUrl: audioUrl,
       );
-    debugPrint('bắt đầu lưu');
+      debugPrint('bắt đầu lưu');
 
-    await saveWordToHistory(searchedVocab);
-    
+      await saveWordToHistory(searchedVocab);
 
-      //lấy definitions 
-      for (int i =0; i<body.length; i++){
-          int defId = 0;
-          List<dynamic> mapMeanings = body[i]['meanings'];
-          debugPrint('Độ dài cảu meanings');
-          debugPrint(mapMeanings.length.toString());
-          for (int j = 0; j< mapMeanings.length; j++){
-              String key = mapMeanings[j]['partOfSpeech'];
-              //check key đã có trong map listDefinitions hay chưa => chưa thì thêm key vô map
-              if(!listDefinitions.containsKey(key)){
-                listDefinitions[key] =[];
-              }
-              //tạo các definition, có example thì thêm vô partofSpeech tương ứng
-              List<dynamic> mapDefinitions = mapMeanings[j]['definitions'];
-                for (int z = 0; z< mapDefinitions.length; z++){
-                  Map<String, dynamic> itemDefinition = mapDefinitions[z];
-                  
-                  String example ='';
-
-                  if(itemDefinition.containsKey('example'))
-                  {
-                    example = itemDefinition['example'].toString();
-                  }
-
-                  String definiton = itemDefinition['definition'].toString(); 
-                 
-                  var translation = await translator.translate(definiton, from: 'en',to: 'vi');
-                  debugPrint('Dịch $translation');
-                  definiton = translation.text;
-                  Definition def = Definition(definitionId: (defId++).toString(), word: word, partOfSpeech: key, meaning: definiton, example: example);
-                  listDefinitions[key]!.add(def);          
-                }
+      //lấy definitions
+      for (int i = 0; i < body.length; i++) {
+        int defId = 0;
+        List<dynamic> mapMeanings = body[i]['meanings'];
+        debugPrint('Độ dài cảu meanings');
+        debugPrint(mapMeanings.length.toString());
+        for (int j = 0; j < mapMeanings.length; j++) {
+          String key = mapMeanings[j]['partOfSpeech'];
+          //check key đã có trong map listDefinitions hay chưa => chưa thì thêm key vô map
+          if (!listDefinitions.containsKey(key)) {
+            listDefinitions[key] = [];
           }
+          //tạo các definition, có example thì thêm vô partofSpeech tương ứng
+          List<dynamic> mapDefinitions = mapMeanings[j]['definitions'];
+          for (int z = 0; z < mapDefinitions.length; z++) {
+            Map<String, dynamic> itemDefinition = mapDefinitions[z];
+
+            String example = '';
+
+            if (itemDefinition.containsKey('example')) {
+              example = itemDefinition['example'].toString();
+            }
+
+            String definiton = itemDefinition['definition'].toString();
+
+            var translation =
+                await translator.translate(definiton, from: 'en', to: 'vi');
+            debugPrint('Dịch $translation');
+            definiton = translation.text;
+            Definition def = Definition(
+                definitionId: (defId++).toString(),
+                word: word,
+                partOfSpeech: key,
+                meaning: definiton,
+                example: example);
+            listDefinitions[key]!.add(def);
+          }
+        }
       }
       debugPrint('kết thúc đau khổ');
-
     } else {
       isNotFound.value = true;
       print('có lỗi');
@@ -151,18 +154,18 @@ class BottomSheetVocabController extends GetxController {
     isLoading.value = false;
   }
 
-  Future<String> tranlateToVN(String word) async{
-    var translation = await translator.translate(word, from: 'en',to: 'vi');
+  Future<String> tranlateToVN(String word) async {
+    var translation = await translator.translate(word, from: 'en', to: 'vi');
     return translation.text;
   }
 
   Future<void> playAudio(String urlAudio) async {
     final duration = await player.setUrl(urlAudio);
-      player.play();
-      debugPrint('phát âm thanh');
+    player.play();
+    debugPrint('phát âm thanh');
   }
 
-  Future<void> saveWordToHistory(Vocab word) async{
-      await SupabaseService.instance.saveVocabToSharedPreferences(word.word);
+  Future<void> saveWordToHistory(Vocab word) async {
+    await SupabaseService.instance.saveVocabToSharedPreferences(word.word);
   }
 }

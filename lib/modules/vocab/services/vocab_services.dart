@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/models/word_response.dart';
+import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
+import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:translator_plus/translator_plus.dart';
@@ -15,11 +17,13 @@ import '../../../utils/helper.dart';
 class VocabService {
   final translator = GoogleTranslator();
   late final SharedPreferences prefs;
+  final AuthController authController = Get.find<AuthController>();
+
   Future<List<Vocab>> getVocabSaved() async {
     try {
       List<Vocab> result = [];
       List<String> listWordString = await SupabaseService.instance
-          .getListSavedVocab('f6d32d14-961c-4fba-94ff-7e76f9031a09');
+          .getListSavedVocab(authController.user.user_id);
 
       for (var i in listWordString) {
         Vocab vocab = await getWordByMapperJson(i);
