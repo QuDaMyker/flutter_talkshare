@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/community/controllers/post_blog_screen_controller.dart';
+import 'package:flutter_talkshare/modules/community/view/community_screen.dart';
 import 'package:get/get.dart';
 
 class PostBlogScreen extends StatelessWidget {
@@ -19,7 +19,7 @@ class PostBlogScreen extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: button(),
+      floatingActionButton: button(context),
       body: _buildBody(),
     );
   }
@@ -95,7 +95,7 @@ class PostBlogScreen extends StatelessWidget {
               controller: controller.textController,
               maxLines: null, 
               keyboardType: TextInputType.multiline, 
-              minLines: 9,
+              minLines: 9,              
               decoration: InputDecoration(
                 hintText: 'Nhập văn bản của bạn...',
                 border: OutlineInputBorder(
@@ -113,9 +113,9 @@ class PostBlogScreen extends StatelessWidget {
     );
   }
 
-  InkWell button() {
+  InkWell button(BuildContext context,) {
     return InkWell( 
-      onTap: () => controller.postBlog('user_id'),
+      onTap: () => controller.postBlog(),
       child: Container(
         width: 380,
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -176,8 +176,9 @@ class PostBlogScreen extends StatelessWidget {
       leading: IconButton(
         icon: SvgPicture.asset(ImageAssets.icBack),
         onPressed: () {
-          Navigator.pop(context);
-          controller.Clear();
+          controller.images.clear();
+          controller.textController.clear(); 
+          Get.back();
         },
       ),
 

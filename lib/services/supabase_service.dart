@@ -350,4 +350,6 @@ class SupabaseService {
       throw Exception('Failed to fetch subtitles');
     }
   }
+
+  static from(String s) {}
 }

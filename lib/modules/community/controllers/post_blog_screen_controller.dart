@@ -1,14 +1,29 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/models/blog.dart';
+import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
+import 'package:flutter_talkshare/modules/auth/models/user_model.dart';
+import 'package:flutter_talkshare/modules/community/controllers/community_controller.dart';
+import 'package:flutter_talkshare/modules/community/view/community_screen.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
+import 'package:uuid/uuid.dart';
 
 class PostBlogScreenController extends GetxController{
   RxList<File> images = <File>[].obs;
   var textController = TextEditingController();
+
+  final AuthController authController = Get.find<AuthController>();
+  final CommunityController controllerComm = Get.find<CommunityController>();
+
+  @override
+  void onInit() {
+    super.onInit();
+    images.clear();
+    textController.clear(); 
+  }
 
   Future<void> pickImages() async {
     List<XFile>? pickedImages = await ImagePicker().pickMultiImage();
@@ -16,29 +31,33 @@ class PostBlogScreenController extends GetxController{
       images.addAll(pickedImages.map((XFile file) => File(file.path)));
     }
   }
-  
-  Clear() {
-    images.clear();
-  }
 
-  Future<void> postBlog(String user_id) async {
-    user_id ='f6ee03f6-55a3-4d03-9cd2-3a3e0450e352';
+  Future<void> postBlog() async {
     List<String> uploadedImages = [];
+    var uuid = const Uuid();
+    String blogid = uuid.v4();
     for (var image in images) {
-      String? imageUrl = await SupabaseService.instance.uploadImage(image, user_id);
+      String? imageUrl = await SupabaseService.instance.uploadImage(image, authController.user.user_id);
       if (imageUrl != null) {
         uploadedImages.add(imageUrl);
       }
     }
 
     Blog newBlog = Blog(
-      blogId: 'f6ee03f6-55a3-4d03-9cd2-3a3e0450e350',
-      userId: user_id,
+      blogId: blogid,
+      userId: authController.user.user_id,
       created_at: DateTime.now().toIso8601String(),
-      //images: uploadedImages,
+      images: uploadedImages,
       content: textController.text,
+      fullname: authController.user.fullname,
+      avatarUrl: authController.user.avatar_url,
     );
 
     await SupabaseService.instance.saveBlog(newBlog);
+
+    images.clear();
+    textController.clear(); 
+    Get.back();
+    controllerComm.getListBlog();
   }
 }
