@@ -40,6 +40,8 @@ class ZegoLiveAudioRoomPage extends StatefulWidget {
     required this.userID,
     required this.userName,
     required this.liveID,
+    required this.name,
+    required this.topic,
     required this.config,
     required this.events,
     required this.defaultEndAction,
@@ -59,6 +61,8 @@ class ZegoLiveAudioRoomPage extends StatefulWidget {
   final String userName;
 
   final String liveID;
+  final String name;
+  final String topic;
 
   final ZegoUIKitPrebuiltLiveAudioRoomConfig config;
   final ZegoUIKitPrebuiltLiveAudioRoomEvents events;
@@ -299,6 +303,8 @@ class _ZegoLiveAudioRoomPageState extends State<ZegoLiveAudioRoomPage>
             seatManager: widget.seatManager,
             connectManager: widget.connectManager,
             translationText: widget.config.innerText,
+            name: widget.name,
+            topic: widget.topic,
           );
         },
       ),

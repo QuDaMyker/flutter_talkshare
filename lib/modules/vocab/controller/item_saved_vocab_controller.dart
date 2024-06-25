@@ -1,3 +1,4 @@
+import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 
@@ -5,12 +6,14 @@ class ItemSavedVocabController extends GetxController {
   final String word;
 
   ItemSavedVocabController({required this.word});
+  final AuthController authController = Get.find<AuthController>();
+
   var isBookmarkOn = Rx<bool>(false);
   @override
   void onInit() async {
     isBookmarkOn.value = await SupabaseService.instance.isBookmarkOn(
       word,
-      'f6d32d14-961c-4fba-94ff-7e76f9031a09',
+      authController.user.user_id,
     );
     super.onInit();
   }
@@ -24,6 +27,6 @@ class ItemSavedVocabController extends GetxController {
   void onPressBookmark() async {
     isBookmarkOn.value = !isBookmarkOn.value;
     await SupabaseService.instance
-        .addRemoveBookmark(word, 'f6d32d14-961c-4fba-94ff-7e76f9031a09');
+        .addRemoveBookmark(word, authController.user.user_id);
   }
 }

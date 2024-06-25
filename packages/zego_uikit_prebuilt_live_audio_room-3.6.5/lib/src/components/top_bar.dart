@@ -28,6 +28,8 @@ class ZegoLiveAudioRoomTopBar extends StatefulWidget {
   final ZegoLiveAudioRoomSeatManager seatManager;
   final ZegoLiveAudioRoomConnectManager connectManager;
   final ZegoUIKitPrebuiltLiveAudioRoomInnerText translationText;
+  final String name;
+  final String topic;
 
   const ZegoLiveAudioRoomTopBar({
     Key? key,
@@ -38,6 +40,8 @@ class ZegoLiveAudioRoomTopBar extends StatefulWidget {
     required this.seatManager,
     required this.connectManager,
     required this.translationText,
+    required this.name,
+    required this.topic,
   }) : super(key: key);
 
   @override
@@ -61,25 +65,25 @@ class _ZegoLiveAudioRoomTopBarState extends State<ZegoLiveAudioRoomTopBar> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(color: Colors.transparent),
-      height: 100.zR,
+      height: 120.zR,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           // minimizingButton(),
           SizedBox(width: 34.zR),
-          const Expanded(
+          Expanded(
               child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Free room early",
+                widget.name,
                 style: TextStyle(
                     color: Color(0xFF21242D),
                     fontSize: 16,
                     fontWeight: FontWeight.w600),
               ),
               Text(
-                "What did you do yesterday?",
+                widget.topic,
                 style: TextStyle(
                     color: Color(0xFF848484),
                     fontSize: 12,

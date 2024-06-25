@@ -6,8 +6,15 @@ import 'package:zego_uikit_prebuilt_live_audio_room/zego_uikit_prebuilt_live_aud
 class AudioRoomPage extends StatelessWidget {
   final String roomID;
   final bool isHost;
+  final String name;
+  final String topic;
 
-  const AudioRoomPage({Key? key, required this.roomID, this.isHost = false})
+  const AudioRoomPage(
+      {Key? key,
+      required this.roomID,
+      required this.name,
+      required this.topic,
+      this.isHost = false})
       : super(key: key);
 
   @override
@@ -29,6 +36,8 @@ class AudioRoomPage extends StatelessWidget {
           defaultAction();
         },
       ),
+      name: name,
+      topic: topic,
     );
   }
 }

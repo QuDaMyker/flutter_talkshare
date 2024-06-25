@@ -44,6 +44,8 @@ class ZegoUIKitPrebuiltLiveAudioRoom extends StatefulWidget {
     required this.userName,
     required this.roomID,
     required this.config,
+    required this.name,
+    required this.topic,
     this.events,
   }) : super(key: key);
 
@@ -52,6 +54,8 @@ class ZegoUIKitPrebuiltLiveAudioRoom extends StatefulWidget {
 
   /// You can create a project and obtain an appSign from the [ZEGOCLOUD Admin Console](https://console.zegocloud.com).
   final String appSign;
+  final String name;
+  final String topic;
 
   /// The ID of the currently logged-in user.
   /// It can be any valid string.
@@ -313,6 +317,8 @@ class _ZegoUIKitPrebuiltLiveAudioRoomState
       popUpManager: ZegoLiveAudioRoomManagers().popUpManager,
       liveDurationManager: ZegoLiveAudioRoomManagers().liveDurationManager!,
       minimizeData: minimizeData,
+      name: widget.name,
+      topic: widget.topic,
     );
   }
 

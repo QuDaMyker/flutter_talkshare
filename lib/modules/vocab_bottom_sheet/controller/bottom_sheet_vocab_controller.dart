@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_talkshare/core/models/definition.dart';
 import 'package:flutter_talkshare/core/models/translation_model.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
+import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 import 'package:just_audio/just_audio.dart';
@@ -21,6 +22,8 @@ class BottomSheetVocabController extends GetxController {
   var isLoading = Rx<bool>(false);
   var isNotFound = Rx<bool>(false);
   var isSave = false.obs;
+  final AuthController authController = Get.find<AuthController>();
+
 
   //Map<String, List<Definition>> listDefinitions ={};
 
@@ -41,7 +44,7 @@ class BottomSheetVocabController extends GetxController {
   void onPressBookmark() async {
     isSave.value = !isSave.value;
     await SupabaseService.instance
-        .addRemoveBookmark(word, 'f6d32d14-961c-4fba-94ff-7e76f9031a09');
+        .addRemoveBookmark(word, authController.user.user_id);
   }
 
   Future<void> getTranslate() async {

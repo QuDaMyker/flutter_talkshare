@@ -19,5 +19,7 @@ Widget liveAudioRoomPage({required bool isHost}) {
     config: isHost
         ? ZegoUIKitPrebuiltLiveAudioRoomConfig.host()
         : ZegoUIKitPrebuiltLiveAudioRoomConfig.audience(),
+    name: '',
+    topic: '',
   );
 }

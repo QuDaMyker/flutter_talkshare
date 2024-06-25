@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_talkshare/modules/create_new_list_vocab/view/creare_new%20_list_vocab_screen.dart';
 import 'package:flutter_talkshare/modules/vocab/widgets/item_saved_vocab.dart';
 import 'package:get/get.dart';
 import 'package:loading_animation_widget/loading_animation_widget.dart';
@@ -164,9 +165,12 @@ class VocabScreen extends StatelessWidget {
           return GestureDetector(
             onTap: () {
               // navigato  screen create folder
+              Get.to(CreateNewListVocabScreen());
             },
             child: ItemCreateNewWordset(
-              onPressed: () {},
+              onPressed: () {
+                Get.to(CreateNewListVocabScreen());
+              },
             ),
           );
         } else {
