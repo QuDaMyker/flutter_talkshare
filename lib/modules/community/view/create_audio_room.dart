@@ -222,6 +222,8 @@ class CreateAudioRoom extends StatelessWidget {
                         Get.to(AudioRoomPage(
                           roomID: roomId,
                           isHost: true,
+                          name: controller.roomNameCtrl.text,
+                          topic: controller.roomTopicCtrl.text,
                         ));
                       },
                       child: Container(

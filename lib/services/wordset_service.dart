@@ -30,6 +30,15 @@ extension WordsetService on SupabaseService {
     return wordsets;
   }
 
+  Future<void> addWordset(WordSet wordSet, List<String> words) async {
+    SupabaseService.instance.insertWordset(wordSet);
+    for (String word in words) {
+      try {
+        insertVocabToWordset(await getVocabByWord(word), wordSet.wordsetId);
+      } catch (_) {}
+    }
+  }
+
   Future<void> insertWordset(WordSet wordSet) async {
     await supabase.from(WordSet.table.tableName).insert(wordSet.toJson());
   }
@@ -41,5 +50,28 @@ extension WordsetService on SupabaseService {
       table.word: vocab.word,
     };
     await supabase.from(table.tableName).insert(res);
+  }
+
+  Future<List<Folder>> getAllFolders(String userId) async {
+    List<dynamic> res = await supabase
+        .from(Folder.table.tableName)
+        .select()
+        .eq(Folder.table.userId, userId);
+    List<Folder> listFolder = res.map((e) => Folder.fromJson(e)).toList();
+    return listFolder;
+  }
+
+  Future<String> uploadImage(File imageFile) async {
+    String imgName = '${DateTime.now().millisecondsSinceEpoch}.jpg';
+    await supabase.storage.from('Wordset Avatar').upload(imgName, imageFile);
+    return imgName;
+  }
+
+  Future<Vocab> getVocabByWord(String word) async {
+    final response = await supabase
+        .from(Vocab.table.tableName)
+        .select()
+        .eq(Vocab.table.word, word);
+    return Vocab.fromJson(response.first);
   }
 }

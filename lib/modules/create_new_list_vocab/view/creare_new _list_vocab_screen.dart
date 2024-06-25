@@ -5,6 +5,7 @@ import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/create_new_list_vocab/controller/create_new_list_vocab_controller.dart';
 import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
+import 'package:image_picker/image_picker.dart';
 
 class CreateNewListVocabScreen extends StatelessWidget {
   CreateNewListVocabScreen({super.key});
@@ -25,7 +26,7 @@ class CreateNewListVocabScreen extends StatelessWidget {
                   colors: AppColors.backgroundGradient,
                   begin: Alignment.topCenter,
                   end: Alignment.bottomCenter)),
-          child: _builBody(deviceHeight, deviceWidth)),
+          child: _builBody(context, deviceHeight, deviceWidth)),
     );
   }
 
@@ -56,6 +57,7 @@ class CreateNewListVocabScreen extends StatelessWidget {
   }
 
   Padding _builBody(
+    BuildContext context,
     double deviceHeight,
     double deviceWidth,
   ) {
@@ -77,24 +79,31 @@ class CreateNewListVocabScreen extends StatelessWidget {
                         borderRadius: BorderRadius.circular(20),
                       ),
                     ),
-                    Positioned(
-                      left: deviceWidth * 0.3,
-                      child: Container(
-                        width: deviceWidth * 0.3,
-                        height: deviceWidth * 0.3,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          image: const DecorationImage(
-                              image: AssetImage(ImageAssets.imageFish),
-                              fit: BoxFit.cover),
-                        ),
-                      ),
-                    ),
+                    Obx(() => Positioned(
+                          left: deviceWidth * 0.3,
+                          child: Container(
+                            width: deviceWidth * 0.3,
+                            height: deviceWidth * 0.3,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              image: controller.pickedImage.value != null
+                                  ? DecorationImage(
+                                      image: FileImage(
+                                          controller.pickedImage.value!),
+                                      fit: BoxFit.cover)
+                                  : DecorationImage(
+                                      image: AssetImage(ImageAssets.imageFish),
+                                      fit: BoxFit.cover),
+                            ),
+                          ),
+                        )),
                     Positioned(
                       top: deviceHeight * 0.12,
                       child: InkWell(
                         child: SvgPicture.asset(ImageAssets.icCamera),
-                        onTap: () {},
+                        onTap: () {
+                          controller.pickImage(source: ImageSource.gallery);
+                        },
                       ),
                     ),
                   ],
@@ -103,6 +112,7 @@ class CreateNewListVocabScreen extends StatelessWidget {
                   height: 32,
                 ),
                 TextField(
+                  controller: controller.nameTextCtrl,
                   style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       color: AppColors.primary20,
@@ -187,6 +197,141 @@ class CreateNewListVocabScreen extends StatelessWidget {
                 ),
                 TextField(
                   readOnly: true,
+                  controller: controller.folderTextCtrl,
+                  onTap: () {
+                    showModalBottomSheet(
+                        useRootNavigator: true,
+                        context: context,
+                        builder: (context) {
+                          return Container(
+                            padding: EdgeInsets.all(20),
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              color: Colors.white,
+                            ),
+                            child: Obx(() => Column(
+                                  mainAxisSize: MainAxisSize.min,
+                                  children: [
+                                    Row(
+                                      children: [
+                                        Expanded(
+                                          child: Text(
+                                            "Chọn thư mục",
+                                            style: TextStyle(
+                                                fontSize: 18,
+                                                color: AppColors.primary20,
+                                                fontWeight: FontWeight.w700),
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            Get.back();
+                                          },
+                                          child: SvgPicture.asset(
+                                              ImageAssets.icClose2),
+                                        )
+                                      ],
+                                    ),
+                                    ListTile(
+                                      contentPadding: EdgeInsets.zero,
+                                      title: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: [
+                                          Expanded(
+                                            child: Text(
+                                              "Không có",
+                                              style: TextStyle(
+                                                  fontSize: 16,
+                                                  color: AppColors.primary20,
+                                                  fontWeight: FontWeight.w600),
+                                            ),
+                                          )
+                                        ],
+                                      ),
+                                      trailing: Transform.scale(
+                                        scale: 1,
+                                        child: Radio(
+                                          groupValue: controller.selectedFolder
+                                                  .value?.hashCode ??
+                                              0,
+                                          value: 0,
+                                          activeColor: AppColors.secondary20,
+                                          onChanged: (int? value) {
+                                            // controller.selectedType.value =
+                                            //     value ?? 0;
+                                            // controller.filter("Tất cả");
+                                            // Get.back();
+                                            controller.selectedFolder.value =
+                                                null;
+                                            controller.folderTextCtrl.text = '';
+                                            Get.back();
+                                          },
+                                        ),
+                                      ),
+                                      onTap: () {
+                                        // Get.back();
+                                      },
+                                    ),
+                                    ListView.builder(
+                                      shrinkWrap: true,
+                                      itemCount: controller.listFolder.length,
+                                      itemBuilder: (context, index) {
+                                        return ListTile(
+                                          contentPadding: EdgeInsets.zero,
+                                          title: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: [
+                                              Expanded(
+                                                child: Text(
+                                                  controller
+                                                      .listFolder[index].name,
+                                                  style: TextStyle(
+                                                      fontSize: 16,
+                                                      color:
+                                                          AppColors.primary20,
+                                                      fontWeight:
+                                                          FontWeight.w600),
+                                                ),
+                                              )
+                                            ],
+                                          ),
+                                          trailing: Transform.scale(
+                                            scale: 1,
+                                            child: Radio(
+                                              groupValue: controller
+                                                      .selectedFolder
+                                                      .value
+                                                      ?.hashCode ??
+                                                  0,
+                                              value: controller
+                                                  .listFolder[index].hashCode,
+                                              activeColor:
+                                                  AppColors.secondary20,
+                                              onChanged: (int? value) {
+                                                controller
+                                                        .selectedFolder.value =
+                                                    controller
+                                                        .listFolder[index];
+                                                controller.folderTextCtrl.text =
+                                                    controller
+                                                        .listFolder[index].name;
+                                                Get.back();
+                                              },
+                                            ),
+                                          ),
+                                          onTap: () {
+                                            // Get.back();
+                                          },
+                                        );
+                                      },
+                                    )
+                                  ],
+                                )),
+                          );
+                        });
+                  },
                   style: const TextStyle(
                       fontWeight: FontWeight.w600,
                       color: AppColors.primary20,
@@ -209,6 +354,10 @@ class CreateNewListVocabScreen extends StatelessWidget {
                   height: 20,
                 ),
                 InkWell(
+                  onTap: () async {
+                    controller.onCreate();
+                    Get.back();
+                  },
                   child: Container(
                     width: double.infinity,
                     padding: const EdgeInsets.all(16),
