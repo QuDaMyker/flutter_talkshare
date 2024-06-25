@@ -1,3 +1,4 @@
+import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/models/listening.dart';
@@ -10,14 +11,13 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class ListeningScreen extends StatelessWidget {
-  const ListeningScreen({Key? key}) : super(key: key);  
+  ListeningScreen({Key? key}) : super(key: key);  
+  ListeningScreenController listeningScreenController = Get.put(ListeningScreenController());
 
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-
-    final ListeningScreenController listeningScreenController = Get.put(ListeningScreenController());
 
     return SafeArea(
       child: Scaffold(
@@ -34,158 +34,114 @@ class ListeningScreen extends StatelessWidget {
     ListeningScreenController controller,
   ) {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: deviceWidth * 0.05,
-        vertical: deviceHeight *0.02,
-      ),
-      decoration: const BoxDecoration(
-        gradient: LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [Colors.white, AppColors.gray60],
-        ),
-      ),
-      child: Column(
-        children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'Short Stories',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                color: AppColors.secondary20,
-                fontSize: 16.0,
+      height: deviceHeight* 0.9,
+          padding: EdgeInsets.symmetric(
+                horizontal: deviceWidth * 0.05,
+                vertical: deviceHeight* 0.02,
+              ),
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [Colors.white, AppColors.gray60],
+            ),
+          ),
+          child: SingleChildScrollView(
+            child: Container(
+              child: Column(
+                children: [
+                  ExpandablePanel(
+                    header: Text(
+                      'Short Stories',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.secondary20,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    collapsed: SizedBox.shrink(),
+                    expanded: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: ListeningList.listeningShortList.length,
+                      itemBuilder: (context, index) {
+                        Listening item = ListeningList.listeningShortList[index];
+                        return ItemListening(
+                          listening: item,
+                        );
+                      },
+                    ),
+                    theme: ExpandableThemeData(
+                      tapHeaderToExpand: true,
+                      tapBodyToCollapse: true,
+                      hasIcon: true,
+                      iconColor: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  ExpandablePanel(
+                    header: Text(
+                      'Daily Conversations',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.secondary20,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    collapsed: SizedBox.shrink(),
+                    expanded: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: ListeningList.listeningDailyList.length,
+                      itemBuilder: (context, index) {
+                        Listening item = ListeningList.listeningDailyList[index];
+                        return ItemListening(
+                          listening: item,
+                        );
+                      },
+                    ),
+                    theme: ExpandableThemeData(
+                      tapHeaderToExpand: true,
+                      tapBodyToCollapse: true,
+                      hasIcon: true,
+                      iconColor: Colors.black,
+                    ),
+                  ),
+                  SizedBox(height: 10),
+                  ExpandablePanel(
+                    header: Text(
+                      'TOEIC Listening',
+                      style: TextStyle(
+                        fontWeight: FontWeight.w700,
+                        color: AppColors.secondary20,
+                        fontSize: 16.0,
+                      ),
+                    ),
+                    collapsed: SizedBox.shrink(),
+                    expanded: ListView.builder(
+                      shrinkWrap: true,
+                      physics: NeverScrollableScrollPhysics(),
+                      itemCount: ListeningList.listeningToeicList.length,
+                      itemBuilder: (context, index) {
+                        Listening item = ListeningList.listeningToeicList[index];
+                        return ItemListening(
+                          listening: item,
+                        );
+                      },
+                    ),
+                    theme: ExpandableThemeData(
+                      tapHeaderToExpand: true,
+                      tapBodyToCollapse: true,
+                      hasIcon: true,
+                      iconColor: Colors.black,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
-        
-          const SizedBox(
-            height: 10,
-          ),
-
-          Flexible(
-            flex: 2,
-            child: Obx(() =>SingleChildScrollView(  
-              child: SizedBox(
-                child: Column (
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                      height: deviceHeight * 0.18,
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: controller.first_list.length,
-                        itemBuilder: (context, index) {
-                          Listening item = controller.first_list[index];
-                          return ItemListening(
-                            listening: item,
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),),
-          ),
-
-          const SizedBox(
-            height: 10,
-          ),
-
-          Align(
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'Daily Conversations',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                color: AppColors.secondary20,
-                fontSize: 16.0,
-              ),
-            ),
-          ),
-        
-          const SizedBox(
-            height: 10,
-          ),
-
-          Flexible(
-            flex: 3,
-            child: Obx(() =>SingleChildScrollView(  
-              child: SizedBox(
-                child: Column (
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                      height: deviceHeight * 0.27,
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: controller.second_list.length,
-                        itemBuilder: (context, index) {
-                          Listening item = controller.second_list[index];
-                          return ItemListening(
-                            listening: item,
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),),
-          ),
-          
-          const SizedBox(
-            height: 10,
-          ),
-
-          Align(
-            alignment: Alignment.centerLeft,
-            child: const Text(
-              'TOEIC Listening',
-              style: TextStyle(
-                fontWeight: FontWeight.w700,
-                color: AppColors.secondary20,
-                fontSize: 16.0,
-              ),
-            ),
-          ),
-        
-          const SizedBox(
-            height: 10,
-          ),
-
-          Flexible(
-            flex: 3,
-            child: Obx(() =>SingleChildScrollView(  
-              child: SizedBox(
-                child: Column (
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    SizedBox(
-                      height: deviceHeight * 0.27,
-                      child: ListView.builder(
-                        scrollDirection: Axis.vertical,
-                        itemCount: controller.third_list.length,
-                        itemBuilder: (context, index) {
-                          Listening item = controller.third_list[index];
-                          return ItemListening(
-                            listening: item,
-                          );
-                        },
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ),),
-          ),
-        ],                  
-      ),
-    );  
+        );
+    
   }
 
   AppBar _buildAppBar(

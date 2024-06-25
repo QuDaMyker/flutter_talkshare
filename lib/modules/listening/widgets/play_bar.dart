@@ -16,14 +16,19 @@ class PlayBar extends StatelessWidget {
   final Listening listening;
   final String type;
   final String list;
+  // PlayBarController controller = Get.find(PlayBarController()); 
 
-  PlayBar({Key? key, required this.listening, required this.type, required this.list}) : super(key: key);
+  PlayBar({Key? key, required this.listening, required this.type, required this.list})
+      : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-    final PlayBarController controller = Get.put(PlayBarController());
+
+    final PlayBarController controller = Get.find<PlayBarController>();
+
     var list_;
     switch(list){
       case 'Short Stories':{
@@ -39,10 +44,15 @@ class PlayBar extends StatelessWidget {
         break;
       }      
     }
-
-    controller.initializeAudio(listening.audioURL);
+    // if (controller.audioUrl != listening.audioURL) {
+    //   controller.audioUrl = listening.audioURL;
+    //   if (controller.isPlaying!= true) {
+    //   controller.initializeAudio();
+    //   }
+    // }
+    controller.initializeAudio();
     controller.currentIndex.value = list_.indexWhere((item) => item.audioURL == listening.audioURL); 
-    controller.isPlaying = true.obs;
+    //controller.isPlaying = true.obs;
     
     return Container(
       width: deviceWidth,

@@ -92,7 +92,8 @@ class PostBlogScreen extends StatelessWidget {
           Container(
             height: 255,
             child: TextField(
-              maxLines: null, // Đặt maxLines thành null để cho phép `TextField` tự động xuống hàng
+              controller: controller.textController,
+              maxLines: null, 
               keyboardType: TextInputType.multiline, 
               minLines: 9,
               decoration: InputDecoration(
@@ -114,6 +115,7 @@ class PostBlogScreen extends StatelessWidget {
 
   InkWell button() {
     return InkWell( 
+      //onTap: () => controller.postBlog(),
       child: Container(
         width: 380,
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -132,38 +134,42 @@ class PostBlogScreen extends StatelessWidget {
       ),
     );
   }
-              
-  Widget PhotoItem(File imageFile, {required void Function() onDelete}){
+
+  Widget PhotoItem(File imageFile, {required void Function() onDelete}) {
     return Container(
       width: 85,
       height: 85,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12), // Bo góc container
-        color: Colors.transparent, // Màu nền container
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.transparent,
       ),
-        child: Stack(children: [
+      child: Stack(
+        children: [
           Container(
             padding: const EdgeInsets.all(7),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.file(
-                  imageFile,
-                  fit: BoxFit.cover,
-                ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.file(
+                imageFile,
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover, // or BoxFit.contain
               ),
             ),
+          ),
           Positioned(
-            top:0,
+            top: 0,
             right: 0,
             child: GestureDetector(
-              onTap: onDelete, 
+              onTap: onDelete,
               child: SvgPicture.asset(ImageAssets.icRemove),
             ),
           ),
         ],
-          ),
+      ),
     );
   }
+
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
