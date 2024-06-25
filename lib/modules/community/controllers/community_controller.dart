@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/enums/community_tab.dart';
 import 'package:flutter_talkshare/core/models/audio_room.dart';
+import 'package:flutter_talkshare/core/models/blog.dart';
 import 'package:flutter_talkshare/core/models/livestream.dart';
+import 'package:flutter_talkshare/modules/auth/controller/auth_controller.dart';
+import 'package:flutter_talkshare/modules/auth/models/user_model.dart';
 import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 import 'package:uuid/uuid.dart';
@@ -35,6 +38,8 @@ class CommunityController extends GetxController
         CurvedAnimation(curve: Curves.easeInOut, parent: animationController);
     animation = Tween<double>(begin: 0, end: 1).animate(curvedAnimation);
 
+
+    getListBlog();
     super.onInit();
   }
 
@@ -66,4 +71,16 @@ class CommunityController extends GetxController
     listRoom.clear();
     listRoom.addAll(list);
   }
+
+  final AuthController authController = Get.find<AuthController>();
+  // RxList<Blog> listBlog = RxList.empty();
+  var listBlog = <Blog>[].obs;
+
+  void getListBlog() async {
+    var list = await SupabaseService.instance.getAllBlogs();
+    listBlog.clear();
+    // listBlog.addAll(list);
+    listBlog.value = list;
+  }
+
 }

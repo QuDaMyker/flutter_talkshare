@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -7,6 +6,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/community/controllers/post_blog_screen_controller.dart';
+import 'package:flutter_talkshare/modules/community/view/community_screen.dart';
 import 'package:get/get.dart';
 
 class PostBlogScreen extends StatelessWidget {
@@ -19,7 +19,7 @@ class PostBlogScreen extends StatelessWidget {
     return Scaffold(
       appBar: _buildAppBar(context),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: button(),
+      floatingActionButton: button(context),
       body: _buildBody(),
     );
   }
@@ -92,9 +92,10 @@ class PostBlogScreen extends StatelessWidget {
           Container(
             height: 255,
             child: TextField(
-              maxLines: null, // Đặt maxLines thành null để cho phép `TextField` tự động xuống hàng
+              controller: controller.textController,
+              maxLines: null, 
               keyboardType: TextInputType.multiline, 
-              minLines: 9,
+              minLines: 9,              
               decoration: InputDecoration(
                 hintText: 'Nhập văn bản của bạn...',
                 border: OutlineInputBorder(
@@ -112,8 +113,9 @@ class PostBlogScreen extends StatelessWidget {
     );
   }
 
-  InkWell button() {
+  InkWell button(BuildContext context,) {
     return InkWell( 
+      onTap: () => controller.postBlog(),
       child: Container(
         width: 380,
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
@@ -132,46 +134,51 @@ class PostBlogScreen extends StatelessWidget {
       ),
     );
   }
-              
-  Widget PhotoItem(File imageFile, {required void Function() onDelete}){
+
+  Widget PhotoItem(File imageFile, {required void Function() onDelete}) {
     return Container(
       width: 85,
       height: 85,
       decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(12), // Bo góc container
-        color: Colors.transparent, // Màu nền container
+        borderRadius: BorderRadius.circular(12),
+        color: Colors.transparent,
       ),
-        child: Stack(children: [
+      child: Stack(
+        children: [
           Container(
             padding: const EdgeInsets.all(7),
-              child: ClipRRect(
-                borderRadius: BorderRadius.circular(12),
-                child: Image.file(
-                  imageFile,
-                  fit: BoxFit.cover,
-                ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.file(
+                imageFile,
+                width: double.infinity,
+                height: double.infinity,
+                fit: BoxFit.cover, // or BoxFit.contain
               ),
             ),
+          ),
           Positioned(
-            top:0,
+            top: 0,
             right: 0,
             child: GestureDetector(
-              onTap: onDelete, 
+              onTap: onDelete,
               child: SvgPicture.asset(ImageAssets.icRemove),
             ),
           ),
         ],
-          ),
+      ),
     );
   }
+
 
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
       leading: IconButton(
         icon: SvgPicture.asset(ImageAssets.icBack),
         onPressed: () {
-          Navigator.pop(context);
-          controller.Clear();
+          controller.images.clear();
+          controller.textController.clear(); 
+          Get.back();
         },
       ),
 
