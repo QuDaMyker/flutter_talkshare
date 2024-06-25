@@ -77,13 +77,15 @@ class HomeScreen extends StatelessWidget {
               builder: (context, controller, focusNode) {
                 suggessController = controller;
                 return TextField(
+                  textInputAction: TextInputAction.done,
                   controller: suggessController,
                   focusNode: focusNode,
                   onChanged: (value) {},
                   onSubmitted: (value) {
-                    homeController.showBottomSheet(context, value);
+                    debugPrint("onSubmit");
                     homeController.textSearchController.clear();
-                    suggessController.clear();
+                    suggessController.clear();                   
+                    homeController.showBottomSheet(context, value);
                   },
                   decoration: InputDecoration(
                     isDense: true,
@@ -264,9 +266,10 @@ class HomeScreen extends StatelessWidget {
                 Row(
                   children: [
                     Expanded(
-                        child: sourceItem("Bài nghe", ImageAssets.icHeadphone, () {
-                          Get.to(() => ListeningScreen());
-                        })),
+                        child:
+                            sourceItem("Bài nghe", ImageAssets.icHeadphone, () {
+                      Get.to(() => ListeningScreen());
+                    })),
                     Expanded(
                         child: sourceItem("Đọc sách", ImageAssets.icBook, () {
                       Get.to(() => BooksListScreen());

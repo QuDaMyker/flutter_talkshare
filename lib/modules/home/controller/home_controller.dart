@@ -64,8 +64,8 @@ class HomeController extends GetxController {
   }
 
   Future<void> handleSearchSubmit(BuildContext context, String vocab) async {
-    await showBottomSheet(context, vocab);
     textSearchController.clear();
+    await showBottomSheet(context, vocab);
   }
 
   Future<void> showBottomSheet(BuildContext context, String vocab) async {
