@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_talkshare/core/models/definition.dart';
+import 'package:flutter_talkshare/core/models/translation_model.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
 import 'package:flutter_talkshare/modules/vocab_bottom_sheet/controller/bottom_sheet_vocab_controller.dart';
+import 'package:flutter_talkshare/utils/helper.dart';
 import 'package:get/get.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
@@ -19,7 +20,7 @@ class BottomSheetVocab extends StatelessWidget {
     final deviceHeight = MediaQuery.of(context).size.height;
     final deviceWidth = MediaQuery.of(context).size.width;
     final BottomSheetVocabController controller =
-        Get.put(BottomSheetVocabController(word: word));
+        Get.put(BottomSheetVocabController(word: word))..getTranslate();
     return Container(
       width: deviceWidth,
       child: Obx(
@@ -84,15 +85,14 @@ class BottomSheetVocab extends StatelessWidget {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    controller.searchedVocab.word,
+                                    word,
                                     style: const TextStyle(
                                       fontSize: 18,
                                       fontWeight: FontWeight.w800,
                                     ),
                                   ),
                                   Text(
-                                    controller.searchedVocab.phonetic
-                                        .toString(),
+                                    controller.translationModel?.phonetic ?? '',
                                     style: GoogleFonts.voces(),
                                     // style: const TextStyle(
                                     //   fontSize: 16,
@@ -130,9 +130,10 @@ class BottomSheetVocab extends StatelessWidget {
                                       child: SvgPicture.asset(
                                           ImageAssets.icSpeaker),
                                       onTap: () async {
-                                        controller.playAudio(controller
-                                            .searchedVocab.audioUrl
-                                            .toString());
+                                        // controller.playAudio(controller
+                                        //     .searchedVocab.audioUrl
+                                        //     .toString());
+                                        Helper.instance.playWithTTS(word);
                                       }),
                                   const SizedBox(width: 15),
                                   InkWell(
@@ -155,13 +156,16 @@ class BottomSheetVocab extends StatelessWidget {
                             child: Padding(
                               padding: const EdgeInsets.only(top: 16.0),
                               child: ListView.builder(
-                                  itemCount: controller.listDefinitions.length,
+                                  itemCount: controller
+                                      .translationModel?.definition?.length,
                                   itemBuilder: (context, index) {
-                                    String partOfSpeech = controller
-                                        .listDefinitions.keys
-                                        .elementAt(index);
-                                    List<Definition> listDef = controller
-                                        .listDefinitions[partOfSpeech]!;
+                                    String? partOfSpeech = controller
+                                        .translationModel
+                                        ?.definition?[index]
+                                        .partOfSpeech;
+
+                                    List<Definition>? listDef =
+                                        controller.translationModel?.definition;
                                     return ItemPartOfSpeech(
                                         listDef: listDef,
                                         partOfSpeech: partOfSpeech);
@@ -182,8 +186,8 @@ class BottomSheetVocab extends StatelessWidget {
 class ItemPartOfSpeech extends StatelessWidget {
   const ItemPartOfSpeech(
       {super.key, required this.listDef, required this.partOfSpeech});
-  final String partOfSpeech;
-  final List<Definition> listDef;
+  final String? partOfSpeech;
+  final List<Definition>? listDef;
 
   @override
   Widget build(BuildContext context) {
@@ -200,7 +204,7 @@ class ItemPartOfSpeech extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
           ),
           child: Text(
-            partOfSpeech,
+            partOfSpeech ?? '',
             style: const TextStyle(
               fontSize: 14,
               fontWeight: FontWeight.w800,
@@ -211,24 +215,40 @@ class ItemPartOfSpeech extends StatelessWidget {
         const SizedBox(height: 4),
         //hiện các def
         Column(
-          children: List.generate(listDef.length, (index) {
+          children: List.generate(listDef?.length ?? 0, (index) {
             return Padding(
               padding: const EdgeInsets.symmetric(vertical: 4.0),
               child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SvgPicture.asset(ImageAssets.triangleRight),
                   const SizedBox(
                     width: 4,
                   ),
-                  SizedBox(
-                    width: deviceWidth * 0.8,
-                    child: Text(
-                      listDef[index].meaning,
-                      style: const TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w500,
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: deviceWidth * 0.8,
+                        child: Text(
+                          listDef?[index].meaningEn ?? '',
+                          style: const TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
-                    ),
+                      SizedBox(
+                        width: deviceWidth * 0.8,
+                        child: Text(
+                          listDef?[index].meaningVi ?? '',
+                          style: TextStyle(
+                            fontSize: 12,
+                            color: Colors.grey.withOpacity(0.8),
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

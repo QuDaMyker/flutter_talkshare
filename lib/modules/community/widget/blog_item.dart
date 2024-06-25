@@ -4,19 +4,19 @@ import 'package:flutter_talkshare/core/models/blog.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_talkshare/core/values/image_assets.dart';
-import 'package:flutter_talkshare/modules/community/widget/image_gallery';
+import 'package:flutter_talkshare/modules/community/widget/image_gallery.dart';
 import 'package:photo_view/photo_view.dart';
 import 'package:photo_view/photo_view_gallery.dart';
 
-class ItemBlog extends StatelessWidget{
+class ItemBlog extends StatelessWidget {
   final Blog blog;
   const ItemBlog({
-    super.key, 
+    super.key,
     required this.blog,
   });
 
   @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
 
@@ -46,8 +46,7 @@ class ItemBlog extends StatelessWidget{
                   children: [
                     CircleAvatar(
                       radius: 20.0,
-                      backgroundImage: NetworkImage(
-                      blog.avatarUrl),
+                      backgroundImage: NetworkImage(blog.avatarUrl),
                       backgroundColor: Colors.transparent,
                     ),
                     const SizedBox(
@@ -110,7 +109,6 @@ class ItemBlog extends StatelessWidget{
           const SizedBox(
             height: 10,
           ),
-
           _buildGrid(context),
         ],
       ),
@@ -119,22 +117,22 @@ class ItemBlog extends StatelessWidget{
 
   Widget _buildGrid(BuildContext context) {
     List<String> images = blog.images;
-     int count = images.length;
+    int count = images.length;
     List<Widget> children = [];
-  if (count == 1) {
+    if (count == 1) {
       children.add(_buildImage(context, 0, images[0], true, false));
     } else if (count == 2) {
-      children.add(_buildImage(context, 0,images[0], false, true));
-      children.add(_buildImage(context, 0,images[1], false, true));
+      children.add(_buildImage(context, 0, images[0], false, true));
+      children.add(_buildImage(context, 0, images[1], false, true));
     } else if (count == 3) {
       children.add(
         Column(
           children: [
-            _buildImage(context, 0,images[0], false, true),
+            _buildImage(context, 0, images[0], false, true),
             Row(
               children: [
-                Expanded(child: _buildImage(context, 0,images[1], true, true)),
-                Expanded(child: _buildImage(context, 0,images[2], true, true)),
+                Expanded(child: _buildImage(context, 0, images[1], true, true)),
+                Expanded(child: _buildImage(context, 0, images[2], true, true)),
               ],
             ),
           ],
@@ -160,25 +158,27 @@ class ItemBlog extends StatelessWidget{
         ),
       );
     } else if (count > 4) {
-    children.add(
-      Column(
-        children: [
-          Row(
-            children: [
-              Expanded(child: _buildImage(context, 0, images[0], true, true)),
-              Expanded(child: _buildImage(context, 1, images[1], true, true)),
-            ],
-          ),
-          Row(
-            children: [
-              Expanded(child: _buildImage(context, 2, images[2], true, true)),
-              Expanded(child: _buildDarkenedImage(context, 3, images[3], true, true)),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
+      children.add(
+        Column(
+          children: [
+            Row(
+              children: [
+                Expanded(child: _buildImage(context, 0, images[0], true, true)),
+                Expanded(child: _buildImage(context, 1, images[1], true, true)),
+              ],
+            ),
+            Row(
+              children: [
+                Expanded(child: _buildImage(context, 2, images[2], true, true)),
+                Expanded(
+                    child:
+                        _buildDarkenedImage(context, 3, images[3], true, true)),
+              ],
+            ),
+          ],
+        ),
+      );
+    }
 
     return Container(
       child: Column(
@@ -187,14 +187,15 @@ class ItemBlog extends StatelessWidget{
     );
   }
 
-  Widget _buildImage(BuildContext context, int index, String url, bool fullWidth, bool halfHeight) {
+  Widget _buildImage(BuildContext context, int index, String url,
+      bool fullWidth, bool halfHeight) {
     return GestureDetector(
       onTap: () {
-        
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ImageGallery(images: blog.images, initialIndex: index),
+            builder: (context) =>
+                ImageGallery(images: blog.images, initialIndex: index),
           ),
         );
       },
@@ -213,14 +214,15 @@ class ItemBlog extends StatelessWidget{
     );
   }
 
-  Widget _buildDarkenedImage(BuildContext context, int index, String url, bool fullWidth, bool halfHeight) {
+  Widget _buildDarkenedImage(BuildContext context, int index, String url,
+      bool fullWidth, bool halfHeight) {
     return GestureDetector(
       onTap: () {
-        
         Navigator.push(
           context,
           MaterialPageRoute(
-            builder: (context) => ImageGallery(images: blog.images, initialIndex: index),
+            builder: (context) =>
+                ImageGallery(images: blog.images, initialIndex: index),
           ),
         );
       },

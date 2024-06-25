@@ -9,6 +9,7 @@ import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/core/models/audio_room.dart';
 import 'package:flutter_talkshare/core/models/blog.dart';
 import 'package:flutter_talkshare/core/models/livestream.dart';
+import 'package:flutter_talkshare/core/models/translation_model.dart';
 import 'package:flutter_talkshare/modules/auth/models/user_model.dart';
 import 'package:flutter_talkshare/modules/video/models/channel_model.dart';
 import 'package:flutter_talkshare/modules/video/models/subtitle_model.dart';
@@ -352,4 +353,19 @@ class SupabaseService {
   }
 
   static from(String s) {}
+
+  Future<TranslationModel?> getTranslation({required String word}) async {
+    try {
+      var query = await supabase
+          .from('vocab')
+          .select(
+              'word, primary_meaning, phonetic, audio_url, definition(definition_id, word, part_of_speech, meaning_en, example, meaning_vi)')
+          .eq('word', word.toLowerCase());
+
+      return TranslationModel.fromJson(query.first);
+    } catch (e) {
+      print(e);
+      return null;
+    }
+  }
 }

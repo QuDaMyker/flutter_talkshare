@@ -5,10 +5,34 @@ packages:
     dependency: transitive
     description:
       name: app_links
-      sha256: "96e677810b83707ff5e10fac11e4839daa0ea4e0123c35864c092699165eb3db"
+      sha256: "49117eefee46a97cf5037bb5baacc882556b22e631e18087b0a18b29379e7a14"
       url: "https://pub.dev"
     source: hosted
-    version: "6.1.1"
+    version: "6.1.2"
+  app_links_linux:
+    dependency: transitive
+    description:
+      name: app_links_linux
+      sha256: "2c39a652331d32ffacd2cdba42ddea1a8eb996f6e9e97c8e0e284fa0310278ac"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.1"
+  app_links_platform_interface:
+    dependency: transitive
+    description:
+      name: app_links_platform_interface
+      sha256: "1888995746c771e4da00c1652174d6061c91e787f2097276bc963905032fe194"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.2.0"
+  app_links_web:
+    dependency: transitive
+    description:
+      name: app_links_web
+      sha256: "00c19f99ea2d2d7c6d29a074d1e3160f95186bb491b964ec03a298b37b25a410"
+      url: "https://pub.dev"
+    source: hosted
+    version: "1.0.2"
   archive:
     dependency: transitive
     description:
