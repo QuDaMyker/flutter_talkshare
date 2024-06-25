@@ -1,5 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter_talkshare/core/models/blog.dart';
+import 'package:flutter_talkshare/services/supabase_service.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -19,42 +21,24 @@ class PostBlogScreenController extends GetxController{
     images.clear();
   }
 
-  // Future<void> _postBlog() async {
-  //   String content = textController.text;
-  //   List<String> imageUrls = [];
+  Future<void> postBlog(String user_id) async {
+    user_id ='f6ee03f6-55a3-4d03-9cd2-3a3e0450e352';
+    List<String> uploadedImages = [];
+    for (var image in images) {
+      String? imageUrl = await SupabaseService.instance.uploadImage(image, user_id);
+      if (imageUrl != null) {
+        uploadedImages.add(imageUrl);
+      }
+    }
 
-  //   try {
-  //     for (var imageFile in images) {
-  //       final bytes = await imageFile.readAsBytes();
-  //       final fileName = basename(imageFile.path);
-  //       final response = await Supabase.instance.client.storage
-  //           .from('images')
-  //           .uploadBinary(fileName, bytes);
+    Blog newBlog = Blog(
+      blogId: 'f6ee03f6-55a3-4d03-9cd2-3a3e0450e350',
+      userId: user_id,
+      created_at: DateTime.now().toIso8601String(),
+      //images: uploadedImages,
+      content: textController.text,
+    );
 
-  //       final publicUrlResponse = await Supabase.instance.client.storage
-  //           .from('images')
-  //           .createSignedUrl(fileName, 60 * 60 * 24 * 365 * 10); // 10 years
-
-  //       if (publicUrlResponse.error != null) {
-  //         throw publicUrlResponse.error!;
-  //       }
-
-  //       imageUrls.add(publicUrlResponse.data!);
-  //     }
-
-  //     final response = await Supabase.instance.client.from('posts').insert({
-  //       'content': content,
-  //       'images': imageUrls,
-  //     }).execute();
-
-  //     if (response.error != null) {
-  //       throw response.error!;
-  //     }
-
-  //     Get.snackbar('Success', 'Post uploaded successfully');
-  //   } catch (e) {
-  //     Get.snackbar('Error', e.toString());
-  //   }
-  // }
-
+    await SupabaseService.instance.saveBlog(newBlog);
+  }
 }

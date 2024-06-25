@@ -109,9 +109,8 @@ class BlogSupabaseTable implements SupabaseTable {
   String get tableName => "blog";
 
   String get blogId => "blog_id";
-  String get userName => "user_name";
-  String get avatUrl => "avat_url";
-  String get time => "time";
+  String get userId => "user_id";
+  String get created_at => "created_at";
   String get images => "images";
   String get content => "content";
 }

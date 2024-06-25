@@ -1,21 +1,20 @@
 import 'dart:io';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_talkshare/core/values/supabase_table.dart';
 
 class Blog {  
-  final String blogId;
-  final String userName;
-  final String avatUrl;
-  final DateTime time;
-  final List<File> images;
+  final String blogId; 
+  final String userId;
+  final String created_at;
+  //final List<String> images;
   final String content;
   const Blog({
     required this.blogId,
-    required this.userName,
-    required this.avatUrl,
-    required this.time,
-    required this.images,
+    required this.userId,
+    required this.created_at,
+    //required this.images,
     required this.content});
 
   
@@ -23,19 +22,17 @@ class Blog {
 
   static Blog fromJson(Map<String, dynamic> json) => Blog(
         blogId: json[table.blogId] as String,
-        userName: json[table.userName] as String,
-        avatUrl: json[table.avatUrl] as String,
-        time: json[table.time] as DateTime,
-        images: json[table.images] as List<File>,
+        userId: json[table.userId] as String,
+        created_at: json[table.created_at] as String,
+        //images: json[table.images] as List<String>,
         content: json[table.content] as String,
       );
 
   Map<String, dynamic> toJson() => <String, dynamic>{
         table.blogId: blogId,
-        table.userName: userName,
-        table.avatUrl: avatUrl,
-        table.time: time,
-        table.images: images,
+        table.userId: userId,
+        table.created_at: created_at,
+        //table.images: images,
         table.content: content,
       };
 }

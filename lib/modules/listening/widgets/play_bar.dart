@@ -52,7 +52,7 @@ class PlayBar extends StatelessWidget {
     // }
     controller.initializeAudio();
     controller.currentIndex.value = list_.indexWhere((item) => item.audioURL == listening.audioURL); 
-    //controller.isPlaying = true.obs;
+    controller.isPlaying = true.obs;
     
     return Container(
       width: deviceWidth,

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/core/values/app_colors.dart';
+import 'package:flutter_talkshare/modules/community/view/post_blog_screen.dart';
 import 'package:flutter_talkshare/modules/grammar/views/detail_grammar_screen.dart';
 import 'package:flutter_talkshare/modules/grammar/views/list_grammar_screen.dart';
 import 'package:flutter_talkshare/modules/home/view/home_screen.dart';
@@ -45,8 +46,9 @@ class MyApp extends StatelessWidget {
         ),
         useMaterial3: true,
       ),
-      //home: SplashScreen(),
-      home: ListeningScreen(),
+      home: SplashScreen(),
+      //home: ListeningScreen(),
+     // home: PostBlogScreen(),
     );
   }
 }

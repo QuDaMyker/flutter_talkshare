@@ -115,7 +115,7 @@ class PostBlogScreen extends StatelessWidget {
 
   InkWell button() {
     return InkWell( 
-      //onTap: () => controller.postBlog(),
+      onTap: () => controller.postBlog('user_id'),
       child: Container(
         width: 380,
         padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 12),
