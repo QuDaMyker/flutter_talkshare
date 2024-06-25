@@ -1,11 +1,13 @@
 // ignore_for_file: non_constant_identifier_names
 
 import 'dart:convert';
+import 'dart:io';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_talkshare/core/models/audio_room.dart';
+import 'package:flutter_talkshare/core/models/blog.dart';
 import 'package:flutter_talkshare/core/models/livestream.dart';
 import 'package:flutter_talkshare/modules/auth/models/user_model.dart';
 import 'package:flutter_talkshare/modules/video/models/channel_model.dart';
@@ -16,6 +18,8 @@ import 'package:http/http.dart' as http;
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 import 'package:uuid/uuid.dart';
+import 'package:path/path.dart';
+import 'package:image_picker/image_picker.dart';
 
 import 'package:flutter_talkshare/core/models/folder.dart';
 import 'package:flutter_talkshare/core/models/vocab.dart';
@@ -30,6 +34,7 @@ part 'wordset_service.dart';
 part 'audio_room_service.dart';
 part 'livestream_service.dart';
 part 'game_service.dart';
+part 'blog_service.dart';
 
 class SupabaseService {
   SupabaseService._internal();
@@ -345,4 +350,6 @@ class SupabaseService {
       throw Exception('Failed to fetch subtitles');
     }
   }
+
+  static from(String s) {}
 }

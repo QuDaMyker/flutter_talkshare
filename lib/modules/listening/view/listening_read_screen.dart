@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_talkshare/core/models/listening.dart';
@@ -13,20 +14,20 @@ import 'package:get/get_state_manager/src/rx_flutter/rx_obx_widget.dart';
 
 class ListeningReadScreen extends StatelessWidget {
   final Listening listening;
-  const ListeningReadScreen({Key? key, required this.listening}) : super(key: key);  
+  ListeningReadScreen({Key? key, required this.listening}) : super(key: key);  
+  final PlayBarController playBarController = Get.put(PlayBarController());
 
   @override
   Widget build(BuildContext context) {
     final deviceWidth = MediaQuery.of(context).size.width;
     final deviceHeight = MediaQuery.of(context).size.height;
-
-    final ListeningScreenController listeningScreenController = Get.put(ListeningScreenController());
+    playBarController.audioUrl = listening.audioURL;
 
     return SafeArea(
       child: Scaffold(
         resizeToAvoidBottomInset: false,
         appBar: _buildAppBar(context),
-        body: _buildBody(deviceHeight, deviceWidth,listeningScreenController,listening,)
+        body: _buildBody(deviceHeight, deviceWidth,listening,)
       ),
     );
   }
@@ -34,7 +35,6 @@ class ListeningReadScreen extends StatelessWidget {
  Container _buildBody (
     double deviceHeight,
     double deviceWidth,
-    ListeningScreenController controller,
     Listening listening,
   ) {
     return Container(           

@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_talkshare/core/models/listening.dart';
 import 'package:flutter_talkshare/modules/listening/view/listening_read_screen.dart';
 import 'package:get/get.dart';
@@ -9,25 +10,27 @@ enum SpeedState { x0_5, x1_0, x2_0 }
 class PlayBarController extends GetxController {
   late AudioPlayer _audioPlayer;
   late RxInt currentIndex= 0.obs;
+  late String audioUrl;
   RxBool isPlaying = true.obs;
   Rx<Duration> totalDuration = Duration.zero.obs;
   Rx<Duration> currentPosition = Duration.zero.obs;
   Rx<VolumeState> volumeState = VolumeState.max.obs;
   Rx<SpeedState> speedState = SpeedState.x1_0.obs;
 
+
   @override
   void onInit() {
     super.onInit();
     _audioPlayer = AudioPlayer();
+    
   }
 
-  Future<void> initializeAudio(String audioUrl) async {
+  Future<void> initializeAudio() async {
     await _audioPlayer.setUrl(audioUrl);
     totalDuration.value = _audioPlayer.duration ?? Duration.zero;
     _audioPlayer.play();
     _audioPlayer.positionStream.listen((position) {
       currentPosition.value = position;
-      update();
     });
 
     _audioPlayer.processingStateStream.listen((state) {
@@ -36,7 +39,6 @@ class PlayBarController extends GetxController {
         isPlaying.value = true;
         currentPosition.value = totalDuration.value;
         _audioPlayer.seek(Duration.zero); 
-        update();
       }
     });    
   }
