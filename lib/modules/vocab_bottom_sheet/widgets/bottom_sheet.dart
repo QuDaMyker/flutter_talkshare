@@ -143,8 +143,8 @@ class BottomSheetVocab extends StatelessWidget {
                                         // controller.onClose();
                                         // Get.back();
                                         debugPrint('click close bottom sheet');
-                                        Navigator.pop(context);
                                         controller.onClose();
+                                        Navigator.pop(context);
                                       }),
                                 ],
                               ),
