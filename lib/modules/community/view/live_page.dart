@@ -6,9 +6,16 @@ import 'package:zego_uikit_signaling_plugin/zego_uikit_signaling_plugin.dart';
 
 class LivePage extends StatelessWidget {
   final String liveID;
+  final String userId;
+  final String userName;
   final bool isHost;
 
-  const LivePage({Key? key, required this.liveID, this.isHost = false})
+  const LivePage(
+      {Key? key,
+      required this.liveID,
+      required this.userId,
+      required this.userName,
+      this.isHost = false})
       : super(key: key);
 
   @override
@@ -17,8 +24,8 @@ class LivePage extends StatelessWidget {
       child: ZegoUIKitPrebuiltLiveStreaming(
         appID: int.parse(dotenv.get("AppID")),
         appSign: dotenv.get("AppSign"),
-        userID: '0910',
-        userName: 'ethan',
+        userID: userId,
+        userName: userName,
         liveID: liveID,
         config: isHost
             ? ZegoUIKitPrebuiltLiveStreamingConfig.host(

@@ -8,12 +8,16 @@ class AudioRoomPage extends StatelessWidget {
   final bool isHost;
   final String name;
   final String topic;
+  final String userId;
+  final String userName;
 
   const AudioRoomPage(
       {Key? key,
       required this.roomID,
       required this.name,
       required this.topic,
+      required this.userId,
+      required this.userName,
       this.isHost = false})
       : super(key: key);
 
@@ -22,8 +26,8 @@ class AudioRoomPage extends StatelessWidget {
     return ZegoUIKitPrebuiltLiveAudioRoom(
       appID: int.parse(dotenv.get("AppID")),
       appSign: dotenv.get("AppSign"),
-      userID: '0910',
-      userName: 'ethan',
+      userID: userId,
+      userName: userName,
       roomID: roomID,
       config: isHost
           ? ZegoUIKitPrebuiltLiveAudioRoomConfig.host()

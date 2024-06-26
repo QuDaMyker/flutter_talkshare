@@ -30,63 +30,63 @@ class CommnityScreen extends StatelessWidget {
       floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton: Obx(
         () => controller.selectedTab.value != CommunityTab.INTERACTION
-            ?  (controller.authController.user.role == 'role_teacher'
-              ? FloatingActionBubble(
-                  items: <Bubble>[],
-                  animation: controller.animation,
-                  onPress: () => Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => PostBlogScreen()),
-                          ),
-                  iconColor: AppColors.primary40,
-                  iconData: CupertinoIcons.add_circled_solid,
-                  backGroundColor: AppColors.secondary90,
-                )
-              : SizedBox.shrink()    )
+            ? (controller.authController.user.role == 'role_teacher'
+                ? FloatingActionBubble(
+                    items: <Bubble>[],
+                    animation: controller.animation,
+                    onPress: () => Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => PostBlogScreen()),
+                    ),
+                    iconColor: AppColors.primary40,
+                    iconData: CupertinoIcons.add_circled_solid,
+                    backGroundColor: AppColors.secondary90,
+                  )
+                : SizedBox.shrink())
             : FloatingActionBubble(
-              items: <Bubble>[
-                Bubble(
-                  title: "Tạo phòng nói",
-                  iconColor: Colors.white,
-                  bubbleColor: AppColors.primary40,
-                  icon: CupertinoIcons.mic_fill,
-                  titleStyle: TextStyle(fontSize: 16, color: Colors.white),
-                  onPress: () {
-                    controller.animationController.reverse();
-                    // Get.to(AudioRoomPage(roomID: '123', isHost: true,));
-                    Get.to(CreateAudioRoom());
-                  },
-                ),
-                Bubble(
-                  title: "Tạo livestream",
-                  iconColor: Colors.white,
-                  bubbleColor: AppColors.primary40,
-                  icon: CupertinoIcons.videocam_fill,
-                  titleStyle: TextStyle(fontSize: 16, color: Colors.white),
-                  onPress: () {
-                    controller.animationController.reverse();
-                    var uuid = const Uuid();
-                    String streamId = uuid.v4();
-                    controller.creatLivestream(streamId);
-                    Get.back();
-                    Get.to(LivePage(
-                      isHost: true,
-                      liveID: streamId,
-                    ));
-                  },
-                ),
-              ],
-              animation: controller.animation,
-              onPress: () => controller.animationController.isCompleted
-                          ? controller.animationController.reverse()
-                          : controller.animationController.forward(),
-              iconColor: AppColors.primary40,
-              iconData: CupertinoIcons.add_circled_solid,
-              backGroundColor: AppColors.secondary90,
-            ),
+                items: <Bubble>[
+                  Bubble(
+                    title: "Tạo phòng nói",
+                    iconColor: Colors.white,
+                    bubbleColor: AppColors.primary40,
+                    icon: CupertinoIcons.mic_fill,
+                    titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+                    onPress: () {
+                      controller.animationController.reverse();
+                      // Get.to(AudioRoomPage(roomID: '123', isHost: true,));
+                      Get.to(CreateAudioRoom());
+                    },
+                  ),
+                  Bubble(
+                    title: "Tạo livestream",
+                    iconColor: Colors.white,
+                    bubbleColor: AppColors.primary40,
+                    icon: CupertinoIcons.videocam_fill,
+                    titleStyle: TextStyle(fontSize: 16, color: Colors.white),
+                    onPress: () {
+                      controller.animationController.reverse();
+                      var uuid = const Uuid();
+                      String streamId = uuid.v4();
+                      controller.creatLivestream(streamId);
+                      Get.back();
+                      Get.to(LivePage(
+                        isHost: true,
+                        liveID: streamId,
+                        userId: controller.authController.user.user_id,
+                        userName: controller.authController.user.fullname,
+                      ));
+                    },
+                  ),
+                ],
+                animation: controller.animation,
+                onPress: () => controller.animationController.isCompleted
+                    ? controller.animationController.reverse()
+                    : controller.animationController.forward(),
+                iconColor: AppColors.primary40,
+                iconData: CupertinoIcons.add_circled_solid,
+                backGroundColor: AppColors.secondary90,
+              ),
       ),
-
-
       body: RefreshIndicator(
         onRefresh: () async {
           String type = controller.selectedType.value != 0
@@ -508,6 +508,8 @@ class CommnityScreen extends StatelessWidget {
                       isHost: false,
                       name: room.name,
                       topic: room.topic,
+                      userId: controller.authController.user.user_id,
+                      userName: controller.authController.user.fullname,
                     ));
                   }
                 },
@@ -588,6 +590,8 @@ class CommnityScreen extends StatelessWidget {
                       Get.to(LivePage(
                         isHost: false,
                         liveID: livestream.streamId,
+                        userId: controller.authController.user.user_id,
+                        userName: controller.authController.user.fullname,
                       ));
                     },
                     child: Container(
@@ -631,19 +635,23 @@ class CommnityScreen extends StatelessWidget {
   Column Blog(BuildContext context) {
     return Column(
       children: [
-        Obx(()=> SingleChildScrollView(
-          child: SizedBox(
-            height: MediaQuery.of(context).size.height*0.73,
-            child: ListView.builder(
-              padding: EdgeInsets.only(top: 10),
-              scrollDirection: Axis.vertical,
-              itemCount: controller.listBlog.length,
-              itemBuilder: (context, index) {
-                return ItemBlog(blog: controller.listBlog[index],);
-              },
+        Obx(
+          () => SingleChildScrollView(
+            child: SizedBox(
+              height: MediaQuery.of(context).size.height * 0.73,
+              child: ListView.builder(
+                padding: EdgeInsets.only(top: 10),
+                scrollDirection: Axis.vertical,
+                itemCount: controller.listBlog.length,
+                itemBuilder: (context, index) {
+                  return ItemBlog(
+                    blog: controller.listBlog[index],
+                  );
+                },
+              ),
             ),
           ),
-        ), ),
+        ),
       ],
     );
   }
@@ -719,6 +727,8 @@ class CommnityScreen extends StatelessWidget {
                           isHost: false,
                           name: room.name,
                           topic: room.topic,
+                          userId: controller.authController.user.user_id,
+                          userName: controller.authController.user.fullname,
                         ));
                       }
                     },
